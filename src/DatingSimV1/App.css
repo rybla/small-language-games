@@ -1,0 +1,131 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-size: 16px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+}
+
+.App {
+    padding: 0.5rem;
+    width: 800px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    & > .title {
+        text-align: center;
+        font-variant: small-caps;
+    }
+}
+
+.panel {
+    position: relative;
+    padding: 0.5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0.5rem;
+
+    background: rgba(200, 230, 230, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+}
+
+.Play {
+    & > .row {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: stretch;
+        gap: 1rem;
+
+        & > .Interaction {
+            flex: 1 0 auto;
+        }
+
+        & > .Player {
+            flex: 0 1 33%;
+        }
+    }
+}
+
+.History {
+    flex: 1 1 auto;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: stretch;
+    gap: 0.5rem;
+}
+
+.GameEvent {
+    & > .action {
+    }
+    & > .consequence {
+    }
+}
+
+.Prompts {
+    flex: 1 0 auto;
+}
+
+.Player {
+    .name {
+        font-size: 1.8em;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        border-bottom: 2px solid black;
+        padding-bottom: 0.2em;
+    }
+
+    .description {
+        font-size: 0.95em;
+        color: #555;
+        line-height: 1.6;
+        margin-top: 15px;
+        padding: 12px 15px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 6px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    }
+
+    .attributes {
+        .attribute-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1em;
+        }
+
+        .attribute-name {
+            font-weight: bold;
+        }
+
+        .attribute-value {
+            font-style: italic;
+        }
+    }
+}
