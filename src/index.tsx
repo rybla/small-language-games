@@ -1,4 +1,3 @@
-import { serve } from "bun";
 import { genkit } from "genkit";
 import googleAI from "@genkit-ai/googleai";
 import DatingSimV1 from "./DatingSimV1/index.html";
@@ -39,28 +38,22 @@ const index = new Response(
 `.trim(),
 );
 
+const ai = genkit({
+  plugins: [googleAI()],
+  model: googleAI.model("gemini-2.5-flash"),
+});
+
 const server = Bun.serve({
   routes: {
+    // --------------------------------
     // api
-    "/api/hello": {
-      async GET(req) {
-        const ai = genkit({
-          plugins: [googleAI()],
-          model: googleAI.model("gemini-2.5-flash"),
-        });
+    // --------------------------------
 
-        const { text } = await ai.generate("Hello, Gemini!");
-
-        return Response.json({
-          message: text,
-          method: "GET",
-        });
-      },
-      async PUT(req) {
-        return Response.json({
-          message: "Hello, world!",
-          method: "PUT",
-        });
+    "/api/generate": {
+      async POST(req) {
+        const req_data = req.json();
+        const res_data = await ai.generate(req_data);
+        return Response.json(res_data);
       },
     },
 
@@ -68,7 +61,10 @@ const server = Bun.serve({
       return Response.error();
     },
 
+    // --------------------------------
     // html
+    // --------------------------------
+
     "/": index,
     ...pageRoutes,
     "/*": Missing,
