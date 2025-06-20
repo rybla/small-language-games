@@ -38,17 +38,27 @@ h6 {
 
 .panel {
     position: relative;
-    padding: 0.5rem;
+    padding: 1rem;
 
     display: flex;
     flex-direction: column;
     align-items: stretch;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 1rem;
 
     background: rgba(200, 230, 230, 0.4);
     border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
     border-radius: 6px;
+}
+
+.qualia {
+    font-size: 0.8em;
+    padding: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    background-color: white;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.6) inset;
 }
 
 .Play {
@@ -60,13 +70,17 @@ h6 {
         gap: 1rem;
 
         & > .Interaction {
-            flex: 1 0 auto;
+            min-width: 0;
+            flex: 1 1 auto;
         }
 
         & > .Player {
-            flex: 0 1 33%;
+            flex: 1 0 33%;
         }
     }
+}
+
+.Interaction {
 }
 
 .History {
@@ -101,7 +115,7 @@ h6 {
     }
 
     .description {
-        font-size: 0.95em;
+        /* font-size: 0.95em;
         color: #555;
         line-height: 1.6;
         margin-top: 15px;
@@ -109,22 +123,21 @@ h6 {
         background: rgba(255, 255, 255, 0.8);
         border-radius: 6px;
         border: 1px solid rgba(0, 0, 0, 0.1);
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); */
     }
 
-    .attributes {
-        .attribute-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1em;
+    table.attributes {
+        border-collapse: separate;
+        border-spacing: 0 1rem;
+
+        tr {
         }
 
-        .attribute-name {
+        td.attribute-name {
             font-weight: bold;
         }
 
-        .attribute-value {
+        td.attribute-value {
             font-style: italic;
         }
     }
