@@ -3,6 +3,7 @@ import googleAI from "@genkit-ai/googleai";
 import DatingSimV1 from "./DatingSimV1/index.html";
 import Missing from "./Missing.html";
 import { config } from "./common";
+import { gemini20Flash } from "@genkit-ai/googleai";
 
 const pages = {
   DatingSimV1,
@@ -40,7 +41,7 @@ const index = new Response(
 
 const ai = genkit({
   plugins: [googleAI()],
-  model: googleAI.model("gemini-2.5-flash"),
+  model: gemini20Flash,
 });
 
 const server = Bun.serve({

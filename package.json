@@ -14,7 +14,8 @@
     "@genkit-ai/googleai": "^1.13.0",
     "genkit": "^1.13.0",
     "react": "^19",
-    "react-dom": "^19"
+    "react-dom": "^19",
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@types/react": "^19",

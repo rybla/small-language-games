@@ -1,113 +1,153 @@
 import { generate } from "@/common_frontend";
-import { and, do_ } from "@/utility";
+import { do_, quoteblock } from "@/utility";
 import { useState } from "react";
+import z from "zod";
 import "./App.css";
+import {
+  CharacterAttributes,
+  CharacterAttributesDiff,
+  Game,
+  game_ex1,
+  GameAction,
+  Other,
+} from "./ontology";
 
 // --------------------------------
-// Types
+// logic
 // --------------------------------
 
-type Game = {
-  setting: string;
+const systemPrelude = (game: Game): string =>
+  `
+You are a game master for a role playing game centered around dating. The player's character is named ${game.player.name}. The love interest's name is ${game.other.name}.
 
-  player: Player;
+The following passage describes the setting of the game:
 
-  /**
-   * The other character who is the player's current love interest.
-   */
-  other: Other;
+${quoteblock(game.setting)}
 
-  /**
-   * The history of events that have happened in the game. Each event corresponds to the player doing some action and then the immediate consequences of that action.
-   */
-  history: GameEvent[];
-};
+The following passage describes the player's character, ${game.player.name}:
 
-type Character = {
-  name: string;
-  description: string;
-  attributes: CharacterAttributes;
-};
+${quoteblock(game.player.description)}
 
-/**
- * Each attribute ranges from 1 to 100.
- */
-type CharacterAttributes = {
-  charisma: number;
-  empathy: number;
-  humor: number;
-  creativity: number;
-};
+The following passage describes the player's love interest, ${game.other.name}:
 
-type Player = Character;
+${quoteblock(game.other.description)}
+`.trim();
 
-type Other = Character;
+const submitAction = async (game: Game, action: GameAction): Promise<void> => {
+  const response = await generate({
+    messages: [
+      {
+        role: "system",
+        content: [
+          {
+            text: `
+${systemPrelude(game)}
 
-type GameEvent = {
-  action: string;
-  consequence: string;
-  consequence_attributesDiff: CharacterAttributes;
-};
+Your task is to describe what happens immediately next in the game based give the user's description of what the player wants to do next. Be creative while also keeping the events of the game consistent with what's happened so far. Use vivid prose in the style of popular fantasy writers (such as George R. R. Martin, Brandon Sanderson, and Ursula K. Le Guin) that is interesting and exciting to read.
 
-// --------------------------------
-// examples
-// --------------------------------
+The following JSON specifies the player's current attributes:
+\`\`\`json
+${JSON.stringify(game.player.attributes, null, 4)}
+\`\`\`
 
-const game_ex1: Game = {
-  setting: `Kaelen has arranged a surprise date for Elara, leading her to a secluded clearing deep within a moon-dappled forest he discovered on one of his impulsive explorations. In the center of the clearing, a blanket is spread beneath the sprawling branches of an ancient, moss-covered willow tree, its leaves rustling in the gentle night breeze. The air is filled with the soft scent of damp earth and night-blooming jasmine. Dozens of bioluminescent fungi, carefully transplanted by Kaelen, cast an ethereal, blue-green glow upon the scene, illuminating a simple but elegant picnic. The setting is a grand, romantic gesture designed to appeal to Elara's appreciation for profound, natural beauty and her love for serene, almost magical moments, a perfect fusion of his passionate nature and her quiet, dreamy world.`,
-  player: {
-    name: "Kaelen Rhys",
-    description: `Kaelen Rhys is a striking figure with a lean, athletic build and an energy that fuses quiet strength with impulsive passion. His dark, unruly hair frames intense, moss-green eyes, and a lopsided grin often betrays the ardor beneath his calm exterior. Driven by a fiercely loyal heart, Kaelen's personality is a whirlwind of romantic rashness, leading him to make bold, sweeping gestures in his pursuit of a captivating and profound connection.`,
-    attributes: {
-      charisma: 50,
-      empathy: 50,
-      humor: 50,
-      creativity: 50,
-    },
-  },
-  other: {
-    name: "Elara Vance",
-    description:
-      "Elara Vance is a vision of ethereal grace, with a slender frame and long, silver-blonde hair that cascades like a moonlit waterfall. Her eyes, a striking amethyst, hold a depth of quiet observation, often sparkling with a subtle, knowing amusement. She moves with a gentle poise, yet possesses an unexpectedly sharp wit and a profound appreciation for beauty in all its forms. Elara is a dreamer with a grounded heart, seeking a connection that understands her nuanced world and shares in her serene joy.",
-    attributes: {
-      charisma: 60,
-      empathy: 70,
-      humor: 40,
-      creativity: 80,
-    },
-  },
-  history: [
-    {
-      action: "I walk down the street",
-      consequence: "I see a beautiful woman",
-      consequence_attributesDiff: {
-        charisma: 0,
-        empathy: 0,
-        humor: 0,
-        creativity: 0,
+The following JSON specifies the love interest's current attributes:
+\`\`\`json
+${JSON.stringify(game.other.attributes, null, 4)}
+\`\`\`
+
+The user will give a description of what the player wants to do next.
+You should reply with the description of what happens immediately next in the game.
+`.trim(),
+          },
+        ],
       },
+      ...game.history.flatMap((e) => [
+        {
+          role: "user" as const,
+          content: [{ text: e.action.description }],
+        },
+        {
+          role: "model" as const,
+          content: [{ text: e.consequence }],
+        },
+      ]),
+    ],
+    prompt: action.description,
+    output: {
+      schema: z.object({
+        description: z
+          .string()
+          .describe(
+            "A description of what happens immediately next in the game.",
+          ),
+      }),
     },
-    {
-      action: "I walk down the street",
-      consequence: "I see a beautiful woman",
-      consequence_attributesDiff: {
-        charisma: 0,
-        empathy: 0,
-        humor: 0,
-        creativity: 0,
-      },
+    config: {
+      temperature: 1.5,
     },
-    {
-      action: "I walk down the street",
-      consequence: "I see a beautiful woman",
-      consequence_attributesDiff: {
-        charisma: 0,
-        empathy: 0,
-        humor: 0,
-        creativity: 0,
-      },
+  });
+
+  if (response.output === undefined || response.output === null) {
+    throw new Error("Failed to generate response");
+  }
+
+  const consequence = response.output.description;
+
+  applyCharacterAttributesDiff(game.player.attributes, action.attributesDiff),
+    game.history.push({
+      action,
+      consequence,
+    });
+};
+
+const generateActions = async (game: Game): Promise<GameAction[]> => {
+  const response = await generate({
+    system: `
+${systemPrelude(game)}
+
+Your task is to come up with a few options for what the player can do next, based on the current situation the player is in and their current attributes. The options should correspond to very different ways of reacting to the current situation. In this way, each option should have a very different \`attributesDiff\` which encodes how taking that option reflects a change in the player's attributes.
+`.trim(),
+    prompt: `
+The following passages describe what has happened so far in the game:
+
+${quoteblock(game.history.map((x) => x.consequence).join("\n\n"))}
+
+The following JSON specifies the player's current attributes:
+\`\`\`json
+${JSON.stringify(game.player.attributes, null, 4)}
+\`\`\`
+`.trim(),
+    output: {
+      schema: z.object({
+        options: z
+          .array(GameAction)
+          .min(2)
+          .max(4)
+          .describe(
+            "Options for what the player can do next. There should be between 2-4 options.",
+          ),
+      }),
     },
-  ],
+    config: {
+      temperature: 1.5,
+    },
+  });
+
+  if (response.output === undefined || response.output === null) {
+    throw new Error("Failed to generate response");
+  }
+
+  return response.output.options;
+};
+
+const applyCharacterAttributesDiff = (
+  attributes: CharacterAttributes,
+  diff: CharacterAttributesDiff,
+) => {
+  attributes.charisma += diff.charismaDiff;
+  attributes.creativity += diff.creativityDiff;
+  attributes.empathy += diff.empathyDiff;
+  attributes.humor += diff.humorDiff;
 };
 
 // --------------------------------
@@ -155,6 +195,18 @@ export default function App(props: {}) {
     </div>
   );
 }
+
+const action_ex1: GameAction = {
+  label: "walk down the street",
+  description:
+    "With a gentle smile, Kaelen takes Elara’s hand, his fingers lacing through hers as he leads her from the well-trodden path into the hushed mystery of the woods. He guides her deeper into the trees, their footsteps a soft crunch of leaves and twigs over the damp earth, a quiet rhythm in the nocturnal soundscape. Moonbeams filter through the dense canopy above, painting shifting patterns of silver and shadow across their path and illuminating the subtle hints of what lies ahead. The air grows cooler, carrying the sweet, intoxicating perfume of night-blooming jasmine and the rich scent of ancient soil as he carefully navigates them toward the faint, ethereal blue-green glow that begins to pulse from the heart of the forest.",
+  attributesDiff: {
+    charismaDiff: 0,
+    empathyDiff: 0,
+    humorDiff: 0,
+    creativityDiff: 0,
+  },
+};
 
 // --------------------------------
 // InitView
@@ -233,23 +285,79 @@ type PlayViewProps = {
 function PlayView(props: PlayViewProps & { setAppState: SetAppState }) {
   const [game, setGame] = useState(props.game);
 
+  const [status, setStatus] = useState<
+    "awaiting_action" | "generating_consequence" | "generating_actions"
+  >("awaiting_action");
+
+  const [actions, setActions] = useState<GameAction[]>([
+    action_ex1,
+    action_ex1,
+  ]);
+
   return (
     <div className="Play panel">
       <h2>Play</h2>
       <div className="row">
         <div className="Interaction panel">
-          <div className="Setting qualia">{game.setting}</div>
+          <div className="Setting">
+            <QualiaView qualia={game.setting} />
+          </div>
           <div className="History panel">
-            {game.history.map((event, index) => (
-              <div className="GameEventView panel ">
-                <div className="action qualia">{event.action}</div>
-                <div className="consequence qualia">{event.consequence}</div>
+            {game.history.map((event, i) => (
+              <div key={i} className="GameEventView panel">
+                <div className="action">
+                  <QualiaView qualia={event.action.description} />
+                </div>
+                <div className="consequence">
+                  <QualiaView qualia={event.consequence} />
+                </div>
               </div>
             ))}
           </div>
-          <div className="Prompts panel"></div>
+          <div className="Status panel">{status}</div>
+          <div className="Actions panel">
+            {actions.map((action, i) => (
+              <div
+                key={i}
+                className="Action panel"
+                onClick={async () => {
+                  setStatus("generating_consequence");
+                  await submitAction(game, action);
+                  setGame(game);
+                  setActions([]);
+                  setStatus("generating_actions");
+                  const actions = await generateActions(game);
+                  setStatus("awaiting_action");
+                  setActions(actions);
+                }}
+              >
+                <div className="label">
+                  <QualiaView qualia={action.label} />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        <PlayerView player={game.player} />
+        <div className="Player panel">
+          <h3 className="name">{game.player.name}</h3>
+          <div className="description">
+            <QualiaView qualia={game.player.description} />
+          </div>
+          <table className="attributes">
+            <tbody>
+              {Object.entries(game.player.attributes).map(([key, value]) => (
+                <tr key={key} className="attribute-row">
+                  <td className="attribute-name">
+                    {key.charAt(0).toUpperCase() + key.slice(1)}
+                  </td>
+                  <td className="attribute-value">
+                    <QualiaView qualia={`${value}`} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
@@ -270,26 +378,10 @@ function EndView(props: EndViewProps & { setAppState: SetAppState }) {
 }
 
 // --------------------------------
-// PlayerView
+// Qualia
 // --------------------------------
 
-function PlayerView(props: { player: Player }) {
-  return (
-    <div className="Player panel">
-      <h3 className="name">{props.player.name}</h3>
-      <p className="description qualia">{props.player.description}</p>
-      <table className="attributes">
-        <tbody>
-          {Object.entries(props.player.attributes).map(([key, value]) => (
-            <tr key={key} className="attribute-row">
-              <td className="attribute-name">
-                {key.charAt(0).toUpperCase() + key.slice(1)}
-              </td>
-              <td className="attribute-value qualia">{value}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+function QualiaView(props: { qualia: string }) {
+  // TODO: parse and render markdown
+  return <div className="qualia">{props.qualia}</div>;
 }

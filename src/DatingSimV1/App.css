@@ -53,12 +53,15 @@ h6 {
 }
 
 .qualia {
-    font-size: 0.8em;
     padding: 0.5rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 6px;
     background-color: white;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.6) inset;
+
+    white-space: pre-wrap;
+    font-size: 0.9em;
+    line-height: 1.5;
 }
 
 .Play {
@@ -92,6 +95,9 @@ h6 {
     align-items: flex-start;
     justify-content: stretch;
     gap: 0.5rem;
+
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .GameEvent {
@@ -140,5 +146,15 @@ h6 {
         td.attribute-value {
             font-style: italic;
         }
+    }
+}
+
+.Action {
+    cursor: pointer;
+
+    &:hover {
+        background-color: #e0f0f5;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
     }
 }
