@@ -158,13 +158,13 @@ function PlayView(props: PlayViewProps & { setAppState: SetAppState }) {
   const [game, setGame] = useState(props.game);
 
   const [status, setStatus] = useState<
-    "awaiting_action" | "generating_consequence" | "generating_actions"
-  >("awaiting_action");
+    | "awaiting_start"
+    | "awaiting_action"
+    | "generating_consequence"
+    | "generating_actions"
+  >("awaiting_start");
 
-  const [actions, setActions] = useState<GameAction[]>([
-    action_ex1,
-    action_ex1,
-  ]);
+  const [actions, setActions] = useState<GameAction[]>([]);
 
   return (
     <div className="Play panel">
@@ -176,9 +176,9 @@ function PlayView(props: PlayViewProps & { setAppState: SetAppState }) {
           </div>
           <div className="History panel">
             {game.history.map((event, i) => (
-              <div key={i} className="GameEventView panel">
+              <div key={i} className="GameEvent">
                 <div className="action">
-                  <QualiaView qualia={event.action.description} />
+                  <QualiaView qualia={event.action.label} />
                 </div>
                 <div className="consequence">
                   <QualiaView qualia={event.consequence} />
@@ -204,11 +204,7 @@ function PlayView(props: PlayViewProps & { setAppState: SetAppState }) {
                   applyCharacterAttributesDiff(
                     game.player.attributes,
                     action.attributesDiff,
-                  ),
-                    game.history.push({
-                      action,
-                      consequence,
-                    });
+                  );
                   setGame(game);
 
                   setStatus("generating_actions");
@@ -223,6 +219,22 @@ function PlayView(props: PlayViewProps & { setAppState: SetAppState }) {
                 </div>
               </div>
             ))}
+            {status !== "awaiting_start" ? (
+              <></>
+            ) : (
+              <div
+                className="Action panel"
+                onClick={async () => {
+                  setStatus("generating_actions");
+                  const { options } = await GenerateActions({ game });
+                  setActions(options);
+
+                  setStatus("awaiting_action");
+                }}
+              >
+                start game
+              </div>
+            )}
           </div>
         </div>
         <div className="Player panel">

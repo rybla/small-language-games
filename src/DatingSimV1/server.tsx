@@ -1,6 +1,6 @@
 import { makeRouteHandler_backend } from "@/api_backend_util";
 import { quoteblock } from "@/utility";
-import googleAI, { gemini20Flash } from "@genkit-ai/googleai";
+import googleAI, { gemini20FlashLite } from "@genkit-ai/googleai";
 import { genkit, Message, z } from "genkit";
 import {
   GenerateActions_input,
@@ -13,7 +13,7 @@ import { Game, GameAction } from "./ontology";
 
 const ai = genkit({
   plugins: [googleAI()],
-  model: gemini20Flash,
+  model: gemini20FlashLite,
 });
 
 const systemPrelude = (game: Game): string =>
