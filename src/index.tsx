@@ -50,15 +50,14 @@ const server = Bun.serve({
     // api
     // --------------------------------
 
-    "/api/generate": {
-      async POST(req) {
-        const req_data = req.json();
-        const res_data = await ai.generate(req_data);
-        return Response.json(res_data);
-      },
+    "/api/generate": async (req) => {
+      const req_data = await req.json();
+      const res_data = await ai.generate(req_data);
+      return Response.json(res_data);
     },
 
     "/api/*": async (req) => {
+      console.error(`invalid api request: ${req}`);
       return Response.error();
     },
 
