@@ -1,51 +1,36 @@
 import { z } from "zod";
 
-export type Game = {
-  setting: string;
-
-  player: Player;
-
-  /**
-   * The other character who is the player's current love interest.
-   */
-  other: Other;
-
-  /**
-   * The history of events that have happened in the game. Each event corresponds to the player doing some action and then the immediate consequences of that action.
-   */
-  history: GameEvent[];
-};
-
-export type Character = {
-  name: string;
-  description: string;
-  attributes: CharacterAttributes;
-};
-
-export type Player = Character;
-
-export type Other = Character;
-
-export type GameEvent = {
-  action: GameAction;
-  consequence: string;
-};
-
 /**
  * Each attribute ranges from 1 to 100.
  */
-export type CharacterAttributes = {
-  charisma: number;
-  empathy: number;
-  humor: number;
-  creativity: number;
-};
+export type CharacterAttributes = z.infer<typeof CharacterAttributes>;
+export const CharacterAttributes = z.object({
+  charisma: z
+    .number()
+    .min(1)
+    .max(100)
+    .describe("The character's charisma. Ranges from 1 to 100."),
+  empathy: z
+    .number()
+    .min(1)
+    .max(100)
+    .describe("The character's empathy. Ranges from 1 to 100."),
+  humor: z
+    .number()
+    .min(1)
+    .max(100)
+    .describe("The character's humor. Ranges from 1 to 100."),
+  creativity: z
+    .number()
+    .min(1)
+    .max(100)
+    .describe("The character's creativity. Ranges from 1 to 100."),
+});
 
 /**
  * Each attribute diff ranges from -10 to 10.
  */
 export type CharacterAttributesDiff = z.infer<typeof CharacterAttributesDiff>;
-
 export const CharacterAttributesDiff = z.object({
   charismaDiff: z
     .number()
@@ -70,11 +55,44 @@ export const CharacterAttributesDiff = z.object({
 });
 
 export type GameAction = z.infer<typeof GameAction>;
-
 export const GameAction = z.object({
   label: z.string(),
   description: z.string(),
   attributesDiff: CharacterAttributesDiff,
+});
+
+export type GameEvent = {
+  action: GameAction;
+  consequence: string;
+};
+export const GameEvent = z.object({
+  action: GameAction,
+  consequence: z.string().describe("The consequence of the action."),
+});
+
+export type Character = z.infer<typeof Character>;
+export const Character = z.object({
+  name: z.string().describe("The character's name."),
+  description: z.string().describe("The character's description."),
+  attributes: CharacterAttributes,
+});
+
+export type Player = z.infer<typeof Player>;
+export const Player = Character;
+
+export type Other = z.infer<typeof Other>;
+export const Other = Character;
+
+export type Game = z.infer<typeof Game>;
+export const Game = z.object({
+  setting: z.string().describe("The setting of the game."),
+  player: Player,
+  other: Other,
+  history: z
+    .array(GameEvent)
+    .describe(
+      "The history of events that have happened in the game. Each event corresponds to the player doing some action and then the immediate consequences of that action.",
+    ),
 });
 
 // --------------------------------

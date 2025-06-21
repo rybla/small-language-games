@@ -1,7 +1,12 @@
-import { generate } from "@/common_frontend";
-import { do_, quoteblock } from "@/utility";
+import { makeRouteHandler_frontend } from "@/api_frontend_util";
+import { do_ } from "@/utility";
 import { useState } from "react";
-import z from "zod";
+import {
+  GenerateActions_input,
+  GenerateActions_output,
+  GenerateConsequence_input,
+  GenerateConsequence_output,
+} from "./api";
 import "./App.css";
 import {
   CharacterAttributes,
@@ -15,130 +20,6 @@ import {
 // --------------------------------
 // logic
 // --------------------------------
-
-const systemPrelude = (game: Game): string =>
-  `
-You are a game master for a role playing game centered around dating. The player's character is named ${game.player.name}. The love interest's name is ${game.other.name}.
-
-The following passage describes the setting of the game:
-
-${quoteblock(game.setting)}
-
-The following passage describes the player's character, ${game.player.name}:
-
-${quoteblock(game.player.description)}
-
-The following passage describes the player's love interest, ${game.other.name}:
-
-${quoteblock(game.other.description)}
-`.trim();
-
-const submitAction = async (game: Game, action: GameAction): Promise<void> => {
-  const response = await generate({
-    messages: [
-      {
-        role: "system",
-        content: [
-          {
-            text: `
-${systemPrelude(game)}
-
-Your task is to describe what happens immediately next in the game based give the user's description of what the player wants to do next. Be creative while also keeping the events of the game consistent with what's happened so far. Use vivid prose in the style of popular fantasy writers (such as George R. R. Martin, Brandon Sanderson, and Ursula K. Le Guin) that is interesting and exciting to read.
-
-The following JSON specifies the player's current attributes:
-\`\`\`json
-${JSON.stringify(game.player.attributes, null, 4)}
-\`\`\`
-
-The following JSON specifies the love interest's current attributes:
-\`\`\`json
-${JSON.stringify(game.other.attributes, null, 4)}
-\`\`\`
-
-The user will give a description of what the player wants to do next.
-You should reply with the description of what happens immediately next in the game.
-`.trim(),
-          },
-        ],
-      },
-      ...game.history.flatMap((e) => [
-        {
-          role: "user" as const,
-          content: [{ text: e.action.description }],
-        },
-        {
-          role: "model" as const,
-          content: [{ text: e.consequence }],
-        },
-      ]),
-    ],
-    prompt: action.description,
-    output: {
-      schema: z.object({
-        description: z
-          .string()
-          .describe(
-            "A description of what happens immediately next in the game.",
-          ),
-      }),
-    },
-    config: {
-      temperature: 1.5,
-    },
-  });
-
-  if (response.output === undefined || response.output === null) {
-    throw new Error("Failed to generate response");
-  }
-
-  const consequence = response.output.description;
-
-  applyCharacterAttributesDiff(game.player.attributes, action.attributesDiff),
-    game.history.push({
-      action,
-      consequence,
-    });
-};
-
-const generateActions = async (game: Game): Promise<GameAction[]> => {
-  const response = await generate({
-    system: `
-${systemPrelude(game)}
-
-Your task is to come up with a few options for what the player can do next, based on the current situation the player is in and their current attributes. The options should correspond to very different ways of reacting to the current situation. In this way, each option should have a very different \`attributesDiff\` which encodes how taking that option reflects a change in the player's attributes.
-`.trim(),
-    prompt: `
-The following passages describe what has happened so far in the game:
-
-${quoteblock(game.history.map((x) => x.consequence).join("\n\n"))}
-
-The following JSON specifies the player's current attributes:
-\`\`\`json
-${JSON.stringify(game.player.attributes, null, 4)}
-\`\`\`
-`.trim(),
-    output: {
-      schema: z.object({
-        options: z
-          .array(GameAction)
-          .min(2)
-          .max(4)
-          .describe(
-            "Options for what the player can do next. There should be between 2-4 options.",
-          ),
-      }),
-    },
-    config: {
-      temperature: 1.5,
-    },
-  });
-
-  if (response.output === undefined || response.output === null) {
-    throw new Error("Failed to generate response");
-  }
-
-  return response.output.options;
-};
 
 const applyCharacterAttributesDiff = (
   attributes: CharacterAttributes,
@@ -162,15 +43,6 @@ type AppState =
 type SetAppState = React.Dispatch<React.SetStateAction<AppState>>;
 
 export default function App(props: {}) {
-  const [output, set_output] = useState("");
-
-  const test1 = async () => {
-    const res = await generate({
-      prompt: "What is 1 + 2?",
-    });
-    set_output(res.message?.content[0].text || "{{empty}}");
-  };
-
   // const [state, setAppState] = useState<AppState>({ type: "Init", props: {} });
   const [state, setAppState] = useState<AppState>({
     type: "Play",
@@ -322,13 +194,28 @@ function PlayView(props: PlayViewProps & { setAppState: SetAppState }) {
                 className="Action panel"
                 onClick={async () => {
                   setStatus("generating_consequence");
-                  await submitAction(game, action);
-                  setGame(game);
                   setActions([]);
+
+                  const { consequence } = await GenerateConsequence({
+                    game,
+                    action,
+                  });
+                  game.history.push({ action, consequence });
+                  applyCharacterAttributesDiff(
+                    game.player.attributes,
+                    action.attributesDiff,
+                  ),
+                    game.history.push({
+                      action,
+                      consequence,
+                    });
+                  setGame(game);
+
                   setStatus("generating_actions");
-                  const actions = await generateActions(game);
+                  const { options } = await GenerateActions({ game });
+                  setActions(options);
+
                   setStatus("awaiting_action");
-                  setActions(actions);
                 }}
               >
                 <div className="label">
@@ -385,3 +272,25 @@ function QualiaView(props: { qualia: string }) {
   // TODO: parse and render markdown
   return <div className="qualia">{props.qualia}</div>;
 }
+
+// --------------------------------
+// api
+// --------------------------------
+
+export const GenerateConsequence = async (
+  input: GenerateConsequence_input,
+): Promise<GenerateConsequence_output> => {
+  return await makeRouteHandler_frontend({
+    route: "/api/GenerateConsequence",
+    input,
+  });
+};
+
+export const GenerateActions = async (
+  input: GenerateActions_input,
+): Promise<GenerateActions_output> => {
+  return await makeRouteHandler_frontend({
+    route: "/api/GenerateActions",
+    input,
+  });
+};
