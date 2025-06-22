@@ -1,6 +1,6 @@
 import { makeRouteHandler_frontend } from "@/api_frontend_util";
 import { do_ } from "@/utility";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   GenerateActions_input,
   GenerateActions_output,
@@ -16,6 +16,9 @@ import {
   GameAction,
   Other,
 } from "./ontology";
+import Generating from "./component/Generating";
+import { downloadJSON, uploadJSON } from "@/utility_frontend";
+import Markdown from "./component/Markdown";
 
 // --------------------------------
 // logic
@@ -101,6 +104,7 @@ function InitView(props: InitViewProps & { setAppState: SetAppState }) {
     if (others.length === 0) return undefined;
     if (other === undefined) return undefined;
     return {
+      name: "Example Name",
       setting,
       player: {
         name,
@@ -164,81 +168,157 @@ function PlayView(props: PlayViewProps & { setAppState: SetAppState }) {
     | "generating_actions"
   >("awaiting_start");
 
-  const [actions, setActions] = useState<GameAction[]>([]);
+  const [actionOptions, setActionOptions] = useState<GameAction[]>([]);
+  const [actionCurrent, setActionCurrent] = useState<GameAction | undefined>(
+    undefined,
+    // {
+    //   label: "example",
+    //   description: "example",
+    //   attributesDiff: {
+    //     charismaDiff: 0,
+    //     empathyDiff: 0,
+    //     humorDiff: 0,
+    //     creativityDiff: 0,
+    //   },
+    // },
+  );
+
+  const endOfHistoryRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="Play panel">
-      <h2>Play</h2>
-      <div className="row">
-        <div className="Interaction panel">
-          <div className="Setting">
-            <QualiaView qualia={game.setting} />
-          </div>
-          <div className="History panel">
-            {game.history.map((event, i) => (
-              <div key={i} className="GameEvent">
-                <div className="action">
-                  <QualiaView qualia={event.action.label} />
-                </div>
-                <div className="consequence">
-                  <QualiaView qualia={event.consequence} />
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="Status panel">{status}</div>
-          <div className="Actions panel">
-            {actions.map((action, i) => (
-              <div
-                key={i}
-                className="Action panel"
-                onClick={async () => {
-                  setStatus("generating_consequence");
-                  setActions([]);
-
-                  const { consequence } = await GenerateConsequence({
-                    game,
-                    action,
-                  });
-                  game.history.push({ action, consequence });
-                  applyCharacterAttributesDiff(
-                    game.player.attributes,
-                    action.attributesDiff,
-                  );
-                  setGame(game);
-
-                  setStatus("generating_actions");
-                  const { options } = await GenerateActions({ game });
-                  setActions(options);
-
-                  setStatus("awaiting_action");
-                }}
-              >
-                <div className="label">
-                  <QualiaView qualia={action.label} />
-                </div>
-              </div>
-            ))}
-            {status !== "awaiting_start" ? (
-              <></>
-            ) : (
-              <div
-                className="Action panel"
-                onClick={async () => {
-                  setStatus("generating_actions");
-                  const { options } = await GenerateActions({ game });
-                  setActions(options);
-
-                  setStatus("awaiting_action");
-                }}
-              >
-                start game
-              </div>
-            )}
-          </div>
+      <div className="Header">
+        <div className="title">
+          <h2>Play</h2>
         </div>
-        <div className="Player panel">
-          <h3 className="name">{game.player.name}</h3>
+        <div className="toolbar">
+          <button onClick={async () => downloadJSON(game.name, game)}>
+            Save
+          </button>
+          {/* <button onClick={async () => {}}>Load</button> */}
+          <button
+            onClick={async () => {
+              uploadJSON((data) => {
+                setGame(Game.parse(data));
+                setStatus("awaiting_start");
+                setActionOptions([]);
+                setActionCurrent(undefined);
+              });
+            }}
+          >
+            Load
+          </button>
+        </div>
+      </div>
+      <div className="Game panel">
+        <div className="Setting">
+          <h3>Setting</h3>
+          <QualiaView qualia={game.setting} />
+        </div>
+        <div className="History">
+          <h3>History</h3>
+          {game.history.map((event, i) => (
+            <div key={i} className="GameEvent">
+              <div className="action">
+                <QualiaView qualia={event.action.label} />
+              </div>
+              <div className="consequence">
+                <QualiaView qualia={event.consequence} />
+              </div>
+            </div>
+          ))}
+          {actionCurrent !== undefined ? (
+            <div className="GameEvent">
+              <div className="action">
+                <QualiaView qualia={actionCurrent.label} />
+              </div>
+              <div className="consequence">
+                <Generating text={"generating consequence"} />
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
+          <div ref={endOfHistoryRef}></div>
+        </div>
+      </div>
+      <div className="Interaction panel">
+        <div className="Status">
+          <h3>Status</h3>
+          <div>{status}</div>
+        </div>
+        <div className="Actions">
+          <h3>Actions</h3>
+          {actionOptions.map((action, i) => (
+            <button
+              key={i}
+              className="Action"
+              onClick={async () => {
+                setStatus("generating_consequence");
+                setActionOptions([]);
+                setActionCurrent(action);
+                endOfHistoryRef.current?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "end",
+                });
+
+                const { consequence } = await GenerateConsequence({
+                  game,
+                  action,
+                });
+                game.history.push({ action, consequence });
+                applyCharacterAttributesDiff(
+                  game.player.attributes,
+                  action.attributesDiff,
+                );
+                setActionCurrent(undefined);
+                setGame(game);
+                endOfHistoryRef.current?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "end",
+                });
+
+                setStatus("generating_actions");
+                const { options } = await GenerateActions({ game });
+                setActionOptions(options);
+
+                setStatus("awaiting_action");
+              }}
+            >
+              <div className="label">
+                <QualiaView qualia={action.label} />
+              </div>
+            </button>
+          ))}
+          {status === "awaiting_start" ? (
+            <button
+              className="Action"
+              onClick={async () => {
+                setStatus("generating_actions");
+                const { options } = await GenerateActions({ game });
+                setActionOptions(options);
+
+                setStatus("awaiting_action");
+              }}
+            >
+              start game
+            </button>
+          ) : status === "generating_actions" ? (
+            <Generating text={"generating actions"} />
+          ) : (
+            <></>
+          )}
+        </div>
+      </div>
+      <div className="Info panel">
+        <div className="Player">
+          <h2>Player</h2>
+          <h3>Name</h3>
+          <div className="name">
+            {/* <Markdown content={game.player.name} /> */}
+            <QualiaView qualia={game.player.name} />
+          </div>
+          <h3>Description</h3>
           <div className="description">
             <QualiaView qualia={game.player.description} />
           </div>
@@ -281,8 +361,8 @@ function EndView(props: EndViewProps & { setAppState: SetAppState }) {
 // --------------------------------
 
 function QualiaView(props: { qualia: string }) {
-  // TODO: parse and render markdown
   return <div className="qualia">{props.qualia}</div>;
+  // return <Markdown content={props.qualia} />;
 }
 
 // --------------------------------

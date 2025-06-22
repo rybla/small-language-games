@@ -85,7 +85,7 @@ You should reply with the description of what happens immediately next in the ga
               consequence: z
                 .string()
                 .describe(
-                  "A description of what happens immediately next in the game.",
+                  "A description of what happens immediately next in the game. Use Markdown syntax for styling.",
                 ),
             }),
           },

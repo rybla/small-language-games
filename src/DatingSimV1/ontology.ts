@@ -56,8 +56,14 @@ export const CharacterAttributesDiff = z.object({
 
 export type GameAction = z.infer<typeof GameAction>;
 export const GameAction = z.object({
-  label: z.string(),
-  description: z.string(),
+  label: z
+    .string()
+    .describe("The label of the action. Use Markdown syntax for styling."),
+  description: z
+    .string()
+    .describe(
+      "The description of the action. Use Markdown syntax for styling.",
+    ),
   attributesDiff: CharacterAttributesDiff,
 });
 
@@ -67,13 +73,19 @@ export type GameEvent = {
 };
 export const GameEvent = z.object({
   action: GameAction,
-  consequence: z.string().describe("The consequence of the action."),
+  consequence: z
+    .string()
+    .describe(
+      "The consequence of the action. Use Markdown syntax for styling.",
+    ),
 });
 
 export type Character = z.infer<typeof Character>;
 export const Character = z.object({
   name: z.string().describe("The character's name."),
-  description: z.string().describe("The character's description."),
+  description: z
+    .string()
+    .describe("The character's description. Use Markdown syntax for styling."),
   attributes: CharacterAttributes,
 });
 
@@ -85,7 +97,10 @@ export const Other = Character;
 
 export type Game = z.infer<typeof Game>;
 export const Game = z.object({
-  setting: z.string().describe("The setting of the game."),
+  name: z.string(),
+  setting: z
+    .string()
+    .describe("The setting of the game. Use Markdown syntax for styling."),
   player: Player,
   other: Other,
   history: z
@@ -100,7 +115,8 @@ export const Game = z.object({
 // --------------------------------
 
 export const game_ex1: Game = {
-  setting: `Kaelen has arranged a surprise date for Elara, leading her to a secluded clearing deep within a moon-dappled forest he discovered on one of his impulsive explorations. In the center of the clearing, a blanket is spread beneath the sprawling branches of an ancient, moss-covered willow tree, its leaves rustling in the gentle night breeze. The air is filled with the soft scent of damp earth and night-blooming jasmine. Dozens of bioluminescent fungi, carefully transplanted by Kaelen, cast an ethereal, blue-green glow upon the scene, illuminating a simple but elegant picnic. The setting is a grand, romantic gesture designed to appeal to Elara's appreciation for profound, natural beauty and her love for serene, almost magical moments, a perfect fusion of his passionate nature and her quiet, dreamy world.`,
+  name: "Example Game",
+  setting: `Kaelen has arranged a **surprise** date for Elara, leading her to a secluded clearing deep within a moon-dappled forest he discovered on one of his impulsive explorations. In the center of the clearing, a blanket is spread beneath the sprawling branches of an ancient, moss-covered willow tree, its leaves rustling in the gentle night breeze. The air is filled with the soft scent of damp earth and night-blooming jasmine. Dozens of bioluminescent fungi, carefully transplanted by Kaelen, cast an ethereal, blue-green glow upon the scene, illuminating a simple but elegant picnic. The setting is a grand, _romantic_ gesture designed to appeal to Elara's appreciation for profound, natural beauty and her love for serene, almost magical moments, a perfect fusion of his passionate nature and her quiet, dreamy world.`,
   player: {
     name: "Kaelen Rhys",
     description: `Kaelen Rhys is a striking figure with a lean, athletic build and an energy that fuses quiet strength with impulsive passion. His dark, unruly hair frames intense, moss-green eyes, and a lopsided grin often betrays the ardor beneath his calm exterior. Driven by a fiercely loyal heart, Kaelen's personality is a whirlwind of romantic rashness, leading him to make bold, sweeping gestures in his pursuit of a captivating and profound connection.`,
