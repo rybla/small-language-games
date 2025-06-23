@@ -1,7 +1,6 @@
 .placeholder-text {
     font-size: 1.125rem;
     font-weight: 500;
-    color: #4b5563;
     margin-right: 0.5rem;
 }
 
@@ -30,20 +29,4 @@
 
 .bouncing-dot {
     animation: bounce 1.4s infinite ease-in-out both;
-}
-
-/* Dark mode styles */
-@media (prefers-color-scheme: dark) {
-    .placeholder-container {
-        background-color: #1f2937;
-    }
-    .placeholder-text {
-        color: #d1d5db;
-    }
-    .dot {
-        background-color: #9ca3af;
-    }
-    .app-container {
-        background-color: #000000;
-    }
 }

@@ -138,25 +138,25 @@ export const game_ex1: Game = {
       creativity: 80,
     },
   },
-  //   history: [
-  //     {
-  //       action: {
-  //         label: "walk down the street",
-  //         description:
-  //           "With a gentle smile, Kaelen takes Elara’s hand, his fingers lacing through hers as he leads her from the well-trodden path into the hushed mystery of the woods. He guides her deeper into the trees, their footsteps a soft crunch of leaves and twigs over the damp earth, a quiet rhythm in the nocturnal soundscape. Moonbeams filter through the dense canopy above, painting shifting patterns of silver and shadow across their path and illuminating the subtle hints of what lies ahead. The air grows cooler, carrying the sweet, intoxicating perfume of night-blooming jasmine and the rich scent of ancient soil as he carefully navigates them toward the faint, ethereal blue-green glow that begins to pulse from the heart of the forest.",
-  //         consequence_attributesDiff: {
-  //           charisma: 0,
-  //           empathy: 0,
-  //           humor: 0,
-  //           creativity: 0,
-  //         },
-  //       },
-  //       consequence: `As you both step past the final curtain of weeping willow branches, the clearing opens up before you. Elara stops dead, her hand tightening instinctively in yours. A soft, audible gasp escapes her lips. Her eyes, wide with wonder, slowly trace the scene you've so carefully constructed. She follows the gentle, pulsating blue-green light from the clusters of fungi, to the soft woolen blanket spread with her favorite cheeses and fruits, and finally up to the ancient, twisting branches of the willow tree that shelters the space like a silent, benevolent guardian.
+  history: [
+    {
+      action: {
+        label: "walk down the street",
+        description:
+          "With a gentle smile, Kaelen takes Elara’s hand, his fingers lacing through hers as he leads her from the well-trodden path into the hushed mystery of the woods. He guides her deeper into the trees, their footsteps a soft crunch of leaves and twigs over the damp earth, a quiet rhythm in the nocturnal soundscape. Moonbeams filter through the dense canopy above, painting shifting patterns of silver and shadow across their path and illuminating the subtle hints of what lies ahead. The air grows cooler, carrying the sweet, intoxicating perfume of night-blooming jasmine and the rich scent of ancient soil as he carefully navigates them toward the faint, ethereal blue-green glow that begins to pulse from the heart of the forest.",
+        attributesDiff: {
+          charismaDiff: 0,
+          empathyDiff: 0,
+          humorDiff: 0,
+          creativityDiff: 0,
+        },
+      },
+      consequence: `As you both step past the final curtain of weeping willow branches, the clearing opens up before you. Elara stops dead, her hand tightening instinctively in yours. A soft, audible gasp escapes her lips. Her eyes, wide with wonder, slowly trace the scene you've so carefully constructed. She follows the gentle, pulsating blue-green light from the clusters of fungi, to the soft woolen blanket spread with her favorite cheeses and fruits, and finally up to the ancient, twisting branches of the willow tree that shelters the space like a silent, benevolent guardian.
 
-  // For a long moment, she is utterly still, simply breathing in the magic of it all. The ethereal glow paints highlights on her face, and you can see the reflection of a dozen tiny, radiant lights in her eyes. When she finally turns to look at you, her expression is one of profound, speechless emotion—a perfect, breathtaking mirror of the serene and magical world you hoped to create for her. Your heart thumps in your chest, a wild drumbeat against the forest's quiet hum.
+  For a long moment, she is utterly still, simply breathing in the magic of it all. The ethereal glow paints highlights on her face, and you can see the reflection of a dozen tiny, radiant lights in her eyes. When she finally turns to look at you, her expression is one of profound, speechless emotion—a perfect, breathtaking mirror of the serene and magical world you hoped to create for her. Your heart thumps in your chest, a wild drumbeat against the forest's quiet hum.
 
-  // Elara opens her mouth to speak, but seems unable to find the words. She simply shakes her head slightly in disbelief, a radiant smile beginning to bloom on her face.`,
-  //     },
-  //   ],
-  history: [],
+  Elara opens her mouth to speak, but seems unable to find the words. She simply shakes her head slightly in disbelief, a radiant smile beginning to bloom on her face.`,
+    },
+  ],
+  // history: [],
 };

@@ -117,7 +117,7 @@ function InitView(props: InitViewProps & { setAppState: SetAppState }) {
   });
 
   return (
-    <div className="Init panel">
+    <div className="Init content">
       <h2>Create Your Player</h2>
       <input
         type="text"
@@ -186,8 +186,8 @@ function PlayView(props: PlayViewProps & { setAppState: SetAppState }) {
   const endOfHistoryRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="Play panel">
-      <div className="Header">
+    <div className="Play content">
+      <div className="header">
         <div className="title">
           <h2>Play</h2>
         </div>
@@ -210,132 +210,139 @@ function PlayView(props: PlayViewProps & { setAppState: SetAppState }) {
           </button>
         </div>
       </div>
-      <div className="Game panel">
-        <div className="Setting">
-          <h3>Setting</h3>
-          <QualiaView qualia={game.setting} />
-        </div>
-        <div className="History">
-          <h3>History</h3>
-          {game.history.map((event, i) => (
-            <div key={i} className="GameEvent">
-              <div className="action">
-                <QualiaView qualia={event.action.label} />
-              </div>
-              <div className="consequence">
-                <QualiaView qualia={event.consequence} />
-              </div>
-            </div>
-          ))}
-          {actionCurrent !== undefined ? (
-            <div className="GameEvent">
-              <div className="action">
-                <QualiaView qualia={actionCurrent.label} />
-              </div>
-              <div className="consequence">
-                <Generating text={"generating consequence"} />
-              </div>
-            </div>
-          ) : (
-            <></>
-          )}
-          <div ref={endOfHistoryRef}></div>
-        </div>
-      </div>
-      <div className="Interaction panel">
-        <div className="Status">
-          <h3>Status</h3>
-          <div>{status}</div>
-        </div>
-        <div className="Actions">
-          <h3>Actions</h3>
-          {actionOptions.map((action, i) => (
-            <button
-              key={i}
-              className="Action"
-              onClick={async () => {
-                setStatus("generating_consequence");
-                setActionOptions([]);
-                setActionCurrent(action);
-                endOfHistoryRef.current?.scrollIntoView({
-                  behavior: "smooth",
-                  block: "end",
-                });
-
-                const { consequence } = await GenerateConsequence({
-                  game,
-                  action,
-                });
-                game.history.push({ action, consequence });
-                applyCharacterAttributesDiff(
-                  game.player.attributes,
-                  action.attributesDiff,
-                );
-                setActionCurrent(undefined);
-                setGame(game);
-                endOfHistoryRef.current?.scrollIntoView({
-                  behavior: "smooth",
-                  block: "end",
-                });
-
-                setStatus("generating_actions");
-                const { options } = await GenerateActions({ game });
-                setActionOptions(options);
-
-                setStatus("awaiting_action");
-              }}
-            >
-              <div className="label">
-                <QualiaView qualia={action.label} />
-              </div>
-            </button>
-          ))}
-          {status === "awaiting_start" ? (
-            <button
-              className="Action"
-              onClick={async () => {
-                setStatus("generating_actions");
-                const { options } = await GenerateActions({ game });
-                setActionOptions(options);
-
-                setStatus("awaiting_action");
-              }}
-            >
-              start game
-            </button>
-          ) : status === "generating_actions" ? (
-            <Generating text={"generating actions"} />
-          ) : (
-            <></>
-          )}
-        </div>
-      </div>
-      <div className="Info panel">
-        <div className="Player">
-          <h2>Player</h2>
-          <h3>Name</h3>
-          <div className="name">
-            {/* <Markdown content={game.player.name} /> */}
-            <QualiaView qualia={game.player.name} />
+      <div className="content">
+        <div className="Interaction">
+          <div className="Status">
+            <h3>Status</h3>
+            <div>{status}</div>
           </div>
-          <h3>Description</h3>
-          <div className="description">
-            <QualiaView qualia={game.player.description} />
-          </div>
-          <table className="attributes">
-            <tbody>
-              {Object.entries(game.player.attributes).map(([key, value]) => (
-                <tr key={key} className="attribute-row">
-                  <td className="attribute-name">
-                    {key.charAt(0).toUpperCase() + key.slice(1)}
-                  </td>
-                  <td className="attribute-value">
-                    <QualiaView qualia={`${value}`} />
-                  </td>
-                </tr>
+          <div className="Actions">
+            <h3>Actions</h3>
+            <div className="actions">
+              {actionOptions.map((action, i) => (
+                <button
+                  key={i}
+                  className="Action"
+                  onClick={async () => {
+                    setStatus("generating_consequence");
+                    setActionOptions([]);
+                    setActionCurrent(action);
+                    endOfHistoryRef.current?.scrollIntoView({
+                      behavior: "smooth",
+                      block: "end",
+                    });
+
+                    const { consequence } = await GenerateConsequence({
+                      game,
+                      action,
+                    });
+                    game.history.push({ action, consequence });
+                    applyCharacterAttributesDiff(
+                      game.player.attributes,
+                      action.attributesDiff,
+                    );
+                    setActionCurrent(undefined);
+                    setGame(game);
+                    endOfHistoryRef.current?.scrollIntoView({
+                      behavior: "smooth",
+                      block: "end",
+                    });
+
+                    setStatus("generating_actions");
+                    const { options } = await GenerateActions({ game });
+                    setActionOptions(options);
+
+                    setStatus("awaiting_action");
+                  }}
+                >
+                  <div className="label">
+                    <QualiaView qualia={action.label} />
+                  </div>
+                </button>
               ))}
-            </tbody>
-          </table>
+              {status === "awaiting_start" ? (
+                <button
+                  className="Action"
+                  onClick={async () => {
+                    setStatus("generating_actions");
+                    const { options } = await GenerateActions({ game });
+                    setActionOptions(options);
+
+                    setStatus("awaiting_action");
+                  }}
+                >
+                  start game
+                </button>
+              ) : status === "generating_actions" ? (
+                <Generating text={"generating actions"} />
+              ) : (
+                <></>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="Game">
+          <div className="Setting">
+            <h3>Setting</h3>
+            <QualiaView qualia={game.setting} />
+          </div>
+          <div className="History">
+            <h3>History</h3>
+            <div className="events">
+              {game.history.map((event, i) => (
+                <div key={i} className="GameEvent">
+                  <div className="action">
+                    <QualiaView qualia={event.action.label} />
+                  </div>
+                  <div className="consequence">
+                    <QualiaView qualia={event.consequence} />
+                  </div>
+                </div>
+              ))}
+              {actionCurrent !== undefined ? (
+                <div className="GameEvent">
+                  <div className="action">
+                    <QualiaView qualia={actionCurrent.label} />
+                  </div>
+                  <div className="consequence">
+                    <Generating text={"generating consequence"} />
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
+              <div ref={endOfHistoryRef}></div>
+            </div>
+          </div>
+        </div>
+
+        <div className="Info">
+          <div className="Player">
+            <h2>Player</h2>
+            <h3>Name</h3>
+            <div className="name">
+              {/* <Markdown content={game.player.name} /> */}
+              <QualiaView qualia={game.player.name} />
+            </div>
+            <h3>Description</h3>
+            <div className="description">
+              <QualiaView qualia={game.player.description} />
+            </div>
+            <table className="attributes">
+              <tbody>
+                {Object.entries(game.player.attributes).map(([key, value]) => (
+                  <tr key={key} className="attribute-row">
+                    <td className="attribute-name">
+                      {key.charAt(0).toUpperCase() + key.slice(1)}
+                    </td>
+                    <td className="attribute-value">
+                      <QualiaView qualia={`${value}`} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -350,7 +357,7 @@ type EndViewProps = {};
 
 function EndView(props: EndViewProps & { setAppState: SetAppState }) {
   return (
-    <div className="End panel">
+    <div className="End content">
       <div>End</div>
     </div>
   );

@@ -1,7 +1,13 @@
 html,
-body {
+body,
+#root {
     margin: 0;
     padding: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    overscroll-behavior: none;
 }
 
 body {
@@ -12,163 +18,183 @@ body {
     font-size: 16px;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    margin: 0;
-    padding: 0;
-}
-
 .App {
-    padding: 0.5rem;
-    /* width: 800px; */
+    height: 100%;
 
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
 
     & > .title {
+        flex: 0 0 auto;
+
         text-align: center;
+
+        background: black;
+        color: white;
+
         font-variant: small-caps;
     }
-}
 
-.panel {
-    position: relative;
-    padding: 1rem;
-
-    /* display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
-    gap: 1rem; */
-
-    background: rgba(200, 230, 230, 0.4);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
-    border-radius: 6px;
-}
-
-.qualia {
-    padding: 0.5rem;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 6px;
-    background-color: white;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.6) inset;
-
-    white-space: pre-wrap;
-    font-size: 0.9em;
-    line-height: 1.5;
-}
-
-.Play {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-        "header header header"
-        "interaction game info";
-    align-items: start; /* required for position: sticky */
-    gap: 1rem;
-
-    & > .Header {
-        grid-area: header;
-    }
-
-    & > .Interaction {
-        grid-area: interaction;
-
-        position: sticky;
-        top: 1rem;
-    }
-
-    & > .Game {
-        grid-area: game;
-    }
-
-    & > .Info {
-        grid-area: info;
-
-        position: sticky;
-        top: 1rem;
-
-        flex: 1 0 33%;
+    & > .content {
+        flex: 1 1 0%;
+        min-height: 0;
     }
 }
 
-.Game {
-    display: grid;
-    grid-auto-flow: row;
-    gap: 1rem;
-}
-
-.Header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: 1fr;
+.header {
+    display: flex;
+    flex-direction: row;
     gap: 1rem;
 
     & > .title {
+        flex: 0 0 auto;
     }
 
     & > .toolbar {
-        display: grid;
-        grid-auto-flow: column;
+        flex: 1 1 auto;
+
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+
+        justify-content: flex-end;
+        align-items: stretch;
+    }
+}
+
+.Play {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    & > .header {
+        padding: 1rem;
+        flex: 0 0 auto;
+
+        background: linear-gradient(to right, #ff7e5f, #feb47b);
+    }
+
+    & > .content {
+        padding: 1rem;
+
+        flex: 1 1 0%;
+        min-height: 0;
+
+        display: flex;
+        flex-direction: row;
         gap: 1rem;
+
+        & > .Game {
+            flex: 1 1;
+            min-height: 0;
+        }
+
+        & > .Interaction {
+            flex: 1 1;
+            min-height: 0;
+        }
+
+        & > .Info {
+            flex: 1 1;
+            min-height: 0;
+        }
     }
 }
 
 .Interaction {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
+
+    & > .Actions {
+        flex: 1 1;
+        min-height: 0;
+    }
 }
 
-.Setting {
-    display: grid;
-    grid-template-columns: 1fr;
+.Status {
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
+
+    & > h3 {
+        flex: 0 0;
+    }
 }
 
 .Actions {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    & > h3 {
+        flex: 0 0;
+    }
+
+    & > .actions {
+        flex: 1 1;
+        min-height: 0;
+        overflow-y: auto;
+
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+.Game {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    & > .Setting {
+        flex: 0 0 auto;
+        min-height: 0;
+        overflow-y: auto;
+    }
+    & > .History {
+        flex: 1 1 auto;
+        min-height: 0;
+    }
+}
+
+.Setting {
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
 }
 
 .History {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-}
-
-.Status {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-}
-
-.GameEvent {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
 
-    & > .action {
-        margin-right: 2rem;
+    & > .events {
+        flex: 1 1 0%;
+        overflow-y: auto;
+        min-height: 0;
+
+        .qualia {
+            max-height: unset;
+        }
     }
+}
 
-    & > .consequence {
-        margin-left: 2rem;
+.Info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    & > .Player {
+        flex: 0 0;
+        min-height: 0;
     }
 }
 
 .Player {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 
     .description {
         /* font-size: 0.95em;
@@ -199,6 +225,22 @@ h6 {
     }
 }
 
-.Action {
-    text-align: left;
+.qualia {
+    max-height: 200px;
+    overflow-y: scroll;
+
+    margin: 0.2rem;
+    padding: 0.2rem;
+}
+
+/* miscellaneous */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
 }
