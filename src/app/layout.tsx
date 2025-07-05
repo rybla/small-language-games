@@ -3,11 +3,11 @@ import "./global.css";
 import Header from "./component/Header";
 import { app_name } from "@/context";
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout(
+  input: Readonly<{
+    children: React.ReactNode;
+  }>,
+) {
   return (
     <html lang="en" className="dark">
       <Head>
@@ -15,7 +15,7 @@ export default function RootLayout({
       </Head>
       <body className="vsc-initialized">
         <Header />
-        <main>{children}</main>
+        <main>{input.children}</main>
       </body>
     </html>
   );

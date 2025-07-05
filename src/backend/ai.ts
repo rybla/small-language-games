@@ -8,3 +8,9 @@ export const model = {
   power: googleAI.model("gemini-2.5-pro"),
   cheap: googleAI.model("gemini-2.0-flash"),
 };
+
+export const temperature = {
+  creative: 1.7,
+  normal: 1.0,
+  conservative: 0.5,
+};
