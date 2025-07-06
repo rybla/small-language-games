@@ -3,7 +3,7 @@ import * as example from "./example/wispering-plantation";
 import {
   GenerateItemsForRoom,
   GeneratePlayer,
-  GeneratePlayerActions,
+  GeneratePlayerTurn,
   GenerateRoom,
 } from "./flow";
 import { RoomName } from "./ontology";

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Test from "@/backend/ai/flow/Test";
+import Test from "@/backend/ai/Test";
 import style from "./page.module.css";
 
 export default function Page() {
@@ -9,7 +9,7 @@ export default function Page() {
   const [output, set_output] = useState<string>("");
 
   return (
-    <div className={style["panel"]}>
+    <main className={style["main"]}>
       <input ref={inputRef} placeholder="prompt" className={style["input"]} />
       <button
         className={style["submit"]}
@@ -24,6 +24,6 @@ export default function Page() {
         submit
       </button>
       <div className={style["output"]}>{output}</div>
-    </div>
+    </main>
   );
 }

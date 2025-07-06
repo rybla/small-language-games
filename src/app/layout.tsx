@@ -15,7 +15,7 @@ export default function RootLayout(
       </Head>
       <body className="vsc-initialized">
         <Header />
-        <main>{input.children}</main>
+        {input.children}
       </body>
     </html>
   );

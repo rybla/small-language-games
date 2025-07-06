@@ -53,3 +53,11 @@ export function indent(s: string, level = 1): string {
 export function id<A>(x: A): A {
   return x;
 }
+
+export function unwords(...xs: string[]): string {
+  return xs.join(" ");
+}
+
+export function commas(...xs: string[]): string {
+  return xs.join(", ");
+}

@@ -3,19 +3,16 @@
 import { z } from "genkit";
 import { ai, model, temperature } from "../../backend/ai";
 import {
-  PlayerAction,
   Game,
   PlayerName,
-  presentWorld,
-  presentWorldFromPlayerPerspective,
   Room,
   World,
   Player,
   Item,
   RoomName,
-  presentRoom,
   PlacedInRoom,
   PlayerLocation,
+  PlayerTurn,
 } from "./ontology";
 import {
   makeMarkdownFilePart,
@@ -23,6 +20,11 @@ import {
   makeTextPart,
 } from "../../backend/ai/common";
 import { quoteblockMd } from "@/utility";
+import {
+  presentRoom,
+  presentGameWorld,
+  presentGameWorldFromPlayerPerspective,
+} from "./semantics";
 
 function makeSystemPrelude() {
   return `
@@ -52,7 +54,7 @@ export const GenerateGame = ai.defineFlow(
           `
 ${makeSystemPrelude()}
 
-The user will provide a high-level prompt for what kind of game they would like. Your task is to take their prompt as inspiration and create a new game world that fits the theme of the prompt. The game world should also have a unique and creative feel that sets it apart from other text adventure games. For now, you only need to define the aspects of the game that are specified in the output schema.
+The user will provide a high-level prompt for the type of game and game world they would like. Your task is to take their prompt as inspiration and create a new game world that fits the theme of the prompt. The game world should also have a unique and creative feel that sets it apart from other text adventure games. For now, you only need to define the aspects of the game that are specified in the output schema.
 `,
         ),
       ],
@@ -97,9 +99,7 @@ export const GeneratePlayer = ai.defineFlow(
   },
   async (input) => {
     const response = await ai.generate({
-      config: {
-        temperature: temperature.creative,
-      },
+      config: { temperature: temperature.creative },
       model: model.speed,
       system: [
         makeTextPart(
@@ -117,7 +117,7 @@ The player will start off in the room "${input.room}".
         ),
       ],
       prompt: [
-        makeMarkdownFilePart(presentWorld(input.game.world)),
+        makeMarkdownFilePart(presentGameWorld(input.game)),
         makeTextPart(input.prompt),
       ],
       output: {
@@ -154,22 +154,16 @@ export const GenerateItemsForRoom = ai.defineFlow(
     name: "GenerateItemForRoom",
     inputSchema: z.object({
       game: Game,
-      name: RoomName,
+      room: RoomName,
     }),
     outputSchema: z.object({
-      itemAndItemLocations: z.array(
-        z.object({
-          item: Item,
-          itemLocation: PlacedInRoom,
-        }),
-      ),
+      items: z.array(Item),
+      itemLocations: z.array(PlacedInRoom),
     }),
   },
   async (input) => {
     const response = await ai.generate({
-      config: {
-        temperature: temperature.creative,
-      },
+      config: { temperature: temperature.creative },
       model: model.speed,
       system: [
         makeTextPart(
@@ -180,7 +174,7 @@ The following passage describes describes the game world:
 
 ${quoteblockMd(input.game.world.description)}
 
-The user will provide a detailed description of the room "${input.name}".
+The user will provide a detailed description of the room "${input.room}".
 
 Your task is to create a collection of items for this room.
   - You are REQUIRED to create an item for each specific item that is named in the room's description.
@@ -189,8 +183,8 @@ Your task is to create a collection of items for this room.
         ),
       ],
       prompt: [
-        makeMarkdownFilePart(presentWorld(input.game.world)),
-        makeTextPart(presentRoom(input.game.world, input.name)),
+        makeMarkdownFilePart(presentGameWorld(input.game)),
+        makeTextPart(presentRoom(input.game.world, input.room)),
       ],
       output: {
         schema: z.array(
@@ -204,24 +198,25 @@ Your task is to create a collection of items for this room.
       },
     });
 
-    return {
-      itemAndItemLocations: getValidOutput(response).map<{
-        item: Item;
-        itemLocation: PlacedInRoom;
-      }>((x) => ({
-        item: {
-          name: x.name,
-          shortDescription: x.shortDescription,
-          appearanceDescription: x.appearanceDescription,
-        },
-        itemLocation: {
-          type: "PlacedInRoom",
-          room: input.name,
-          item: x.name,
-          description: x.locationDescription,
-        },
-      })),
-    };
+    const items: Item[] = [];
+    const itemLocations: PlacedInRoom[] = [];
+
+    const output = getValidOutput(response);
+    for (const x of output) {
+      items.push({
+        name: x.name,
+        shortDescription: x.shortDescription,
+        appearanceDescription: x.appearanceDescription,
+      });
+      itemLocations.push({
+        type: "PlacedInRoom",
+        room: input.room,
+        item: x.name,
+        description: x.locationDescription,
+      });
+    }
+
+    return { items, itemLocations };
   },
 );
 
@@ -238,9 +233,7 @@ export const GenerateRoom = ai.defineFlow(
   },
   async (input) => {
     const response = await ai.generate({
-      config: {
-        temperature: temperature.creative,
-      },
+      config: { temperature: temperature.creative },
       model: model.speed,
       system: [
         makeTextPart(
@@ -251,7 +244,7 @@ The user will provide a markdown document that describes the current state of th
 `,
         ),
       ],
-      prompt: [makeMarkdownFilePart(presentWorld(input.game.world))],
+      prompt: [makeMarkdownFilePart(presentGameWorld(input.game))],
       output: {
         schema: Room,
       },
@@ -260,20 +253,22 @@ The user will provide a markdown document that describes the current state of th
   },
 );
 
-export const GeneratePlayerActions = ai.defineFlow(
+export const GeneratePlayerTurn = ai.defineFlow(
   {
-    name: "GeneratePlayerActions",
+    name: "GeneratePlayerTurn",
     inputSchema: z.object({
       game: Game,
       name: PlayerName,
       prompt: z.string().nonempty(),
     }),
     outputSchema: z.object({
-      actions: z.array(PlayerAction).min(1),
+      turn: PlayerTurn,
     }),
   },
   async (input) => {
     const response = await ai.generate({
+      config: { temperature: temperature.normal },
+      model: model.speed,
       system: [
         makeTextPart(`
 ${makeSystemPrelude()}
@@ -293,16 +288,26 @@ Response with only the array of structured actions.
       ],
       prompt: [
         makeMarkdownFilePart(
-          presentWorldFromPlayerPerspective(input.game.world, input.name),
+          presentGameWorldFromPlayerPerspective(input.game, input.name),
         ),
         makeTextPart(input.prompt),
       ],
       output: {
-        schema: z.array(PlayerAction).min(1),
+        schema: z.object({
+          actions: PlayerTurn.shape.actions,
+          description: PlayerTurn.shape.description,
+        }),
       },
     });
 
-    const actions = getValidOutput(response);
-    return { actions };
+    const { actions, description } = getValidOutput(response);
+    return {
+      turn: {
+        name: input.name,
+        prompt: input.prompt,
+        actions,
+        description,
+      },
+    };
   },
 );

@@ -1,0 +1,111 @@
+{
+    "name": "The Great Banana Battle",
+    "world": {
+        "name": "Tropicana",
+        "description": "In the vibrant and sun-drenched land of Tropicana, the very essence of magic flows through the Cavendish, the most revered of all banana varieties. Here, Peel Mages command powerful energies by channeling the potassium-rich spirits of the fruit, shaping reality with every strategic peel. The air thrums with the sweet, ripe scent of possibility, and ancient groves hold the secrets to unlocking incredible banana-based sorcery. The balance of power rests precariously on the ripeness of the peel, with the emerald hue signifying potential and the sun-kissed yellow heralding immediate might. But beware, for overripe Bananomancers risk a volatile, uncontrolled release of magical essence, and the dreaded Blight of the Black Spot threatens to wither magic itself.",
+        "rooms": [
+            {
+                "name": "The Ripening Chamber",
+                "shortDescription": "A humid, dimly lit cavern housing a bizarre banana-powered machine.",
+                "longDescription": "The chamber is carved from a single, colossal stalactite, its surface gleaming with a phosphorescent moss that casts an eerie green light. The air is thick with humidity and the metallic tang of ancient machinery. In the center of the room, a vast, obsidian contraption whirs ominously. It consists of a series of interlocking gears and pulsating crystal conduits, all converging on a raised pedestal. Upon this pedestal rests a single, perfectly preserved Cavendish banana, its peel a vibrant, almost aggressive yellow. Runes of an unknown origin glow faintly along the contraption's metallic frame. Strange, rhythmic thumping echoes from within the machinery, and a fine, shimmering dust coats every surface. This dust seems to be composed of minuscule, fragmented banana peels."
+            }
+        ],
+        "players": [
+            {
+                "name": "Bartholomew 'Barty' Peelwright",
+                "shortDescription": "A grizzled banana farmer, more comfortable with soil than sorcery.",
+                "appearanceDescription": "A weathered individual with sun-browned skin and calloused hands, accustomed to the rigors of tending to groves. They wear simple, sturdy overalls, patched in several places, and their broad-brimmed hat, though faded, still offers protection from imagined sunlight. A few stray banana leaves are stuck to their boots.",
+                "personalityDescription": "Barty is a man of few words but possesses a deep, innate connection to the land and its bounty, particularly bananas. He is practical and down-to-earth, often relying on instinct and observation rather than complex theory. Despite his gruff exterior, he harbors a fierce protectiveness for his crops and a quiet curiosity about the arcane arts that could aid them.",
+                "skills": [
+                    "Banana Cultivation",
+                    "Pest Control",
+                    "Fruit Preservation",
+                    "Basic Sorcery"
+                ]
+            }
+        ],
+        "items": [
+            {
+                "name": "banana-powered machine",
+                "shortDescription": "A bizarre machine powered by bananas.",
+                "appearanceDescription": "This immense contraption is built from polished copper pipes, intricately woven vines, and glowing Cavendish bananas. A large, crystal orb sits at its center, pulsating with a soft, yellow light. The machine hums with a low, resonant frequency, and the air around it feels warm and charged."
+            },
+            {
+                "name": "glowing stones",
+                "shortDescription": "Smooth stones with glowing patterns.",
+                "appearanceDescription": "A collection of smooth, river-worn stones, each etched with swirling patterns that seem to glow faintly. They are cool to the touch and emit a subtle, earthy aroma."
+            },
+            {
+                "name": "wooden table",
+                "shortDescription": "A worn, wooden table.",
+                "appearanceDescription": "A sturdy wooden table, stained dark by time and humidity. Its surface is marred by numerous scratches and what appear to be scorch marks."
+            },
+            {
+                "name": "arcane tome",
+                "shortDescription": "A leather-bound book filled with banana magic.",
+                "appearanceDescription": "An old, leather-bound tome, its cover embossed with a golden banana symbol. The pages within are brittle and filled with arcane script and diagrams, many depicting different stages of banana ripeness."
+            }
+        ],
+        "itemLocations": [
+            {
+                "type": "PlacedInRoom",
+                "room": "The Ripening Chamber",
+                "item": "banana-powered machine",
+                "description": "The humming banana-powered machine now rests on the ground near Barty's feet, its central orb still glowing softly."
+            },
+            {
+                "type": "PlacedInRoom",
+                "room": "The Ripening Chamber",
+                "item": "glowing stones",
+                "description": "These stones are scattered haphazardly around the base of the banana-powered machine, some nestled within exposed roots and others lying loose on the cavern floor."
+            },
+            {
+                "type": "PlacedInRoom",
+                "room": "The Ripening Chamber",
+                "item": "wooden table",
+                "description": "The table stands against the far wall of the cavern, to the left of the entrance. It is positioned in a way that suggests it might have been used for preparation or study."
+            },
+            {
+                "type": "PlacedInRoom",
+                "room": "The Ripening Chamber",
+                "item": "arcane tome",
+                "description": "Resting open on the wooden table, the tome lies under a single, bare bulb that casts a weak, yellow light upon its pages. Its spine faces towards the cavern entrance."
+            }
+        ],
+        "playerLocations": [
+            {
+                "player": "Bartholomew 'Barty' Peelwright",
+                "room": "The Ripening Chamber",
+                "description": "Standing slightly to the right of the large, humming banana-powered machine in the Ripening Chamber, the farmer faces the contraption with a mixture of apprehension and determination. They rest their worn hands on their hips, observing the glow of the central orb."
+            }
+        ]
+    },
+    "turns": [
+        {
+            "name": "Bartholomew 'Barty' Peelwright",
+            "prompt": "take the banana-powered machine",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "banana-powered machine",
+                    "description": "Barty cautiously approaches the humming banana-powered machine, reaching out a calloused hand to grasp its metallic casing. He carefully lifts the machine, its weight surprisingly manageable, and cradles it.",
+                    "newItemLocationDescription": "Barty holds the humming banana-powered machine in his hands."
+                }
+            ],
+            "description": "Barty takes hold of the banana-powered machine."
+        },
+        {
+            "name": "Bartholomew 'Barty' Peelwright",
+            "prompt": "drop the machine",
+            "actions": [
+                {
+                    "description": "Barty lets go of the humming banana-powered machine, allowing it to rest on the ground.",
+                    "item": "banana-powered machine",
+                    "newItemLocationDescription": "The humming banana-powered machine now rests on the ground near Barty's feet, its central orb still glowing softly.",
+                    "type": "PlayerDropsItem"
+                }
+            ],
+            "description": "Barty drops the humming banana-powered machine, which settles onto the ground with a low hum."
+        }
+    ]
+}
