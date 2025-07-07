@@ -15,8 +15,12 @@ import {
 
 export function isPlacedInRoom(
   itemLocation: ItemLocation,
+  room?: RoomName,
 ): itemLocation is PlacedInRoom {
-  return itemLocation.type === "PlacedInRoom";
+  return (
+    itemLocation.type === "PlacedInRoom" &&
+    (room === undefined || itemLocation.room === room)
+  );
 }
 
 export function isEquippedByPlayer(
@@ -199,7 +203,9 @@ export function interpretAction(
 
 export function presentGameWorld(game: Game): string {
   return `
-# Game World Information for "${game.name}"
+# Game world information for the game "${game.name}"
+
+This document describes every detail of the current state of the game world.
 
 World name: "${game.world.name}"
 
@@ -233,6 +239,7 @@ export function presentRoom(world: World, name: RoomName) {
   const room = getRoom(world, name);
   return `
 **${room.name}**: ${room.shortDescription}
+  - Full description: ${room.longDescription}
 `.trim();
 }
 
@@ -267,9 +274,10 @@ export function presentGameWorldFromPlayerPerspective(
     name,
   );
   const playerRoom = getRoom(game.world, playerLocation.room);
+  const playerRoomItems = getItemsPlacedInRoom(game.world, playerLocation.room);
 
   return `
-# Game World Information
+# Game world information for the game "${game.name}"
 
 This document describes the current state of the game world, relative to the player "${player.name}".
 
@@ -282,8 +290,11 @@ World description: ${game.world.description}
 ## Player
 
 Player name: ${player.name}
+
 Player description: ${player.shortDescription}
+
 Player appearance: ${player.appearanceDescription}
+
 Player personality: ${player.personalityDescription}
 
 ### Player Skills
@@ -292,34 +303,67 @@ Player skills:
 ${player.skills
   .map((skill) =>
     `
-  - ${skill}`.trim(),
+  - **${skill}**`.trim(),
   )
   .join("\n")}
 
 ### Player Equipment
 
+${
+  playerItemsEquipped.length === 0
+    ? `
+There are no items currently equipped by the player.
+`.trim()
+    : `
 Items currently equipped by player:
-${playerItemsEquipped.map((itemLocation) =>
-  `
-  - ${itemLocation.item}: ${itemLocation.description}
-  `.trim(),
-)}
+${playerItemsEquipped
+  .map((itemLocation) =>
+    `
+  - **${itemLocation.item}**: ${itemLocation.description}
+`.trim(),
+  )
+  .join("\n")
+  .trim()}
+`.trim()
+}
 
 ### Player Inventory
 
-Items stored in player's inventory:
-${playerItemsStored.map((itemLocation) =>
-  `
-  - ${itemLocation.item}: ${itemLocation.description}
-  `.trim(),
-)}
+${
+  playerItemsStored.length === 0
+    ? `
+There are no items currently stored in the player's inventory.
+`.trim()
+    : `
+Items currently stored in the player's inventory:
+${playerItemsStored
+  .map((itemLocation) =>
+    `
+  - **${itemLocation.item}**: ${itemLocation.description}
+`.trim(),
+  )
+  .join("\n")
+  .trim()}
+`.trim()
+}
 
 ### Player Location
 
-The player is currently in the room "${playerLocation.room}": ${playerLocation.description}
+The player is currently in the room "${playerLocation.room}".
+
+${playerLocation.description}
 
 Room description: ${playerRoom.shortDescription}
 
+Items in the room:
+${playerRoomItems
+  .map((itemLocation) =>
+    `
+  - **${itemLocation.item}**: ${itemLocation.description}
+`.trim(),
+  )
+  .join("\n")
+  .trim()}
 `.trim();
 }
 
@@ -391,4 +435,13 @@ export function getRoom(world: World, name: RoomName): Room {
   const room = world.rooms.find((room) => room.name === name);
   if (room === undefined) throw new Error(`The room "${name}" does not exist.`);
   return room;
+}
+
+export function getItemsPlacedInRoom(
+  world: World,
+  name: RoomName,
+): PlacedInRoom[] {
+  return world.itemLocations.filter((itemLocation) =>
+    isPlacedInRoom(itemLocation, name),
+  );
 }

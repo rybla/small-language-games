@@ -50,14 +50,14 @@
             {
                 "type": "PlacedInRoom",
                 "room": "The Ripening Chamber",
-                "item": "banana-powered machine",
-                "description": "The humming banana-powered machine now rests on the ground near Barty's feet, its central orb still glowing softly."
+                "item": "glowing stones",
+                "description": "Barty releases the glowing stones from his grasp. They sail through the air towards the arcane tome."
             },
             {
-                "type": "PlacedInRoom",
-                "room": "The Ripening Chamber",
-                "item": "glowing stones",
-                "description": "These stones are scattered haphazardly around the base of the banana-powered machine, some nestled within exposed roots and others lying loose on the cavern floor."
+                "type": "EquippedByPlayer",
+                "player": "Bartholomew 'Barty' Peelwright",
+                "item": "banana-powered machine",
+                "description": "The banana-powered machine is now strapped to Barty's back, its soft glow illuminating the cavern behind him."
             },
             {
                 "type": "PlacedInRoom",
@@ -76,7 +76,7 @@
             {
                 "player": "Bartholomew 'Barty' Peelwright",
                 "room": "The Ripening Chamber",
-                "description": "Standing slightly to the right of the large, humming banana-powered machine in the Ripening Chamber, the farmer faces the contraption with a mixture of apprehension and determination. They rest their worn hands on their hips, observing the glow of the central orb."
+                "description": "Barty is now standing near the base of the banana-powered machine, closer to the scattered glowing stones. The machine on his back pulses faintly. The wooden table with the arcane tome is to his left, further away."
             }
         ]
     },
@@ -99,13 +99,114 @@
             "prompt": "drop the machine",
             "actions": [
                 {
-                    "description": "Barty lets go of the humming banana-powered machine, allowing it to rest on the ground.",
+                    "type": "PlayerDropsItem",
                     "item": "banana-powered machine",
-                    "newItemLocationDescription": "The humming banana-powered machine now rests on the ground near Barty's feet, its central orb still glowing softly.",
-                    "type": "PlayerDropsItem"
+                    "description": "Barty lets go of the humming banana-powered machine, allowing it to rest on the ground.",
+                    "newItemLocationDescription": "The humming banana-powered machine now rests on the ground near Barty's feet, its central orb still glowing softly."
                 }
             ],
             "description": "Barty drops the humming banana-powered machine, which settles onto the ground with a low hum."
+        },
+        {
+            "name": "Bartholomew 'Barty' Peelwright",
+            "prompt": "walk around the room",
+            "actions": [
+                {
+                    "type": "PlayerMovesInsideCurrentRoom",
+                    "description": "Barty walks around the Ripening Chamber.",
+                    "newPlayerLocationDescription": "Barty stands in the center of the Ripening Chamber, facing the humming banana-powered machine. The air is thick with the scent of ripening fruit and ozone. Various levers and dials adorn the machine's surface, its central orb pulsing with a soft, yellow light. Shadows dance in the corners of the humid cavern."
+                }
+            ],
+            "description": "Barty walks around the room."
+        },
+        {
+            "name": "Bartholomew 'Barty' Peelwright",
+            "prompt": "take the machine",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "banana-powered machine",
+                    "description": "Barty reaches down and grasps the banana-powered machine. Its smooth, cool surface hums faintly under his touch. He carefully lifts it from the ground, its weight surprisingly manageable.",
+                    "newItemLocationDescription": "The banana-powered machine is now held firmly in Barty's hands."
+                }
+            ],
+            "description": "Barty takes the banana-powered machine."
+        },
+        {
+            "name": "Bartholomew 'Barty' Peelwright",
+            "prompt": "put the machine into inventory ",
+            "actions": [
+                {
+                    "type": "PlayerStoresItemInInventory",
+                    "item": "banana-powered machine",
+                    "description": "Barty carefully places the banana-powered machine into his inventory.",
+                    "newItemLocationDescription": "The banana-powered machine is now stored securely in Barty's inventory."
+                }
+            ],
+            "description": "Barty carefully places the banana-powered machine into his inventory."
+        },
+        {
+            "name": "Bartholomew 'Barty' Peelwright",
+            "prompt": "equip the banana machine and then walk to the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerEquipsItem",
+                    "item": "banana-powered machine",
+                    "description": "Barty grips the sturdy casing of the banana-powered machine, its hum vibrating through his calloused hands. With a grunt, he lifts it and secures it to his back, the machine settling comfortably against his overalls. The weight is familiar, like a well-tended crop.",
+                    "newItemLocationDescription": "The banana-powered machine is now strapped to Barty's back, its soft glow illuminating the cavern behind him."
+                },
+                {
+                    "type": "PlayerMovesInsideCurrentRoom",
+                    "description": "Barty takes a few steps towards the scattered glowing stones, his worn boots crunching softly on the cavern floor. He moves with the deliberate gait of someone accustomed to navigating uneven terrain, his eyes fixed on the prize.",
+                    "newPlayerLocationDescription": "Barty is now standing near the base of the banana-powered machine, closer to the scattered glowing stones. The machine on his back pulses faintly. The wooden table with the arcane tome is to his left, further away."
+                }
+            ],
+            "description": "Barty equips the banana-powered machine and then moves closer to the glowing stones."
+        },
+        {
+            "name": "Bartholomew 'Barty' Peelwright",
+            "prompt": "take the stones and look at them closely",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "glowing stones",
+                    "description": "Barty stoops down and picks up one of the glowing stones scattered around the base of the banana-powered machine.",
+                    "newItemLocationDescription": "Barty now holds a single glowing stone in his hand, its faint warmth seeping into his palm. The stone appears to be a pale green, almost translucent, and pulses with a soft inner light."
+                },
+                {
+                    "type": "PlayerStoresItemInInventory",
+                    "item": "glowing stones",
+                    "description": "Barty closely examines the glowing stone he just picked up, turning it over in his hand and observing its peculiar luminescence and texture.",
+                    "newItemLocationDescription": "Barty has examined the glowing stone. It feels smooth and slightly warm to the touch, and its inner light seems to pulse in rhythm with his own heartbeat. The green hue is uniform, with no discernible markings or imperfections."
+                }
+            ],
+            "description": "Barty stoops down and picks up one of the glowing stones scattered around the base of the banana-powered machine. He then closely examines the glowing stone he just picked up, turning it over in his hand and observing its peculiar luminescence and texture."
+        },
+        {
+            "name": "Bartholomew 'Barty' Peelwright",
+            "prompt": "equip the stones, holding them firmly",
+            "actions": [
+                {
+                    "type": "PlayerEquipsItem",
+                    "item": "glowing stones",
+                    "description": "Barty grips the glowing stones in his calloused hands, feeling a surge of warmth as he prepares to equip them.",
+                    "newItemLocationDescription": "Barty has equipped the glowing stones, which now rest comfortably in his grasp, their gentle light illuminating his determined face."
+                }
+            ],
+            "description": "Barty reaches down and grasps the glowing stones, their smooth, warm surfaces fitting perfectly into his hands. A faint, verdant light emanates from them, casting an ethereal glow upon his weathered features as he equips them. The stones feel as if they are now a part of him, their pulsing light syncing with his own heartbeat."
+        },
+        {
+            "name": "Bartholomew 'Barty' Peelwright",
+            "prompt": "throw the stones\n",
+            "actions": [
+                {
+                    "description": "Barty hurls the glowing stones with surprising force.",
+                    "item": "glowing stones",
+                    "newItemLocationDescription": "Barty releases the glowing stones from his grasp. They sail through the air towards the arcane tome.",
+                    "type": "PlayerDropsItem"
+                }
+            ],
+            "description": "Barty, a grizzled banana farmer more comfortable with soil than sorcery, stands in the humid, dimly lit ripening chamber. The banana-powered machine hums softly on his back, its faint glow illuminating his determined face. He stands near the base of the machine, closer to the scattered glowing stones that he now holds. To his left, further away, rests a wooden table with an arcane tome. With a practical grunt, Barty draws back his arm and hurls the glowing stones with surprising force. They sail through the air, arcing towards the arcane tome on the table."
         }
     ]
 }

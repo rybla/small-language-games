@@ -9,6 +9,9 @@ export default function Page() {
           <li>
             <Link href="/test">test</Link>
           </li>
+          <li>
+            <Link href="/escape-room">escape-room</Link>
+          </li>
         </ul>
       </div>
     </>

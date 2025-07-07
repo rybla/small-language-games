@@ -223,7 +223,7 @@ export const PlayerTurn = z.object({
   prompt: NeString.describe("one-paragraph description of the turn"),
   actions: z.array(PlayerAction).min(1),
   description: NeString.describe(
-    "one-paragraph description of the turn, summarizing the actions taken",
+    "one-paragraph description of the turn, which is a story-like passage that covers what happens in the descriptions of the actions just taken",
   ),
 });
 

@@ -23,9 +23,12 @@ import {
   PlayerName,
   PlayerTurn,
 } from "./ontology";
-import { presentGameWorld } from "./semantics";
+import {
+  presentGameWorld,
+  presentGameWorldFromPlayerPerspective,
+} from "./semantics";
 import Markdown from "react-markdown";
-import { unwords } from "@/utility";
+import { do_, unwords } from "@/utility";
 
 export default function Page() {
   // @ts-expect-error mismatch when inferring type from zod schema
@@ -62,7 +65,7 @@ export default function Page() {
           playerName={playerName}
           update_game={update_game}
         />
-        <CurrentGame game={game} />
+        <CurrentGame game={game} playerName={playerName} />
         <ManageGames set_game={set_game} />
       </div>
     </main>
@@ -79,77 +82,108 @@ function LabeledValue(props: { label: string; value: string }) {
 }
 
 function PlayerActionView(props: { action: PlayerAction }) {
-  switch (props.action.type) {
-    case "PlayerDropsItem": {
-      return (
-        <div
-          className={unwords(style["PlayerAction"], style["PlayerDropsItem"])}
-        >
-          <div className={style["label"]}>PlayerDropsItem</div>
-          <div className={style["args"]}>
-            <LabeledValue label="item" value={props.action.item} />
-          </div>
-        </div>
-      );
-    }
-    case "PlayerEquipsItem": {
-      return (
-        <div
-          className={unwords(style["PlayerAction"], style["PlayerEquipsItem"])}
-        >
-          <div className={style["label"]}>PlayerEquipsItem</div>
-          <div className={style["args"]}>
-            <LabeledValue label="item" value={props.action.item} />
-          </div>
-        </div>
-      );
-    }
-    case "PlayerMovesInsideCurrentRoom": {
-      return (
-        <div
-          className={unwords(
-            style["PlayerAction"],
-            style["PlayerMovesInsideCurrentRoom"],
-          )}
-        >
-          <div className={style["label"]}>PlayerMovesInsideCurrentRoom</div>
-          <div className={style["args"]}>
-            <LabeledValue
-              label="newPlayerLocationDescription"
-              value={props.action.newPlayerLocationDescription}
-            />
-          </div>
-        </div>
-      );
-    }
-    case "PlayerStoresItemInInventory": {
-      return (
-        <div
-          className={unwords(
-            style["PlayerAction"],
-            style["PlayerStoresItemInInventory"],
-          )}
-        >
-          <div className={style["label"]}>PlayerStoresItemInInventory</div>
-          <div className={style["args"]}>
-            <LabeledValue label="item" value={props.action.item} />
-          </div>
-        </div>
-      );
-    }
-    case "PlayerTakesItem": {
-      return (
-        <div
-          className={unwords(style["PlayerAction"], style["PlayerTakesItem"])}
-        >
-          <div className={style["label"]}>PlayerTakesItem</div>
-          <div className={style["args"]}>
-            <LabeledValue label="item" value={props.action.item} />
-          </div>
-        </div>
-      );
-    }
-  }
+  const [open, set_open] = useState(false);
+
+  return (
+    <div
+      className={unwords(
+        style["PlayerAction"],
+        style[props.action.type],
+        style[open ? "open" : "closed"],
+      )}
+      onClick={() => set_open((b) => !b)}
+    >
+      {do_(() => {
+        switch (props.action.type) {
+          case "PlayerDropsItem": {
+            return (
+              <>
+                <div className={style["label"]}>{props.action.type}</div>
+                <div className={style["args"]}>
+                  <LabeledValue label="item" value={props.action.item} />
+                  <LabeledValue
+                    label="newItemLocationDescription"
+                    value={props.action.newItemLocationDescription}
+                  />
+                  <LabeledValue
+                    label="description"
+                    value={props.action.description}
+                  />
+                </div>
+              </>
+            );
+          }
+          case "PlayerEquipsItem": {
+            return (
+              <>
+                <div className={style["label"]}>{props.action.type}</div>
+                <div className={style["args"]}>
+                  <LabeledValue label="item" value={props.action.item} />
+                  <LabeledValue
+                    label="description"
+                    value={props.action.description}
+                  />
+                </div>
+              </>
+            );
+          }
+          case "PlayerMovesInsideCurrentRoom": {
+            return (
+              <>
+                <div className={style["label"]}>{props.action.type}</div>
+                <div className={style["args"]}>
+                  <LabeledValue
+                    label="newPlayerLocationDescription"
+                    value={props.action.newPlayerLocationDescription}
+                  />
+                  <LabeledValue
+                    label="description"
+                    value={props.action.description}
+                  />
+                </div>
+              </>
+            );
+          }
+          case "PlayerStoresItemInInventory": {
+            return (
+              <>
+                <div className={style["label"]}>{props.action.type}</div>
+                <div className={style["args"]}>
+                  <LabeledValue label="item" value={props.action.item} />
+                  <LabeledValue
+                    label="newItemLocationDescription"
+                    value={props.action.newItemLocationDescription}
+                  />
+                  <LabeledValue
+                    label="description"
+                    value={props.action.description}
+                  />
+                </div>
+              </>
+            );
+          }
+          case "PlayerTakesItem": {
+            return (
+              <>
+                <div className={style["label"]}>{props.action.type}</div>
+                <div className={style["args"]}>
+                  <LabeledValue label="item" value={props.action.item} />
+                  <LabeledValue
+                    label="newItemLocationDescription"
+                    value={props.action.newItemLocationDescription}
+                  />
+                  <LabeledValue
+                    label="description"
+                    value={props.action.description}
+                  />
+                </div>
+              </>
+            );
+          }
+        }
+      })}
+    </div>
+  );
 }
 
 function PlayGame(props: {
@@ -161,6 +195,30 @@ function PlayGame(props: {
   const [partialTurn, set_partialTurn] = useState<
     Omit<PlayerTurn, "actions" | "description"> | undefined
   >(undefined);
+  const turns_bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    turns_bottomRef.current?.scrollIntoView({ block: "end" });
+  }, [props.game, partialTurn]);
+
+  async function submit(game: Game) {
+    if (props.playerName !== undefined) {
+      const prompt = prompt_inputRef.current!.value;
+      prompt_inputRef.current!.value = "";
+      try {
+        set_partialTurn({
+          name: props.playerName,
+          prompt: prompt.trim(),
+        });
+        await promptGame(game.name, props.playerName, prompt);
+        set_partialTurn(undefined);
+        props.update_game();
+      } catch (exception: unknown) {
+        prompt_inputRef.current!.value = prompt;
+        throw exception;
+      }
+    }
+  }
 
   if (props.game === undefined) {
     return (
@@ -194,29 +252,19 @@ function PlayGame(props: {
               <div className={style["prompt"]}>{partialTurn.prompt}</div>
             </div>
           )}
+          <div ref={turns_bottomRef}></div>
         </div>
         <div className={style["prompt"]}>
           <LabeledValue
             label="player"
             value={props.playerName ?? "undecided"}
           />
-          <InputField label="prompt" inputRef={prompt_inputRef} />
-          <Button
-            onClick={async () => {
-              if (props.playerName !== undefined) {
-                const prompt = prompt_inputRef.current!.value;
-                set_partialTurn({
-                  name: props.playerName,
-                  prompt,
-                });
-                await promptGame(game.name, props.playerName, prompt);
-                set_partialTurn(undefined);
-                props.update_game();
-              }
-            }}
-          >
-            Submit
-          </Button>
+          <InputField
+            label="prompt"
+            inputRef={prompt_inputRef}
+            onEnter={async () => await submit(game)}
+          />
+          <Button onClick={async () => await submit(game)}>Submit</Button>
         </div>
       </Panel>
     );
@@ -286,6 +334,15 @@ function SavedGames(props: { set_game: Dispatch<SetStateAction<Game>> }) {
     update_savedGamenames();
   }, []);
 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      update_savedGamenames();
+    }, 1000);
+
+    // Cleanup function to clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <Section title="Saved Games">
       {savedGamenames.map((name, i) => (
@@ -296,37 +353,40 @@ function SavedGames(props: { set_game: Dispatch<SetStateAction<Game>> }) {
           {name}
         </Button>
       ))}
-      <Button onClick={async () => update_savedGamenames()}>Update</Button>
     </Section>
   );
 }
 
-function CurrentGame(props: { game: Game | undefined }) {
-  // const gameName = props.game?.name;
-
-  // useEffect(
-  //   () => {
-  //     if (props.game === undefined) {
-  //       set_playerName(undefined);
-  //       return;
-  //     }
-  //     set_playerName(props.game.world.players[0]?.name);
-  //   },
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   [gameName],
-  // );
-
+function CurrentGame(props: {
+  game: Game | undefined;
+  playerName: PlayerName | undefined;
+}) {
   return (
     <Panel title="Current Game" classNames={[style["CurrentGame"]]}>
-      <Section title="Current Game">
-        {props.game === undefined ? (
-          <></>
-        ) : (
+      {props.game === undefined ? (
+        <></>
+      ) : (
+        <Section title="Game World –– God's Perspective">
           <div className={unwords(style["Markdown"], style["scrollable"])}>
             <Markdown>{presentGameWorld(props.game)}</Markdown>
           </div>
-        )}
-      </Section>
+        </Section>
+      )}
+
+      {props.game === undefined || props.playerName === undefined ? (
+        <></>
+      ) : (
+        <Section title={`Game World –– ${props.playerName}'s Perspective`}>
+          <div className={unwords(style["Markdown"], style["scrollable"])}>
+            <Markdown>
+              {presentGameWorldFromPlayerPerspective(
+                props.game,
+                props.playerName,
+              )}
+            </Markdown>
+          </div>
+        </Section>
+      )}
     </Panel>
   );
 }
@@ -357,6 +417,7 @@ function InputField(props: {
   label: ReactNode;
   inputRef?: React.RefObject<HTMLTextAreaElement | null>;
   placeholder?: string;
+  onEnter?: (event: React.KeyboardEvent<HTMLTextAreaElement>) => Promise<void>;
 }) {
   return (
     <div className={style["InputField"]}>
@@ -365,6 +426,11 @@ function InputField(props: {
         className={style["input"]}
         ref={props.inputRef}
         placeholder={props.placeholder}
+        onKeyUp={async (event) => {
+          if (event.key === "Enter") {
+            await props.onEnter?.(event);
+          }
+        }}
       />
     </div>
   );
