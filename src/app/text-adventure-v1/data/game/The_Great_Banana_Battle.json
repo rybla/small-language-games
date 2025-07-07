@@ -76,7 +76,7 @@
             {
                 "player": "Bartholomew 'Barty' Peelwright",
                 "room": "The Ripening Chamber",
-                "description": "Barty is now standing near the base of the banana-powered machine, closer to the scattered glowing stones. The machine on his back pulses faintly. The wooden table with the arcane tome is to his left, further away."
+                "description": "Barty is now standing near the scattered glowing stones, closer to the arcane tome on the wooden table. The machine on his back pulses faintly. The wooden table with the arcane tome is to his left."
             }
         ]
     },
@@ -200,13 +200,25 @@
             "prompt": "throw the stones\n",
             "actions": [
                 {
-                    "description": "Barty hurls the glowing stones with surprising force.",
+                    "type": "PlayerDropsItem",
                     "item": "glowing stones",
-                    "newItemLocationDescription": "Barty releases the glowing stones from his grasp. They sail through the air towards the arcane tome.",
-                    "type": "PlayerDropsItem"
+                    "description": "Barty hurls the glowing stones with surprising force.",
+                    "newItemLocationDescription": "Barty releases the glowing stones from his grasp. They sail through the air towards the arcane tome."
                 }
             ],
             "description": "Barty, a grizzled banana farmer more comfortable with soil than sorcery, stands in the humid, dimly lit ripening chamber. The banana-powered machine hums softly on his back, its faint glow illuminating his determined face. He stands near the base of the machine, closer to the scattered glowing stones that he now holds. To his left, further away, rests a wooden table with an arcane tome. With a practical grunt, Barty draws back his arm and hurls the glowing stones with surprising force. They sail through the air, arcing towards the arcane tome on the table."
+        },
+        {
+            "name": "Bartholomew 'Barty' Peelwright",
+            "prompt": "run around the room\n",
+            "actions": [
+                {
+                    "description": "Barty takes a few steps towards the scattered glowing stones, his boots crunching softly on the damp cavern floor.",
+                    "newPlayerLocationDescription": "Barty is now standing near the scattered glowing stones, closer to the arcane tome on the wooden table. The machine on his back pulses faintly. The wooden table with the arcane tome is to his left.",
+                    "type": "PlayerMovesInsideCurrentRoom"
+                }
+            ],
+            "description": "Barty shuffles closer to the scattered glowing stones, his gaze fixed on them. The humid air of the Ripening Chamber hangs heavy, and the faint hum of the banana-powered machine on his back is a constant companion."
         }
     ]
 }

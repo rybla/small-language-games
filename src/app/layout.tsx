@@ -14,7 +14,23 @@ export default function RootLayout(
         <title>{app_name}</title>
       </Head>
       <body className="vsc-initialized">
-        <Header />
+        <Header
+          root={{ label: app_name, href: "/" }}
+          branches={[
+            {
+              label: "register",
+              href: "/register",
+            },
+            {
+              label: "login",
+              href: "/login",
+            },
+            {
+              label: "about",
+              href: "/about",
+            },
+          ]}
+        />
         {input.children}
       </body>
     </html>

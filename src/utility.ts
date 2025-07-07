@@ -61,3 +61,20 @@ export function unwords(...xs: string[]): string {
 export function commas(...xs: string[]): string {
   return xs.join(", ");
 }
+
+export function intercalate<A>(sep: A, ...xs: A[]): A[] {
+  const ys: A[] = [];
+  for (let i = 0; i < xs.length - 1; i++) ys.push(xs[i], sep);
+  ys.push(xs[xs.length - 1]);
+  return ys;
+}
+
+export function intercalateWithIndex<A>(
+  sep: (i: number) => A,
+  ...xs: A[]
+): A[] {
+  const ys: A[] = [];
+  for (let i = 0; i < xs.length - 1; i++) ys.push(xs[i], sep(i));
+  ys.push(xs[xs.length - 1]);
+  return ys;
+}

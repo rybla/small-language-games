@@ -13,8 +13,9 @@ import {
 } from "./flow";
 import { Game, GameName, PlayerName } from "./ontology";
 import { interpretAction, InterpretActionError } from "./semantics";
+import { rootName } from "./common";
 
-const data_dirpath = `./src/app/escape-room/data`;
+const data_dirpath = `./src/app/${rootName}/data`;
 const game_dirpath = path.join(data_dirpath, "game");
 
 function getGameNameFilepath(name: GameName) {

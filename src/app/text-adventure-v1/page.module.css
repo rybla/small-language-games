@@ -118,6 +118,13 @@
 
         background: var(--light--color);
         font: inherit;
+
+        box-shadow: none;
+
+        &:focus {
+            background: color-mix(in hsl, white, var(--light--color) 70%);
+            outline: none;
+        }
     }
 }
 

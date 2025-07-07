@@ -58,7 +58,7 @@ export default function Page() {
 
   return (
     <main className={style["main"]}>
-      <div className={style["title"]}>escape-room</div>
+      <div className={style["title"]}>text-adventure-v1</div>
       <div className={style["panels"]}>
         <PlayGame
           game={game}
@@ -215,6 +215,7 @@ function PlayGame(props: {
         props.update_game();
       } catch (exception: unknown) {
         prompt_inputRef.current!.value = prompt;
+        set_partialTurn(undefined);
         throw exception;
       }
     }
