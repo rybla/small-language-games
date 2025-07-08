@@ -2,7 +2,8 @@ export type Domain<T> = T extends (x: infer A, ...xs: unknown[]) => unknown
   ? A
   : never;
 
-export type Codomain<T> = T extends (...xs: unknown[]) => infer B ? B : never;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type Codomain<T> = T extends (...args: any) => infer B ? B : never;
 
 export type UnPromise<T> = T extends Promise<infer A> ? A : never;
 
@@ -17,6 +18,20 @@ export function findMap<A, B>(
     i++;
   }
   return undefined;
+}
+
+export function findMapAll<A, B>(
+  xs: A[],
+  f: (x: A, i: number) => B | undefined,
+): B[] {
+  const ys: B[] = [];
+  let i = 0;
+  for (const x of xs) {
+    const y = f(x, i);
+    if (y !== undefined) ys.push(y);
+    i++;
+  }
+  return ys;
 }
 
 export function findRemove<A>(xs: A[], f: (x: A, i: number) => boolean): void {

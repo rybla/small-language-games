@@ -6,7 +6,7 @@ import {
   ItemLocationInRoom,
   ItemName,
   PlayerAction,
-  PlayerName,
+  PreGame,
   Room,
   RoomName,
   World,
@@ -24,12 +24,8 @@ export function isItemLocationInRoom(
 
 export function isItemLocationInPlayerInventory(
   itemLocation: ItemLocation,
-  player?: PlayerName,
 ): itemLocation is ItemLocationInPlayerInventory {
-  return (
-    itemLocation.type === "ItemLocationInPlayerInventory" &&
-    (player === undefined || itemLocation.player === player)
-  );
+  return itemLocation.type === "ItemLocationInPlayerInventory";
 }
 
 // -----------------------------------------------------------------------------
@@ -48,35 +44,29 @@ export class InterpretActionError extends Error {
  *
  * @throws InterpretActionError
  */
-export function interpretAction(
-  world: World,
-  name: PlayerName,
-  action: PlayerAction,
-): void {
+export function interpretAction(world: World, action: PlayerAction): void {
   switch (action.type) {
     case "PlayerTakesItem": {
       const itemLocation = getItemLocation(world, action.item);
-      const playerLocation = getPlayerLocation(world, name);
 
       if (itemLocation.type === "ItemLocationInPlayerInventory")
         throw new InterpretActionError(
-          `The player "${name}" could not take the item "${action.item}" because they already have that item in their inventory.`,
+          `The player "${world.player.name}" could not take the item "${action.item}" because they already have that item in their inventory.`,
         );
 
       if (
         !(
           itemLocation.type === "ItemLocationInRoom" &&
-          itemLocation.room === playerLocation.room
+          itemLocation.room === world.playerLocation.room
         )
       )
         throw new InterpretActionError(
-          `The player "${name}" could not take the item "${action.item}" because it is not placed in the same room as the player.`,
+          `The player "${world.player.name}" could not take the item "${action.item}" because it is not placed in the same room as the player.`,
         );
 
       remove(world.itemLocations, itemLocation);
       world.itemLocations.unshift({
         type: "ItemLocationInPlayerInventory",
-        player: name,
         item: action.item,
         description: action.newItemLocationDescription,
       });
@@ -84,31 +74,26 @@ export function interpretAction(
     }
     case "PlayerDropsItem": {
       const itemLocation = getItemLocation(world, action.item);
-      const playerLocation = getPlayerLocation(world, name);
 
-      if (!isItemLocationInPlayerInventory(itemLocation, name))
+      if (!isItemLocationInPlayerInventory(itemLocation))
         throw new InterpretActionError(
-          `The player "${name}" could not drop the item "${action.item}" because the item is not in the player's inventory or equipped by the player.`,
+          `The player "${world.player.name}" could not drop the item "${action.item}" because the item is not in the player's inventory or equipped by the player.`,
         );
 
       remove(world.itemLocations, itemLocation);
       world.itemLocations.unshift({
         type: "ItemLocationInRoom",
-        room: playerLocation.room,
+        room: world.playerLocation.room,
         item: action.item,
         description: action.newItemLocationDescription,
       });
       return;
     }
     case "PlayerMovesInsideCurrentRoom": {
-      const playerLocation = getPlayerLocation(world, name);
-
-      remove(world.playerLocations, playerLocation);
-      world.playerLocations.unshift({
-        player: name,
-        room: playerLocation.room,
+      world.playerLocation = {
+        room: world.playerLocation.room,
         description: action.newPlayerLocationDescription,
-      });
+      };
       return;
     }
   }
@@ -118,26 +103,36 @@ export function interpretAction(
 // present
 // -----------------------------------------------------------------------------
 
-export function presentGameWorld(game: Game): string {
+export function presentPreGame(pregame: PreGame): string {
+  return `
+# Game World Information
+
+This document describes the details of the initial state of the game world.
+
+## World
+
+World description: ${pregame.worldDescription}
+
+`.trim();
+}
+
+export function presentGame(game: Game): string {
   return `
 # Game World Information
 
 This document describes every detail of the current state of the game world.
 
+## World
+
 World description: ${game.world.description}
 
-## Players
+## Player
 
-${game.world.players.map((player) => {
-  const playerLocation = getPlayerLocation(game.world, player.name);
-  return `
-**${player.name}**: ${player.shortDescription}
-  - Appearance: ${player.appearanceDescription}
-  - Personality: ${player.personalityDescription}
-  - Skills: ${player.skills.join(", ")}
-  - Located in "${playerLocation.room}": ${playerLocation.description}
-`.trim();
-})}
+**${game.world.player.name}**: ${game.world.player.shortDescription}
+- Appearance: ${game.world.player.appearanceDescription}
+- Personality: ${game.world.player.personalityDescription}
+- Skills: ${game.world.player.skills.join(", ")}
+- Located in "${game.world.playerLocation.room}": ${game.world.playerLocation.description}
 
 ## Rooms
 
@@ -169,32 +164,24 @@ export function presentItem(world: World, name: ItemName) {
       case "ItemLocationInRoom":
         return `Placed in "${itemLocation.room}: ${itemLocation.description}"`;
       case "ItemLocationInPlayerInventory":
-        return `Held by "${itemLocation.player}: ${itemLocation.description}"`;
+        return `Held by "${world.player.name}: ${itemLocation.description}"`;
     }
   })}
 `.trim();
 }
 
-export function presentGameWorldFromPlayerPerspective(
-  game: Game,
-  name: PlayerName,
-) {
-  const player = getPlayer(game.world, name);
-  const playerLocation = getPlayerLocation(game.world, player.name);
-  const playerItems = getPlayerItemsItemLocationInPlayerInventory(
+export function presentGameFromPlayerPerspective(game: Game) {
+  const playerItems = getPlayerItemsItemLocationInPlayerInventory(game.world);
+  const playerRoom = getRoom(game.world, game.world.playerLocation.room);
+  const roomItems = getItemsItemLocationInRoom(
     game.world,
-    name,
-  );
-  const playerRoom = getRoom(game.world, playerLocation.room);
-  const playerRoomItems = getItemsItemLocationInRoom(
-    game.world,
-    playerLocation.room,
+    game.world.playerLocation.room,
   );
 
   return `
 # Game World Information
 
-This document describes the current state of the game world, relative to the player "${player.name}".
+This document describes the current state of the game world, relative to the player "${game.world.player.name}".
 
 ## World
 
@@ -202,18 +189,18 @@ World description: ${game.world.description}
 
 ## Player
 
-Player name: ${player.name}
+Player name: ${game.world.player.name}
 
-Player description: ${player.shortDescription}
+Player description: ${game.world.player.shortDescription}
 
-Player appearance: ${player.appearanceDescription}
+Player appearance: ${game.world.player.appearanceDescription}
 
-Player personality: ${player.personalityDescription}
+Player personality: ${game.world.player.personalityDescription}
 
 ### Player Skills
 
 Player skills:
-${player.skills
+${game.world.player.skills
   .map((skill) =>
     `
   - **${skill}**`.trim(),
@@ -222,63 +209,48 @@ ${player.skills
 
 ### Player Inventory
 
-${
-  playerItems.length === 0
-    ? `
-There are no items currently stored in the player's inventory.
-`.trim()
-    : `
-Items currently stored in the player's inventory:
-${playerItems
-  .map((itemLocation) =>
-    `
+Items in player's inventory: ${
+    playerItems.length === 0
+      ? "there are no items currently in this room"
+      : "\n" +
+        playerItems
+          .map((itemLocation) =>
+            `
   - **${itemLocation.item}**: ${itemLocation.description}
 `.trim(),
-  )
-  .join("\n")
-  .trim()}
-`.trim()
-}
+          )
+          .join("\n")
+          .trim()
+  }
 
 ### Player Location
 
-The player is currently in the room "${playerLocation.room}".
+The player is currently in the room "${game.world.playerLocation.room}".
 
-${playerLocation.description}
+${game.world.playerLocation.description}
 
 Room description: ${playerRoom.shortDescription}
 
-Items in the room:
-${playerRoomItems
-  .map((itemLocation) =>
-    `
+Items in the room: ${
+    roomItems.length === 0
+      ? "there are no items currently in this room"
+      : "\n" +
+        roomItems
+          .map((itemLocation) =>
+            `
   - **${itemLocation.item}**: ${itemLocation.description}
 `.trim(),
-  )
-  .join("\n")
-  .trim()}
+          )
+          .join("\n")
+          .trim()
+  }
+
 `.trim();
 }
 
 // -----------------------------------------------------------------------------
 // utilities
 // -----------------------------------------------------------------------------
-
-export function getPlayer(world: World, name: PlayerName) {
-  const player = world.players.find((player) => player.name === name);
-  if (player === undefined)
-    throw new Error(`The player "${name}" does not exist.`);
-  return player;
-}
-
-export function getPlayerLocation(world: World, name: PlayerName) {
-  const playerLocation = world.playerLocations.find(
-    (playerLocation) => playerLocation.player === name,
-  );
-  if (playerLocation === undefined)
-    throw new Error(`The player "${name}" does not exist.`);
-  return playerLocation;
-}
 
 export function getItem(world: World, name: ItemName) {
   const item = world.items.find((item) => item.name === name);
@@ -295,21 +267,17 @@ export function getItemLocation(world: World, name: ItemName) {
   return itemLocation;
 }
 
-export function getPlayerItems(
-  world: World,
-  name: PlayerName,
-): ItemLocationInPlayerInventory[] {
+export function getPlayerItems(world: World): ItemLocationInPlayerInventory[] {
   return world.itemLocations.filter((itemLocation) =>
-    isItemLocationInPlayerInventory(itemLocation, name),
+    isItemLocationInPlayerInventory(itemLocation),
   );
 }
 
 export function getPlayerItemsItemLocationInPlayerInventory(
   world: World,
-  name: PlayerName,
 ): ItemLocationInPlayerInventory[] {
   return world.itemLocations.filter((itemLocation) =>
-    isItemLocationInPlayerInventory(itemLocation, name),
+    isItemLocationInPlayerInventory(itemLocation),
   );
 }
 

@@ -3,26 +3,23 @@
 import { stringify } from "@/utility";
 import * as fs from "fs/promises";
 import path from "path";
-import {
-  GenerateGame,
-  GenerateItemsForRoom,
-  GeneratePlayer,
-  GenerateRoom,
-  GeneratePlayerTurn,
-} from "./flow";
-import { Game, GameId, GameMetadata, PlayerName } from "./ontology";
-import { interpretAction, InterpretActionError } from "./semantics";
 import { rootName } from "./common";
+import { GenerateGame, GeneratePlayerTurn } from "./flow";
+import { Game, GameId, GameMetadata } from "./ontology";
+import { interpretAction, InterpretActionError } from "./semantics";
 
-const data_dirpath = `./src/app/${rootName}/data`;
-const game_dirpath = path.join(data_dirpath, "game");
+const gamesDirpath = path.join(".", "public", rootName);
+
+function gameDirpath(id: GameId) {
+  return path.join(".", "public", rootName, id);
+}
 
 function getGameFilepath(id: GameId) {
-  return path.join(game_dirpath, `${id}.json`);
+  return path.join(gameDirpath(id), "game.json");
 }
 
 async function saveGame(game: Game) {
-  await fs.mkdir(game_dirpath, { recursive: true });
+  await fs.mkdir(gameDirpath(game.metadata.id), { recursive: true });
   await fs.writeFile(
     getGameFilepath(game.metadata.id),
     stringify(game),
@@ -39,44 +36,25 @@ export async function initializeGame(prompt: {
     prompt: prompt.game,
   });
   await saveGame(game);
-
-  const { room } = await GenerateRoom({
-    game,
-    prompt: prompt.room,
-  });
-  game.world.rooms.push(room);
-  await saveGame(game);
-
-  const { items, itemLocations } = await GenerateItemsForRoom({
-    game,
-    room: room.name,
-  });
-  game.world.items.push(...items);
-  game.world.itemLocations.push(...itemLocations);
-  await saveGame(game);
-
-  const { player, playerLocation } = await GeneratePlayer({
-    game,
-    room: room.name,
-    prompt: prompt.player,
-  });
-  game.world.players.push(player);
-  game.world.playerLocations.push(playerLocation);
-  await saveGame(game);
 }
 
 export async function getGame(id: GameId): Promise<Game> {
-  return Game.parse(JSON.parse(await fs.readFile(getGameFilepath(id), "utf8")));
+  return Game().parse(
+    JSON.parse(await fs.readFile(getGameFilepath(id), "utf8")),
+  );
 }
 
 export async function getSavedGameMetadatas(): Promise<GameMetadata[]> {
-  const filenames = await fs.readdir(game_dirpath);
+  const filenames = await fs.readdir(gamesDirpath);
   return await Promise.all(
     filenames.map(
       async (filename) =>
-        Game.parse(
+        Game().parse(
           JSON.parse(
-            await fs.readFile(path.join(game_dirpath, filename), "utf8"),
+            await fs.readFile(
+              path.join(gameDirpath(filename as GameId), "game.json"),
+              "utf8",
+            ),
           ),
         ).metadata,
     ),
@@ -85,20 +63,18 @@ export async function getSavedGameMetadatas(): Promise<GameMetadata[]> {
 
 export async function promptGame(
   gameId: GameId,
-  playerName: PlayerName,
   prompt: string,
 ): Promise<void> {
   const game = await getGame(gameId);
   const { turn } = await GeneratePlayerTurn({
     game,
-    name: playerName,
     prompt,
   });
 
   const errors: string[] = [];
   for (const action of turn.actions) {
     try {
-      interpretAction(game.world, playerName, action);
+      interpretAction(game.world, action);
     } catch (exception: unknown) {
       if (exception instanceof InterpretActionError) {
         errors.push(exception.message);

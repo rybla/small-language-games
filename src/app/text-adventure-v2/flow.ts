@@ -1,6 +1,7 @@
 "use server";
 
-import { quoteblockMd } from "@/utility";
+import { id, quoteblockMd } from "@/utility";
+import { randomUUID } from "crypto";
 import { z } from "genkit";
 import { ai, model, temperature } from "../../backend/ai";
 import {
@@ -10,19 +11,22 @@ import {
 } from "../../backend/ai/common";
 import {
   Game,
+  GameId,
+  GameMetadata,
   Item,
   ItemLocationInRoom,
   Player,
   PlayerLocation,
-  PlayerName,
   PlayerTurn,
+  PreGame,
   Room,
   RoomName,
   World,
 } from "./ontology";
 import {
-  presentGameWorld,
-  presentGameWorldFromPlayerPerspective,
+  presentGame,
+  presentGameFromPlayerPerspective,
+  presentPreGame,
   presentRoom,
 } from "./semantics";
 
@@ -35,14 +39,14 @@ You are the game master for a unique and creative text adventure game. Keep the 
 `;
 }
 
-export const GenerateGame = ai.defineFlow(
+export const GeneratePreGame = ai.defineFlow(
   {
-    name: "GenerateGame",
+    name: "GeneratePreGame",
     inputSchema: z.object({
       prompt: z.string().nonempty(),
     }),
     outputSchema: z.object({
-      game: Game,
+      pregame: PreGame,
     }),
   },
   async (input) => {
@@ -61,25 +65,67 @@ The user will provide a high-level prompt for the type of game and game world th
       prompt: [makeTextPart(input.prompt)],
       output: {
         schema: z.object({
-          name: Game.shape.name,
-          world: World.pick({ name: true, description: true }),
+          gameName: Game().shape.metadata.shape.name,
+          worldDescription: World.shape.description,
         }),
       },
     });
-    const game_ = getValidOutput(response);
+    const { gameName, worldDescription } = getValidOutput(response);
+
     return {
-      game: {
-        name: game_.name,
-        world: {
-          ...game_.world,
-          itemLocations: [],
-          items: [],
-          playerLocations: [],
-          players: [],
-          rooms: [],
-        },
-        turns: [],
+      pregame: {
+        metadata: id<GameMetadata>({
+          name: gameName,
+          id: GameId.parse(randomUUID()),
+        }),
+        worldDescription,
       },
+    };
+  },
+);
+
+export const GenerateGame = ai.defineFlow(
+  {
+    name: "GenerateGame",
+    inputSchema: z.object({
+      prompt: z.string().nonempty(),
+    }),
+    outputSchema: z.object({
+      game: Game(),
+    }),
+  },
+  async (input) => {
+    const { pregame } = await GeneratePreGame({ prompt: input.prompt });
+    const { room } = await GenerateInitialRoom({ pregame });
+    const { player, playerLocation } = await GeneratePlayer({
+      pregame,
+      room: room.name,
+      prompt: "TODO",
+    });
+
+    const game: Game = {
+      metadata: pregame.metadata,
+      world: {
+        description: pregame.worldDescription,
+        player,
+        playerLocation,
+        rooms: [],
+        items: [],
+        itemLocations: [],
+      },
+      turns: [],
+    };
+
+    const { items, itemLocations } = await GenerateItemsForRoom({
+      game,
+      room: room.name,
+    });
+
+    game.world.items.push(...items);
+    game.world.itemLocations.push(...itemLocations);
+
+    return {
+      game,
     };
   },
 );
@@ -88,7 +134,7 @@ export const GeneratePlayer = ai.defineFlow(
   {
     name: "GeneratePlayer",
     inputSchema: z.object({
-      game: Game,
+      pregame: PreGame,
       room: RoomName,
       prompt: z.string().nonempty(),
     }),
@@ -117,7 +163,7 @@ The player will start off in the room "${input.room}".
         ),
       ],
       prompt: [
-        makeMarkdownFilePart(presentGameWorld(input.game)),
+        makeMarkdownFilePart(presentPreGame(input.pregame)),
         makeTextPart(input.prompt),
       ],
       output: {
@@ -153,7 +199,7 @@ export const GenerateItemsForRoom = ai.defineFlow(
   {
     name: "GenerateItemForRoom",
     inputSchema: z.object({
-      game: Game,
+      game: Game(),
       room: RoomName,
     }),
     outputSchema: z.object({
@@ -183,7 +229,7 @@ Your task is to create a collection of items for this room.
         ),
       ],
       prompt: [
-        makeMarkdownFilePart(presentGameWorld(input.game)),
+        makeMarkdownFilePart(presentGame(input.game)),
         makeTextPart(presentRoom(input.game.world, input.room)),
       ],
       output: {
@@ -220,11 +266,43 @@ Your task is to create a collection of items for this room.
   },
 );
 
+export const GenerateInitialRoom = ai.defineFlow(
+  {
+    name: "GenerateRoom",
+    inputSchema: z.object({
+      pregame: PreGame,
+    }),
+    outputSchema: z.object({
+      room: Room,
+    }),
+  },
+  async (input) => {
+    const response = await ai.generate({
+      config: { temperature: temperature.creative },
+      model: model.speed,
+      system: [
+        makeTextPart(
+          `
+${makeSystemPrelude()}
+
+The user will provide a markdown document that describes the initial state of the entire game world so far. Your task is to create a new room that will be added to the game world. The new room should thematically make sense in the game world, but also bring something new and unique to the world. The room should also have a clear objective or challenge that the player must overcome to progress through the room.
+`,
+        ),
+      ],
+      prompt: [makeMarkdownFilePart(presentPreGame(input.pregame))],
+      output: {
+        schema: Room,
+      },
+    });
+    return { room: getValidOutput(response) };
+  },
+);
+
 export const GenerateRoom = ai.defineFlow(
   {
     name: "GenerateRoom",
     inputSchema: z.object({
-      game: Game,
+      game: Game(),
       prompt: z.string().nonempty(),
     }),
     outputSchema: z.object({
@@ -244,7 +322,7 @@ The user will provide a markdown document that describes the current state of th
 `,
         ),
       ],
-      prompt: [makeMarkdownFilePart(presentGameWorld(input.game))],
+      prompt: [makeMarkdownFilePart(presentGame(input.game))],
       output: {
         schema: Room,
       },
@@ -257,12 +335,11 @@ export const GeneratePlayerTurn = ai.defineFlow(
   {
     name: "GeneratePlayerTurn",
     inputSchema: z.object({
-      game: Game,
-      name: PlayerName,
+      game: Game(),
       prompt: z.string().nonempty(),
     }),
     outputSchema: z.object({
-      turn: PlayerTurn,
+      turn: PlayerTurn(),
     }),
   },
   async (input) => {
@@ -273,13 +350,13 @@ export const GeneratePlayerTurn = ai.defineFlow(
         makeTextPart(`
 ${makeSystemPrelude()}
 
-The user is playing as "${input.name}".
+The user is playing as "${input.game.world.player.name}".
 
 The user will provide two things:
-  - a markdown file describing the current state of the game world from the perspective of "${input.name}".
-  - natural-language instructions of what "${input.name}" will do next in the game
+  - a markdown file describing the current state of the game world from the perspective of "${input.game.world.player.name}".
+  - natural-language instructions of what "${input.game.world.player.name}" will do next in the game
 
-Your task is to interpret the user's natural-language instructions for what "${input.name}" will do next in the game as an array of structured actions.
+  Your task is to interpret the user's natural-language instructions for what "${input.game.world.player.name}" will do next in the game as an array of structured actions.
 
 Note that this will be an inherently fuzzy interpretation. Do your best to map the user's intentions to available actions, using the state of the game world as context.
 
@@ -287,15 +364,13 @@ Response with only the array of structured actions.
 `),
       ],
       prompt: [
-        makeMarkdownFilePart(
-          presentGameWorldFromPlayerPerspective(input.game, input.name),
-        ),
+        makeMarkdownFilePart(presentGameFromPlayerPerspective(input.game)),
         makeTextPart(input.prompt),
       ],
       output: {
         schema: z.object({
-          actions: PlayerTurn.shape.actions,
-          description: PlayerTurn.shape.description,
+          actions: PlayerTurn(input.game.world).shape.actions,
+          description: PlayerTurn(input.game.world).shape.description,
         }),
       },
     });
@@ -303,7 +378,6 @@ Response with only the array of structured actions.
     const { actions, description } = getValidOutput(response);
     return {
       turn: {
-        name: input.name,
         prompt: input.prompt,
         actions,
         description,

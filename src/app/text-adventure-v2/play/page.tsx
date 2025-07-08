@@ -1,35 +1,47 @@
 "use client";
 
+import { do_, unwords } from "@/utility";
+import filenamify from "filenamify";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import path from "path";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import Markdown from "react-markdown";
-import type { Game, GameId, PlayerTurn } from "../ontology";
-import { presentGameWorld } from "../semantics";
-import { getGame } from "../server";
+import { rootName } from "../common";
+import type { Game, GameId, Item, PlayerTurn } from "../ontology";
+import {
+  getItem,
+  getPlayerItems,
+  presentGame,
+  presentGameFromPlayerPerspective,
+} from "../semantics";
+import * as server from "../server";
 import style from "./page.module.css";
-import { stringify, unwords } from "@/utility";
-import * as example1 from "../example/example1";
 
 export default function Page() {
   const [status, set_status] = useState("initial status");
-  const [game, set_game] = useState<Game | undefined>(undefined);
+  const [ungame, set_ungame] = useState<Game | undefined>(undefined);
+  const [submittedPrompt, set_submittedPrompt] = useState<string | undefined>(
+    undefined,
+    // "hello world",
+  );
+
+  const promptRef = useRef<HTMLTextAreaElement>(null);
+  const turnsBottomRef = useRef<HTMLDivElement>(null);
 
   const searchParams = useSearchParams();
   const gameId = searchParams.get("gameId");
   const mode = searchParams.get("mode");
 
-  // const mode =
-
   async function update_game() {
     if (gameId === null) {
-      // set_status("you must set the ?gameId URL parameter");
-      set_game(example1.game);
+      set_status("you must set the `gameId` URL parameter");
       return;
     }
 
     try {
       set_status("loading game...");
-      set_game(await getGame(gameId as GameId));
+      set_ungame(await server.getGame(gameId as GameId));
       set_status("loaded game");
     } catch (exception: unknown) {
       console.error(exception);
@@ -48,30 +60,217 @@ export default function Page() {
     [gameId],
   );
 
-  // --------------------------------
+  useEffect(() => {
+    turnsBottomRef.current?.scrollIntoView({
+      block: "end",
+      behavior: "smooth",
+    });
+  }, [ungame, submittedPrompt]);
 
   return (
     <main className={style.main}>
-      {game !== undefined ? (
-        <div className={style.content}>
-          <div className={style.heading}>Turns</div>
-          <div className={style.turns}>
-            {game.turns.map((turn, i) => (
-              <ViewPlayerTurn playerTurn={turn} key={i} />
-            ))}
-          </div>
-        </div>
-      ) : (
+      {ungame === undefined ? (
         <></>
+      ) : (
+        do_(() => {
+          const game: Game = ungame;
+          const gameDirpath = path.join("/" + rootName, game.metadata.id);
+
+          function renderItem(item: Item, key?: number) {
+            return (
+              <div className={style.ItemView} key={key}>
+                <Image
+                  className={style.image}
+                  alt={item.name}
+                  src={path.join(
+                    gameDirpath,
+                    "item",
+                    filenamify(item.name) + ".png",
+                  )}
+                  width={512}
+                  height={512}
+                />
+                <div className={style.name}>{item.name}</div>
+              </div>
+            );
+          }
+
+          function renderItemName(item: Item) {
+            return <span className={style.ItemName}>{item.name}</span>;
+          }
+
+          function renderPrePlayerTurn(prompt: string) {
+            return (
+              <div className={style.PlayerTurn}>
+                <div className={style.input}>
+                  <div className={style.prompt}>{prompt}</div>
+                </div>
+                <div className={style.output}>
+                  <div className={style.processing}>processing...</div>
+                </div>
+              </div>
+            );
+          }
+
+          function renderPlayerTurn(turn: PlayerTurn, key?: number) {
+            return (
+              <div className={style.PlayerTurn} key={key}>
+                <div className={style.input}>
+                  <div className={style.prompt}>{turn.prompt}</div>
+                </div>
+                <div className={style.output}>
+                  <div className={style.actions}>
+                    {turn.actions.map((action, i) =>
+                      do_(() => {
+                        switch (action.type) {
+                          case "PlayerDropsItem": {
+                            const item = getItem(game.world, action.item);
+                            return (
+                              <div className={style.PlayerAction} key={i}>
+                                <div className={style.label}>
+                                  you drop {renderItemName(item)}
+                                </div>
+                                {renderItem(item)}
+                              </div>
+                            );
+                          }
+                          case "PlayerTakesItem": {
+                            const item = getItem(game.world, action.item);
+                            return (
+                              <div className={style.PlayerAction} key={i}>
+                                <div className={style.label}>
+                                  you take {renderItemName(item)}
+                                </div>
+                                {renderItem(item)}
+                              </div>
+                            );
+                          }
+                          case "PlayerInspectsItem": {
+                            const item = getItem(game.world, action.item);
+                            return (
+                              <div className={style.PlayerAction} key={i}>
+                                <div className={style.label}>
+                                  you inspect {renderItemName(item)}
+                                </div>
+                                {renderItem(item)}
+                              </div>
+                            );
+                          }
+                          case "PlayerMovesInsideCurrentRoom": {
+                            return (
+                              <div className={style.PlayerAction} key={i}>
+                                <div className={style.type}>{action.type}</div>
+                              </div>
+                            );
+                          }
+                          case "PlayerInspectsRoom": {
+                            return (
+                              <div className={style.PlayerAction} key={i}>
+                                <div className={style.label}>
+                                  you inspect the room
+                                </div>
+                                <div className={style.description}>
+                                  {action.description}
+                                </div>
+                              </div>
+                            );
+                          }
+                        }
+                      }),
+                    )}
+                  </div>
+                  <div className={style.description}>{turn.description}</div>
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <div className={style.content_column}>
+              <div className={style.content}>
+                <div className={style.turns}>
+                  {game.turns.map((turn, i) => renderPlayerTurn(turn, i))}
+                  {submittedPrompt === undefined ? (
+                    <></>
+                  ) : (
+                    renderPrePlayerTurn(submittedPrompt)
+                  )}
+                  <div ref={turnsBottomRef}></div>
+                </div>
+                <div className={style.separator}></div>
+                <div className={style.Prompt}>
+                  <textarea
+                    ref={promptRef}
+                    onKeyUp={async (event) => {
+                      if (promptRef.current === null)
+                        throw new Error(
+                          "impossible: promptRef.current === null",
+                        );
+
+                      if (event.key === "Enter") {
+                        const prompt = promptRef.current.value.trim();
+                        promptRef.current.value = "";
+                        set_submittedPrompt(prompt);
+                        try {
+                          await server.promptGame(game.metadata.id, prompt);
+                          set_submittedPrompt(undefined);
+                          await update_game();
+                        } catch (exception: unknown) {
+                          if (exception instanceof Error) {
+                            set_status(exception.message);
+                          } else {
+                            set_status("An unknown error occurred.");
+                          }
+                          promptRef.current.value = prompt;
+                        }
+                      }
+                    }}
+                    placeholder="prompt"
+                  ></textarea>
+                  <div className={style.player_info}>
+                    <div className={style.heading}>Player Info</div>
+                    <LabeledValue label="Name" value={game.world.player.name} />
+                    <LabeledValue
+                      label="Description"
+                      value={game.world.player.shortDescription}
+                    />
+                    <LabeledValue
+                      label="Appearance"
+                      value={game.world.player.appearanceDescription}
+                    />
+                    <LabeledValue
+                      label="Personality"
+                      value={game.world.player.personalityDescription}
+                    />
+                  </div>
+                  <div className={style.inventory_info}>
+                    <div className={style.heading}>Inventory</div>
+                    <div className={style.items}>
+                      {getPlayerItems(game.world).map((itemLocation, i) => {
+                        const item = getItem(game.world, itemLocation.item);
+                        return renderItem(item, i);
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })
       )}
-      {gameId === null || game === undefined ? (
+      {gameId === null || ungame === undefined ? (
         <div className={unwords(style.panel, style.status)}>{status}</div>
       ) : (
         <></>
       )}
-      {game !== undefined && mode === "dev" ? (
+      {ungame !== undefined && mode === "dev" ? (
         <div className={unwords(style.panel, style.dev)}>
-          <Markdown>{presentGameWorld(game)}</Markdown>
+          <div className={style.Markdown}>
+            <Markdown>{presentGame(ungame)}</Markdown>
+          </div>
+          <div className={style.Markdown}>
+            <Markdown>{presentGameFromPlayerPerspective(ungame)}</Markdown>
+          </div>
         </div>
       ) : (
         <></>
@@ -80,6 +279,11 @@ export default function Page() {
   );
 }
 
-function ViewPlayerTurn(props: { playerTurn: PlayerTurn }) {
-  return <div className={style.PlayerTurn}>{stringify(props.playerTurn)}</div>;
+function LabeledValue(props: { label: ReactNode; value: ReactNode }) {
+  return (
+    <div className={style.LabeledValue}>
+      <div className={style.label}>{props.label}</div>
+      <div className={style.value}>{props.value}</div>
+    </div>
+  );
 }

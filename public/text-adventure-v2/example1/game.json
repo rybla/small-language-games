@@ -1,0 +1,481 @@
+{
+    "metadata": {
+        "id": "example1",
+        "name": "Example 1"
+    },
+    "world": {
+        "description": "You find yourself in the verdant, humid expanse of the Whispering Plantation, a sprawling estate rumored to be haunted by the ghosts of over-ripe fruit. Towering banana trees, their broad leaves rustling with an uncanny intelligence, form a dense canopy overhead, casting dappled shadows on the damp earth below. The air hangs thick with the cloying scent of sweet, decaying bananas, a fragrance that seems to follow you, whispering secrets of the past. Ancient, vine-choked outbuildings dot the landscape, their dilapidated structures hinting at a once-grand operation now consumed by overgrowth and an inexplicable, sticky sap. It is said that within the heart of this plantation lies the legendary 'House of Mysterious Bananas,' a structure that shifts and reforms, its rooms filled with puzzles born from the very essence of this peculiar, cursed land.",
+        "player": {
+            "name": "Silas",
+            "shortDescription": "A weathered banana farmer utterly lost in a world of strange fruit.",
+            "appearanceDescription": "A wiry individual with sun-weathered skin and calloused hands, dressed in faded overalls and a straw hat tilted to shield eyes that have seen too many seasons of sun and rain. Their movements are economical, honed by years of agricultural labor, and a faint scent of ripe banana clings to them.",
+            "personalityDescription": "Silas is a practical, no-nonsense individual, deeply connected to the earth and the cycles of nature. Years spent tending crops have made him patient and observant, but also deeply superstitious. He's accustomed to predictable harvests and familiar pests, making this strange, unsettling plantation all the more unnerving. While his first instinct is to solve problems with tried-and-true methods, he is also capable of a surprising resilience and a quiet determination when faced with the unknown.",
+            "skills": [
+                "Farming",
+                "Patience",
+                "Observational Skills",
+                "Fruit Identification"
+            ]
+        },
+        "playerLocation": {
+            "room": "Altar of the Sunken Mango",
+            "description": "Silas is standing next to the banana-powered machine in the clearing."
+        },
+        "rooms": [
+            {
+                "name": "Altar of the Sunken Mango",
+                "shortDescription": "A clearing with a stone altar holds a single, glowing mango.",
+                "longDescription": "The air here is heavy with the perfume of fermenting mangoes, a stark contrast to the dominant banana scent of the plantation. In the center of this clearing, a weathered stone altar stands, stained with a deep, rust-colored residue that looks disturbingly like dried blood. Upon the altar rests a single, perfectly ripe mango, unnaturally large and glowing with a faint, internal light. Strange, waxy leaves, unlike any found elsewhere on the plantation, carpet the ground around the altar. If one looks closely, faint symbols etched into the stone base of the altar can be discerned, pulsating with the same subtle light as the mango. A narrow, overgrown path leads away from the clearing, disappearing into the dense jungle."
+            }
+        ],
+        "items": [
+            {
+                "name": "banana-powered machine",
+                "shortDescription": "A bizarre machine powered by bananas.",
+                "appearanceDescription": "This immense contraption is built from polished copper pipes, intricately woven vines, and glowing Cavendish bananas. A large, crystal orb sits at its center, pulsating with a soft, yellow light. The machine hums with a low, resonant frequency, and the air around it feels warm and charged."
+            },
+            {
+                "name": "glowing stones",
+                "shortDescription": "Smooth stones with glowing patterns.",
+                "appearanceDescription": "A collection of smooth, river-worn stones, each etched with swirling patterns that seem to glow faintly. They are cool to the touch and emit a subtle, earthy aroma."
+            },
+            {
+                "name": "wooden table",
+                "shortDescription": "A worn, wooden table.",
+                "appearanceDescription": "A sturdy wooden table, stained dark by time and humidity. Its surface is marred by numerous scratches and what appear to be scorch marks."
+            },
+            {
+                "name": "arcane tome",
+                "shortDescription": "A leather-bound book filled with banana magic.",
+                "appearanceDescription": "An old, leather-bound tome, its cover embossed with a golden banana symbol. The pages within are brittle and filled with arcane script and diagrams, many depicting different stages of banana ripeness."
+            }
+        ],
+        "itemLocations": [
+            {
+                "type": "ItemLocationInPlayerInventory",
+                "item": "banana-powered machine",
+                "description": "Silas holds the banana-powered machine in his hands."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Altar of the Sunken Mango",
+                "item": "glowing stones",
+                "description": "The glowing stones rest on the damp earth, their light casting an eerie glow."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Altar of the Sunken Mango",
+                "item": "wooden table",
+                "description": "The wooden table rests on the damp earth in the center of the clearing, a few paces from the stone altar."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Altar of the Sunken Mango",
+                "item": "arcane tome",
+                "description": "The arcane tome now rests on the wooden table, its cover slightly ajar."
+            }
+        ]
+    },
+    "turns": [
+        {
+            "prompt": "take the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "glowing stones",
+                    "description": "Barty takes the glowing stones and places them in his inventory.",
+                    "newItemLocationDescription": "The glowing stones are tucked away in Barty's inventory."
+                }
+            ],
+            "description": "Barty takes the glowing stones and places them in his inventory."
+        },
+        {
+            "prompt": "drop the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerDropsItem",
+                    "item": "glowing stones",
+                    "description": "Barty drops the glowing stones onto the wooden table.",
+                    "newItemLocationDescription": "The glowing stones are now on the wooden table."
+                }
+            ],
+            "description": "Barty drops the glowing stones onto the wooden table."
+        },
+        {
+            "prompt": "take the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "glowing stones",
+                    "description": "Barty takes the glowing stones and places them in his inventory.",
+                    "newItemLocationDescription": "The glowing stones are tucked away in Barty's inventory."
+                }
+            ],
+            "description": "Barty takes the glowing stones and places them in his inventory."
+        },
+        {
+            "prompt": "drop the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerDropsItem",
+                    "item": "glowing stones",
+                    "description": "Barty drops the glowing stones onto the wooden table.",
+                    "newItemLocationDescription": "The glowing stones are now on the wooden table."
+                }
+            ],
+            "description": "Barty drops the glowing stones onto the wooden table."
+        },
+        {
+            "prompt": "take the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "glowing stones",
+                    "description": "Barty takes the glowing stones and places them in his inventory.",
+                    "newItemLocationDescription": "The glowing stones are tucked away in Barty's inventory."
+                }
+            ],
+            "description": "Barty takes the glowing stones and places them in his inventory."
+        },
+        {
+            "prompt": "drop the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerDropsItem",
+                    "item": "glowing stones",
+                    "description": "Barty drops the glowing stones onto the wooden table.",
+                    "newItemLocationDescription": "The glowing stones are now on the wooden table."
+                }
+            ],
+            "description": "Barty drops the glowing stones onto the wooden table."
+        },
+        {
+            "prompt": "take the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "glowing stones",
+                    "description": "Barty takes the glowing stones and places them in his inventory.",
+                    "newItemLocationDescription": "The glowing stones are tucked away in Barty's inventory."
+                }
+            ],
+            "description": "Barty takes the glowing stones and places them in his inventory."
+        },
+        {
+            "prompt": "drop the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerDropsItem",
+                    "item": "glowing stones",
+                    "description": "Barty drops the glowing stones onto the wooden table.",
+                    "newItemLocationDescription": "The glowing stones are now on the wooden table."
+                }
+            ],
+            "description": "Barty drops the glowing stones onto the wooden table."
+        },
+        {
+            "prompt": "take the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "glowing stones",
+                    "description": "Barty takes the glowing stones and places them in his inventory.",
+                    "newItemLocationDescription": "The glowing stones are tucked away in Barty's inventory."
+                }
+            ],
+            "description": "Barty takes the glowing stones and places them in his inventory."
+        },
+        {
+            "prompt": "drop the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerDropsItem",
+                    "item": "glowing stones",
+                    "description": "Barty drops the glowing stones onto the wooden table.",
+                    "newItemLocationDescription": "The glowing stones are now on the wooden table."
+                }
+            ],
+            "description": "Barty drops the glowing stones onto the wooden table."
+        },
+        {
+            "prompt": "take the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "glowing stones",
+                    "description": "Barty takes the glowing stones and places them in his inventory.",
+                    "newItemLocationDescription": "The glowing stones are tucked away in Barty's inventory."
+                }
+            ],
+            "description": "Barty takes the glowing stones and places them in his inventory."
+        },
+        {
+            "prompt": "drop the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerDropsItem",
+                    "item": "glowing stones",
+                    "description": "Barty drops the glowing stones onto the wooden table.",
+                    "newItemLocationDescription": "The glowing stones are now on the wooden table."
+                }
+            ],
+            "description": "Barty drops the glowing stones onto the wooden table."
+        },
+        {
+            "prompt": "take the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "glowing stones",
+                    "description": "Barty takes the glowing stones and places them in his inventory.",
+                    "newItemLocationDescription": "The glowing stones are tucked away in Barty's inventory."
+                }
+            ],
+            "description": "Barty takes the glowing stones and places them in his inventory."
+        },
+        {
+            "prompt": "drop the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerDropsItem",
+                    "item": "glowing stones",
+                    "description": "Barty drops the glowing stones onto the wooden table.",
+                    "newItemLocationDescription": "The glowing stones are now on the wooden table."
+                }
+            ],
+            "description": "Barty drops the glowing stones onto the wooden table."
+        },
+        {
+            "prompt": "take the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "glowing stones",
+                    "description": "Barty takes the glowing stones and places them in his inventory.",
+                    "newItemLocationDescription": "The glowing stones are tucked away in Barty's inventory."
+                }
+            ],
+            "description": "Barty takes the glowing stones and places them in his inventory."
+        },
+        {
+            "prompt": "drop the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerDropsItem",
+                    "item": "glowing stones",
+                    "description": "Barty drops the glowing stones onto the wooden table.",
+                    "newItemLocationDescription": "The glowing stones are now on the wooden table."
+                }
+            ],
+            "description": "Barty drops the glowing stones onto the wooden table."
+        },
+        {
+            "prompt": "look at the glowing stones",
+            "actions": [
+                {
+                    "type": "PlayerInspectsItem",
+                    "item": "glowing stones",
+                    "description": "Silas looks closely at the glowing stones."
+                }
+            ],
+            "description": "Silas turns his attention to the glowing stones, their soft luminescence a stark contrast to the dim surroundings."
+        },
+        {
+            "prompt": "look at the close details of the stones",
+            "actions": [
+                {
+                    "type": "PlayerInspectsItem",
+                    "item": "glowing stones",
+                    "description": "Silas carefully examines the glowing stones, noting their peculiar luminescence and the faint hum they emit."
+                }
+            ],
+            "description": "Silas bends down, his eyes tracing the intricate patterns on the glowing stones. A faint warmth emanates from them, and a low hum vibrates through the damp earth beneath his feet. The stones seem to pulse with an inner light, casting an ethereal glow on the surrounding clearing."
+        },
+        {
+            "prompt": "throw the stones at the wall",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "glowing stones",
+                    "description": "Silas picks up the glowing stones.",
+                    "newItemLocationDescription": "Silas holds the glowing stones in their hands, feeling a faint warmth emanating from them."
+                },
+                {
+                    "type": "PlayerDropsItem",
+                    "item": "glowing stones",
+                    "description": "Silas throws the glowing stones at the wall.",
+                    "newItemLocationDescription": "The glowing stones arc through the air and strike the cavern wall with a soft thud, their light momentarily illuminating the rough-hewn rock."
+                }
+            ],
+            "description": "Silas stoops to pick up the glowing stones, their surfaces smooth and strangely warm to the touch. With a practiced flick of the wrist, Silas hurls them towards the cavern wall. They strike with a muted impact, their ethereal light briefly painting the damp rock in shifting patterns before fading."
+        },
+        {
+            "prompt": "look at the impact on the wall",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "glowing stones",
+                    "description": "Silas looks towards the wall where the glowing stones struck.",
+                    "newItemLocationDescription": "The glowing stones arc through the air and strike the cavern wall with a soft thud, their light momentarily illuminating the rough-hewn rock. Silas is now looking at the wall."
+                }
+            ],
+            "description": "Silas turns his attention to the wall where the glowing stones had impacted. Their soft thuds had momentarily illuminated the rough-hewn rock, revealing nothing but the unyielding stone of the cavern."
+        },
+        {
+            "prompt": "explore for more items in this room",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "wooden table",
+                    "description": "Silas decides to investigate the wooden table.",
+                    "newItemLocationDescription": "Silas is now standing in front of the wooden table, its surface dusty and scarred from use."
+                }
+            ],
+            "description": "Silas walks towards the wooden table, his boots crunching on the damp earth. He reaches out and brushes away a layer of dust, revealing ancient markings beneath."
+        },
+        {
+            "prompt": "take the tome",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "arcane tome",
+                    "description": "Silas reaches out and carefully picks up the arcane tome from the wooden table.",
+                    "newItemLocationDescription": "The arcane tome is now clutched in Silas's hands. He turns it over, feeling the aged parchment."
+                }
+            ],
+            "description": "Silas reaches out and carefully picks up the arcane tome from the wooden table. The aged parchment feels cool beneath his weathered fingers."
+        },
+        {
+            "prompt": "read the tome",
+            "actions": [
+                {
+                    "type": "PlayerInspectsItem",
+                    "item": "arcane tome",
+                    "description": "Silas picks up the arcane tome, its weight familiar in his weathered hands. The aged parchment feels brittle beneath his fingertips."
+                }
+            ],
+            "description": "Silas examines the arcane tome, its pages filled with strange symbols that seem to writhe and shift under his gaze. The scent of overripe bananas seems to emanate from the tome itself, a disconcerting aroma that fills the clearing."
+        },
+        {
+            "prompt": "read more of the tome",
+            "actions": [
+                {
+                    "type": "PlayerInspectsItem",
+                    "item": "arcane tome",
+                    "description": "Silas carefully picks up the arcane tome from where it was lying on the ground."
+                }
+            ],
+            "description": "Silas carefully picks up the arcane tome from where it was lying on the ground."
+        },
+        {
+            "prompt": "drop all my items",
+            "actions": [
+                {
+                    "type": "PlayerInspectsRoom",
+                    "description": "Silas, overwhelmed by the sheer strangeness of his situation and the items he now carries, decides to lighten his load. He carefully places the arcane tome onto the damp earth, its cover seeming to absorb the ambient light. The wooden table, too cumbersome to carry, is also set down, its legs sinking slightly into the soft soil. The glowing stones, pulsing with an inner light, are gently released from his grip, settling near the base of the altar. Finally, he unstraps the banana-powered machine, a bizarre contraption humming softly, and sets it down beside the other items, hoping to clear his hands and mind."
+                },
+                {
+                    "type": "PlayerMovesInsideCurrentRoom",
+                    "description": "Silas looks around the clearing, taking in the eerie ambiance of the Altar of the Sunken Mango. The glowing mango on the altar pulses with an otherworldly light, casting strange shadows that dance among the ancient stones. The air is heavy with the scent of overripe fruit and damp earth, a familiar yet unsettling perfume. He notes the positions of the items he has just dropped – the arcane tome, the wooden table, the glowing stones, and the banana-powered machine – scattered around the altar, each seeming to possess an unusual aura in this peculiar place.",
+                    "newPlayerLocationDescription": "Silas stands in the center of the clearing, a few paces from the stone altar. He is now turned to face the altar directly, his eyes wide with a mixture of fear and curiosity as he observes the pulsing, glowing mango. His worn leather boots are planted firmly on the damp earth."
+                }
+            ],
+            "description": "Silas, finding himself burdened by the peculiar artifacts he has acquired, decides to divest himself of them in the clearing. He gently places the arcane tome and the wooden table on the ground near the altar. The glowing stones are released from his grasp, settling with a soft luminescence near the base of the altar, and the banana-powered machine is unstrapped and set down. He then takes a moment to survey his surroundings, noting the position of each dropped item, before centering himself in the clearing to face the enigmatic glowing mango on the altar, its light illuminating his bewildered expression."
+        },
+        {
+            "prompt": "drop the tome",
+            "actions": [
+                {
+                    "type": "PlayerDropsItem",
+                    "item": "arcane tome",
+                    "description": "Silas, with a sigh of weariness, decides to put down the arcane tome. He carefully places it on the dusty surface of the wooden table, its strange symbols seeming to absorb the dim light.",
+                    "newItemLocationDescription": "The arcane tome now rests on the wooden table, its cover slightly ajar."
+                }
+            ],
+            "description": "Silas lowers the arcane tome, its weight a familiar burden, and gently places it upon the wooden table. The ancient book settles onto the dusty surface with a soft thud, its presence a stark contrast to the natural decay surrounding it."
+        },
+        {
+            "prompt": "drop the table",
+            "actions": [
+                {
+                    "type": "PlayerDropsItem",
+                    "item": "wooden table",
+                    "description": "Silas carefully places the wooden table on the ground, freeing his hands. The table settles with a soft thud on the damp earth.",
+                    "newItemLocationDescription": "The wooden table rests on the damp earth in the center of the clearing, a few paces from the stone altar."
+                }
+            ],
+            "description": "Silas sets the wooden table down gently on the damp earth in the center of the clearing, freeing his hands. The table lands with a soft thud, remaining a few paces from the stone altar."
+        },
+        {
+            "prompt": "drop the stones and the machine",
+            "actions": [
+                {
+                    "type": "PlayerDropsItem",
+                    "item": "glowing stones",
+                    "description": "Silas carefully places the glowing stones on the ground near the wooden table.",
+                    "newItemLocationDescription": "The glowing stones rest on the damp earth, their light casting an eerie glow."
+                },
+                {
+                    "type": "PlayerDropsItem",
+                    "item": "banana-powered machine",
+                    "description": "Silas unstraps the banana-powered machine from his back and sets it down next to the glowing stones.",
+                    "newItemLocationDescription": "The banana-powered machine sits on the damp earth, humming softly."
+                }
+            ],
+            "description": "Silas carefully places the glowing stones on the ground near the wooden table. He then unstraps the banana-powered machine from his back and sets it down next to the stones, its soft glow illuminating the immediate area."
+        },
+        {
+            "prompt": "walk around and look at all the stuff in the room",
+            "actions": [
+                {
+                    "type": "PlayerInspectsRoom",
+                    "description": "Silas takes a few steps to his left, examining the banana-powered machine."
+                },
+                {
+                    "type": "PlayerMovesInsideCurrentRoom",
+                    "description": "Silas walks over to the banana-powered machine, his brow furrowed in concentration as he inspects its strange, organic components.",
+                    "newPlayerLocationDescription": "Silas now stands to the left of the clearing, his attention fixed on the peculiar banana-powered machine. The humming sound seems to emanate from its core, and a faint, sweet aroma of overripe bananas surrounds it."
+                },
+                {
+                    "type": "PlayerMovesInsideCurrentRoom",
+                    "description": "Silas then moves towards the center of the clearing, his gaze drawn to the glowing stones.",
+                    "newPlayerLocationDescription": "Silas is now in the center of the clearing, near the wooden table. He has a clear view of the glowing stones to his right, their ethereal light reflecting in his curious eyes."
+                },
+                {
+                    "type": "PlayerMovesInsideCurrentRoom",
+                    "description": "Silas moves closer to the wooden table and the arcane tome resting upon it.",
+                    "newPlayerLocationDescription": "Silas stands beside the wooden table in the center of the clearing, his gaze now focused on the arcane tome. The table is solid and weathered, and the book's slightly ajar cover invites a closer look."
+                }
+            ],
+            "description": "Silas surveys the clearing, taking in the banana-powered machine to his left, the glowing stones to his right, and the wooden table with the arcane tome at its center. He moves to inspect each item more closely."
+        },
+        {
+            "prompt": "look more closely at the machine",
+            "actions": [
+                {
+                    "type": "PlayerInspectsItem",
+                    "item": "banana-powered machine",
+                    "description": "Silas walks over to the banana-powered machine and inspects it."
+                }
+            ],
+            "description": "Silas moves to the banana-powered machine, his curiosity piqued by its soft hum. He leans in to examine its intricate, fruit-driven mechanisms."
+        },
+        {
+            "prompt": "get the machine now!",
+            "actions": [
+                {
+                    "description": "Silas walks over to the banana-powered machine.",
+                    "newPlayerLocationDescription": "Silas is standing next to the banana-powered machine in the clearing.",
+                    "type": "PlayerMovesInsideCurrentRoom"
+                },
+                {
+                    "description": "Silas reaches down and takes the banana-powered machine.",
+                    "item": "banana-powered machine",
+                    "newItemLocationDescription": "Silas holds the banana-powered machine in his hands.",
+                    "type": "PlayerTakesItem"
+                }
+            ],
+            "description": "Silas walks over to the banana-powered machine and takes it into his possession."
+        }
+    ]
+}

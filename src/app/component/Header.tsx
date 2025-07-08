@@ -19,7 +19,7 @@ export default function Header(props: {
             className={unwords(style.separator, style.separator)}
             key={`sep-${i}`}
           >
-            {"∨"}
+            {"•"}
           </div>
         ),
         ...props.branches.map((branch, i) => (
