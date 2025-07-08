@@ -7,6 +7,7 @@ export const model = {
   speed: googleAI.model("gemini-2.5-flash-lite-preview-06-17"),
   power: googleAI.model("gemini-2.5-pro"),
   cheap: googleAI.model("gemini-2.0-flash"),
+  image: googleAI.model("imagen-4.0-generate-preview-06-06"),
 };
 
 export const temperature = {

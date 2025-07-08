@@ -5,6 +5,7 @@ import { randomUUID } from "crypto";
 import { z } from "genkit";
 import { ai, model, temperature } from "../../backend/ai";
 import {
+  getValidMedia,
   getValidOutput,
   makeMarkdownFilePart,
   makeTextPart,
@@ -14,6 +15,7 @@ import {
   GameId,
   GameMetadata,
   Item,
+  ItemImage,
   ItemLocationInRoom,
   Player,
   PlayerLocation,
@@ -92,6 +94,7 @@ export const GenerateGame = ai.defineFlow(
     }),
     outputSchema: z.object({
       game: Game(),
+      itemImages: z.array(ItemImage),
     }),
   },
   async (input) => {
@@ -116,7 +119,7 @@ export const GenerateGame = ai.defineFlow(
       turns: [],
     };
 
-    const { items, itemLocations } = await GenerateItemsForRoom({
+    const { items, itemLocations, itemImages } = await GenerateItemsForRoom({
       game,
       room: room.name,
     });
@@ -126,6 +129,7 @@ export const GenerateGame = ai.defineFlow(
 
     return {
       game,
+      itemImages,
     };
   },
 );
@@ -205,6 +209,7 @@ export const GenerateItemsForRoom = ai.defineFlow(
     outputSchema: z.object({
       items: z.array(Item),
       itemLocations: z.array(ItemLocationInRoom),
+      itemImages: z.array(ItemImage),
     }),
   },
   async (input) => {
@@ -247,22 +252,59 @@ Your task is to create a collection of items for this room.
     const items: Item[] = [];
     const itemLocations: ItemLocationInRoom[] = [];
 
-    const output = getValidOutput(response);
-    for (const x of output) {
+    const outputs = getValidOutput(response);
+    for (const output of outputs) {
       items.push({
-        name: x.name,
-        shortDescription: x.shortDescription,
-        appearanceDescription: x.appearanceDescription,
+        name: output.name,
+        shortDescription: output.shortDescription,
+        appearanceDescription: output.appearanceDescription,
       });
       itemLocations.push({
         type: "ItemLocationInRoom",
         room: input.room,
-        item: x.name,
-        description: x.locationDescription,
+        item: output.name,
+        description: output.locationDescription,
       });
     }
+    const itemImages = await Promise.all(
+      items.map(async (item) => {
+        const { dataUrl } = await GenerateItemImage({
+          appearanceDescription: item.appearanceDescription,
+        });
+        return { item: item.name, dataUrl };
+      }),
+    );
 
-    return { items, itemLocations };
+    return { items, itemLocations, itemImages };
+  },
+);
+
+export const GenerateItemImage = ai.defineFlow(
+  {
+    name: "GenerateImage",
+    inputSchema: z.object({
+      appearanceDescription: z.string().nonempty(),
+    }),
+    outputSchema: z.object({
+      dataUrl: z.string(),
+    }),
+  },
+  async (input) => {
+    const response = await ai.generate({
+      model: model.image,
+      output: { format: "media" },
+      prompt: `
+${input.appearanceDescription}
+Orthographic perspective. Slightly padded framing. Depth using shading, highlights, bevel, emboss. Realistic fantasy style. Painterly style.
+`.trim(),
+      // input.appearanceDescription
+      config: {
+        aspectRatio: "1:1",
+        numberOfImages: 1,
+      },
+    });
+    const media = getValidMedia(response);
+    return { dataUrl: media.url };
   },
 );
 
@@ -285,7 +327,7 @@ export const GenerateInitialRoom = ai.defineFlow(
           `
 ${makeSystemPrelude()}
 
-The user will provide a markdown document that describes the initial state of the entire game world so far. Your task is to create a new room that will be added to the game world. The new room should thematically make sense in the game world, but also bring something new and unique to the world. The room should also have a clear objective or challenge that the player must overcome to progress through the room.
+The user will provide a markdown document that describes the initial state of the entire game world so far. Your task is to create a new room that will be added to the game world. The new room should thematically make sense in the game world, but also bring something new and unique to the world.
 `,
         ),
       ],
@@ -318,7 +360,7 @@ export const GenerateRoom = ai.defineFlow(
           `
 ${makeSystemPrelude()}
 
-The user will provide a markdown document that describes the current state of the entire game world so far. Your task is to create a new room that will be added to the game world. The new room should thematically make sense in the game world, but also bring something new and unique to the world. The room should also have a clear objective or challenge that the player must overcome to progress through the room.
+The user will provide a markdown document that describes the current state of the entire game world so far. Your task is to create a new room that will be added to the game world. The new room should thematically make sense in the game world, but also bring something new and unique to the world.
 `,
         ),
       ],
@@ -343,8 +385,10 @@ export const GeneratePlayerTurn = ai.defineFlow(
     }),
   },
   async (input) => {
+    const PlayerTurn_ = PlayerTurn(input.game.world);
     const response = await ai.generate({
       config: { temperature: temperature.normal },
+      // model: model.power,
       model: model.speed,
       system: [
         makeTextPart(`
@@ -369,8 +413,8 @@ Response with only the array of structured actions.
       ],
       output: {
         schema: z.object({
-          actions: PlayerTurn(input.game.world).shape.actions,
-          description: PlayerTurn(input.game.world).shape.description,
+          actions: PlayerTurn_.shape.actions,
+          description: PlayerTurn_.shape.description,
         }),
       },
     });

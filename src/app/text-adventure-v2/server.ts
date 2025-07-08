@@ -1,12 +1,13 @@
 "use server";
 
-import { stringify } from "@/utility";
+import { fromDataUrlToBuffer, stringify } from "@/utility";
 import * as fs from "fs/promises";
 import path from "path";
 import { rootName } from "./common";
 import { GenerateGame, GeneratePlayerTurn } from "./flow";
-import { Game, GameId, GameMetadata } from "./ontology";
+import { Game, GameId, GameMetadata, ItemImage, ItemName } from "./ontology";
 import { interpretAction, InterpretActionError } from "./semantics";
+import filenamify from "filenamify";
 
 const gamesDirpath = path.join(".", "public", rootName);
 
@@ -18,6 +19,12 @@ function getGameFilepath(id: GameId) {
   return path.join(gameDirpath(id), "game.json");
 }
 
+function getItemImageFilepath(id: GameId, item: ItemName) {
+  return path.join(gameDirpath(id), "item", filenamify(item) + ".png");
+}
+
+// ------------------------------------------------
+
 async function saveGame(game: Game) {
   await fs.mkdir(gameDirpath(game.metadata.id), { recursive: true });
   await fs.writeFile(
@@ -27,15 +34,27 @@ async function saveGame(game: Game) {
   );
 }
 
+async function saveItemImage(id: GameId, itemImage: ItemImage) {
+  await fs.writeFile(
+    getItemImageFilepath(id, itemImage.item),
+    fromDataUrlToBuffer(itemImage.dataUrl),
+  );
+}
+
 export async function initializeGame(prompt: {
   game: string;
   room: string;
   player: string;
 }): Promise<void> {
-  const { game } = await GenerateGame({
+  const { game, itemImages } = await GenerateGame({
     prompt: prompt.game,
   });
   await saveGame(game);
+  await Promise.all(
+    itemImages.map(
+      async (itemImage) => await saveItemImage(game.metadata.id, itemImage),
+    ),
+  );
 }
 
 export async function getGame(id: GameId): Promise<Game> {
@@ -51,10 +70,7 @@ export async function getSavedGameMetadatas(): Promise<GameMetadata[]> {
       async (filename) =>
         Game().parse(
           JSON.parse(
-            await fs.readFile(
-              path.join(gameDirpath(filename as GameId), "game.json"),
-              "utf8",
-            ),
+            await fs.readFile(getGameFilepath(filename as GameId), "utf8"),
           ),
         ).metadata,
     ),

@@ -11,6 +11,11 @@ export function getValidOutput<T>(response: GenerateResponse<T>): T {
   return response.output!;
 }
 
+export function getValidMedia(response: GenerateResponse<unknown>) {
+  response.assertValidSchema();
+  return response.media!;
+}
+
 export function makeTextPart(text: string): Part {
   return { text: text.trim() };
 }

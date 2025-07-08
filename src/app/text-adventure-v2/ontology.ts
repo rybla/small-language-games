@@ -290,3 +290,11 @@ export const PreGame = z.object({
   metadata: GameMetadata,
   worldDescription: World.shape.description,
 });
+
+// assets
+
+export type ItemImage = z.infer<typeof ItemImage>;
+export const ItemImage = z.object({
+  item: ItemName,
+  dataUrl: z.string(),
+});

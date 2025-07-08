@@ -93,3 +93,7 @@ export function intercalateWithIndex<A>(
   ys.push(xs[xs.length - 1]);
   return ys;
 }
+
+export function fromDataUrlToBuffer(dataUrl: string) {
+  return Buffer.from(dataUrl.split(",")[1], "base64");
+}

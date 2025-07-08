@@ -19,7 +19,7 @@
         },
         "playerLocation": {
             "room": "Altar of the Sunken Mango",
-            "description": "Silas is standing next to the banana-powered machine in the clearing."
+            "description": "Silas is now standing at the edge of the clearing, facing the dense wall of banana trees and vines that enclose the Altar of the Sunken Mango. The air is thick with the scent of decaying fruit, and the faint hum of the banana-powered machine is a constant companion."
         },
         "rooms": [
             {
@@ -53,14 +53,13 @@
         "itemLocations": [
             {
                 "type": "ItemLocationInPlayerInventory",
-                "item": "banana-powered machine",
-                "description": "Silas holds the banana-powered machine in his hands."
+                "item": "glowing stones",
+                "description": "Silas now holds the glowing stones, their otherworldly luminescence illuminating his weathered hands."
             },
             {
-                "type": "ItemLocationInRoom",
-                "room": "Altar of the Sunken Mango",
-                "item": "glowing stones",
-                "description": "The glowing stones rest on the damp earth, their light casting an eerie glow."
+                "type": "ItemLocationInPlayerInventory",
+                "item": "banana-powered machine",
+                "description": "Silas holds the banana-powered machine in his hands."
             },
             {
                 "type": "ItemLocationInRoom",
@@ -464,18 +463,72 @@
             "prompt": "get the machine now!",
             "actions": [
                 {
+                    "type": "PlayerMovesInsideCurrentRoom",
                     "description": "Silas walks over to the banana-powered machine.",
-                    "newPlayerLocationDescription": "Silas is standing next to the banana-powered machine in the clearing.",
-                    "type": "PlayerMovesInsideCurrentRoom"
+                    "newPlayerLocationDescription": "Silas is standing next to the banana-powered machine in the clearing."
                 },
                 {
-                    "description": "Silas reaches down and takes the banana-powered machine.",
+                    "type": "PlayerTakesItem",
                     "item": "banana-powered machine",
-                    "newItemLocationDescription": "Silas holds the banana-powered machine in his hands.",
-                    "type": "PlayerTakesItem"
+                    "description": "Silas reaches down and takes the banana-powered machine.",
+                    "newItemLocationDescription": "Silas holds the banana-powered machine in his hands."
                 }
             ],
             "description": "Silas walks over to the banana-powered machine and takes it into his possession."
+        },
+        {
+            "prompt": "walk around the room and look at the walls",
+            "actions": [
+                {
+                    "type": "PlayerMovesInsideCurrentRoom",
+                    "description": "Silas walks in a slow circle around the clearing, his eyes scanning the perimeter. He takes in the dense foliage of banana trees that press in on all sides, their broad leaves creating a natural wall around the open space. The damp earth muffles his footsteps as he completes his circuit.",
+                    "newPlayerLocationDescription": "Silas is now standing at the edge of the clearing, facing the dense wall of banana trees and vines that enclose the Altar of the Sunken Mango. The air is thick with the scent of decaying fruit, and the faint hum of the banana-powered machine is a constant companion."
+                }
+            ],
+            "description": "Silas walks in a slow circle around the clearing, his eyes scanning the perimeter. He takes in the dense foliage of banana trees that press in on all sides, their broad leaves creating a natural wall around the open space. The damp earth muffles his footsteps as he completes his circuit. Silas is now standing at the edge of the clearing, facing the dense wall of banana trees and vines that enclose the Altar of the Sunken Mango. The air is thick with the scent of decaying fruit, and the faint hum of the banana-powered machine is a constant companion."
+        },
+        {
+            "prompt": "take an item of the floor",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "glowing stones",
+                    "description": "Silas reaches down towards the damp earth, his fingers closing around the smooth, cool surface of the glowing stones. He lifts them, their ethereal light pulsing gently in his grasp.",
+                    "newItemLocationDescription": "Silas now holds the glowing stones, their otherworldly luminescence illuminating his weathered hands."
+                }
+            ],
+            "description": "Silas, standing at the edge of the clearing, reaches down and plucks the glowing stones from the damp earth. They pulse with an ethereal light in his hands, casting an eerie glow on his weathered face as the scent of decaying fruit hangs heavy in the air."
+        },
+        {
+            "prompt": "look closely at the stones",
+            "actions": [
+                {
+                    "type": "PlayerInspectsItem",
+                    "item": "glowing stones",
+                    "description": "Silas holds the glowing stones up to his eyes, turning them over and over in his calloused hands. He squints, his farmer's instincts trying to place them. They are not like any river stone or geode he's ever found. They are unnaturally smooth, warm to the touch, and pulse with a soft, internal light that casts a gentle golden hue on his weathered face. He notes the faint, almost imperceptible hum emanating from them, a vibration that seems to resonate with the strange energy of the plantation itself."
+                }
+            ],
+            "description": "Holding the strange artifacts he found, Silas decides to give them a closer look. He turns the smooth, warm stones over in his hands, observing their gentle, pulsing light. A faint hum emanates from them, a subtle vibration that feels connected to the strange, humid air of the Whispering Plantation, leaving him more curious than before."
+        },
+        {
+            "prompt": "look at what items I have in my inventory",
+            "actions": [
+                {
+                    "type": "PlayerInspectsRoom",
+                    "description": "Silas examines his inventory to check the items he possesses."
+                }
+            ],
+            "description": "Silas looks at his inventory. He sees the glowing stones and the banana-powered machine."
+        },
+        {
+            "prompt": "look around the room to see what it looks like",
+            "actions": [
+                {
+                    "description": "Silas looks around the clearing, taking in the details of the Altar of the Sunken Mango. He notes the stone altar at the center, upon which a single, glowing mango rests. Nearby, a weathered wooden table stands on the damp earth, and upon it lies an arcane tome, its cover slightly ajar. The dense banana trees and vines that surround the clearing create a wall of green, and the air is heavy with the scent of overripe fruit.",
+                    "type": "PlayerInspectsRoom"
+                }
+            ],
+            "description": "Silas surveys the Altar of the Sunken Mango. The central stone altar is adorned with a single, radiant mango. A wooden table sits on the damp earth, bearing an arcane tome that is partially open. The clearing is hemmed in by a thick, verdant curtain of banana trees and vines, the oppressive humidity carrying the potent aroma of decaying fruit."
         }
     ]
 }

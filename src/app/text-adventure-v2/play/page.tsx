@@ -8,7 +8,7 @@ import path from "path";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import Markdown from "react-markdown";
 import { rootName } from "../common";
-import type { Game, GameId, Item, PlayerTurn } from "../ontology";
+import type { Game, GameId, Item, PlayerAction, PlayerTurn } from "../ontology";
 import {
   getItem,
   getPlayerItems,
@@ -112,6 +112,60 @@ export default function Page() {
             );
           }
 
+          function renderPlayerAction(action: PlayerAction, key?: number) {
+            switch (action.type) {
+              case "PlayerDropsItem": {
+                const item = getItem(game.world, action.item);
+                return (
+                  <div className={style.PlayerAction} key={key}>
+                    <div className={style.label}>
+                      you drop {renderItemName(item)}
+                    </div>
+                    {renderItem(item)}
+                  </div>
+                );
+              }
+              case "PlayerTakesItem": {
+                const item = getItem(game.world, action.item);
+                return (
+                  <div className={style.PlayerAction} key={key}>
+                    <div className={style.label}>
+                      you take {renderItemName(item)}
+                    </div>
+                    {renderItem(item)}
+                  </div>
+                );
+              }
+              case "PlayerInspectsItem": {
+                const item = getItem(game.world, action.item);
+                return (
+                  <div className={style.PlayerAction} key={key}>
+                    <div className={style.label}>
+                      you inspect {renderItemName(item)}
+                    </div>
+                    {renderItem(item)}
+                  </div>
+                );
+              }
+              case "PlayerMovesInsideCurrentRoom": {
+                return (
+                  <div className={style.PlayerAction} key={key}>
+                    <div className={style.label}>
+                      you move around inside the room
+                    </div>
+                  </div>
+                );
+              }
+              case "PlayerInspectsRoom": {
+                return (
+                  <div className={style.PlayerAction} key={key}>
+                    <div className={style.label}>you inspect the room</div>
+                  </div>
+                );
+              }
+            }
+          }
+
           function renderPlayerTurn(turn: PlayerTurn, key?: number) {
             return (
               <div className={style.PlayerTurn} key={key}>
@@ -119,67 +173,12 @@ export default function Page() {
                   <div className={style.prompt}>{turn.prompt}</div>
                 </div>
                 <div className={style.output}>
+                  <div className={style.description}>{turn.description}</div>
                   <div className={style.actions}>
                     {turn.actions.map((action, i) =>
-                      do_(() => {
-                        switch (action.type) {
-                          case "PlayerDropsItem": {
-                            const item = getItem(game.world, action.item);
-                            return (
-                              <div className={style.PlayerAction} key={i}>
-                                <div className={style.label}>
-                                  you drop {renderItemName(item)}
-                                </div>
-                                {renderItem(item)}
-                              </div>
-                            );
-                          }
-                          case "PlayerTakesItem": {
-                            const item = getItem(game.world, action.item);
-                            return (
-                              <div className={style.PlayerAction} key={i}>
-                                <div className={style.label}>
-                                  you take {renderItemName(item)}
-                                </div>
-                                {renderItem(item)}
-                              </div>
-                            );
-                          }
-                          case "PlayerInspectsItem": {
-                            const item = getItem(game.world, action.item);
-                            return (
-                              <div className={style.PlayerAction} key={i}>
-                                <div className={style.label}>
-                                  you inspect {renderItemName(item)}
-                                </div>
-                                {renderItem(item)}
-                              </div>
-                            );
-                          }
-                          case "PlayerMovesInsideCurrentRoom": {
-                            return (
-                              <div className={style.PlayerAction} key={i}>
-                                <div className={style.type}>{action.type}</div>
-                              </div>
-                            );
-                          }
-                          case "PlayerInspectsRoom": {
-                            return (
-                              <div className={style.PlayerAction} key={i}>
-                                <div className={style.label}>
-                                  you inspect the room
-                                </div>
-                                <div className={style.description}>
-                                  {action.description}
-                                </div>
-                              </div>
-                            );
-                          }
-                        }
-                      }),
+                      renderPlayerAction(action, i),
                     )}
                   </div>
-                  <div className={style.description}>{turn.description}</div>
                 </div>
               </div>
             );
