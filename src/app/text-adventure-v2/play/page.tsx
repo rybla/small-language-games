@@ -1,36 +1,42 @@
-/** eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import type { Game, GameId } from "../ontology";
-import { getGame } from "../server";
+import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
+import type { Game, GameId, PlayerTurn } from "../ontology";
 import { presentGameWorld } from "../semantics";
+import { getGame } from "../server";
 import style from "./page.module.css";
+import { stringify, unwords } from "@/utility";
+import * as example1 from "../example/example1";
 
 export default function Page() {
   const [status, set_status] = useState("initial status");
+  const [game, set_game] = useState<Game | undefined>(undefined);
 
   const searchParams = useSearchParams();
   const gameId = searchParams.get("gameId");
+  const mode = searchParams.get("mode");
 
-  // @ts-expect-error mismatch when inferring type from zod schema
-  const [game, set_game]: [Game, Dispatch<SetStateAction<Game>>] = useState<
-    Game | undefined
-  >(undefined);
+  // const mode =
 
   async function update_game() {
-    if (gameId !== null) {
-      try {
-        set_status("loading game...");
-        set_game(await getGame(gameId as GameId));
-        set_status("loaded game");
-      } catch (exception: unknown) {
-        console.error(exception);
-        if (exception instanceof Error) set_status(exception.toString());
-        else throw exception;
-      }
+    if (gameId === null) {
+      // set_status("you must set the ?gameId URL parameter");
+      set_game(example1.game);
+      return;
+    }
+
+    try {
+      set_status("loading game...");
+      set_game(await getGame(gameId as GameId));
+      set_status("loaded game");
+    } catch (exception: unknown) {
+      console.error(exception);
+      if (exception instanceof Error) {
+        set_status(exception.toString());
+        return;
+      } else throw exception;
     }
   }
 
@@ -44,25 +50,36 @@ export default function Page() {
 
   // --------------------------------
 
-  if (gameId === null)
-    return (
-      <main>
-        <div className={style.panel}>{status}</div>
-        <div>must provide gameName</div>
-      </main>
-    );
-  if (game === undefined)
-    return (
-      <main>
-        <div className={style.panel}>{status}</div>
-      </main>
-    );
-
   return (
-    <main>
-      <div className={style.panel}>
-        <Markdown>{presentGameWorld(game)}</Markdown>
-      </div>
+    <main className={style.main}>
+      {game !== undefined ? (
+        <div className={style.content}>
+          <div className={style.heading}>Turns</div>
+          <div className={style.turns}>
+            {game.turns.map((turn, i) => (
+              <ViewPlayerTurn playerTurn={turn} key={i} />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+      {gameId === null || game === undefined ? (
+        <div className={unwords(style.panel, style.status)}>{status}</div>
+      ) : (
+        <></>
+      )}
+      {game !== undefined && mode === "dev" ? (
+        <div className={unwords(style.panel, style.dev)}>
+          <Markdown>{presentGameWorld(game)}</Markdown>
+        </div>
+      ) : (
+        <></>
+      )}
     </main>
   );
+}
+
+function ViewPlayerTurn(props: { playerTurn: PlayerTurn }) {
+  return <div className={style.PlayerTurn}>{stringify(props.playerTurn)}</div>;
 }
