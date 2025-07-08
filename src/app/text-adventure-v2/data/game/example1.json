@@ -1,0 +1,15 @@
+{
+  "metadata": {
+    "id": "example1",
+    "name": "Example 1"
+  },
+  "turns": [],
+  "world": {
+    "description": "Welcome to Example 1!",
+    "rooms": [],
+    "players": [],
+    "items": [],
+    "itemLocations": [],
+    "playerLocations": []
+  }
+}

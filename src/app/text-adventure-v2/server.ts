@@ -1,7 +1,6 @@
 "use server";
 
 import { stringify } from "@/utility";
-import filenamify from "filenamify";
 import * as fs from "fs/promises";
 import path from "path";
 import {
@@ -11,30 +10,31 @@ import {
   GenerateRoom,
   GeneratePlayerTurn,
 } from "./flow";
-import { Game, GameName, PlayerName } from "./ontology";
+import { Game, GameId, GameMetadata, PlayerName } from "./ontology";
 import { interpretAction, InterpretActionError } from "./semantics";
 import { rootName } from "./common";
 
 const data_dirpath = `./src/app/${rootName}/data`;
 const game_dirpath = path.join(data_dirpath, "game");
 
-function getGameNameFilepath(name: GameName) {
-  return path.join(
-    game_dirpath,
-    `${filenamify(name, { replacement: "_" }).replaceAll(" ", "_")}.json`,
-  );
+function getGameFilepath(id: GameId) {
+  return path.join(game_dirpath, `${id}.json`);
 }
 
 async function saveGame(game: Game) {
   await fs.mkdir(game_dirpath, { recursive: true });
-  await fs.writeFile(getGameNameFilepath(game.name), stringify(game), "utf8");
+  await fs.writeFile(
+    getGameFilepath(game.metadata.id),
+    stringify(game),
+    "utf8",
+  );
 }
 
 export async function initializeGame(prompt: {
   game: string;
   room: string;
   player: string;
-}): Promise<GameName> {
+}): Promise<void> {
   const { game } = await GenerateGame({
     prompt: prompt.game,
   });
@@ -63,17 +63,13 @@ export async function initializeGame(prompt: {
   game.world.players.push(player);
   game.world.playerLocations.push(playerLocation);
   await saveGame(game);
-
-  return game.name;
 }
 
-export async function getGame(name: GameName): Promise<Game> {
-  return Game.parse(
-    JSON.parse(await fs.readFile(getGameNameFilepath(name), "utf8")),
-  );
+export async function getGame(id: GameId): Promise<Game> {
+  return Game.parse(JSON.parse(await fs.readFile(getGameFilepath(id), "utf8")));
 }
 
-export async function getSavedGameNames(): Promise<GameName[]> {
+export async function getSavedGameMetadatas(): Promise<GameMetadata[]> {
   const filenames = await fs.readdir(game_dirpath);
   return await Promise.all(
     filenames.map(
@@ -82,17 +78,17 @@ export async function getSavedGameNames(): Promise<GameName[]> {
           JSON.parse(
             await fs.readFile(path.join(game_dirpath, filename), "utf8"),
           ),
-        ).name,
+        ).metadata,
     ),
   );
 }
 
 export async function promptGame(
-  gameName: GameName,
+  gameId: GameId,
   playerName: PlayerName,
   prompt: string,
 ): Promise<void> {
-  const game = await getGame(gameName);
+  const game = await getGame(gameId);
   const { turn } = await GeneratePlayerTurn({
     game,
     name: playerName,

@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import type { Game, GameName } from "../ontology";
+import type { Game, GameId } from "../ontology";
 import { getGame } from "../server";
 import Markdown from "react-markdown";
 import { presentGameWorld } from "../semantics";
@@ -13,7 +13,7 @@ export default function Page() {
   const [status, set_status] = useState("initial status");
 
   const searchParams = useSearchParams();
-  const gameName = searchParams.get("gameName");
+  const gameId = searchParams.get("gameId");
 
   // @ts-expect-error mismatch when inferring type from zod schema
   const [game, set_game]: [Game, Dispatch<SetStateAction<Game>>] = useState<
@@ -21,10 +21,10 @@ export default function Page() {
   >(undefined);
 
   async function update_game() {
-    if (gameName !== null) {
+    if (gameId !== null) {
       try {
         set_status("loading game...");
-        set_game(await getGame(gameName as GameName));
+        set_game(await getGame(gameId as GameId));
         set_status("loaded game");
       } catch (exception: unknown) {
         console.error(exception);
@@ -39,12 +39,12 @@ export default function Page() {
       update_game();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [gameName],
+    [gameId],
   );
 
   // --------------------------------
 
-  if (gameName === null)
+  if (gameId === null)
     return (
       <main>
         <div className={style.panel}>{status}</div>

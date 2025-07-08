@@ -14,9 +14,6 @@ export const NeString = z.string().nonempty();
 export type GameName = z.infer<typeof GameName>;
 export const GameName = NeString.brand<"Game">().describe("game name");
 
-export type WorldName = z.infer<typeof WorldName>;
-export const WorldName = NeString.brand<"World">().describe("world name");
-
 export type PlayerName = z.infer<typeof PlayerName>;
 export const PlayerName = NeString.brand<"Player">().describe("player name");
 
@@ -119,7 +116,6 @@ export const PlayerLocation = z.object({
 
 export type World = z.infer<typeof World>;
 export const World = z.object({
-  name: WorldName,
   description: NeString.describe(
     "one-paragraph description of the world the game takes place in",
   ),
@@ -191,9 +187,18 @@ export const PlayerTurn = z.object({
 
 // Game
 
+export type GameId = z.infer<typeof GameId>;
+export const GameId = z.string().brand<"GameId">();
+
+export type GameMetadata = z.infer<typeof GameMetadata>;
+export const GameMetadata = z.object({
+  id: GameId,
+  name: GameName,
+});
+
 export type Game = z.infer<typeof Game>;
 export const Game = z.object({
-  name: GameName,
+  metadata: GameMetadata,
   world: World,
   turns: z.array(PlayerTurn),
 });

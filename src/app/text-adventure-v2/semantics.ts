@@ -120,11 +120,9 @@ export function interpretAction(
 
 export function presentGameWorld(game: Game): string {
   return `
-# Game world information for the game "${game.name}"
+# Game World Information
 
 This document describes every detail of the current state of the game world.
-
-World name: "${game.world.name}"
 
 World description: ${game.world.description}
 
@@ -194,13 +192,11 @@ export function presentGameWorldFromPlayerPerspective(
   );
 
   return `
-# Game world information for the game "${game.name}"
+# Game World Information
 
 This document describes the current state of the game world, relative to the player "${player.name}".
 
 ## World
-
-World name: ${game.world.name}
 
 World description: ${game.world.description}
 
