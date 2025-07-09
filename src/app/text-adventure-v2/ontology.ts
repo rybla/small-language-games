@@ -205,6 +205,13 @@ export const PlayerMovesInsideCurrentRoom = z
     `This is the action that corresponds to the player moving around somehow in the room they are currently in (they don't move to a new room). This action covers the concept of "moving around" very generally –– use this action if the player is repositioning themselves, changing poses, moving to a particular part of the room, moving closer to a particular item in the room, moving closer to a particular place in the room, etc. Note that this action DOES NOT move the player to a different room, it ONLY keeps the player in their current room.`,
   );
 
+/* TODO:
+
+other kinds of actions:
+  - PlayerUseItem: an item can have a particular use (and abilities which let it do certain things) this triggers that
+  - PlayerConsumeItem: consume an item so that it is used up and goes away
+*/
+
 export type PlayerAction = z.infer<Codomain<typeof PlayerAction>>;
 export const PlayerAction = (world?: World) =>
   z.union([

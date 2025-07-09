@@ -19,6 +19,10 @@ function getGameFilepath(id: GameId) {
   return path.join(gameDirpath(id), "game.json");
 }
 
+function getItemImageDirpath(id: GameId) {
+  return path.join(gameDirpath(id), "item");
+}
+
 function getItemImageFilepath(id: GameId, item: ItemName) {
   return path.join(gameDirpath(id), "item", filenamify(item) + ".png");
 }
@@ -35,26 +39,24 @@ async function saveGame(game: Game) {
 }
 
 async function saveItemImage(id: GameId, itemImage: ItemImage) {
+  await fs.mkdir(getItemImageDirpath(id), { recursive: true });
   await fs.writeFile(
     getItemImageFilepath(id, itemImage.item),
     fromDataUrlToBuffer(itemImage.dataUrl),
   );
 }
 
-export async function initializeGame(prompt: {
-  game: string;
-  room: string;
-  player: string;
-}): Promise<void> {
-  const { game, itemImages } = await GenerateGame({
-    prompt: prompt.game,
-  });
+export async function initializeGame(prompt: string): Promise<GameMetadata> {
+  const { game, itemImages } = await GenerateGame({ prompt });
+
   await saveGame(game);
   await Promise.all(
     itemImages.map(
       async (itemImage) => await saveItemImage(game.metadata.id, itemImage),
     ),
   );
+
+  return game.metadata;
 }
 
 export async function getGame(id: GameId): Promise<Game> {
@@ -66,14 +68,16 @@ export async function getGame(id: GameId): Promise<Game> {
 export async function getSavedGameMetadatas(): Promise<GameMetadata[]> {
   const filenames = await fs.readdir(gamesDirpath);
   return await Promise.all(
-    filenames.map(
-      async (filename) =>
-        Game().parse(
-          JSON.parse(
-            await fs.readFile(getGameFilepath(filename as GameId), "utf8"),
-          ),
-        ).metadata,
-    ),
+    filenames
+      .filter((filename) => !filename.includes("."))
+      .map(
+        async (filename) =>
+          Game().parse(
+            JSON.parse(
+              await fs.readFile(getGameFilepath(filename as GameId), "utf8"),
+            ),
+          ).metadata,
+      ),
   );
 }
 

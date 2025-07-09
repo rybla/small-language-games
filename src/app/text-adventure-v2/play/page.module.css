@@ -177,7 +177,6 @@
     }
 
     & > .ItemView {
-        width: 100px;
         align-self: center;
     }
 }
@@ -248,7 +247,6 @@
             justify-content: center;
 
             & > .ItemView {
-                width: 100px;
             }
         }
     }
@@ -282,6 +280,8 @@
 }
 
 .ItemView {
+    width: 150px;
+
     display: flex;
     flex-direction: column;
 

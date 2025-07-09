@@ -1,0 +1,240 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@700&display=swap");
+
+:root {
+    --font-main: "Cinzel", serif;
+    --font-decorative: "Cinzel Decorative", cursive;
+    --color-bg-dark: #0a0814;
+    --color-bg-light: #1a142c;
+    --color-primary-glow: #a885ff;
+    --color-secondary-glow: #f0e68c;
+    --color-text: #e0d8ff;
+    --color-text-muted: #9a8eb8;
+    --color-border: rgba(168, 133, 255, 0.2);
+    --color-border-focus: rgba(240, 230, 140, 0.8);
+}
+
+.main {
+    flex: 1 1 0;
+    min-height: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* min-height: 100vh; */
+    /* width: 100%; */
+    font-family: var(--font-main);
+    color: var(--color-text);
+    padding: 2rem;
+    background:
+        linear-gradient(315deg, rgba(10, 8, 20, 0.8), rgba(26, 20, 44, 0.9)),
+        radial-gradient(ellipse at 70% 30%, #2c2a4a, transparent 70%),
+        radial-gradient(ellipse at 30% 80%, #4a2c40, transparent 70%),
+        var(--color-bg-dark);
+    background-size: 200% 200%;
+    animation: backgroundPan 45s linear infinite;
+    overflow: hidden;
+}
+
+.prompt,
+.processing,
+.done {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 600px;
+    padding: 2.5rem;
+    background-color: rgba(26, 20, 44, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow:
+        0 0 15px 0px rgba(0, 0, 0, 0.5),
+        0 0 5px 2px var(--color-border);
+    animation: borderGlow 5s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+.heading {
+    font-family: var(--font-decorative);
+    font-size: 2.25rem;
+    text-align: center;
+    color: var(--color-secondary-glow);
+    text-shadow:
+        0 0 5px var(--color-secondary-glow),
+        0 0 10px var(--color-secondary-glow),
+        0 0 20px #ffc400,
+        0 0 30px #ff9a00;
+    animation: textGlow 4s ease-in-out infinite alternate;
+}
+
+.processing .heading {
+    animation: processingPulse 1.5s ease-in-out infinite;
+}
+
+.prompt textarea {
+    min-height: 150px;
+    width: 100%;
+    padding: 1rem;
+    background-color: rgba(10, 8, 20, 0.5);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    color: var(--color-text);
+    resize: vertical;
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.prompt textarea:focus {
+    outline: none;
+    border-color: var(--color-border-focus);
+    box-shadow: 0 0 10px 2px var(--color-border-focus);
+}
+
+.prompt textarea::placeholder {
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
+.prompt button {
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-decorative);
+    font-size: 1.2rem;
+    color: var(--color-bg-dark);
+    background-image: linear-gradient(
+        145deg,
+        var(--color-secondary-glow),
+        #d4af37
+    );
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow:
+        0 4px 15px rgba(240, 230, 140, 0.3),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+}
+
+.prompt button:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 6px 20px rgba(240, 230, 140, 0.5),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.prompt button:active {
+    transform: translateY(1px);
+    box-shadow:
+        0 2px 10px rgba(240, 230, 140, 0.4),
+        inset 0 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.prompt button:disabled {
+    background-image: linear-gradient(145deg, #5a5a5a, #3c3c3c);
+    color: #888;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+    text-shadow: none;
+}
+
+.link {
+    display: block;
+    padding: 1rem;
+    font-family: var(--font-main);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--color-primary-glow);
+    text-decoration: none;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background-color: rgba(10, 8, 20, 0.5);
+    position: relative;
+    overflow: hidden;
+    transition:
+        color 0.3s ease,
+        background-color 0.3s ease;
+}
+
+.link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: var(--color-secondary-glow);
+    box-shadow:
+        0 0 5px var(--color-secondary-glow),
+        0 0 10px var(--color-secondary-glow);
+    transition: left 0.4s ease-in-out;
+}
+
+.link:hover {
+    color: var(--color-secondary-glow);
+    background-color: rgba(26, 20, 44, 1);
+}
+
+.link:hover::after {
+    left: 0;
+}
+
+@keyframes backgroundPan {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes borderGlow {
+    0%,
+    100% {
+        box-shadow:
+            0 0 15px 0px rgba(0, 0, 0, 0.5),
+            0 0 5px 2px var(--color-border);
+    }
+    50% {
+        box-shadow:
+            0 0 25px 0px rgba(0, 0, 0, 0.6),
+            0 0 10px 3px var(--color-primary-glow);
+    }
+}
+
+@keyframes textGlow {
+    from {
+        text-shadow:
+            0 0 5px var(--color-secondary-glow),
+            0 0 10px var(--color-secondary-glow),
+            0 0 20px #ffc400,
+            0 0 30px #ff9a00;
+    }
+    to {
+        text-shadow:
+            0 0 10px var(--color-secondary-glow),
+            0 0 20px #ffc400,
+            0 0 30px #ff9a00,
+            0 0 40px #ff6a00;
+    }
+}
+
+@keyframes processingPulse {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+    50% {
+        transform: scale(1.03);
+        opacity: 1;
+    }
+}

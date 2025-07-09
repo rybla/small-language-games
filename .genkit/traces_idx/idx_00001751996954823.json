@@ -270,3 +270,57 @@
 {"id":"ffcc786d2f7e43948c03acb95e9f6bfb","type":"flow","start":1752017273358,"name":"GenerateImage","end":1752017279763.531,"status":0}
 {"id":"ffcc786d2f7e43948c03acb95e9f6bfb","type":"flow","start":1752017273358,"name":"GenerateImage","end":1752017279763.531,"status":0}
 {"id":"ffcc786d2f7e43948c03acb95e9f6bfb","type":"flow","start":1752017273358,"name":"GenerateImage","end":1752017279763.531,"status":0}
+{"id":"a7893d935ae0abe02f7e65a4af166fb5","type":"UNKNOWN","start":1752017506776,"name":"RSC GET /text-adventure-v2/new","end":1752017507194.695,"status":0}
+{"id":"b3d7a2a42f8fbfb066a63df515cd30b9","type":"UNKNOWN","start":1752017808893,"name":"RSC GET /text-adventure-v2/new","end":1752017809290.6665,"status":0}
+{"id":"44b4566da5f0d8c96008fd02e8da9e5a","type":"UNKNOWN","start":1752018215199,"name":"RSC GET /text-adventure-v2/new","end":1752018215669.209,"status":0}
+{"id":"5db82f1ad7fd29efea233ac0fa62698f","type":"UNKNOWN","start":1752018215678,"name":"RSC GET /text-adventure-v2/new","end":1752018215802.1348,"status":0}
+{"id":"0bcf80bbab30ca2081aa4042bb0c1f23","type":"UNKNOWN","start":1752019081258,"name":"RSC GET /text-adventure-v2/new","end":1752019081612.443,"status":0}
+{"id":"43cb730f6da3564b54f00cf56725e4bc","type":"UNKNOWN","start":1752019081623,"name":"RSC GET /text-adventure-v2/new","end":1752019081743.2817,"status":0}
+{"id":"4d79686dab386977a433ec84ea68fdca","type":"flow","start":1752019268110,"name":"GenerateGame","end":1752019272596.738,"status":2}
+{"id":"599e057187304f4cefe6ce625422ec79","type":"UNKNOWN","start":1752019267771,"name":"POST /text-adventure-v2/new","end":1752019272778.202,"status":2}
+{"id":"d42c54293aa7cae4f75d4033d0df1e3a","type":"UNKNOWN","start":1752019476052,"name":"RSC GET /text-adventure-v2/new","end":1752019476421.0872,"status":0}
+{"id":"f96b22e34bdaa02d5a23f3d16cd29afa","type":"UNKNOWN","start":1752019476451,"name":"RSC GET /text-adventure-v2/new","end":1752019476572.159,"status":0}
+{"id":"aed809def55fb479412f6e351789b547","type":"UNKNOWN","start":1752019482241,"name":"GET /text-adventure-v2/new","end":1752019482517.4946,"status":0}
+{"id":"59d91ee4625c1e450f278e69d56af170","type":"flow","start":1752019497472,"name":"GenerateGame","end":1752019512768.6968,"status":0}
+{"id":"6c4090bb6bc77587960d5d23bcfeb682","type":"UNKNOWN","start":1752019497346,"name":"POST /text-adventure-v2/new","end":1752019513436.0776,"status":2}
+{"id":"550231898e8bb65e4899c52625fa71c7","type":"UNKNOWN","start":1752019567355,"name":"RSC GET /text-adventure-v2/new","end":1752019567723.611,"status":0}
+{"id":"b29185410251ef6ee07aeea1003617c4","type":"UNKNOWN","start":1752019567736,"name":"RSC GET /text-adventure-v2/new","end":1752019567871.5815,"status":0}
+{"id":"e96383e8fb7d58f4d33db382737162b6","type":"UNKNOWN","start":1752019570404,"name":"GET /text-adventure-v2/new","end":1752019570645.5903,"status":0}
+{"id":"cd685bb0c3712d13ab0afc09b4f3c411","type":"UNKNOWN","start":1752019604042,"name":"POST /text-adventure-v2/new","end":1752019617983.0571,"status":0}
+{"id":"76d8eb2e39e6897383261598a3516c33","type":"flow","start":1752019604131,"name":"GenerateGame","end":1752019617882.6074,"status":0}
+{"id":"59cbc8f94248ecc70e730a2b11ed22bb","type":"UNKNOWN","start":1752019622253,"name":"GET /404","end":1752019622415.8862,"status":0}
+{"id":"8e45a775ec4e207743776242fcec70a7","type":"UNKNOWN","start":1752019643543,"name":"GET /404","end":1752019644031.61,"status":0}
+{"id":"e1e3834e6bd296618d29ac0eb27828a9","type":"UNKNOWN","start":1752019677838,"name":"GET /404","end":1752019678013.3918,"status":0}
+{"id":"7c5a370cc0f45239c46b62f1f7c38fe6","type":"UNKNOWN","start":1752019683650,"name":"GET /404","end":1752019684135.3193,"status":0}
+{"id":"e792ee4881ab3be4f17f0f2e73b39e06","type":"UNKNOWN","start":1752019687567,"name":"GET /text-adventure-v2/play","end":1752019688083.1074,"status":0}
+{"id":"e86c4900305437a28fd9dcaf06c71b72","type":"UNKNOWN","start":1752019689048,"name":"POST /text-adventure-v2/play","end":1752019689147.0261,"status":0}
+{"id":"588ef2a8a77d4b4ab6f6ec92fc619fdb","type":"flow","start":1752019708371,"name":"GeneratePlayerTurn","end":1752019709423.19,"status":0}
+{"id":"8b344f2c0b5b7eb2fafbdcf5d6dbac4e","type":"UNKNOWN","start":1752019708235,"name":"POST /text-adventure-v2/play","end":1752019709446.2422,"status":0}
+{"id":"f15dc3f324de27d59ef3d49621522b36","type":"UNKNOWN","start":1752019709463,"name":"POST /text-adventure-v2/play","end":1752019709544.3618,"status":0}
+{"id":"5a791f5a1f6be08ddbfff93d6899bd58","type":"flow","start":1752019723219,"name":"GeneratePlayerTurn","end":1752019724369.0693,"status":0}
+{"id":"74b45c4262be5efe3283b649cbf07337","type":"UNKNOWN","start":1752019723108,"name":"POST /text-adventure-v2/play","end":1752019724396.6794,"status":0}
+{"id":"74b45c4262be5efe3283b649cbf07337","type":"UNKNOWN","start":1752019723108,"name":"POST /text-adventure-v2/play","end":1752019724396.6794,"status":0}
+{"id":"034f5d7346cec35a3a018eff7ebfdc04","type":"UNKNOWN","start":1752019724413,"name":"POST /text-adventure-v2/play","end":1752019724495.6208,"status":0}
+{"id":"a5d87a5544e782c510744be24271242d","type":"UNKNOWN","start":1752019724509,"name":"GET /_next/image?url=%2Ftext-adventure-v2%2F1897c972-6e36-45fe-a297-d68919855a78%2Fitem%2FAltar%20of%20Petrified%20Leaves.png&w=640&q=75","end":1752019724556.4219,"status":0}
+{"id":"4451b31b85001477d8308e32f3e5c35d","type":"flow","start":1752019825357,"name":"GeneratePlayerTurn","end":1752019826675.5457,"status":0}
+{"id":"b5418b3ef4aeadcb97ddfdaca636a38a","type":"UNKNOWN","start":1752019825241,"name":"POST /text-adventure-v2/play","end":1752019826721.684,"status":0}
+{"id":"dae12f463f7a32afa2c5748e9a69d00f","type":"UNKNOWN","start":1752019826738,"name":"POST /text-adventure-v2/play","end":1752019826819.012,"status":0}
+{"id":"afce9e3df672de3f61b24470ce262cb3","type":"UNKNOWN","start":1752019826837,"name":"GET /_next/image?url=%2Ftext-adventure-v2%2F1897c972-6e36-45fe-a297-d68919855a78%2Fitem%2FMonumental%20Banana.png&w=640&q=75","end":1752019826876.5227,"status":0}
+{"id":"76af05005c8b4de260adda9525f5e233","type":"flow","start":1752019845211,"name":"GeneratePlayerTurn","end":1752019846799.8591,"status":0}
+{"id":"823c0c188b8ee7f8c3324f95c598851a","type":"UNKNOWN","start":1752019845097,"name":"POST /text-adventure-v2/play","end":1752019846817.7117,"status":0}
+{"id":"1ba7d382c19df6bb2708b7fae026220d","type":"UNKNOWN","start":1752019846836,"name":"POST /text-adventure-v2/play","end":1752019846916.3147,"status":0}
+{"id":"fb9511f907bd830e1e07e1c4a9032361","type":"UNKNOWN","start":1752019846991,"name":"GET /_next/image?url=%2Ftext-adventure-v2%2F1897c972-6e36-45fe-a297-d68919855a78%2Fitem%2FMonumental%20Banana.png&w=640&q=75","end":1752019846997.1602,"status":0}
+{"id":"7f99f4266c90c1fe311d62445591e210","type":"flow","start":1752019970344,"name":"GeneratePlayerTurn","end":1752019971290.9124,"status":0}
+{"id":"7ebc63ce5950a86c78abb0be52b70ee6","type":"UNKNOWN","start":1752019970232,"name":"POST /text-adventure-v2/play","end":1752019971308.8296,"status":0}
+{"id":"922c20746faf963bcfad9e6441c1cfc3","type":"UNKNOWN","start":1752019971324,"name":"POST /text-adventure-v2/play","end":1752019971400.2698,"status":0}
+{"id":"0182a51905ae28d7b54cd7629e8c765c","type":"flow","start":1752019986462,"name":"GeneratePlayerTurn","end":1752019987862.6309,"status":0}
+{"id":"27323c0d4672f6cb4c12b25a78a03ce5","type":"UNKNOWN","start":1752019986356,"name":"POST /text-adventure-v2/play","end":1752019987879.4084,"status":0}
+{"id":"7b239471dc03887f61a7f78d6f61f9a5","type":"UNKNOWN","start":1752019987895,"name":"POST /text-adventure-v2/play","end":1752019987969.3909,"status":0}
+{"id":"bbbca5d8b05555c825d36c5ceff53ef4","type":"flow","start":1752020008185,"name":"GeneratePlayerTurn","end":1752020009153.1775,"status":0}
+{"id":"9a184bdda73164b07fb4be852c9453e8","type":"UNKNOWN","start":1752020008072,"name":"POST /text-adventure-v2/play","end":1752020009170.8708,"status":0}
+{"id":"9a184bdda73164b07fb4be852c9453e8","type":"UNKNOWN","start":1752020008072,"name":"POST /text-adventure-v2/play","end":1752020009170.8708,"status":0}
+{"id":"255dc62cb630c007c34836a0d395834d","type":"UNKNOWN","start":1752020009183,"name":"POST /text-adventure-v2/play","end":1752020009253.4993,"status":0}
+{"id":"7129d309c90c4d92c414d2f8e6cd5fd7","type":"UNKNOWN","start":1752020173496,"name":"RSC GET /text-adventure-v2","end":1752020174392.6,"status":2}
+{"id":"77b6a2c66c0dea44ebb85fe02eb29f52","type":"UNKNOWN","start":1752020226691,"name":"GET /text-adventure-v2","end":1752020227220.5537,"status":0}
+{"id":"6de2bf991f9dab279b5bddd290790429","type":"UNKNOWN","start":1752020227414,"name":"GET /404","end":1752020227713.3152,"status":0}
+{"id":"4b4eed75fe885594e7c84aa4f2f841d7","type":"UNKNOWN","start":1752020227421,"name":"GET /404","end":1752020227718.898,"status":0}

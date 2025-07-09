@@ -1,0 +1,82 @@
+{
+    "metadata": {
+        "name": "The Great Banana Uprising",
+        "id": "dc747fb5-8e31-42ca-ab91-22d9415109a4"
+    },
+    "world": {
+        "description": "In a world reclaimed by nature after a great cataclysm, the remnants of humanity eke out an existence under the gentle, yet potent, sway of Banana Magic. The Great Apepocalypse, a poorly understood event involving weaponized primate fury and a global banana shortage, reshaped civilization. Now, nomadic tribes roam the lush, overgrown ruins, harnessing the potent potassium-based energies of mutated banana flora. These banana shamans wield incredible power, capable of growing instant fortifications, conjuring slippery peels to trap foes, or even fermenting potent banana spirits that grant temporary invincibility. Survival depends on mastering the sweet, curved power of the banana, navigating treacherous jungles, and avoiding the savage, still-somewhat-ape-like raiders who crave the world's dwindling, magically infused banana plantations.",
+        "player": {
+            "name": "Kael",
+            "shortDescription": "A young cultivator of Banana Magic, Kael arrives in the world.",
+            "appearanceDescription": "The figure is clad in roughspun tunics woven from fibrous banana leaves, adorned with polished seeds that gleam like obsidian. Their skin has a subtle greenish hue, a common trait among those who spend their lives cultivating and communing with banana flora. Their hair, a tangle of vines and broad leaves, is tied back with a strip of dried banana peel.",
+            "personalityDescription": "Kael is a curious and optimistic individual, fascinated by the interconnectedness of all life, especially the symbiotic relationship between the sentient banana flora and the world's inhabitants. They approach new situations with a blend of caution and wonder, always eager to learn and understand the subtle nuances of Banana Magic.",
+            "skills": [
+                "Banana Cultivation",
+                "Potassium Sense",
+                "Leaf Weaving",
+                "Peel Mastery"
+            ]
+        },
+        "playerLocation": {
+            "player": "Kael",
+            "room": "The Rooted Sanctuary",
+            "description": "The player stands near the base of the great banyan tree in The Rooted Sanctuary. Their feet are planted firmly on the mossy ground, amidst a cluster of glowing, pulsating banana blossoms. They are facing the central clearing, looking out towards the dense, verdant jungle that surrounds the sanctuary."
+        },
+        "rooms": [
+            {
+                "longDescription": "This cavernous chamber is carved into the very roots of an ancient, colossal banana tree, its interior illuminated by the soft, bioluminescent glow of luminous fungi clinging to the gnarled wood. Strange, swirling patterns, reminiscent of primate-like faces, are etched into the root walls, hinting at the reverence this place once held. In the center of the room, a large, intricately carved stone basin overflows with a thick, golden liquid – potent, magically charged banana nectar. The air is thick with the sweet, cloying scent of ripe bananas and a faint, earthy aroma of damp soil. Along one wall, a pile of smooth, grey stones is arranged in a semi-circle, each stone bearing a faint, almost imperceptible etching of a single banana. Behind the pile of stones, a crack in the root wall, barely wide enough for a person to squeeze through, leads to an unknown passage.  Faint whispers, like rustling leaves, seem to emanate from the nectar-filled basin when the chamber is otherwise silent.",
+                "name": "The Rooted Sanctuary",
+                "shortDescription": "A hidden sanctuary within the roots of a colossal banana tree, filled with glowing fungi and a basin of golden nectar."
+            }
+        ],
+        "items": [
+            {
+                "name": "Etched Stones",
+                "shortDescription": "A semi-circle of smooth grey stones, each bearing a faint banana etching.",
+                "appearanceDescription": "The stones are smooth and grey, each one roughly the size of a closed fist. They are arranged in a rough semi-circle on the mossy ground. Faint, stylized etchings of single bananas adorn the surface of each stone."
+            },
+            {
+                "name": "Basin of Golden Nectar",
+                "shortDescription": "A large, carved basin overflowing with potent, glowing banana nectar.",
+                "appearanceDescription": "This basin is large and appears to be carved from a single piece of ancient, petrified wood, its surface covered in intricate, swirling patterns that resemble simian faces. It overflows with a thick, luminescent golden liquid that glows with an internal light. The liquid itself appears viscous and slightly effervescent, with tiny bubbles rising to the surface and popping silently. Faint, almost inaudible whispers seem to emanate from the depths of the nectar."
+            },
+            {
+                "name": "Luminous Fungi",
+                "shortDescription": "Soft, bioluminescent fungi that illuminate the cavern.",
+                "appearanceDescription": "These fungi cling to the ancient root walls of the sanctuary, emitting a soft, pulsating, ethereal blue-green light. They vary in size, from small clusters to larger, hand-sized caps, their luminescence creating dancing shadows on the chamber's interior. The light they cast is gentle, illuminating the cavern without harshness."
+            },
+            {
+                "name": "Crack in the Root Wall",
+                "shortDescription": "A narrow passage hidden behind the etched stones.",
+                "appearanceDescription": "A narrow opening in the massive root structure, barely wide enough for a person to squeeze through. The edges are rough and uneven, with strands of ancient, dried root dangling into the passage. A faint draft carrying the scent of damp earth and unseen foliage emanates from within."
+            }
+        ],
+        "itemLocations": [
+            {
+                "type": "ItemLocationInRoom",
+                "room": "The Rooted Sanctuary",
+                "item": "Etched Stones",
+                "description": "A collection of smooth, grey stones are arranged in a semi-circle on the ground along the western wall of the chamber, nestled amongst the gnarled roots. They are positioned behind the basin and to the left of the crack in the wall."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "The Rooted Sanctuary",
+                "item": "Basin of Golden Nectar",
+                "description": "At the very center of the cavernous chamber, a large, intricately carved stone basin sits on the floor, overflowing with a thick, golden, pulsating banana nectar. The basin is the focal point of the room, drawing the eye with its glow and the sweet, potent aroma it emits."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "The Rooted Sanctuary",
+                "item": "Luminous Fungi",
+                "description": "Numerous clusters of luminous fungi are scattered across the gnarled, wooden walls of the Rooted Sanctuary, clinging to the ancient roots of the colossal banana tree. Their soft glow is the primary source of light within the chamber, making the swirling patterns on the walls visible."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "The Rooted Sanctuary",
+                "item": "Crack in the Root Wall",
+                "description": "Behind the pile of etched stones, a crack in the root wall, situated to the left of the semi-circle of stones, offers a passage into an unknown area."
+            }
+        ]
+    },
+    "turns": []
+}

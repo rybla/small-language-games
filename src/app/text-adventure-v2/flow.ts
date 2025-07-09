@@ -103,7 +103,7 @@ export const GenerateGame = ai.defineFlow(
     const { player, playerLocation } = await GeneratePlayer({
       pregame,
       room: room.name,
-      prompt: "TODO",
+      prompt: "an everyday inhabitant of this strange world",
     });
 
     const game: Game = {
@@ -112,7 +112,7 @@ export const GenerateGame = ai.defineFlow(
         description: pregame.worldDescription,
         player,
         playerLocation,
-        rooms: [],
+        rooms: [room],
         items: [],
         itemLocations: [],
       },
