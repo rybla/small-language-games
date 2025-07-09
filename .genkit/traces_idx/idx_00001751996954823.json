@@ -324,3 +324,6 @@
 {"id":"77b6a2c66c0dea44ebb85fe02eb29f52","type":"UNKNOWN","start":1752020226691,"name":"GET /text-adventure-v2","end":1752020227220.5537,"status":0}
 {"id":"6de2bf991f9dab279b5bddd290790429","type":"UNKNOWN","start":1752020227414,"name":"GET /404","end":1752020227713.3152,"status":0}
 {"id":"4b4eed75fe885594e7c84aa4f2f841d7","type":"UNKNOWN","start":1752020227421,"name":"GET /404","end":1752020227718.898,"status":0}
+{"id":"8ea8e144a8c7f51388aac75d31dffc23","type":"UNKNOWN","start":1752020262714,"name":"RSC GET /text-adventure-v2/new","end":1752020263064.011,"status":0}
+{"id":"94c947e44419da4fdd4d6e1ba3ba4c75","type":"UNKNOWN","start":1752034243563,"name":"GET /404","end":1752034243994.1467,"status":0}
+{"id":"53be64ee888c25a5d96b7a0418799893","type":"UNKNOWN","start":1752034243571,"name":"GET /404","end":1752034244000.547,"status":0}
