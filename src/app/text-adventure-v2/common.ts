@@ -24,7 +24,7 @@ export class Paths {
     return path.join(this.getGameDirpath(id), "item");
   }
   getItemImageFilepath(id: GameId, item: ItemName): string {
-    return path.join(this.getItemImagesDirpath(id), item);
+    return path.join(this.getItemImagesDirpath(id), filenamify(item) + ".png");
   }
 
   getRoomImagesDirpath(id: GameId): string {

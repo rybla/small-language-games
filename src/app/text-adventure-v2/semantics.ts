@@ -1,4 +1,4 @@
-import { do_, remove } from "@/utility";
+import { do_, findMapAll, remove } from "@/utility";
 import {
   Game,
   ItemLocation,
@@ -8,6 +8,7 @@ import {
   PlayerAction,
   PreGame,
   Room,
+  RoomConnection,
   RoomName,
   World,
 } from "./ontology";
@@ -51,7 +52,7 @@ export function interpretAction(world: World, action: PlayerAction): void {
 
       if (itemLocation.type === "ItemLocationInPlayerInventory")
         throw new InterpretActionError(
-          `The player "${world.player.name}" could not take the item "${action.item}" because they already have that item in their inventory.`,
+          `The player **${world.player.name}** could not take the item **${action.item}** because they already have that item in their inventory.`,
         );
 
       if (
@@ -61,7 +62,7 @@ export function interpretAction(world: World, action: PlayerAction): void {
         )
       )
         throw new InterpretActionError(
-          `The player "${world.player.name}" could not take the item "${action.item}" because it is not placed in the same room as the player.`,
+          `The player **${world.player.name}** could not take the item **${action.item}** because it is not placed in the same room as the player.`,
         );
 
       remove(world.itemLocations, itemLocation);
@@ -77,7 +78,7 @@ export function interpretAction(world: World, action: PlayerAction): void {
 
       if (!isItemLocationInPlayerInventory(itemLocation))
         throw new InterpretActionError(
-          `The player "${world.player.name}" could not drop the item "${action.item}" because the item is not in the player's inventory or equipped by the player.`,
+          `The player **${world.player.name}** could not drop the item **${action.item}** because the item is not in the player's inventory or equipped by the player.`,
         );
 
       remove(world.itemLocations, itemLocation);
@@ -152,7 +153,7 @@ World description: ${game.world.description}
 - Appearance: ${game.world.player.appearanceDescription}
 - Personality: ${game.world.player.personalityDescription}
 - Skills: ${game.world.player.skills.join(", ")}
-- Located in "${game.world.playerLocation.room}": ${game.world.playerLocation.description}
+- Located in **${game.world.playerLocation.room}**: ${game.world.playerLocation.description}
 
 ## Rooms
 
@@ -182,9 +183,9 @@ export function presentItem(world: World, name: ItemName) {
   - ${do_(() => {
     switch (itemLocation.type) {
       case "ItemLocationInRoom":
-        return `Placed in "${itemLocation.room}: ${itemLocation.description}"`;
+        return `Placed in **${itemLocation.room}**: ${itemLocation.description}`;
       case "ItemLocationInPlayerInventory":
-        return `Held by "${world.player.name}: ${itemLocation.description}"`;
+        return `Held by **${world.player.name}**: ${itemLocation.description}`;
     }
   })}
 `.trim();
@@ -197,11 +198,15 @@ export function presentGameFromPlayerPerspective(game: Game) {
     game.world,
     game.world.playerLocation.room,
   );
+  const roomConnections = getRoomConnections(
+    game.world,
+    game.world.playerLocation.room,
+  );
 
   return `
 # Game World Information
 
-This document describes the current state of the game world, relative to the player "${game.world.player.name}".
+This document describes the current state of the game world, relative to the player **${game.world.player.name}**.
 
 ## World
 
@@ -245,7 +250,7 @@ Items in player's inventory: ${
 
 ### Player Location
 
-The player is currently in the room "${game.world.playerLocation.room}".
+The player is currently in the room **${game.world.playerLocation.room}**.
 
 ${game.world.playerLocation.description}
 
@@ -262,7 +267,19 @@ Items in the room: ${
 `.trim(),
           )
           .join("\n")
-          .trim()
+  }
+
+Connections from this room to other rooms: ${
+    roomConnections.length === 0
+      ? "there are no rooms connected to this room"
+      : "\n" +
+        roomConnections
+          .map((roomConnection) =>
+            `
+  - **${roomConnection.room2}**: ${roomConnection.descriptionOfPathFromRoom1ToRoom2}
+`.trim(),
+          )
+          .join("\n")
   }
 
 `.trim();
@@ -274,7 +291,8 @@ Items in the room: ${
 
 export function getItem(world: World, name: ItemName) {
   const item = world.items.find((item) => item.name === name);
-  if (item === undefined) throw new Error(`The item "${name}" does not exist.`);
+  if (item === undefined)
+    throw new Error(`The item **${name}** does not exist.`);
   return item;
 }
 
@@ -283,7 +301,7 @@ export function getItemLocation(world: World, name: ItemName) {
     (itemLocation) => itemLocation.item === name,
   );
   if (itemLocation === undefined)
-    throw new Error(`The item "${name}" does not exist.`);
+    throw new Error(`The item **${name}** does not exist.`);
   return itemLocation;
 }
 
@@ -303,8 +321,37 @@ export function getPlayerItemsItemLocationInPlayerInventory(
 
 export function getRoom(world: World, name: RoomName): Room {
   const room = world.rooms.find((room) => room.name === name);
-  if (room === undefined) throw new Error(`The room "${name}" does not exist.`);
+  if (room === undefined)
+    throw new Error(`The room **${name}** does not exist.`);
   return room;
+}
+
+export function getRoomConnections(
+  world: World,
+  name: RoomName,
+): RoomConnection[] {
+  return findMapAll<RoomConnection, RoomConnection>(
+    world.roomConnections,
+    (roomConnection) =>
+      roomConnection.room1 === name
+        ? roomConnection
+        : roomConnection.room2 === name
+          ? flipRoomConnection(roomConnection)
+          : undefined,
+  );
+}
+
+export function flipRoomConnection(
+  roomConnection: RoomConnection,
+): RoomConnection {
+  return {
+    room1: roomConnection.room2,
+    room2: roomConnection.room1,
+    descriptionOfPathFromRoom1ToRoom2:
+      roomConnection.descriptionOfPathFromRoom2ToRoom1,
+    descriptionOfPathFromRoom2ToRoom1:
+      roomConnection.descriptionOfPathFromRoom1ToRoom2,
+  };
 }
 
 export function getPlayerRoom(world: World): Room {

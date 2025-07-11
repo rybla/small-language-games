@@ -6,11 +6,21 @@ import { useSearchParams } from "next/navigation";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import Markdown from "react-markdown";
 import { paths } from "../common_frontend";
-import type { Game, GameId, Item, PlayerAction, PlayerTurn } from "../ontology";
+import type {
+  Game,
+  GameId,
+  Item,
+  ItemName,
+  PlayerAction,
+  PlayerTurn,
+  Room,
+  RoomName,
+} from "../ontology";
 import {
   getItem,
   getPlayerItems,
   getPlayerRoom,
+  getRoom,
   presentGame,
   presentGameFromPlayerPerspective,
 } from "../semantics";
@@ -74,6 +84,26 @@ export default function Page() {
         do_(() => {
           const game: Game = ungame;
 
+          function renderRoom(room: Room, key?: number) {
+            const room_imageUrl = paths.getRoomImageFilepath(
+              game.metadata.id,
+              room.name,
+            );
+            return (
+              <div className={style.RoomView} key={key}>
+                <Image
+                  className={style.image}
+                  alt={room.name}
+                  src={room_imageUrl}
+                  onClick={() => set_imageUrl_focus(room_imageUrl)}
+                  width={512}
+                  height={512}
+                />
+                <div className={style.name}>{room.name}</div>
+              </div>
+            );
+          }
+
           function renderItem(item: Item, key?: number) {
             const item_imageUrl = paths.getItemImageFilepath(
               game.metadata.id,
@@ -94,8 +124,12 @@ export default function Page() {
             );
           }
 
-          function renderItemName(item: Item) {
-            return <span className={style.ItemName}>{item.name}</span>;
+          function renderItemName(item: ItemName) {
+            return <span className={style.ItemName}>{item}</span>;
+          }
+
+          function renderRoomName(room: RoomName) {
+            return <span className={style.RoomName}>{room}</span>;
           }
 
           function renderPrePlayerTurn(prompt: string) {
@@ -118,7 +152,7 @@ export default function Page() {
                 return (
                   <div className={style.PlayerAction} key={key}>
                     <div className={style.label}>
-                      you drop {renderItemName(item)}
+                      you drop {renderItemName(item.name)}
                     </div>
                     {renderItem(item)}
                   </div>
@@ -129,7 +163,7 @@ export default function Page() {
                 return (
                   <div className={style.PlayerAction} key={key}>
                     <div className={style.label}>
-                      you take {renderItemName(item)}
+                      you take {renderItemName(item.name)}
                     </div>
                     {renderItem(item)}
                   </div>
@@ -140,7 +174,7 @@ export default function Page() {
                 return (
                   <div className={style.PlayerAction} key={key}>
                     <div className={style.label}>
-                      you inspect {renderItemName(item)}
+                      you inspect {renderItemName(item.name)}
                     </div>
                     {renderItem(item)}
                   </div>
@@ -161,6 +195,22 @@ export default function Page() {
                     <div className={style.label}>you inspect the room</div>
                   </div>
                 );
+              }
+              case "PlayerMovesToDifferentRoom": {
+                const room = getRoom(game.world, action.room);
+                return (
+                  <div className={style.PlayerAction} key={key}>
+                    <div className={style.label}>
+                      you go to {renderRoomName(room.name)}
+                    </div>
+                    {renderRoom(room)}
+                  </div>
+                );
+              }
+              default: {
+                // @ts-expect-error this branch should be impossible
+                const action_type: string = action.type;
+                throw new Error(`no view for action type: ${action_type}`);
               }
             }
           }
@@ -200,12 +250,10 @@ export default function Page() {
                   <textarea
                     ref={promptRef}
                     onKeyUp={async (event) => {
-                      if (promptRef.current === null)
-                        throw new Error(
-                          "impossible: promptRef.current === null",
-                        );
-
                       if (event.key === "Enter") {
+                        event.preventDefault();
+                        if (promptRef.current === null) return;
+                        if (promptRef.current.value.length === 0) return;
                         const prompt = promptRef.current.value.trim();
                         promptRef.current.value = "";
                         set_submittedPrompt(prompt);
@@ -226,7 +274,7 @@ export default function Page() {
                     placeholder="prompt"
                   ></textarea>
                   <div className={style.player_info}>
-                    <div className={style.heading}>Player Info</div>
+                    <div className={style.heading}>Player</div>
                     <LabeledValue label="Name" value={game.world.player.name} />
                     <LabeledValue
                       label="Description"
@@ -241,13 +289,13 @@ export default function Page() {
                       value={game.world.player.personalityDescription}
                     />
                   </div>
-                  <div className={style.player_info}>
-                    <div className={style.heading}>Room Info</div>
-                    {/* TODO: <Image src={} /> */}
-                    <LabeledValue
+                  <div className={style.room_info}>
+                    <div className={style.heading}>Room</div>
+                    {renderRoom(getPlayerRoom(game.world))}
+                    {/* <LabeledValue
                       label="Name"
                       value={game.world.playerLocation.room}
-                    />
+                    /> */}
                     <LabeledValue
                       label="Description"
                       value={getPlayerRoom(game.world).shortDescription}

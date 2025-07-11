@@ -181,6 +181,11 @@
         width: 150px;
         align-self: center;
     }
+
+    & > .RoomView {
+        width: 150px;
+        align-self: center;
+    }
 }
 
 .Prompt {
@@ -222,6 +227,24 @@
         & > .heading {
             align-self: center;
             font-size: 1.2em;
+        }
+    }
+
+    & > .room_info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        overflow-y: auto;
+
+        & > .heading {
+            align-self: center;
+            font-size: 1.2em;
+        }
+
+        & > .RoomView {
+            align-self: center;
+            width: 150px;
         }
     }
 
@@ -277,11 +300,32 @@
 .ItemName {
     position: relative;
 
-    /* background: var(--dark--color); */
+    color: var(--accent--color);
+}
+
+.RoomName {
+    position: relative;
+
     color: var(--accent--color);
 }
 
 .ItemView {
+    display: flex;
+    flex-direction: column;
+
+    & > .image {
+        width: 100%;
+        height: auto;
+    }
+
+    & > .name {
+        padding: 0.5rem;
+        background: var(--dark--color);
+        color: var(--accent--color);
+    }
+}
+
+.RoomView {
     display: flex;
     flex-direction: column;
 

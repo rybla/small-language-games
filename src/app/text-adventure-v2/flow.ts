@@ -462,16 +462,14 @@ The user will provide a markdown document that describes the current state of th
             z.object({
               newRoom: Room,
               descriptionOfPathFromCurrentRoomToNewRoom: NeString.describe(
-                RoomConnection.description!.replaceAll(
-                  "room1",
-                  "currentRoom",
-                ).replaceAll("room2", "newRoom"),
+                RoomConnection.shape.descriptionOfPathFromRoom1ToRoom2
+                  .description!.replaceAll("room1", "currentRoom")
+                  .replaceAll("room2", "newRoom"),
               ),
               descriptionOfPathFromNewRoomToCurrentRoom: NeString.describe(
-                RoomConnection.description!.replaceAll(
-                  "room1",
-                  "newRoom",
-                ).replaceAll("room2", "currentRoom"),
+                RoomConnection.shape.descriptionOfPathFromRoom2ToRoom1
+                  .description!.replaceAll("room1", "newRoom")
+                  .replaceAll("room2", "currentRoom"),
               ),
             }),
           )

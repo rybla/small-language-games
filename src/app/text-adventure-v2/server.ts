@@ -1,7 +1,9 @@
 "use server";
 
 import { do_, fromDataUrlToBuffer, stringify } from "@/utility";
+import { existsSync } from "fs";
 import * as fs from "fs/promises";
+import { paths } from "./common_backend";
 import {
   GenerateGame,
   GeneratePlayerTurn,
@@ -16,8 +18,6 @@ import {
   InterpretActionError,
   isVisited,
 } from "./semantics";
-import { paths } from "./common_backend";
-import { existsSync } from "fs";
 
 // ------------------------------------------------
 
@@ -51,22 +51,23 @@ async function saveRoomImage(id: GameId, roomImage: RoomImage) {
 }
 
 export async function initializeGame(prompt: string): Promise<GameMetadata> {
-  const { game, itemImages } = await GenerateGame({ prompt });
+  const { game, itemImages, roomImage } = await GenerateGame({ prompt });
 
   await saveGame(game);
-  await Promise.all(
-    itemImages.map(
+  await Promise.all([
+    ...itemImages.map(
       async (itemImage) => await saveItemImage(game.metadata.id, itemImage),
     ),
-  );
+    saveRoomImage(game.metadata.id, roomImage),
+  ]);
 
   return game.metadata;
 }
 
 export async function getGame(id: GameId): Promise<Game> {
-  const gameFilepath = paths.getGameFilepath(id);
-  console.dir({ id, gameFilepath });
-  return Game().parse(JSON.parse(await fs.readFile(gameFilepath, "utf8")));
+  return Game().parse(
+    JSON.parse(await fs.readFile(paths.getGameFilepath(id), "utf8")),
+  );
 }
 
 export async function getSavedGameMetadatas(): Promise<GameMetadata[]> {
@@ -109,47 +110,57 @@ export async function promptGame(
       interpretAction(game.world, action);
 
       const playerRoom = getPlayerRoom(game.world);
+
       if (!isVisited(game.world, playerRoom.name)) {
-        // TODO: parallelize these
+        await Promise.all([
+          async () => {
+            console.log(`generating room image for ${playerRoom.name}`);
+            const roomImage = await GenerateRoomImage({
+              name: playerRoom.name,
+              appearanceDescription: playerRoom.longDescription,
+            });
+            saveRoomImage(game.metadata.id, roomImage);
+          },
+          async () => {
+            console.log(`generating room items for ${playerRoom.name}`);
+            const { items, itemLocations, itemImages } =
+              await GenerateRoomItems({
+                game,
+                room: playerRoom.name,
+              });
 
-        const roomImage: RoomImage = await GenerateRoomImage({
-          name: playerRoom.name,
-          appearanceDescription: playerRoom.longDescription,
-        });
-        saveRoomImage(game.metadata.id, roomImage);
+            game.world.items.push(...items);
+            game.world.itemLocations.push(...itemLocations);
+            await Promise.all(
+              itemImages.map(
+                async (itemImage) =>
+                  await saveItemImage(game.metadata.id, itemImage),
+              ),
+            );
+          },
+          async () => {
+            const { connectedRooms, roomConnections } =
+              await GenerateRoomConnections({
+                game,
+              });
 
-        const { items, itemLocations, itemImages } = await GenerateRoomItems({
-          game,
-          room: playerRoom.name,
-        });
-        game.world.items.push(...items);
-        game.world.itemLocations.push(...itemLocations);
-
-        const { connectedRooms, roomConnections } =
-          await GenerateRoomConnections({
-            game,
-          });
-
-        game.world.rooms.push(...connectedRooms);
-        game.world.roomConnections.push(...roomConnections);
-
-        // ----
-
-        await saveGame(game);
-        await Promise.all(
-          itemImages.map(
-            async (itemImage) =>
-              await saveItemImage(game.metadata.id, itemImage),
-          ),
-        );
+            console.log(`adding ${playerRoom.name} to visited rooms`);
+            game.world.visitedRooms.push(playerRoom.name);
+            game.world.rooms.push(...connectedRooms);
+            game.world.roomConnections.push(...roomConnections);
+          },
+        ]);
       }
     } catch (exception: unknown) {
       if (exception instanceof InterpretActionError) {
         errors.push(exception.message);
+        return;
       } else {
         throw exception;
       }
     }
+
+    await saveGame(game);
   }
 
   if (errors.length > 0)

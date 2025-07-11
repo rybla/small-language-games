@@ -37,7 +37,17 @@ export default function Page() {
         <main className={style.main}>
           <div className={style.prompt}>
             <div className={style.heading}>Prompt</div>
-            <textarea ref={promptRef} />
+            <textarea
+              ref={promptRef}
+              onKeyUp={(event) => {
+                event.preventDefault();
+                if (event.key === "Enter") {
+                  if (promptRef.current === null) return;
+                  if (promptRef.current.value.length === 0) return;
+                  submitPrompt(promptRef.current.value);
+                }
+              }}
+            />
             <button
               onClick={() => {
                 if (promptRef.current === null) return;

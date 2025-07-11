@@ -99,3 +99,7 @@ export function fromDataUrlToBuffer(dataUrl: string) {
 }
 
 export type NonEmptyArray<A> = [A, ...A[]];
+
+export function isNonEmpty<A>(xs: A[]): xs is [A, ...A[]] {
+  return xs.length !== 0;
+}

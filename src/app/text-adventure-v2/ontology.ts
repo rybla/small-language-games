@@ -1,4 +1,4 @@
-import { Codomain, do_, findMapAll } from "@/utility";
+import { Codomain, do_, findMapAll, isNonEmpty } from "@/utility";
 import { z } from "genkit";
 
 // -----------------------------------------------------------------------------
@@ -64,7 +64,6 @@ export const Item = z.object({
 export type Room = z.infer<typeof Room>;
 export const Room = z.object({
   name: RoomName,
-  visited: z.boolean(),
   shortDescription: NeString.describe(
     "introductory superficial one-sentence description of the room",
   ),
@@ -260,16 +259,9 @@ export const PlayerAction = (world?: World) =>
               ? roomConnection.room1
               : undefined,
       );
-      if (connectedRooms.length === 0) {
-        return [];
-      } else {
-        return [
-          PlayerMovesToDifferentRoom(
-            connectedRooms as [RoomName, ...RoomName[]],
-          ),
-        ];
-      }
-      return [];
+      return isNonEmpty(connectedRooms)
+        ? [PlayerMovesToDifferentRoom(connectedRooms)]
+        : [];
     }),
     ...do_<Codomain<typeof PlayerInspectsItem>[]>(() => {
       if (world === undefined) return [PlayerInspectsItem()];
@@ -280,11 +272,7 @@ export const PlayerAction = (world?: World) =>
           ? itemLocation.item
           : undefined,
       );
-      if (playerItems.length === 0) {
-        return [];
-      } else {
-        return [PlayerInspectsItem(playerItems as [ItemName, ...ItemName[]])];
-      }
+      return isNonEmpty(playerItems) ? [PlayerInspectsItem(playerItems)] : [];
     }),
     ...do_<Codomain<typeof PlayerDropsItem>[]>(() => {
       if (world === undefined) return [PlayerDropsItem()];
@@ -293,11 +281,7 @@ export const PlayerAction = (world?: World) =>
           ? itemLocation.item
           : undefined,
       );
-      if (playerItems.length === 0) {
-        return [];
-      } else {
-        return [PlayerDropsItem(playerItems as [ItemName, ...ItemName[]])];
-      }
+      return isNonEmpty(playerItems) ? [PlayerDropsItem(playerItems)] : [];
     }),
     ...do_<Codomain<typeof PlayerTakesItem>[]>(() => {
       if (world === undefined) return [PlayerTakesItem()];
@@ -307,11 +291,7 @@ export const PlayerAction = (world?: World) =>
           ? itemLocation.item
           : undefined,
       );
-      if (roomItems.length === 0) {
-        return [];
-      } else {
-        return [PlayerTakesItem(roomItems as [ItemName, ...ItemName[]])];
-      }
+      return isNonEmpty(roomItems) ? [PlayerTakesItem(roomItems)] : [];
     }),
   ]);
 

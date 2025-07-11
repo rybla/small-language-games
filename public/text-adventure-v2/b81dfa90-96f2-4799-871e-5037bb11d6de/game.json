@@ -1,0 +1,283 @@
+{
+    "metadata": {
+        "id": "b81dfa90-96f2-4799-871e-5037bb11d6de",
+        "name": "Lunar Harvest"
+    },
+    "world": {
+        "description": "The year is 2342. Humanity has spread to the stars, establishing numerous colonies on distant worlds. One such colony, Tranquility Base, orbits the moon. While primarily a scientific outpost, a strange phenomenon has emerged: the cultivation of a unique variety of banana, known as the 'Lunana,' possesses peculiar magical properties. These properties are harnessed by the colonists for various purposes, from powering their habitats to creating ephemeral art. The lunar dust, imbued with residual cosmic energy and traces of Lunana sap, hums with latent power, waiting to be tapped.",
+        "player": {
+            "name": "Orion",
+            "shortDescription": "A curious scientist with a penchant for understanding the inexplicable.",
+            "appearanceDescription": "A lanky individual with a shock of prematurely gray hair that contrasts sharply with their youthful face. They wear a practical, charcoal-grey jumpsuit, stained with faint, iridescent smudges that hint at recent contact with volatile substances.",
+            "personalityDescription": "Orion is endlessly curious and possesses a dry wit, often observing the follies of others with a quiet amusement. They are driven by a desire to understand the 'why' behind everything, especially the strange Lunana phenomenon. Though generally reserved, their passion ignites when discussing scientific principles or arcane theories.",
+            "skills": [
+                "Xenobotany",
+                "Quantum Physics",
+                "Enchantment Theory"
+            ]
+        },
+        "playerLocation": {
+            "room": "Observation Deck",
+            "description": "Orion stands on the Observation Deck, a circular chamber dominated by a massive viewport offering a breathtaking view of the lunar surface and the distant Earth. The deck is sparsely furnished with a few minimalist benches and control panels. The air is still and quiet, save for the low hum of the station's life support."
+        },
+        "rooms": [
+            {
+                "name": "Observation Deck",
+                "shortDescription": "An observation deck with a stunning view of the lunar surface.",
+                "longDescription": "You stand on the Observation Deck of Tranquility Base, a vast chamber constructed primarily of reinforced transparisteel. Below and around you, the stark, breathtaking beauty of the lunar landscape unfolds: the cratered, dusty plains stretching out under a sky black as pitch, studded with impossibly bright stars. Earth hangs like a marbled blue jewel in the distance. The deck is sparsely furnished with a few minimalist seating units and a central console displaying real-time environmental data for the base and the surrounding regolith. Subtle lighting emanates from the floor and ceiling, creating a serene ambiance. The air is cool and has a faint, ozonic scent, mingled with the underlying sweet perfume of Lunana that seems to permeate the entire base."
+            },
+            {
+                "name": "Agricultural Dome",
+                "shortDescription": "A vast dome filled with glowing banana plants.",
+                "longDescription": "The Agricultural Dome is a vast, geodesic structure humming with the quiet energy of countless hydroponic bays. Lush green Lunana plants, their leaves shimmering with an inner luminescence, fill the space. Delicate, iridescent fruit hang heavy from their stalks. In the center of the dome, a raised platform holds a workbench littered with specialized pruning tools and small vials filled with glowing Lunana sap. The air is thick with a sweet, slightly metallic scent. Small automated drones zip between the plants, tending to their needs. A faint, rhythmic pulsing can be felt through the floor, emanating from the cultivation tanks below."
+            },
+            {
+                "name": "Research Lab",
+                "shortDescription": "A sterile laboratory humming with advanced technology.",
+                "longDescription": "The Research Lab is a sterile, metallic chamber filled with humming machinery and blinking console lights. Banks of computers line the walls, displaying complex energy readings and genetic sequences. A central workstation features a large holographic projector, currently displaying a spinning schematic of a Lunana fruit. Beakers filled with bubbling, luminous liquids sit on lab benches, alongside specialized testing equipment. Glass tubes snake across the ceiling, carrying purified water and nutrients to various containment units. The ambient noise is a low thrum of active processors and cooling fans."
+            },
+            {
+                "name": "Lunar Dust Repository",
+                "shortDescription": "A vast chamber filled with containment silos of lunar dust.",
+                "longDescription": "The Lunar Dust Repository is a cavernous space carved deep into the moon's regolith. Towering silos, capped with shimmering energy fields, line the walls, each containing compressed lunar dust. Fine, shimmering particles of moon dust drift in the air, catching the low light and creating a mesmerizing, ethereal glow. Conveyor belts, currently inactive, snake across the floor, leading to loading bays. The walls themselves seem to absorb sound, creating an unnerving quiet broken only by the faint, crackling energy from the containment fields. At the far end of the chamber, a reinforced vault door suggests access to something even more secure."
+            }
+        ],
+        "items": [
+            {
+                "name": "Observation Partition",
+                "shortDescription": "A crystal-clear partition offering a panoramic view of space.",
+                "appearanceDescription": "A large, transparent partition made of a clear, durable material, offering an unobstructed view of the lunar surface and the Earth hanging in the black sky. It is positioned in front of the player, angling slightly to their left."
+            },
+            {
+                "name": "Central Console",
+                "shortDescription": "A futuristic console displaying critical base and environmental information.",
+                "appearanceDescription": "A sleek, modern console composed of dark, polished metal and integrated glowing blue displays. It features a variety of touch-sensitive panels and holographic projection interfaces. It sits on a raised platform in the center of the room, currently displaying environmental data."
+            },
+            {
+                "name": "Minimalist Seating Units",
+                "shortDescription": "Comfortable, modern seating designed for optimal viewing.",
+                "appearanceDescription": "Several low-profile, ergonomically designed chairs made of a matte, grey composite material. They are arranged sparsely around the observation deck, providing comfortable seating with an unimpeded view."
+            },
+            {
+                "name": "Lunana Scent Particles",
+                "shortDescription": "Microscopic particles carrying the faint, sweet scent of Lunana.",
+                "appearanceDescription": "A faint, shimmering particle that seems to drift in the air, catching the subtle ambient light. It is barely visible and often mistaken for dust motes, but upon closer inspection, it possesses a subtle luminescence and a sweet, aromatic scent."
+            },
+            {
+                "name": "Traces of Lunana Sap",
+                "shortDescription": "Faint, glowing traces of the magical Lunana sap.",
+                "appearanceDescription": "A shimmering, iridescent residue clinging to the edges of the partition and faintly on the console. It glows with a very subtle, internal light and emits a barely perceptible warmth."
+            }
+        ],
+        "itemLocations": [
+            {
+                "type": "ItemLocationInPlayerInventory",
+                "item": "Traces of Lunana Sap",
+                "description": "A small vial containing a shimmering, viscous liquid now rests in Orion's utility belt."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Observation Deck",
+                "item": "Observation Partition",
+                "description": "The partition is situated along the outer edge of the Observation Deck, running parallel to the curve of the room. The player is currently leaning their elbows on it, with the Earth visible through it directly ahead."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Observation Deck",
+                "item": "Central Console",
+                "description": "The console is centrally located on the Observation Deck, positioned between the seating units and opposite the main viewport. The player is standing to its right."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Observation Deck",
+                "item": "Minimalist Seating Units",
+                "description": "These seating units are scattered throughout the Observation Deck, placed near the observation partition and strategically positioned to maximize the view of the Earth and lunar landscape."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Observation Deck",
+                "item": "Lunana Scent Particles",
+                "description": "These particles are dispersed throughout the air of the Observation Deck, caught in the gentle currents and often seen dancing near the light sources. They originate from the pervasive Lunana scent permeating the base."
+            }
+        ],
+        "roomConnections": [
+            {
+                "room1": "Observation Deck",
+                "room2": "Agricultural Dome",
+                "descriptionOfPathFromRoom1ToRoom2": "A sturdy, circular airlock door stands between the Observation Deck and the Agricultural Dome. Its control panel flickers with status lights.",
+                "descriptionOfPathFromRoom2ToRoom1": "A reinforced airlock, currently sealed, separates the Agricultural Dome from the main corridor."
+            },
+            {
+                "room1": "Observation Deck",
+                "room2": "Research Lab",
+                "descriptionOfPathFromRoom1ToRoom2": "The access to the Research Lab is through a heavy, pressure-sealed door.",
+                "descriptionOfPathFromRoom2ToRoom1": "A wide, sliding blast door connects this lab to the central hub."
+            },
+            {
+                "room1": "Observation Deck",
+                "room2": "Lunar Dust Repository",
+                "descriptionOfPathFromRoom1ToRoom2": "A reinforced blast door provides access to the Lunar Dust Repository.",
+                "descriptionOfPathFromRoom2ToRoom1": "A reinforced blast door separates the repository from the main corridor, its locking mechanism engaged."
+            }
+        ],
+        "visitedRooms": [
+            "Observation Deck"
+        ]
+    },
+    "turns": [
+        {
+            "prompt": "look around the room",
+            "actions": [
+                {
+                    "type": "PlayerInspectsRoom",
+                    "description": "Orion looks around the Observation Deck, taking in the details of the room. Their eyes scan the transparent partition they are leaning on, the central console positioned nearby, and the minimalist seating units scattered around. They also notice the faint, shimmering Lunana scent particles dancing in the air and the subtle smudges of Traces of Lunana Sap on the surfaces."
+                }
+            ],
+            "description": "Orion takes a moment to survey the Observation Deck. The vastness of space is on full display through the transparent partition, with the Earth hanging like a blue marble in the blackness. The central console hums softly, a beacon of technology amidst the serene, otherworldly view. Minimalist seating units are arranged to offer optimal viewing angles. The air is faintly scented, filled with dancing particles that hint at the unique properties of the Lunana. Faint traces of Lunana sap, almost imperceptible, are visible on the surfaces nearest to Orion."
+        },
+        {
+            "prompt": "gather some Lunana sap",
+            "actions": [
+                {
+                    "type": "PlayerInspectsItem",
+                    "item": "Traces of Lunana Sap",
+                    "description": "Orion leans closer to the observation partition, carefully examining the faint, iridescent smudges on its surface. The residue seems to shimmer with an inner light, hinting at the unique properties of the Lunana."
+                },
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "Traces of Lunana Sap",
+                    "description": "Orion gently dabs a finger against one of the smudges of Lunana sap on the partition. The substance feels slightly viscous and strangely warm to the touch. Orion carefully collects a small sample.",
+                    "newItemLocationDescription": "A small vial containing a shimmering, viscous liquid now rests in Orion's utility belt."
+                }
+            ],
+            "description": "Orion leans closer to the observation partition, carefully examining the faint, iridescent smudges on its surface. The residue seems to shimmer with an inner light, hinting at the unique properties of the Lunana. Orion gently dabs a finger against one of the smudges of Lunana sap on the partition. The substance feels slightly viscous and strangely warm to the touch. Orion carefully collects a small sample, placing it in a vial that now rests in their utility belt."
+        },
+        {
+            "prompt": "look for anything else in the room",
+            "actions": [
+                {
+                    "type": "PlayerInspectsRoom",
+                    "description": "Orion inspects the Observation Deck, taking in the details of the room. The aft viewport offers a breathtaking view of the Earth, its blue and white swirls a stark contrast to the desolate lunar landscape visible through other sections of the partition. The Central Console hums softly nearby, its myriad of lights suggesting complex operations. Scattered Minimalist Seating Units offer places to rest, though Orion remains standing. The air is faintly perfumed with the sweet, exotic aroma of Lunana Scent Particles, which drift lazily in the artificial light."
+                }
+            ],
+            "description": "Orion takes a moment to survey the Observation Deck. The panoramic view of Earth is as captivating as ever, but their scientific curiosity pulls them to examine the immediate surroundings. The transparent Observation Partition, through which the Earth is visible, is the most prominent feature, followed by the enigmatic Central Console. Minimalist Seating Units are dotted around the room, and the distinctive scent of Lunana permeates the air, a constant reminder of the colony's unique cultivation."
+        },
+        {
+            "prompt": "look at the seating units",
+            "actions": [
+                {
+                    "type": "PlayerInspectsItem",
+                    "item": "Minimalist Seating Units",
+                    "description": "Orion leans in, examining the minimalist seating units scattered around the observation deck. They appear to be molded from a lightweight, pearlescent material, designed for comfort and to complement the panoramic views. Subtle, iridescent patterns, reminiscent of the Lunana sap, seem to be subtly woven into the fabric of the seating."
+                }
+            ],
+            "description": "Orion examines the minimalist seating units. They are crafted from a pearlescent material and exhibit subtle, iridescent patterns similar to the Lunana sap, blending functionality with the unique aesthetic of the base."
+        },
+        {
+            "prompt": "check if there are other rooms nearby",
+            "actions": [
+                {
+                    "type": "PlayerInspectsRoom",
+                    "description": "Orion surveys the Observation Deck, taking in the breathtaking view of Earth and the details of the room."
+                }
+            ],
+            "description": "Orion takes a moment to survey the Observation Deck, the majestic Earth hanging like a blue marble in the blackness outside the viewport. The faint, sweet scent of Lunana particles dances in the air. To Orion's right stands the central console, a hub of potential information. Scattered around the deck are minimalist seating units, inviting a moment of rest. The observation partition Orion is leaning on offers an unobstructed view, its transparency revealing the curvature of the station. The connections to the Agricultural Dome, Research Lab, and Lunar Dust Repository are visible, each marked by robust doors suggesting entry into distinct environments."
+        },
+        {
+            "prompt": "go to the research lab",
+            "actions": [
+                {
+                    "type": "PlayerMovesToDifferentRoom",
+                    "room": "Research Lab",
+                    "newPlayerLocationDescription": "Orion stands in the doorway of the Observation Deck, facing the pressure-sealed door that leads to the Research Lab. The faint hum of the station's life support is a constant companion. The door is ajar, revealing a glimpse of the sterile, brightly lit corridor beyond.",
+                    "description": "Orion decides to head to the Research Lab."
+                }
+            ],
+            "description": "Orion turns away from the breathtaking view of Earth and heads towards the heavy, pressure-sealed door leading to the Research Lab. With a slight push, the door hisses open, revealing a brightly lit, sterile corridor. Orion steps through, and the door seals shut behind them, leaving the quiet hum of the Observation Deck behind for the focused efficiency of the laboratory."
+        },
+        {
+            "prompt": "go back to the observation deck",
+            "actions": [
+                {
+                    "type": "PlayerMovesToDifferentRoom",
+                    "room": "Observation Deck",
+                    "newPlayerLocationDescription": "Orion stands just inside the Observation Deck, the blast door to the Research Lab now closed behind them. The vast expanse of space, dotted with the Earth's luminous glow, fills the panoramic windows.",
+                    "description": "Orion turns and moves back towards the Observation Deck, stepping through the open blast door."
+                }
+            ],
+            "description": "Orion decides to return to the Observation Deck. They turn from the Research Lab and step back through the sliding blast door, entering the Observation Deck. The door seals shut with a soft hiss, leaving Orion once again bathed in the dim light of the space station, with the stunning view of Earth hanging in the void before them."
+        },
+        {
+            "prompt": "go to the research lab",
+            "actions": [
+                {
+                    "type": "PlayerMovesToDifferentRoom",
+                    "room": "Research Lab",
+                    "newPlayerLocationDescription": "Orion stands before the pressure-sealed door that connects the Observation Deck to the Research Lab. The door is now slightly ajar, revealing a dimly lit corridor beyond. The hum of machinery is more pronounced here.",
+                    "description": "Orion turns from the panoramic view of space and approaches the heavy, pressure-sealed door leading to the Research Lab. With a practiced hand, they activate the door's control panel, initiating the airlock sequence."
+                }
+            ],
+            "description": "Orion moves from the Observation Deck to the Research Lab."
+        },
+        {
+            "prompt": "go to the observation deck",
+            "actions": [
+                {
+                    "type": "PlayerMovesToDifferentRoom",
+                    "room": "Observation Deck",
+                    "newPlayerLocationDescription": "Orion stands before the wide, sliding blast door that connects the Research Lab to the Observation Deck. The door is now slightly ajar, revealing a dimly lit corridor beyond. The hum of machinery is more pronounced here.",
+                    "description": "Orion approaches the wide, sliding blast door connecting the Research Lab to the Observation Deck."
+                }
+            ],
+            "description": "Orion moves from the Research Lab to the Observation Deck, approaching the wide, sliding blast door that connects the two rooms. The door is slightly ajar, revealing a dimly lit corridor beyond, and the hum of machinery grows louder."
+        },
+        {
+            "prompt": "go to the research lab",
+            "actions": [
+                {
+                    "type": "PlayerMovesToDifferentRoom",
+                    "room": "Research Lab",
+                    "newPlayerLocationDescription": "Orion stands just inside the Research Lab, the blast door to the Observation Deck now behind them. The room is filled with the low hum of advanced scientific equipment. Various workstations are arranged with monitors displaying complex readouts. In the center of the room, a large, cylindrical containment unit glows with a soft, internal luminescence. The air here is cooler than in the Observation Deck, carrying a faint, sterile scent.",
+                    "description": "Orion pushes open the slightly ajar blast door leading to the Research Lab."
+                }
+            ],
+            "description": "Orion steps through the blast door, leaving the panoramic view of the lunar surface behind. The door slides shut with a soft hiss, sealing them within the Research Lab. The air here is noticeably cooler, and the low thrum of advanced machinery is more pervasive. The central area of the lab is dominated by a large, cylindrical containment unit, its interior softly illuminated, hinting at ongoing experiments."
+        },
+        {
+            "prompt": "go to observation deck",
+            "actions": [
+                {
+                    "type": "PlayerMovesToDifferentRoom",
+                    "room": "Observation Deck",
+                    "newPlayerLocationDescription": "Orion stands on the Observation Deck, a vast space dominated by a panoramic window offering a breathtaking view of the Earth hanging in the blackness of space. The floor is a polished, metallic surface reflecting the soft ambient light. To the north, the blast doors to the Research Lab are visible. A few comfortable-looking chairs are scattered around the room, facing the window. The air here is neutral, lacking the sterile scent of the lab.",
+                    "description": "Orion slides open the blast door and steps through, entering the Observation Deck."
+                }
+            ],
+            "description": "Orion moves from the Research Lab to the Observation Deck. The blast door slides open and then shut, enclosing Orion in a new environment. The Observation Deck is a large, open space dominated by a panoramic window showcasing the Earth against the backdrop of space. Scattered seating and a polished floor complete the scene."
+        },
+        {
+            "prompt": "go to research lab",
+            "actions": [
+                {
+                    "type": "PlayerMovesToDifferentRoom",
+                    "room": "Research Lab",
+                    "newPlayerLocationDescription": "Orion stands before the pressure-sealed door to the Research Lab, the polished floor cool beneath their boots. The door is ajar, revealing a glimpse of the laboratory beyond. The faint hum of machinery can be heard.",
+                    "description": "Orion walks towards the heavy, pressure-sealed door connecting the Observation Deck to the Research Lab."
+                }
+            ],
+            "description": "Orion walks towards the heavy, pressure-sealed door connecting the Observation Deck to the Research Lab. The door hisses open, and Orion steps through, finding themselves in the sterile environment of the laboratory. The air is cool and carries the faint scent of ozone. Scientific equipment hums around them."
+        },
+        {
+            "prompt": "go to observation deck",
+            "actions": [
+                {
+                    "description": "Orion slides open the blast door and steps through into the Observation Deck.",
+                    "newPlayerLocationDescription": "Orion stands on the Observation Deck, a circular chamber dominated by a massive viewport offering a breathtaking view of the lunar surface and the distant Earth. The deck is sparsely furnished with a few minimalist benches and control panels. The air is still and quiet, save for the low hum of the station's life support.",
+                    "room": "Observation Deck",
+                    "type": "PlayerMovesToDifferentRoom"
+                }
+            ],
+            "description": "Orion enters the Observation Deck, leaving the sterile confines of the Research Lab behind. The vast expanse of space and the familiar curve of Earth greet them through the enormous viewport, a stark contrast to the focused environment of the lab."
+        }
+    ]
+}
