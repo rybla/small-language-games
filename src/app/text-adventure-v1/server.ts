@@ -6,7 +6,7 @@ import * as fs from "fs/promises";
 import path from "path";
 import {
   GenerateGame,
-  GenerateItemsForRoom,
+  GenerateRoomItems,
   GeneratePlayer,
   GenerateRoom,
   GeneratePlayerTurn,
@@ -46,7 +46,7 @@ export async function initializeGame(prompt: {
   game.world.rooms.push(room);
   await saveGame(game);
 
-  const { items, itemLocations } = await GenerateItemsForRoom({
+  const { items, itemLocations } = await GenerateRoomItems({
     game,
     room: room.name,
   });

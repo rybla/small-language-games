@@ -1,48 +1,52 @@
 "use server";
 
-import { fromDataUrlToBuffer, stringify } from "@/utility";
+import { do_, fromDataUrlToBuffer, stringify } from "@/utility";
 import * as fs from "fs/promises";
-import path from "path";
-import { rootName } from "./common";
-import { GenerateGame, GeneratePlayerTurn } from "./flow";
-import { Game, GameId, GameMetadata, ItemImage, ItemName } from "./ontology";
-import { interpretAction, InterpretActionError } from "./semantics";
-import filenamify from "filenamify";
-
-const gamesDirpath = path.join(".", "public", rootName);
-
-function gameDirpath(id: GameId) {
-  return path.join(".", "public", rootName, id);
-}
-
-function getGameFilepath(id: GameId) {
-  return path.join(gameDirpath(id), "game.json");
-}
-
-function getItemImageDirpath(id: GameId) {
-  return path.join(gameDirpath(id), "item");
-}
-
-function getItemImageFilepath(id: GameId, item: ItemName) {
-  return path.join(gameDirpath(id), "item", filenamify(item) + ".png");
-}
+import {
+  GenerateGame,
+  GeneratePlayerTurn,
+  GenerateRoomConnections,
+  GenerateRoomImage,
+  GenerateRoomItems,
+} from "./flow";
+import { Game, GameId, GameMetadata, ItemImage, RoomImage } from "./ontology";
+import {
+  getPlayerRoom,
+  interpretAction,
+  InterpretActionError,
+  isVisited,
+} from "./semantics";
+import { paths } from "./common_backend";
+import { existsSync } from "fs";
 
 // ------------------------------------------------
 
 async function saveGame(game: Game) {
-  await fs.mkdir(gameDirpath(game.metadata.id), { recursive: true });
+  await fs.mkdir(paths.getGameDirpath(game.metadata.id), { recursive: true });
   await fs.writeFile(
-    getGameFilepath(game.metadata.id),
+    paths.getGameFilepath(game.metadata.id),
     stringify(game),
     "utf8",
   );
 }
 
 async function saveItemImage(id: GameId, itemImage: ItemImage) {
-  await fs.mkdir(getItemImageDirpath(id), { recursive: true });
+  await fs.mkdir(paths.getItemImagesDirpath(id), {
+    recursive: true,
+  });
   await fs.writeFile(
-    getItemImageFilepath(id, itemImage.item),
+    paths.getItemImageFilepath(id, itemImage.item),
     fromDataUrlToBuffer(itemImage.dataUrl),
+  );
+}
+
+async function saveRoomImage(id: GameId, roomImage: RoomImage) {
+  await fs.mkdir(paths.getRoomImagesDirpath(id), {
+    recursive: true,
+  });
+  await fs.writeFile(
+    paths.getRoomImageFilepath(id, roomImage.room),
+    fromDataUrlToBuffer(roomImage.dataUrl),
   );
 }
 
@@ -60,24 +64,32 @@ export async function initializeGame(prompt: string): Promise<GameMetadata> {
 }
 
 export async function getGame(id: GameId): Promise<Game> {
-  return Game().parse(
-    JSON.parse(await fs.readFile(getGameFilepath(id), "utf8")),
-  );
+  const gameFilepath = paths.getGameFilepath(id);
+  console.dir({ id, gameFilepath });
+  return Game().parse(JSON.parse(await fs.readFile(gameFilepath, "utf8")));
 }
 
 export async function getSavedGameMetadatas(): Promise<GameMetadata[]> {
-  const filenames = await fs.readdir(gamesDirpath);
+  const gameIds = await do_(async () => {
+    const filenames = await fs.readdir(paths.getGamesDirpath());
+    const gameIds: GameId[] = [];
+    for (const filename of filenames) {
+      const gameId = GameId.parse(filename);
+      const filepath = paths.getGameDirpath(gameId);
+      if (existsSync(filepath) && (await fs.stat(filepath)).isDirectory())
+        gameIds.push(gameId);
+    }
+    return gameIds;
+  });
+
   return await Promise.all(
-    filenames
-      .filter((filename) => !filename.includes("."))
-      .map(
-        async (filename) =>
-          Game().parse(
-            JSON.parse(
-              await fs.readFile(getGameFilepath(filename as GameId), "utf8"),
-            ),
-          ).metadata,
-      ),
+    gameIds.map(
+      async (gameId) =>
+        // NOTE: if the game is big, this could take a while, so would be better to break up a Game into a metadata file and the actual game file
+        Game().parse(
+          JSON.parse(await fs.readFile(paths.getGameFilepath(gameId), "utf8")),
+        ).metadata,
+    ),
   );
 }
 
@@ -95,6 +107,42 @@ export async function promptGame(
   for (const action of turn.actions) {
     try {
       interpretAction(game.world, action);
+
+      const playerRoom = getPlayerRoom(game.world);
+      if (!isVisited(game.world, playerRoom.name)) {
+        // TODO: parallelize these
+
+        const roomImage: RoomImage = await GenerateRoomImage({
+          name: playerRoom.name,
+          appearanceDescription: playerRoom.longDescription,
+        });
+        saveRoomImage(game.metadata.id, roomImage);
+
+        const { items, itemLocations, itemImages } = await GenerateRoomItems({
+          game,
+          room: playerRoom.name,
+        });
+        game.world.items.push(...items);
+        game.world.itemLocations.push(...itemLocations);
+
+        const { connectedRooms, roomConnections } =
+          await GenerateRoomConnections({
+            game,
+          });
+
+        game.world.rooms.push(...connectedRooms);
+        game.world.roomConnections.push(...roomConnections);
+
+        // ----
+
+        await saveGame(game);
+        await Promise.all(
+          itemImages.map(
+            async (itemImage) =>
+              await saveItemImage(game.metadata.id, itemImage),
+          ),
+        );
+      }
     } catch (exception: unknown) {
       if (exception instanceof InterpretActionError) {
         errors.push(exception.message);

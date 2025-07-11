@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as example from "./example/wispering-plantation";
 import {
-  GenerateItemsForRoom,
+  GenerateRoomItems,
   GeneratePlayer,
   GeneratePlayerTurn,
   GenerateRoom,
@@ -15,7 +15,7 @@ import { RoomName } from "./ontology";
 
 // await Promise.all(
 //   example.game.world.rooms.map((room) =>
-//     GenerateItemsForRoom({ game: example.game, name: room.name }),
+//     GenerateRoomItems({ game: example.game, name: room.name }),
 //   ),
 // );
 

@@ -1,7 +1,8 @@
 @import "../common.css";
 
 :root {
-    --content--width: 1000px;
+    /* --content--width: 1000px; */
+    --content--width: 100%;
 }
 
 .main {
@@ -177,6 +178,7 @@
     }
 
     & > .ItemView {
+        width: 150px;
         align-self: center;
     }
 }
@@ -189,6 +191,11 @@
     display: flex;
     flex-direction: row;
     gap: 1rem;
+
+    & > div {
+        flex: 1 0 0;
+        min-width: 0;
+    }
 
     & > textarea {
         flex: 0 0 auto;
@@ -206,9 +213,6 @@
     }
 
     & > .player_info {
-        flex: 1 0 0;
-        min-width: 0;
-
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
@@ -222,9 +226,6 @@
     }
 
     & > .inventory_info {
-        flex: 1 0 0;
-        min-width: 0;
-
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
@@ -247,6 +248,7 @@
             justify-content: center;
 
             & > .ItemView {
+                width: 150px;
             }
         }
     }
@@ -280,8 +282,6 @@
 }
 
 .ItemView {
-    width: 150px;
-
     display: flex;
     flex-direction: column;
 
@@ -301,4 +301,26 @@
     padding: 1rem;
     background-color: color-mix(in hsl, transparent, black 5%);
     border: 1px solid black;
+}
+
+.ImageModal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 1rem;
+
+    & > .image {
+        position: relative;
+        background-color: #ffffff;
+        height: min(80vh, 80vw);
+        width: min(80vh, 80vw);
+        aspect-ratio: 1;
+    }
 }

@@ -97,3 +97,5 @@ export function intercalateWithIndex<A>(
 export function fromDataUrlToBuffer(dataUrl: string) {
   return Buffer.from(dataUrl.split(",")[1], "base64");
 }
+
+export type NonEmptyArray<A> = [A, ...A[]];

@@ -51,16 +51,14 @@
         ],
         "itemLocations": [
             {
-                "type": "ItemLocationInRoom",
-                "room": "Altar of the First Peel",
-                "item": "Monumental Banana",
-                "description": "The Monumental Banana has been consumed and is no longer in Kaelen's inventory."
+                "type": "ItemLocationInPlayerInventory",
+                "item": "Altar of Petrified Leaves",
+                "description": "The Altar of Petrified Leaves is now in Kaelen's inventory."
             },
             {
-                "type": "ItemLocationInRoom",
-                "room": "Altar of the First Peel",
-                "item": "Altar of Petrified Leaves",
-                "description": "The altar is situated in the very center of the sacred clearing, forming the base upon which the monumental banana rests. It is made from petrified banana leaves and has a low, circular profile."
+                "type": "ItemLocationInPlayerInventory",
+                "item": "Monumental Banana",
+                "description": "The Monumental Banana has been consumed and is no longer in Kaelen's inventory."
             },
             {
                 "type": "ItemLocationInRoom",
@@ -151,12 +149,67 @@
             "prompt": "shoo the birds away",
             "actions": [
                 {
+                    "type": "PlayerMovesInsideCurrentRoom",
                     "description": "Kaelen, with a gentle wave of their hand, attempts to shoo the fuzzy yellow birds away from the Altar of the First Peel. The birds, startled by the sudden movement, scatter outwards from the central altar, resuming their places around the clearing's perimeter.",
-                    "newPlayerLocationDescription": "Kaelen stands at the edge of the Altar of the First Peel, their feet resting on the cool, smooth stone. The imposing obsidian structure before them emanates a faint hum of energy. They are facing the altar directly, a respectful distance away, their posture relaxed but attentive. The fuzzy yellow birds are now scattered around the perimeter of the clearing, near the sparse, twisted trees.",
-                    "type": "PlayerMovesInsideCurrentRoom"
+                    "newPlayerLocationDescription": "Kaelen stands at the edge of the Altar of the First Peel, their feet resting on the cool, smooth stone. The imposing obsidian structure before them emanates a faint hum of energy. They are facing the altar directly, a respectful distance away, their posture relaxed but attentive. The fuzzy yellow birds are now scattered around the perimeter of the clearing, near the sparse, twisted trees."
                 }
             ],
             "description": "Kaelen, with a gentle wave of their hand, attempts to shoo the fuzzy yellow birds away from the Altar of the First Peel. The birds, startled by the sudden movement, scatter outwards from the central altar, resuming their places around the clearing's perimeter."
+        },
+        {
+            "prompt": "pick up the monumental banana",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "Monumental Banana",
+                    "description": "Kaelen approaches the Altar of Petrified Leaves, reaching out a hand towards the Monumental Banana.",
+                    "newItemLocationDescription": "The Monumental Banana has been consumed and is no longer in Kaelen's inventory."
+                }
+            ],
+            "description": "Kaelen walks towards the Altar of Petrified Leaves and attempts to take the Monumental Banana. However, the description states that the Monumental Banana has already been consumed."
+        },
+        {
+            "prompt": "take the altar too",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "Altar of Petrified Leaves",
+                    "description": "Kaelen reaches out and carefully takes the Altar of Petrified Leaves, its ancient, leathery surface cool to the touch. The object is surprisingly light, as if its essence has been transferred to the monumental banana.",
+                    "newItemLocationDescription": "The Altar of Petrified Leaves is now in Kaelen's inventory."
+                }
+            ],
+            "description": "Kaelen reaches out and carefully takes the Altar of Petrified Leaves, its ancient, leathery surface cool to the touch. The object is surprisingly light, as if its essence has been transferred to the monumental banana. Kaelen now holds the Altar of Petrified Leaves."
+        },
+        {
+            "prompt": "look around for any other items in the room",
+            "actions": [
+                {
+                    "type": "PlayerInspectsRoom",
+                    "description": "Kaelen looks around the Altar of the First Peel, taking in the details of the sacred clearing."
+                }
+            ],
+            "description": "Kaelen surveys the Altar of the First Peel. The monumental, glowing banana sits on its altar, radiating a soft light that occasionally illuminates the intricate etchings pressed into the packed earth surrounding the sacred space. Near the sparse, twisted trees at the clearing's edge, several fuzzy yellow birds peck at the ground, occasionally venturing closer to the altar before darting back."
+        },
+        {
+            "prompt": "tae this altar the altar of the first peel as well",
+            "actions": [
+                {
+                    "description": "Kaelen approaches the Altar of Petrified Leaves, reaching out a hand to feel the smooth, cool obsidian.",
+                    "item": "Altar of Petrified Leaves",
+                    "type": "PlayerInspectsItem"
+                },
+                {
+                    "description": "Kaelen turns their attention to the fuzzy yellow birds, observing their peculiar behavior as they flit around the clearing.",
+                    "item": "Fuzzy Yellow Birds",
+                    "type": "PlayerInspectsItem"
+                },
+                {
+                    "description": "Kaelen kneels down to examine the intricate etchings pressed into the earth, trying to decipher their meaning.",
+                    "item": "Etchings in the Earth",
+                    "type": "PlayerInspectsItem"
+                }
+            ],
+            "description": "Kaelen approaches the Altar of Petrified Leaves, their hand reaching out to feel the smooth, cool obsidian surface. They then turn their attention to the fuzzy yellow birds scattered around the clearing, observing their peculiar behavior as they occasionally dart towards the altar. Finally, Kaelen kneels down to examine the intricate etchings pressed into the packed earth surrounding the altar, trying to decipher their ancient meaning."
         }
     ]
 }

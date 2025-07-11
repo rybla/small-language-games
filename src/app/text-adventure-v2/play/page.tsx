@@ -1,17 +1,16 @@
 "use client";
 
 import { do_, unwords } from "@/utility";
-import filenamify from "filenamify";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import path from "path";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import Markdown from "react-markdown";
-import { rootName } from "../common";
+import { paths } from "../common_frontend";
 import type { Game, GameId, Item, PlayerAction, PlayerTurn } from "../ontology";
 import {
   getItem,
   getPlayerItems,
+  getPlayerRoom,
   presentGame,
   presentGameFromPlayerPerspective,
 } from "../semantics";
@@ -23,8 +22,8 @@ export default function Page() {
   const [ungame, set_ungame] = useState<Game | undefined>(undefined);
   const [submittedPrompt, set_submittedPrompt] = useState<string | undefined>(
     undefined,
-    // "hello world",
   );
+  const [imageUrl_focus, set_imageUrl_focus] = useState<string | null>(null);
 
   const promptRef = useRef<HTMLTextAreaElement>(null);
   const turnsBottomRef = useRef<HTMLDivElement>(null);
@@ -74,19 +73,19 @@ export default function Page() {
       ) : (
         do_(() => {
           const game: Game = ungame;
-          const gameDirpath = path.join("/" + rootName, game.metadata.id);
 
           function renderItem(item: Item, key?: number) {
+            const item_imageUrl = paths.getItemImageFilepath(
+              game.metadata.id,
+              item.name,
+            );
             return (
               <div className={style.ItemView} key={key}>
                 <Image
                   className={style.image}
                   alt={item.name}
-                  src={path.join(
-                    gameDirpath,
-                    "item",
-                    filenamify(item.name) + ".png",
-                  )}
+                  src={item_imageUrl}
+                  onClick={() => set_imageUrl_focus(item_imageUrl)}
                   width={512}
                   height={512}
                 />
@@ -242,6 +241,22 @@ export default function Page() {
                       value={game.world.player.personalityDescription}
                     />
                   </div>
+                  <div className={style.player_info}>
+                    <div className={style.heading}>Room Info</div>
+                    {/* TODO: <Image src={} /> */}
+                    <LabeledValue
+                      label="Name"
+                      value={game.world.playerLocation.room}
+                    />
+                    <LabeledValue
+                      label="Description"
+                      value={getPlayerRoom(game.world).shortDescription}
+                    />
+                    <LabeledValue
+                      label="Player Location"
+                      value={game.world.playerLocation.description}
+                    />
+                  </div>
                   <div className={style.inventory_info}>
                     <div className={style.heading}>Inventory</div>
                     <div className={style.items}>
@@ -274,7 +289,28 @@ export default function Page() {
       ) : (
         <></>
       )}
+      <ImageModal
+        imageUrl={imageUrl_focus}
+        onClose={() => set_imageUrl_focus(null)}
+      />
     </main>
+  );
+}
+
+function ImageModal(props: { imageUrl: string | null; onClose: () => void }) {
+  if (!props.imageUrl) return null;
+
+  return (
+    <div className={style.ImageModal} onClick={() => props.onClose()}>
+      <Image
+        className={style.image}
+        src={props.imageUrl}
+        alt="Focus Image"
+        width={1024}
+        height={1024}
+        onClick={(event) => event.stopPropagation()}
+      />
+    </div>
   );
 }
 

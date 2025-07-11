@@ -149,7 +149,7 @@ The player will start off in the room "${input.room}".
   },
 );
 
-export const GenerateItemsForRoom = ai.defineFlow(
+export const GenerateRoomItems = ai.defineFlow(
   {
     name: "GenerateItemForRoom",
     inputSchema: z.object({

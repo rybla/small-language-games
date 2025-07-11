@@ -96,6 +96,26 @@ export function interpretAction(world: World, action: PlayerAction): void {
       };
       return;
     }
+    case "PlayerInspectsItem": {
+      return;
+    }
+    case "PlayerInspectsRoom": {
+      return;
+    }
+    case "PlayerMovesToDifferentRoom": {
+      world.playerLocation = {
+        room: action.room,
+        description: action.newPlayerLocationDescription,
+      };
+      return;
+    }
+    default: {
+      // @ts-expect-error this branch should be impossible
+      const action_type: string = action.type;
+      throw new InterpretActionError(
+        `no interpretation for action type: ${action_type}`,
+      );
+    }
   }
 }
 
@@ -285,6 +305,14 @@ export function getRoom(world: World, name: RoomName): Room {
   const room = world.rooms.find((room) => room.name === name);
   if (room === undefined) throw new Error(`The room "${name}" does not exist.`);
   return room;
+}
+
+export function getPlayerRoom(world: World): Room {
+  return getRoom(world, world.playerLocation.room);
+}
+
+export function isVisited(world: World, room: RoomName) {
+  return world.visitedRooms.includes(room);
 }
 
 export function getItemsItemLocationInRoom(

@@ -1,6 +1,6 @@
 "use server";
 
-import { id, quoteblockMd } from "@/utility";
+import { id, NonEmptyArray, quoteblockMd } from "@/utility";
 import { randomUUID } from "crypto";
 import { z } from "genkit";
 import { ai, model, temperature } from "../../backend/ai";
@@ -17,11 +17,15 @@ import {
   Item,
   ItemImage,
   ItemLocationInRoom,
+  ItemName,
+  NeString,
   Player,
   PlayerLocation,
   PlayerTurn,
   PreGame,
   Room,
+  RoomConnection,
+  RoomImage,
   RoomName,
   World,
 } from "./ontology";
@@ -94,15 +98,19 @@ export const GenerateGame = ai.defineFlow(
     }),
     outputSchema: z.object({
       game: Game(),
+      roomImage: RoomImage,
       itemImages: z.array(ItemImage),
     }),
   },
   async (input) => {
     const { pregame } = await GeneratePreGame({ prompt: input.prompt });
-    const { room } = await GenerateInitialRoom({ pregame });
+    const { startRoom, connectedRooms, roomConnections } =
+      await GenerateStartRoom({
+        pregame,
+      });
     const { player, playerLocation } = await GeneratePlayer({
       pregame,
-      room: room.name,
+      room: startRoom.name,
       prompt: "an everyday inhabitant of this strange world",
     });
 
@@ -112,24 +120,33 @@ export const GenerateGame = ai.defineFlow(
         description: pregame.worldDescription,
         player,
         playerLocation,
-        rooms: [room],
+        rooms: [startRoom, ...connectedRooms],
         items: [],
         itemLocations: [],
+        roomConnections,
+        visitedRooms: [startRoom.name],
       },
       turns: [],
     };
 
-    const { items, itemLocations, itemImages } = await GenerateItemsForRoom({
-      game,
-      room: room.name,
+    const roomImage = await GenerateRoomImage({
+      name: startRoom.name,
+      appearanceDescription: startRoom.longDescription,
     });
 
+    const { items, itemLocations, itemImages } = await GenerateRoomItems({
+      game,
+      room: startRoom.name,
+    });
+
+    // TODO: shouldn't modify state in a flow, instead just return all these items and locations
     game.world.items.push(...items);
     game.world.itemLocations.push(...itemLocations);
 
     return {
       game,
       itemImages,
+      roomImage,
     };
   },
 );
@@ -199,7 +216,7 @@ The player will start off in the room "${input.room}".
   },
 );
 
-export const GenerateItemsForRoom = ai.defineFlow(
+export const GenerateRoomItems = ai.defineFlow(
   {
     name: "GenerateItemForRoom",
     inputSchema: z.object({
@@ -269,6 +286,7 @@ Your task is to create a collection of items for this room.
     const itemImages = await Promise.all(
       items.map(async (item) => {
         const { dataUrl } = await GenerateItemImage({
+          name: item.name,
           appearanceDescription: item.appearanceDescription,
         });
         return { item: item.name, dataUrl };
@@ -281,13 +299,12 @@ Your task is to create a collection of items for this room.
 
 export const GenerateItemImage = ai.defineFlow(
   {
-    name: "GenerateImage",
+    name: "GenerateItemImage",
     inputSchema: z.object({
+      name: ItemName,
       appearanceDescription: z.string().nonempty(),
     }),
-    outputSchema: z.object({
-      dataUrl: z.string(),
-    }),
+    outputSchema: ItemImage,
   },
   async (input) => {
     const response = await ai.generate({
@@ -297,25 +314,54 @@ export const GenerateItemImage = ai.defineFlow(
 ${input.appearanceDescription}
 Orthographic perspective. Slightly padded framing. Depth using shading, highlights, bevel, emboss. Realistic fantasy style. Painterly style.
 `.trim(),
-      // input.appearanceDescription
       config: {
         aspectRatio: "1:1",
         numberOfImages: 1,
       },
     });
     const media = getValidMedia(response);
-    return { dataUrl: media.url };
+    return { item: input.name, dataUrl: media.url };
   },
 );
 
-export const GenerateInitialRoom = ai.defineFlow(
+export const GenerateRoomImage = ai.defineFlow(
   {
-    name: "GenerateRoom",
+    name: "GenerateRoomImage",
+    inputSchema: z.object({
+      name: RoomName,
+      appearanceDescription: z.string().nonempty(),
+    }),
+    outputSchema: RoomImage,
+  },
+  async (input) => {
+    const response = await ai.generate({
+      model: model.image,
+      output: { format: "media" },
+      prompt: `
+${input.appearanceDescription}
+Orthographic perspective. Slightly padded framing. Depth using shading, highlights, bevel, emboss. Realistic fantasy style. Painterly style.
+`.trim(),
+      config: {
+        aspectRatio: "1:1",
+        numberOfImages: 1,
+      },
+    });
+    const media = getValidMedia(response);
+    return { room: input.name, dataUrl: media.url };
+  },
+);
+
+export const GenerateStartRoom = ai.defineFlow(
+  {
+    name: "GenerateStartRoom",
     inputSchema: z.object({
       pregame: PreGame,
     }),
     outputSchema: z.object({
-      room: Room,
+      startRoom: Room,
+      startRoomImage: RoomImage,
+      connectedRooms: z.array(Room).nonempty(),
+      roomConnections: z.array(RoomConnection).nonempty(),
     }),
   },
   async (input) => {
@@ -327,28 +373,73 @@ export const GenerateInitialRoom = ai.defineFlow(
           `
 ${makeSystemPrelude()}
 
-The user will provide a markdown document that describes the initial state of the entire game world so far. Your task is to create a new room that will be added to the game world. The new room should thematically make sense in the game world, but also bring something new and unique to the world.
+The user will provide a markdown document that describes the initial state of the entire game world so far. Your task is to create a start room for the game world where the player will begin the game. The new room should thematically make sense in the game world, but also bring something new and unique to the world.
+
+In addition to the start room, you should also create a few (3-4) rooms that will be connected to the start room. These rooms should be distinct from the start room and also make sense for how and why they are connected to the start room.
 `,
         ),
       ],
       prompt: [makeMarkdownFilePart(presentPreGame(input.pregame))],
       output: {
-        schema: Room,
+        schema: z.object({
+          startRoom: Room,
+          connections: z
+            .array(
+              z.object({
+                connectedRoom: Room,
+                descriptionOfPathFromStartRoomToConnectedRoom:
+                  NeString.describe(
+                    RoomConnection.shape.descriptionOfPathFromRoom1ToRoom2
+                      .description!.replaceAll("room1", "startRoom")
+                      .replaceAll("room2", "connectedRoom"),
+                  ),
+                descriptionOfPathFromConnectedRoomToStartRoom:
+                  NeString.describe(
+                    RoomConnection.shape.descriptionOfPathFromRoom2ToRoom1
+                      .description!.replaceAll("room1", "startRoom")
+                      .replaceAll("room2", "connectedRoom"),
+                  ),
+              }),
+            )
+            .nonempty(),
+        }),
       },
     });
-    return { room: getValidOutput(response) };
+
+    const output = getValidOutput(response);
+
+    const startRoomImage = await GenerateRoomImage({
+      name: output.startRoom.name,
+      appearanceDescription: output.startRoom.longDescription,
+    });
+
+    return {
+      startRoom: output.startRoom,
+      connectedRooms: output.connections.map(
+        (x) => x.connectedRoom,
+      ) as NonEmptyArray<Room>,
+      roomConnections: output.connections.map((x) => ({
+        room1: output.startRoom.name,
+        room2: x.connectedRoom.name,
+        descriptionOfPathFromRoom1ToRoom2:
+          x.descriptionOfPathFromStartRoomToConnectedRoom,
+        descriptionOfPathFromRoom2ToRoom1:
+          x.descriptionOfPathFromConnectedRoomToStartRoom,
+      })) as NonEmptyArray<RoomConnection>,
+      startRoomImage,
+    };
   },
 );
 
-export const GenerateRoom = ai.defineFlow(
+export const GenerateRoomConnections = ai.defineFlow(
   {
-    name: "GenerateRoom",
+    name: "GenerateRoomConnections",
     inputSchema: z.object({
       game: Game(),
-      prompt: z.string().nonempty(),
     }),
     outputSchema: z.object({
-      room: Room,
+      connectedRooms: z.array(Room).nonempty(),
+      roomConnections: z.array(RoomConnection).nonempty(),
     }),
   },
   async (input) => {
@@ -360,16 +451,46 @@ export const GenerateRoom = ai.defineFlow(
           `
 ${makeSystemPrelude()}
 
-The user will provide a markdown document that describes the current state of the entire game world so far. Your task is to create a new room that will be added to the game world. The new room should thematically make sense in the game world, but also bring something new and unique to the world.
+The user will provide a markdown document that describes the current state of the entire game world so far. Your task is to create a few (2-3) new rooms that will be connected to the player's current room (referred to as "currentRoom"). These rooms should be distinct from the rooms that already exist in the game so far and also make sense for why they are in the game world and connected to the player's current room.
 `,
         ),
       ],
       prompt: [makeMarkdownFilePart(presentGame(input.game))],
       output: {
-        schema: Room,
+        schema: z
+          .array(
+            z.object({
+              newRoom: Room,
+              descriptionOfPathFromCurrentRoomToNewRoom: NeString.describe(
+                RoomConnection.description!.replaceAll(
+                  "room1",
+                  "currentRoom",
+                ).replaceAll("room2", "newRoom"),
+              ),
+              descriptionOfPathFromNewRoomToCurrentRoom: NeString.describe(
+                RoomConnection.description!.replaceAll(
+                  "room1",
+                  "newRoom",
+                ).replaceAll("room2", "currentRoom"),
+              ),
+            }),
+          )
+          .nonempty(),
       },
     });
-    return { room: getValidOutput(response) };
+
+    const output = getValidOutput(response);
+    return {
+      connectedRooms: output.map((x) => x.newRoom) as NonEmptyArray<Room>,
+      roomConnections: output.map((x) => ({
+        room1: input.game.world.playerLocation.room,
+        room2: x.newRoom.name,
+        descriptionOfPathFromRoom1ToRoom2:
+          x.descriptionOfPathFromCurrentRoomToNewRoom,
+        descriptionOfPathFromRoom2ToRoom1:
+          x.descriptionOfPathFromNewRoomToCurrentRoom,
+      })) as NonEmptyArray<RoomConnection>,
+    };
   },
 );
 
