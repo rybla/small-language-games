@@ -183,25 +183,40 @@ Structure & Layout:
     animation: newTurnArrives 1.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.PlayerTurn .input {
+.PrePlayerTurn {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    border-left: 2px solid var(--primary-glow-color);
+    background: rgba(0, 246, 255, 0.05);
+    border-radius: 0 8px 8px 0;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.PlayerTurn .input,
+.PrePlayerTurn .input {
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-.PlayerTurn .input::before {
+.PlayerTurn .input::before,
+.PrePlayerTurn .input::before {
     content: ">";
     font-family: var(--font-secondary);
     color: var(--tertiary-glow-color);
     font-size: 1.2rem;
 }
 
-.PlayerTurn .prompt {
+.PlayerTurn .prompt,
+.PrePlayerTurn .prompt {
     font-style: italic;
     color: var(--tertiary-glow-color);
 }
 
-.PlayerTurn .output {
+.PlayerTurn .output,
+.PrePlayerTurn .output {
     padding-left: 1.5rem;
 }
 

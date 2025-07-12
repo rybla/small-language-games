@@ -18,7 +18,7 @@
         },
         "playerLocation": {
             "room": "Research Lab",
-            "description": "Orion stands at the central workstation, the humming of machinery a constant presence. The workstation is directly in front of them, with the computer banks stretching out along the walls to their left and right. The door to the Observation Deck is behind Orion, and the Agricultural Dome is visible down the corridor to their left."
+            "description": "Orion stands before the computer banks, their screens displaying a complex array of data and schematics. The soft, multicolored glow illuminates the scientist's focused expression."
         },
         "rooms": [
             {
@@ -502,16 +502,43 @@
             "prompt": "throw the lunana capacitor at the computers",
             "actions": [
                 {
-                    "description": "Orion draws the Lunana Energy Capacitor from their inventory. With a determined glint in their eye, they hurl the pulsing device towards the bank of humming computers. The capacitor flies true, striking the central console with a soft thud and a brief, ethereal glow.",
+                    "type": "PlayerUsesItem",
                     "item": "Lunana Energy Capacitor",
                     "statusAfterUse": {
-                        "newItemLocationDescription": "The Lunana Energy Capacitor rests on the floor, near the base of the towering computer banks, its internal glow significantly reduced.",
-                        "type": "dropped"
+                        "type": "dropped",
+                        "newItemLocationDescription": "The Lunana Energy Capacitor rests on the floor, near the base of the towering computer banks, its internal glow significantly reduced."
                     },
-                    "type": "PlayerUsesItem"
+                    "description": "Orion draws the Lunana Energy Capacitor from their inventory. With a determined glint in their eye, they hurl the pulsing device towards the bank of humming computers. The capacitor flies true, striking the central console with a soft thud and a brief, ethereal glow."
                 }
             ],
             "description": "Orion retrieves the Lunana Energy Capacitor from their inventory and, with a decisive motion, throws it towards the computer banks. The capacitor sails through the air, emitting a soft hum, and lands with a gentle thud near the base of the main console, its energetic pulse noticeably diminished."
+        },
+        {
+            "prompt": "check what the computers are like now",
+            "actions": [
+                {
+                    "type": "PlayerMovesInsideCurrentRoom",
+                    "description": "Orion walks over to the computer banks lining the walls of the Research Lab.",
+                    "newPlayerLocationDescription": "Orion stands before the computer banks, their screens displaying a complex array of data and schematics. The soft, multicolored glow illuminates the scientist's focused expression."
+                },
+                {
+                    "type": "PlayerInspectsItem",
+                    "item": "Computer Banks",
+                    "description": "Orion inspects the computer banks."
+                }
+            ],
+            "description": "Orion approaches the computer banks that line the walls of the Research Lab. The screens emit a soft, multicolored glow, displaying intricate data and schematics. As Orion stands before them, the computer banks seem to pulse with latent energy."
+        },
+        {
+            "prompt": "look more closely at the computers",
+            "actions": [
+                {
+                    "description": "Orion looks more closely at the computer banks, their screens displaying a complex array of data and schematics. The soft, multicolored glow illuminates the scientist's focused expression.",
+                    "item": "Computer Banks",
+                    "type": "PlayerInspectsItem"
+                }
+            ],
+            "description": "Orion leans in closer to the computer banks, their screens displaying a complex array of data and schematics. The soft, multicolored glow illuminates the scientist's focused expression."
         }
     ]
 }

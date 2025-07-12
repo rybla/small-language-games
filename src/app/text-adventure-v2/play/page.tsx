@@ -174,7 +174,7 @@ export default function Page() {
      */
     function renderPrePlayerTurn(prompt: string): ReactNode {
       return (
-        <div className={style.PlayerTurn}>
+        <div className={style.PrePlayerTurn}>
           <div className={style.input}>
             <div className={style.prompt}>{prompt}</div>
           </div>
