@@ -85,5 +85,10 @@ export default function Page() {
         </main>
       );
     }
+    default: {
+      throw new Error(
+        `unexpected phase: ${JSON.stringify(phase satisfies never)}`,
+      );
+    }
   }
 }

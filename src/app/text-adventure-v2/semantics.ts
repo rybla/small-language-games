@@ -1,4 +1,4 @@
-import { do_, findMapAll, remove } from "@/utility";
+import { do_, findMapAll, findRemove, remove, stringify } from "@/utility";
 import {
   Game,
   ItemLocation,
@@ -78,7 +78,7 @@ export function interpretAction(world: World, action: PlayerAction): void {
 
       if (!isItemLocationInPlayerInventory(itemLocation))
         throw new InterpretActionError(
-          `The player **${world.player.name}** could not drop the item **${action.item}** because the item is not in the player's inventory or equipped by the player.`,
+          `The player **${world.player.name}** could not drop the item **${action.item}** because the item is not in the player's inventory.`,
         );
 
       remove(world.itemLocations, itemLocation);
@@ -110,11 +110,42 @@ export function interpretAction(world: World, action: PlayerAction): void {
       };
       return;
     }
+    case "PlayerUsesItem": {
+      switch (action.statusAfterUse.type) {
+        case "destroyed": {
+          findRemove(world.items, (item) => item.name === action.item);
+          findRemove(
+            world.itemLocations,
+            (itemLocation) => itemLocation.item === action.item,
+          );
+          break;
+        }
+        case "dropped": {
+          const itemLocation = getItemLocation(world, action.item);
+
+          if (!isItemLocationInPlayerInventory(itemLocation))
+            throw new InterpretActionError(
+              `The player **${world.player.name}** could not use the item **${action.item}** because the item is not in the player's inventory.`,
+            );
+
+          remove(world.itemLocations, itemLocation);
+          world.itemLocations.unshift({
+            type: "ItemLocationInRoom",
+            room: world.playerLocation.room,
+            item: action.item,
+            description: action.statusAfterUse.newItemLocationDescription,
+          });
+          break;
+        }
+        case "inventory": {
+          break;
+        }
+      }
+      break;
+    }
     default: {
-      // @ts-expect-error this branch should be impossible
-      const action_type: string = action.type;
       throw new InterpretActionError(
-        `no interpretation for action type: ${action_type}`,
+        `no interpretation for action type: ${stringify(action satisfies never)}`,
       );
     }
   }
@@ -186,6 +217,10 @@ export function presentItem(world: World, name: ItemName) {
         return `Placed in **${itemLocation.room}**: ${itemLocation.description}`;
       case "ItemLocationInPlayerInventory":
         return `Held by **${world.player.name}**: ${itemLocation.description}`;
+      default:
+        throw new Error(
+          `unexpected item location: ${stringify(itemLocation satisfies never)}`,
+        );
     }
   })}
 `.trim();

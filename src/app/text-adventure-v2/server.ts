@@ -107,21 +107,22 @@ export async function promptGame(
   const errors: string[] = [];
   for (const action of turn.actions) {
     try {
+      console.log(`interpreting action: ${action.type}`);
       interpretAction(game.world, action);
 
       const playerRoom = getPlayerRoom(game.world);
 
       if (!isVisited(game.world, playerRoom.name)) {
         await Promise.all([
-          async () => {
+          do_(async () => {
             console.log(`generating room image for ${playerRoom.name}`);
             const roomImage = await GenerateRoomImage({
               name: playerRoom.name,
               appearanceDescription: playerRoom.longDescription,
             });
             saveRoomImage(game.metadata.id, roomImage);
-          },
-          async () => {
+          }),
+          do_(async () => {
             console.log(`generating room items for ${playerRoom.name}`);
             const { items, itemLocations, itemImages } =
               await GenerateRoomItems({
@@ -137,8 +138,8 @@ export async function promptGame(
                   await saveItemImage(game.metadata.id, itemImage),
               ),
             );
-          },
-          async () => {
+          }),
+          do_(async () => {
             const { connectedRooms, roomConnections } =
               await GenerateRoomConnections({
                 game,
@@ -148,7 +149,7 @@ export async function promptGame(
             game.world.visitedRooms.push(playerRoom.name);
             game.world.rooms.push(...connectedRooms);
             game.world.roomConnections.push(...roomConnections);
-          },
+          }),
         ]);
       }
     } catch (exception: unknown) {

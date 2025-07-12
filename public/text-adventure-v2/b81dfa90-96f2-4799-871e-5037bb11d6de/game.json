@@ -17,8 +17,8 @@
             ]
         },
         "playerLocation": {
-            "room": "Observation Deck",
-            "description": "Orion stands on the Observation Deck, a circular chamber dominated by a massive viewport offering a breathtaking view of the lunar surface and the distant Earth. The deck is sparsely furnished with a few minimalist benches and control panels. The air is still and quiet, save for the low hum of the station's life support."
+            "room": "Research Lab",
+            "description": "Orion stands at the central workstation, the humming of machinery a constant presence. The workstation is directly in front of them, with the computer banks stretching out along the walls to their left and right. The door to the Observation Deck is behind Orion, and the Agricultural Dome is visible down the corridor to their left."
         },
         "rooms": [
             {
@@ -40,6 +40,16 @@
                 "name": "Lunar Dust Repository",
                 "shortDescription": "A vast chamber filled with containment silos of lunar dust.",
                 "longDescription": "The Lunar Dust Repository is a cavernous space carved deep into the moon's regolith. Towering silos, capped with shimmering energy fields, line the walls, each containing compressed lunar dust. Fine, shimmering particles of moon dust drift in the air, catching the low light and creating a mesmerizing, ethereal glow. Conveyor belts, currently inactive, snake across the floor, leading to loading bays. The walls themselves seem to absorb sound, creating an unnerving quiet broken only by the faint, crackling energy from the containment fields. At the far end of the chamber, a reinforced vault door suggests access to something even more secure."
+            },
+            {
+                "name": "Research Lab",
+                "shortDescription": "A sterile laboratory humming with advanced technology.",
+                "longDescription": "This is the sterile heart of Tranquility Base's scientific endeavors. Gleaming metallic surfaces dominate, punctuated by the rhythmic blinking of console lights and the low thrum of advanced machinery. Banks of computers display a constant stream of data, from complex energy readings to intricate genetic sequences of the unique Lunana. At the center of the room, a sophisticated workstation projects a life-sized, rotating holographic schematic of a Lunana fruit. Numerous lab benches are adorned with various pieces of specialized equipment, including beakers filled with bubbling, luminous liquids, suggesting ongoing experiments. A network of transparent glass tubes runs across the ceiling, silently transporting purified water and vital nutrients to the various containment units situated throughout the lab."
+            },
+            {
+                "name": "Agricultural Dome",
+                "shortDescription": "A vast dome filled with glowing banana plants.",
+                "longDescription": "The air here is thick with a sweet, almost intoxicatingly perfumed aroma, a testament to the thousands of Lunana plants flourishing within. This vast Agricultural Dome is a marvel of bio-engineering, its interior a vibrant tapestry of lush, green foliage. The Lunana plants, cultivated in advanced hydroponic bays, exhibit a striking inner luminescence, their broad leaves and heavy fruit shimmering with an otherworldly glow. The plants are laden with delicate, iridescent fruit, hanging invitingly from their stalks. In the exact center of the dome, a raised circular platform hosts a well-organized workbench, complete with specialized pruning tools and an array of small vials filled with the glowing, viscous sap of the Lunana. The very floor beneath your feet seems to vibrate with a gentle, rhythmic pulsing, an indication of the sophisticated cultivation systems operating below."
             }
         ],
         "items": [
@@ -67,9 +77,56 @@
                 "name": "Traces of Lunana Sap",
                 "shortDescription": "Faint, glowing traces of the magical Lunana sap.",
                 "appearanceDescription": "A shimmering, iridescent residue clinging to the edges of the partition and faintly on the console. It glows with a very subtle, internal light and emits a barely perceptible warmth."
+            },
+            {
+                "name": "Computer Banks",
+                "shortDescription": "Banks of computers displaying complex scientific data.",
+                "appearanceDescription": "A sprawling array of computer terminals and diagnostic screens that line the metallic walls of the lab. These screens display a kaleidoscope of data, including complex energy signatures, genetic sequencing of Lunana, and atmospheric composition readings."
+            },
+            {
+                "name": "Central Workstation with Holographic Projector",
+                "shortDescription": "A central workstation featuring a spinning holographic schematic of a Lunana fruit.",
+                "appearanceDescription": "A large, central workstation with a high-resolution holographic projector embedded within its surface. The projector is currently active, casting a vibrant, three-dimensional, spinning schematic of a Lunana fruit into the air above it. The workstation itself is made of a sleek, brushed metal and features a multi-touch interface."
+            },
+            {
+                "name": "Beakers with Luminous Liquids",
+                "shortDescription": "Beakers filled with bubbling, luminous liquids.",
+                "appearanceDescription": "Various glass containers of different shapes and sizes, filled with bubbling liquids that emit an ethereal, luminescent glow. Some liquids are viscous and swirl slowly, while others effervesce rapidly, releasing faint, colored vapor."
+            },
+            {
+                "name": "Specialized Testing Equipment",
+                "shortDescription": "Specialized testing equipment for various analyses.",
+                "appearanceDescription": "A collection of sophisticated instruments designed for scientific analysis. This includes spectrometers, centrifuges, and various devices with intricate wiring and sensor arrays. Many of these tools have delicate, articulated arms and interfaces for precise manipulation."
+            },
+            {
+                "name": "Glass Nutrient Tubes",
+                "shortDescription": "Glass tubes carrying water and nutrients.",
+                "appearanceDescription": "A network of transparent tubes made of a reinforced, crystalline material. These tubes run across the ceiling and descend to various points in the room, carrying a clear liquid and what appear to be nutrients."
+            },
+            {
+                "name": "Empty Lunana Sample Container",
+                "shortDescription": "An empty sample container with residual Lunana scent.",
+                "appearanceDescription": "A small, circular sample container made of reinforced glass, currently empty but with faint, iridescent residue clinging to its interior surface. A faint, sweet scent emanates from it."
+            },
+            {
+                "name": "Lunana Energy Capacitor",
+                "shortDescription": "A device humming with latent energy, likely related to Lunana power.",
+                "appearanceDescription": "A dense, metallic cylinder, approximately two meters in height and one meter in diameter, with a complex series of energy regulators and input/output ports. It emits a low, resonant hum."
             }
         ],
         "itemLocations": [
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Research Lab",
+                "item": "Lunana Energy Capacitor",
+                "description": "The Lunana Energy Capacitor rests on the floor, near the base of the towering computer banks, its internal glow significantly reduced."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Research Lab",
+                "item": "Empty Lunana Sample Container",
+                "description": "The Empty Lunana Sample Container is now safely stored."
+            },
             {
                 "type": "ItemLocationInPlayerInventory",
                 "item": "Traces of Lunana Sap",
@@ -98,6 +155,36 @@
                 "room": "Observation Deck",
                 "item": "Lunana Scent Particles",
                 "description": "These particles are dispersed throughout the air of the Observation Deck, caught in the gentle currents and often seen dancing near the light sources. They originate from the pervasive Lunana scent permeating the base."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Research Lab",
+                "item": "Computer Banks",
+                "description": "Mounted along the metallic walls of the Research Lab, these computer banks are arranged in neat rows, their screens emitting a soft, multicolored glow."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Research Lab",
+                "item": "Central Workstation with Holographic Projector",
+                "description": "Dominating the center of the Research Lab, this workstation is the focal point of the room, positioned centrally within the humming machinery."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Research Lab",
+                "item": "Beakers with Luminous Liquids",
+                "description": "Arranged meticulously on the polished metal lab benches that flank the central workstation and along the perimeter of the room. Some beakers are connected by thin glass tubes to other equipment."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Research Lab",
+                "item": "Specialized Testing Equipment",
+                "description": "Symmetrically placed on the lab benches alongside the beakers, with some larger pieces of equipment occupying dedicated floor space near the computer banks. They are organized with a clear sense of scientific order."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Research Lab",
+                "item": "Glass Nutrient Tubes",
+                "description": "Integrated into the ceiling structure of the Research Lab, snaking in intricate patterns and occasionally branching downwards towards containment units or workstations."
             }
         ],
         "roomConnections": [
@@ -118,10 +205,23 @@
                 "room2": "Lunar Dust Repository",
                 "descriptionOfPathFromRoom1ToRoom2": "A reinforced blast door provides access to the Lunar Dust Repository.",
                 "descriptionOfPathFromRoom2ToRoom1": "A reinforced blast door separates the repository from the main corridor, its locking mechanism engaged."
+            },
+            {
+                "room1": "Research Lab",
+                "room2": "Research Lab",
+                "descriptionOfPathFromRoom1ToRoom2": "To the right of the main entrance, a heavy, metallic door, slightly ajar, hints at the mysteries within the adjoining chamber.",
+                "descriptionOfPathFromRoom2ToRoom1": "The pressure-sealed door of the Research Lab, currently opened just enough for passage, leads back to the familiar confines of the Observation Deck."
+            },
+            {
+                "room1": "Research Lab",
+                "room2": "Agricultural Dome",
+                "descriptionOfPathFromRoom1ToRoom2": "Further down the corridor, past the main entrance to your current location, a large, transparent geodesic dome is visible, its interior aglow with an ethereal luminescence.",
+                "descriptionOfPathFromRoom2ToRoom1": "A broad, sealed passageway connects the Agricultural Dome back to the Observation Deck, allowing for the easy transfer of personnel and, presumably, Lunana produce."
             }
         ],
         "visitedRooms": [
-            "Observation Deck"
+            "Observation Deck",
+            "Research Lab"
         ]
     },
     "turns": [
@@ -271,13 +371,147 @@
             "prompt": "go to observation deck",
             "actions": [
                 {
-                    "description": "Orion slides open the blast door and steps through into the Observation Deck.",
-                    "newPlayerLocationDescription": "Orion stands on the Observation Deck, a circular chamber dominated by a massive viewport offering a breathtaking view of the lunar surface and the distant Earth. The deck is sparsely furnished with a few minimalist benches and control panels. The air is still and quiet, save for the low hum of the station's life support.",
+                    "type": "PlayerMovesToDifferentRoom",
                     "room": "Observation Deck",
-                    "type": "PlayerMovesToDifferentRoom"
+                    "newPlayerLocationDescription": "Orion stands on the Observation Deck, a circular chamber dominated by a massive viewport offering a breathtaking view of the lunar surface and the distant Earth. The deck is sparsely furnished with a few minimalist benches and control panels. The air is still and quiet, save for the low hum of the station's life support.",
+                    "description": "Orion slides open the blast door and steps through into the Observation Deck."
                 }
             ],
             "description": "Orion enters the Observation Deck, leaving the sterile confines of the Research Lab behind. The vast expanse of space and the familiar curve of Earth greet them through the enormous viewport, a stark contrast to the focused environment of the lab."
+        },
+        {
+            "prompt": "walk around the room",
+            "actions": [
+                {
+                    "type": "PlayerMovesInsideCurrentRoom",
+                    "description": "Orion ambles around the Observation Deck, taking in the sights and sounds.",
+                    "newPlayerLocationDescription": "Orion stands on the Observation Deck, moving towards the center of the room. The vast viewport displaying the lunar surface and Earth is now to Orion's left, and the minimalist seating units are scattered around. The central console is now directly in front of Orion."
+                }
+            ],
+            "description": "Orion decides to get a better feel for the Observation Deck and moves towards the center of the room. From this new vantage point, the awe-inspiring view of the lunar surface and the distant Earth is now to Orion's left, while the minimalist seating units appear scattered around the periphery. The central console is directly ahead, its surface reflecting the soft internal lighting of the station."
+        },
+        {
+            "prompt": "go to the research lab",
+            "actions": [
+                {
+                    "type": "PlayerMovesToDifferentRoom",
+                    "room": "Research Lab",
+                    "newPlayerLocationDescription": "Orion stands before the heavy, pressure-sealed door leading to the Research Lab. The door is directly in front of them, and the main viewport of the Observation Deck is to their right.",
+                    "description": "Orion moves from the center of the Observation Deck towards the heavy, pressure-sealed door that leads to the Research Lab."
+                }
+            ],
+            "description": "Orion walks towards the pressure-sealed door connecting the Observation Deck to the Research Lab. Upon reaching the door, Orion pauses, ready to enter the next section of the base."
+        },
+        {
+            "prompt": "go to the observatory",
+            "actions": [
+                {
+                    "type": "PlayerMovesToDifferentRoom",
+                    "room": "Observation Deck",
+                    "newPlayerLocationDescription": "Orion stands in the Observation Deck, a circular room dominated by a massive viewport showcasing the Earth hanging like a blue marble in the blackness of space. To their left, a heavy, pressure-sealed door leads back to the Research Lab. In the center of the room, a complex console crackles with soft blue light. Orion is standing near the entrance from the Research Lab, facing the viewport.",
+                    "description": "Orion moves from the Research Lab to the Observation Deck, passing through the wide, sliding blast door."
+                }
+            ],
+            "description": "Orion decides to leave the sterile confines of the Research Lab and ventures into the Observation Deck. They push through the sliding blast door, entering a circular chamber where a breathtaking view of Earth unfolds through a massive viewport. The central console hums with power, but Orion's attention is immediately drawn to the cosmic spectacle."
+        },
+        {
+            "prompt": "go to the research lab",
+            "actions": [
+                {
+                    "type": "PlayerMovesToDifferentRoom",
+                    "room": "Research Lab",
+                    "newPlayerLocationDescription": "Orion stands before the heavy, pressure-sealed door that serves as the entrance to the Research Lab. The door is a dull metallic grey, with a small, circular viewport set into its center. A control panel with blinking lights is mounted to the right of the door. Orion is facing the door, hand outstretched towards the access panel.",
+                    "description": "Orion turns from the viewport and walks towards the heavy, pressure-sealed door leading to the Research Lab."
+                }
+            ],
+            "description": "Orion leaves the breathtaking view of Earth behind and approaches the imposing, pressure-sealed door connecting the Observation Deck to the Research Lab. With a decisive movement, Orion interacts with the access panel, initiating the unlocking sequence. The heavy door hisses as it slides open, revealing the sterile, equipment-filled interior of the Research Lab. Orion steps through the threshold, entering the next stage of their exploration."
+        },
+        {
+            "prompt": "look at what else in in the lab",
+            "actions": [
+                {
+                    "type": "PlayerInspectsRoom",
+                    "description": "Orion turns their attention from the door to survey the rest of the Research Lab."
+                }
+            ],
+            "description": "Orion takes a moment to survey the Research Lab, their gaze sweeping across the rows of glowing computer banks, the central workstation with its holographic projector, and the various beakers and specialized equipment meticulously arranged on the lab benches. Glass nutrient tubes snake across the ceiling, and an empty Lunana sample container sits on a bench. In a corner, a Lunana energy capacitor hums, connected to the room's power systems."
+        },
+        {
+            "prompt": "take the capacitor",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "Lunana Energy Capacitor",
+                    "description": "Orion reaches out and carefully detaches the Lunana Energy Capacitor from the power conduits. It's heavier than it looks, humming faintly in their grasp.",
+                    "newItemLocationDescription": "The Lunana Energy Capacitor, a compact device pulsing with contained lunar energy, is now secured in Orion's inventory."
+                }
+            ],
+            "description": "Orion decides to take the Lunana Energy Capacitor. They reach out and carefully detach the device from the power conduits. It's heavier than it looks, humming faintly in their grasp. The Lunana Energy Capacitor, a compact device pulsing with contained lunar energy, is now secured in Orion's inventory."
+        },
+        {
+            "prompt": "take the Lunana sample container too",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "Empty Lunana Sample Container",
+                    "description": "Orion reaches out and picks up the Empty Lunana Sample Container from the lab bench.",
+                    "newItemLocationDescription": "The Empty Lunana Sample Container is now secured in Orion's inventory."
+                }
+            ],
+            "description": "Orion takes the Empty Lunana Sample Container from the lab bench. It is now in their inventory."
+        },
+        {
+            "prompt": "look around for anything else",
+            "actions": [
+                {
+                    "type": "PlayerInspectsRoom",
+                    "description": "Orion surveys the Research Lab, taking in the sterile environment humming with advanced technology. Metallic walls are lined with glowing computer banks, while a central workstation with a holographic projector commands attention. Polished lab benches are meticulously arranged with beakers of luminous liquids and specialized testing equipment. Intricate glass nutrient tubes snake across the ceiling, hinting at ongoing biological experiments."
+                }
+            ],
+            "description": "Orion takes a moment to survey the Research Lab. The room is a sterile environment, humming with advanced technology. Metallic walls are lined with glowing computer banks, and a central workstation with a holographic projector commands attention. Polished lab benches are meticulously arranged with beakers of luminous liquids and specialized testing equipment. Intricate glass nutrient tubes snake across the ceiling, hinting at ongoing biological experiments."
+        },
+        {
+            "prompt": "put the sample container back",
+            "actions": [
+                {
+                    "type": "PlayerDropsItem",
+                    "item": "Empty Lunana Sample Container",
+                    "description": "Orion decides to place the Empty Lunana Sample Container back where it belongs, securing it within the lab's designated storage.",
+                    "newItemLocationDescription": "The Empty Lunana Sample Container is now safely stored."
+                }
+            ],
+            "description": "Orion carefully places the Empty Lunana Sample Container back onto a nearby lab bench, securing it for later study."
+        },
+        {
+            "prompt": "make a note of which rooms are connected to here",
+            "actions": [
+                {
+                    "type": "PlayerInspectsItem",
+                    "item": "Computer Banks",
+                    "description": "Orion carefully inspects the computer banks lining the walls, their soft, multicolored glow illuminating the sterile laboratory."
+                },
+                {
+                    "type": "PlayerMovesInsideCurrentRoom",
+                    "description": "Orion moves towards the center of the room, positioning themselves near the pulsating energy of the Lunana Energy Capacitor.",
+                    "newPlayerLocationDescription": "Orion stands at the central workstation, the humming of machinery a constant presence. The workstation is directly in front of them, with the computer banks stretching out along the walls to their left and right. The door to the Observation Deck is behind Orion, and the Agricultural Dome is visible down the corridor to their left."
+                }
+            ],
+            "description": "Orion takes a moment to examine the computer banks, their screens casting a vibrant, shifting light across the lab. Then, drawn by the central activity, Orion moves to the heart of the Research Lab, positioning themselves by the advanced workstation."
+        },
+        {
+            "prompt": "throw the lunana capacitor at the computers",
+            "actions": [
+                {
+                    "description": "Orion draws the Lunana Energy Capacitor from their inventory. With a determined glint in their eye, they hurl the pulsing device towards the bank of humming computers. The capacitor flies true, striking the central console with a soft thud and a brief, ethereal glow.",
+                    "item": "Lunana Energy Capacitor",
+                    "statusAfterUse": {
+                        "newItemLocationDescription": "The Lunana Energy Capacitor rests on the floor, near the base of the towering computer banks, its internal glow significantly reduced.",
+                        "type": "dropped"
+                    },
+                    "type": "PlayerUsesItem"
+                }
+            ],
+            "description": "Orion retrieves the Lunana Energy Capacitor from their inventory and, with a decisive motion, throws it towards the computer banks. The capacitor sails through the air, emitting a soft hum, and lands with a gentle thud near the base of the main console, its energetic pulse noticeably diminished."
         }
     ]
 }

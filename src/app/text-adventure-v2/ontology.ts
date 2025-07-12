@@ -1,4 +1,10 @@
-import { Codomain, do_, findMapAll, isNonEmpty } from "@/utility";
+import {
+  Codomain,
+  do_,
+  findMapAll,
+  isNonEmpty,
+  NonEmptyArray,
+} from "@/utility";
 import { z } from "genkit";
 
 // -----------------------------------------------------------------------------
@@ -142,7 +148,7 @@ export const World = z.object({
 // Action
 
 export type PlayerTakesItem = z.infer<Codomain<typeof PlayerTakesItem>>;
-export const PlayerTakesItem = (itemNames?: [ItemName, ...ItemName[]]) =>
+export const PlayerTakesItem = (itemNames?: NonEmptyArray<ItemName>) =>
   z
     .object({
       type: z.enum(["PlayerTakesItem"]),
@@ -152,7 +158,7 @@ export const PlayerTakesItem = (itemNames?: [ItemName, ...ItemName[]]) =>
       ),
       newItemLocationDescription:
         ItemLocationInPlayerInventory.shape.description.describe(
-          `for after the item is stored in player's inventory, ${ItemLocationInPlayerInventory.shape.description}`,
+          `for after the item is stored in player's inventory, ${ItemLocationInPlayerInventory.shape.description!}`,
         ),
     })
     .describe(
@@ -160,7 +166,7 @@ export const PlayerTakesItem = (itemNames?: [ItemName, ...ItemName[]]) =>
     );
 
 export type PlayerDropsItem = z.infer<Codomain<typeof PlayerDropsItem>>;
-export const PlayerDropsItem = (itemNames?: [ItemName, ...ItemName[]]) =>
+export const PlayerDropsItem = (itemNames?: NonEmptyArray<ItemName>) =>
   z
     .object({
       type: z.enum(["PlayerDropsItem"]),
@@ -169,7 +175,7 @@ export const PlayerDropsItem = (itemNames?: [ItemName, ...ItemName[]]) =>
         "one-paragraph description of how the player drops the item",
       ),
       newItemLocationDescription: ItemLocationInRoom.shape.description.describe(
-        `for after the item is dropped, ${ItemLocationInRoom.shape.description}`,
+        `for after the item is dropped, ${ItemLocationInRoom.shape.description!}`,
       ),
     })
     .describe(
@@ -177,7 +183,7 @@ export const PlayerDropsItem = (itemNames?: [ItemName, ...ItemName[]]) =>
     );
 
 export type PlayerInspectsItem = z.infer<Codomain<typeof PlayerInspectsItem>>;
-export const PlayerInspectsItem = (itemNames?: [ItemName, ...ItemName[]]) =>
+export const PlayerInspectsItem = (itemNames?: NonEmptyArray<ItemName>) =>
   z
     .object({
       type: z.enum(["PlayerInspectsItem"]),
@@ -188,6 +194,53 @@ export const PlayerInspectsItem = (itemNames?: [ItemName, ...ItemName[]]) =>
     })
     .describe(
       `This is the action for the player inspecting a particular item in the room or their inventory. This action covers the concept of "inspective" very generally –– use this action if the player is reading a book or note item, reading something on an item, looking at a particular part of an item, thinking about something related to a particular item, etc.`,
+    );
+
+export type PlayerUsesItem = z.infer<Codomain<typeof PlayerUsesItem>>;
+export const PlayerUsesItem = (itemNames?: NonEmptyArray<ItemName>) =>
+  z
+    .object({
+      type: z.enum(["PlayerUsesItem"]),
+      item: itemNames === undefined ? ItemName : z.enum(itemNames),
+      statusAfterUse: z
+        .union([
+          z
+            .object({
+              type: z.enum(["destroyed"]),
+            })
+            .describe(
+              `the item was destroyed (consumed, damaged, broked into pieces, used-up, or otherwise rendered unusable)`,
+            ),
+          z
+            .object({
+              type: z.enum(["dropped"]),
+              newItemLocationDescription:
+                ItemLocationInRoom.shape.description.describe(
+                  `for after the item is used, ${ItemLocationInRoom.shape.description!}`,
+                ),
+            })
+            .describe(
+              `the item was dropped (thrown, dropped, or otherwise moved out of the player's inventory and into the room they are in)`,
+            ),
+          z
+            .object({
+              type: z.enum(["inventory"]),
+              newItemLocationDescription:
+                ItemLocationInRoom.shape.description.describe(
+                  `for after the item is used, ${ItemLocationInPlayerInventory.shape.description!}`,
+                ),
+            })
+            .describe(`the item was kept in the player's inventory`),
+        ])
+        .describe(
+          `the new status of the item after being used –– the item can be **destroyed** (consumed, damaged, broked into pieces, used-up, or otherwise rendered unusable), **dropped** (thrown, dropped, or otherwise moved out of the player's inventory and into the room they are in), or kept in the player's **inventory**.`,
+        ),
+      description: NeString.describe(
+        "one-paragraph description of how the player uses the item",
+      ),
+    })
+    .describe(
+      `This is the action for the player using an item from their inventory in some way. This action covers the concent of "using" very generally –– use this action if the player is using a device or tool or weapon or some other usable item, eating or drinking a food, drink or other consumable item, throwing an item, using an item on something else, etc.`,
     );
 
 export type PlayerInspectsEnvironment = z.infer<typeof PlayerInspectsRoom>;
@@ -222,7 +275,7 @@ export const PlayerMovesInsideCurrentRoom = z
 export type PlayerMovesToDifferentRoom = z.infer<
   Codomain<typeof PlayerMovesToDifferentRoom>
 >;
-export const PlayerMovesToDifferentRoom = (rooms?: [RoomName, ...RoomName[]]) =>
+export const PlayerMovesToDifferentRoom = (rooms?: NonEmptyArray<RoomName>) =>
   z.object({
     type: z.enum(["PlayerMovesToDifferentRoom"]),
     room: (rooms === undefined ? RoomName : z.enum(rooms)).describe(
@@ -235,13 +288,6 @@ export const PlayerMovesToDifferentRoom = (rooms?: [RoomName, ...RoomName[]]) =>
       "one-paragraph description of how the player moves from their current location to the room",
     ),
   });
-
-/* TODO:
-
-other kinds of actions:
-  - PlayerUseItem: an item can have a particular use (and abilities which let it do certain things) this triggers that
-  - PlayerConsumeItem: consume an item so that it is used up and goes away
-*/
 
 export type PlayerAction = z.infer<Codomain<typeof PlayerAction>>;
 export const PlayerAction = (world?: World) =>
@@ -274,15 +320,7 @@ export const PlayerAction = (world?: World) =>
       );
       return isNonEmpty(playerItems) ? [PlayerInspectsItem(playerItems)] : [];
     }),
-    ...do_<Codomain<typeof PlayerDropsItem>[]>(() => {
-      if (world === undefined) return [PlayerDropsItem()];
-      const playerItems = findMapAll(world.itemLocations, (itemLocation) =>
-        itemLocation.type === "ItemLocationInPlayerInventory"
-          ? itemLocation.item
-          : undefined,
-      );
-      return isNonEmpty(playerItems) ? [PlayerDropsItem(playerItems)] : [];
-    }),
+
     ...do_<Codomain<typeof PlayerTakesItem>[]>(() => {
       if (world === undefined) return [PlayerTakesItem()];
       const roomItems = findMapAll(world.itemLocations, (itemLocation) =>
@@ -292,6 +330,24 @@ export const PlayerAction = (world?: World) =>
           : undefined,
       );
       return isNonEmpty(roomItems) ? [PlayerTakesItem(roomItems)] : [];
+    }),
+    ...do_<Codomain<typeof PlayerUsesItem>[]>(() => {
+      if (world === undefined) return [PlayerUsesItem()];
+      const playerItems = findMapAll(world.itemLocations, (itemLocation) =>
+        itemLocation.type === "ItemLocationInPlayerInventory"
+          ? itemLocation.item
+          : undefined,
+      );
+      return isNonEmpty(playerItems) ? [PlayerUsesItem(playerItems)] : [];
+    }),
+    ...do_<Codomain<typeof PlayerDropsItem>[]>(() => {
+      if (world === undefined) return [PlayerDropsItem()];
+      const playerItems = findMapAll(world.itemLocations, (itemLocation) =>
+        itemLocation.type === "ItemLocationInPlayerInventory"
+          ? itemLocation.item
+          : undefined,
+      );
+      return isNonEmpty(playerItems) ? [PlayerDropsItem(playerItems)] : [];
     }),
   ]);
 
