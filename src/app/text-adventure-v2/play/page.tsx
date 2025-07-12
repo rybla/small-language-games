@@ -179,7 +179,12 @@ export default function Page() {
             <div className={style.prompt}>{prompt}</div>
           </div>
           <div className={style.output}>
-            <div className={style.processing}>processing...</div>
+            <div className={style.processing}>
+              processing
+              <span>.</span>
+              <span>.</span>
+              <span>.</span>
+            </div>
           </div>
         </div>
       );

@@ -245,7 +245,36 @@ Structure & Layout:
 
 .processing {
     color: var(--primary-glow-color);
-    animation: flicker 1.5s infinite;
+}
+
+.processing span {
+    display: inline-block;
+    animation: dot-pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.processing span:nth-of-type(1) {
+    animation-delay: 0s;
+}
+
+.processing span:nth-of-type(2) {
+    animation-delay: 0.2s;
+}
+
+.processing span:nth-of-type(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes dot-pulse {
+    0%,
+    100% {
+        opacity: 0.2;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+        text-shadow: 0 0 5px var(--primary-glow-color);
+    }
 }
 
 /* --- PROMPT & INFO PANELS --- */
