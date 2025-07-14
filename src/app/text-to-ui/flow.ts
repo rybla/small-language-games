@@ -90,7 +90,7 @@ export const generateAppletBody = ai.defineFlow(
       initialState: AppletState,
     }),
     outputSchema: z.object({
-      body: ElementTruncated,
+      body: ElementTruncated(),
     }),
   },
   async (input) => {
@@ -117,7 +117,7 @@ The following is an encoding of the applet's initial state as a JSON object:
 ${stringify(input.initialState)}
 \`\`\`
 `.trim(),
-      output: { schema: ElementTruncated },
+      output: { schema: ElementTruncated(input.initialState) },
     });
 
     const body = getValidOutput(response);
@@ -207,7 +207,7 @@ Fill in the placeholder with these details:
   - description: "${input.placeholder.description}"
 `.trim(),
       output: {
-        schema: ElementTruncatedNonplaceholder,
+        schema: ElementTruncatedNonplaceholder(input.applet.initialState),
       },
     });
     const applet = deepcopy(input.applet);

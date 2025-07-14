@@ -1,3 +1,4 @@
+import { Codomain, NonEmptyArray } from "@/utility";
 import { z } from "genkit";
 
 // Element
@@ -19,20 +20,20 @@ export const PlaceholderElement = z.object({
     ),
 });
 
-// TODO: make constrained to only be able to refer to keys in the state
-export type VariableElement = z.infer<typeof VariableElement>;
-export const VariableElement = z
-  .object({
-    type: z.enum(["variable"]),
-    purpose: ElementPurpose,
-    key: z
-      .string()
-      .nonempty()
-      .describe(
+export type VariableElement = z.infer<Codomain<typeof VariableElement>>;
+export const VariableElement = (state?: AppletState) =>
+  z
+    .object({
+      type: z.enum(["variable"]),
+      purpose: ElementPurpose,
+      key: (state === undefined
+        ? z.string()
+        : z.enum(state.map((x) => x.key) as NonEmptyArray<string>)
+      ).describe(
         "the key in the applet state that this element should display the value of",
       ),
-  })
-  .describe("variable value element");
+    })
+    .describe("variable value element");
 
 export type TextElement = z.infer<typeof TextElement>;
 export const TextElement = z
@@ -58,7 +59,7 @@ export const GroupElementR: z.ZodType<GroupElement> = z
     layout: z.enum(["row", "column"]),
     scrollable: z.boolean(),
     kids: z
-      .array(z.lazy(() => ElementR))
+      .array(z.lazy(() => ElementR()))
       .nonempty()
       .describe("array of elements that are inside this group"),
   })
@@ -109,38 +110,41 @@ export const ButtonElement = z
   })
   .describe("button element");
 
-export type Element = z.infer<typeof ElementR>;
-export const ElementR = z
-  .union([
-    VariableElement,
-    TextElement,
-    ButtonElement,
-    ImageElement,
-    GroupElementR,
-    PlaceholderElement,
-  ])
-  .describe("element of an applet UI");
+export type Element = z.infer<Codomain<typeof ElementR>>;
+export const ElementR = (state?: AppletState) =>
+  z
+    .union([
+      VariableElement(state),
+      TextElement,
+      ButtonElement,
+      ImageElement,
+      GroupElementR,
+      PlaceholderElement,
+    ])
+    .describe("element of an applet UI");
 
-export const ElementTruncated = z
-  .union([
-    VariableElement,
-    TextElement,
-    ButtonElement,
-    ImageElement,
-    GroupElementTruncated,
-    PlaceholderElement,
-  ])
-  .describe("element of an applet UI");
+export const ElementTruncated = (state?: AppletState) =>
+  z
+    .union([
+      VariableElement(state),
+      TextElement,
+      ButtonElement,
+      ImageElement,
+      GroupElementTruncated,
+      PlaceholderElement,
+    ])
+    .describe("element of an applet UI");
 
-export const ElementTruncatedNonplaceholder = z
-  .union([
-    VariableElement,
-    TextElement,
-    ButtonElement,
-    ImageElement,
-    GroupElementTruncated,
-  ])
-  .describe("element of an applet UI");
+export const ElementTruncatedNonplaceholder = (state?: AppletState) =>
+  z
+    .union([
+      VariableElement(state),
+      TextElement,
+      ButtonElement,
+      ImageElement,
+      GroupElementTruncated,
+    ])
+    .describe("element of an applet UI");
 
 export const elementTypeDescriptions = [
   "text",
@@ -216,10 +220,10 @@ export const Applet = z.object({
   metadata: AppletMetadata,
   design: AppletDesign,
   initialState: AppletState.describe("the entire initial state for the applet"),
-  body: ElementR.describe("body element of the applet UI"),
+  body: ElementR().describe("body element of the applet UI"),
 });
 
 export const AppletTruncated: z.ZodType<Applet> = z.object({
   ...Applet.omit({ body: true }).shape,
-  body: ElementTruncated.describe("body element of the applet UI"),
+  body: ElementTruncated().describe("body element of the applet UI"),
 });
