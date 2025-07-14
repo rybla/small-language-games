@@ -1,0 +1,130 @@
+{
+    "metadata": {
+        "id": "dd22c81c-10d7-4321-84cb-574eb9fd4095"
+    },
+    "design": {
+        "appearanceSpecification": "The applet uses a vibrant and cheerful color palette dominated by banana yellow and fresh green, with plenty of white space to create a clean and airy feel. The background is a soft off-white. Typography consists of a playful, rounded, bold font for headings (like 'Fredoka One' or a similar Google Font) and a clean, highly legible sans-serif font (like 'Lato' or 'Roboto') for body text. All images are high-quality, bright, and appealing. Icons are simple, flat, and use the primary color scheme. The layout is a single-column, top-to-bottom design, with clear separation between sections achieved through colored background blocks and ample padding.",
+        "blueprint": "* Header Section:\n  * A group (row) containing:\n    * An image of a simple, modern banana logo.\n    * A text element with the title 'Banana Bonanza'.\n* Hero Section:\n  * A full-width, high-quality image of a bunch of fresh bananas.\n  * A large text heading: 'A Peel to a Healthier You!'.\n  * A smaller text paragraph providing a brief, engaging introduction to bananas.\n  * A call-to-action button with the text 'Discover More'.\n* Information Section:\n  * A text heading: 'Fun Banana Facts'.\n  * A group (column) containing three rows:\n    * Each row contains:\n      * An image (icon, e.g., a berry icon, a water drop icon, a leaf icon).\n      * A text element stating a fun fact (e.g., 'Bananas are technically berries.', 'Bananas can float in water.', 'The banana plant is the world's largest herb.').\n* Nutrition Section:\n  * A text heading: 'Packed with Goodness'.\n  * A group (row or grid) of three cards. Each card contains:\n    * An image icon representing a nutrient (e.g., 'K' for Potassium, 'C' for Vitamin C).\n    * A text element for the nutrient name (e.g., 'Potassium').\n    * A text element describing its benefit (e.g., 'Great for heart health and blood pressure.').\n* Footer Section:\n  * A small text element with copyright information '© 2023 Banana Bonanza'.\n  * A small image of the banana logo.",
+        "functionalitySpecification": "This applet is designed as a static, informational landing page. The primary user interaction is scrolling to consume the content. The single interactive element is the 'Discover More' button in the hero section. When a user clicks this button, the page will smoothly scroll down to the 'Fun Banana Facts' section, guiding the user to continue their journey through the content. There are no other inputs, data manipulations, or complex workflows. The applet's sole function is to present information about bananas in an engaging and visually pleasing manner.",
+        "name": "Banana Landing Page"
+    },
+    "body": {
+        "purpose": "Main content container for the entire landing page",
+        "type": "variable",
+        "variable": "string"
+    },
+    "initialState": [
+        {
+            "key": "headerTitle",
+            "value": {
+                "type": "string",
+                "value": "Banana Bonanza"
+            }
+        },
+        {
+            "key": "heroHeading",
+            "value": {
+                "type": "string",
+                "value": "A Peel to a Healthier You!"
+            }
+        },
+        {
+            "key": "heroParagraph",
+            "value": {
+                "type": "string",
+                "value": "Discover the amazing world of bananas, a delicious and nutritious fruit that's loved globally. From their surprising botanical classification to their rich health benefits, there's more to bananas than meets the eye."
+            }
+        },
+        {
+            "key": "heroButtonText",
+            "value": {
+                "type": "string",
+                "value": "Discover More"
+            }
+        },
+        {
+            "key": "infoHeading",
+            "value": {
+                "type": "string",
+                "value": "Fun Banana Facts"
+            }
+        },
+        {
+            "key": "fact1Text",
+            "value": {
+                "type": "string",
+                "value": "Bananas are technically berries."
+            }
+        },
+        {
+            "key": "fact2Text",
+            "value": {
+                "type": "string",
+                "value": "Bananas can float in water."
+            }
+        },
+        {
+            "key": "fact3Text",
+            "value": {
+                "type": "string",
+                "value": "The banana plant is the world's largest herb."
+            }
+        },
+        {
+            "key": "nutritionHeading",
+            "value": {
+                "type": "string",
+                "value": "Packed with Goodness"
+            }
+        },
+        {
+            "key": "nutrient1Name",
+            "value": {
+                "type": "string",
+                "value": "Potassium"
+            }
+        },
+        {
+            "key": "nutrient1Benefit",
+            "value": {
+                "type": "string",
+                "value": "Great for heart health and blood pressure."
+            }
+        },
+        {
+            "key": "nutrient2Name",
+            "value": {
+                "type": "string",
+                "value": "Vitamin C"
+            }
+        },
+        {
+            "key": "nutrient2Benefit",
+            "value": {
+                "type": "string",
+                "value": "Supports immune system and skin health."
+            }
+        },
+        {
+            "key": "nutrient3Name",
+            "value": {
+                "type": "string",
+                "value": "Vitamin B6"
+            }
+        },
+        {
+            "key": "nutrient3Benefit",
+            "value": {
+                "type": "string",
+                "value": "Important for brain development and function."
+            }
+        },
+        {
+            "key": "footerCopyrightText",
+            "value": {
+                "type": "string",
+                "value": "© 2023 Banana Bonanza"
+            }
+        }
+    ]
+}

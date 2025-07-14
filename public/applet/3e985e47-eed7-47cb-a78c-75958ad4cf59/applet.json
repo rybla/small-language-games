@@ -1,0 +1,41 @@
+{
+    "metadata": {
+        "id": "3e985e47-eed7-47cb-a78c-75958ad4cf59"
+    },
+    "design": {
+        "appearanceSpecification": "A clean and minimalist design with a light gray background. The primary interactive element, the button, will be a vibrant blue. The text displaying the current count will be a dark gray, centered within the applet. The overall theme is modern and uncluttered.",
+        "blueprint": "- App Title: Clicker Demo\n- Main Display:\n  - A text element to show the current clicked number.\n- Interaction:\n  - A button labeled \"Click Me\".\n- Functionality:\n  - The button increments a state variable called \"clickedNumber\" when pressed.\n  - The text element displays the current value of \"clickedNumber\".",
+        "functionalitySpecification": "The applet will display a counter starting at 0. Tapping the 'Click Me' button will increase the counter by one. The current value of the counter will be continuously updated and displayed on the screen.  \n\nWorkflow:\n1. User opens the applet.\n2. The user sees the current count (initially 0) and a button labeled 'Click Me'.\n3. User taps the 'Click Me' button.\n4. The displayed count increments by 1.\n5. Steps 3 and 4 repeat as the user continues to tap the button.",
+        "name": "Clicker Demo"
+    },
+    "body": {
+        "kids": [
+            {
+                "description": "Displays the current count of clicks.",
+                "purpose": "Display current count",
+                "type": "variable",
+                "key": "clickedNumber"
+            },
+            {
+                "description": "Increments the click counter.",
+                "purpose": "Increment click count",
+                "type": "button",
+                "clickEffect": "Increment the value of 'clickedNumber' by 1.",
+                "label": "Click Me"
+            }
+        ],
+        "layout": "column",
+        "purpose": "Main applet layout",
+        "scrollable": false,
+        "type": "group"
+    },
+    "initialState": [
+        {
+            "key": "clickedNumber",
+            "value": {
+                "type": "number",
+                "value": 0
+            }
+        }
+    ]
+}

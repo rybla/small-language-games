@@ -15,6 +15,9 @@ export default function Page() {
           <li>
             <Link href="/text-adventure-v2">text-adventure-v2</Link>
           </li>
+          <li>
+            <Link href="/text-to-ui">text-to-ui</Link>
+          </li>
         </ul>
       </div>
     </>

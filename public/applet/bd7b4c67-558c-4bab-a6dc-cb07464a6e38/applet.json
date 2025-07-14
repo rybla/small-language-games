@@ -1,0 +1,39 @@
+{
+    "metadata": {
+        "id": "bd7b4c67-558c-4bab-a6dc-cb07464a6e38"
+    },
+    "design": {
+        "appearanceSpecification": "The applet will have a clean, minimalist design with a light gray background. The primary color will be a vibrant blue for interactive elements. Text will be displayed in a clear, sans-serif font.",
+        "blueprint": "- App Title\n  - Display of current clicked number\n  - Increment button",
+        "functionalitySpecification": "The user will see a number displayed on the screen, initialized to 0. Below this number, there will be a button. Tapping the button will increase the displayed number by 1. The number displayed will update in real-time after each click. Workflow:\n1. App opens: User sees 'Clicked: 0'.\n2. User taps the button: The number updates to 'Clicked: 1'.\n3. User taps the button again: The number updates to 'Clicked: 2'.",
+        "name": "Clicker Demo"
+    },
+    "body": {
+        "kids": [
+            {
+                "description": "Displays the current click count, prefixed with 'Clicked: '",
+                "purpose": "Display click count",
+                "type": "variable",
+                "key": "clickCount"
+            },
+            {
+                "description": "Increments the click count when tapped",
+                "purpose": "Increment click count",
+                "type": "placeholder"
+            }
+        ],
+        "layout": "column",
+        "purpose": "Main applet layout",
+        "scrollable": false,
+        "type": "group"
+    },
+    "initialState": [
+        {
+            "key": "clicked_count",
+            "value": {
+                "type": "number",
+                "value": 0
+            }
+        }
+    ]
+}

@@ -103,3 +103,14 @@ export type NonEmptyArray<A> = [A, ...A[]];
 export function isNonEmpty<A>(xs: A[]): xs is [A, ...A[]] {
   return xs.length !== 0;
 }
+
+export type Awaited<P extends Promise<any>> =
+  P extends Promise<infer A> ? A : never;
+
+export type Optionalize<O extends object> = {
+  [K in keyof O]: O[K] | undefined;
+};
+
+export function deepcopy(x: any) {
+  return JSON.parse(JSON.stringify(x));
+}

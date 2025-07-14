@@ -1,0 +1,183 @@
+{
+    "metadata": {
+        "id": "0534306d-b542-45eb-8f27-18b7b2974832"
+    },
+    "design": {
+        "appearanceSpecification": "The landing page should have a vibrant and playful aesthetic, utilizing a color palette dominated by shades of yellow, green, and brown, reminiscent of bananas. A clean and modern font will be used throughout. The overall feel should be energetic and optimistic.",
+        "blueprint": "- Hero Section:\n  - Large, eye-catching headline\n  - Engaging subheading\n  - High-quality image or animation of a stylized banana\n  - Call-to-action button\n- Features Section:\n  - Three distinct feature blocks, each with an icon, title, and brief description.\n  - Icons should be simple and banana-themed where appropriate.\n- About Us Section:\n  - Short paragraph introducing the company and its mission.\n  - Possibly an image of the team or a relevant graphic.\n- Contact Section:\n  - Contact form with fields for name, email, and message.\n  - Submit button.",
+        "functionalitySpecification": "The landing page will serve as the primary entry point for potential customers and partners.\n\n1.  **Hero Section Interaction:** The call-to-action button will link to the contact section or a signup form (if applicable).\n2.  **Feature Exploration:** Users can read about the company's core offerings. No direct interaction with feature blocks themselves is required on this page, but they should be visually distinct.\n3.  **Contact Form Submission:** Users can fill out the contact form to send a message. Upon submission, a confirmation message should appear briefly, or the form should reset.",
+        "name": "BananaTech Landing Page"
+    },
+    "body": {
+        "kids": [
+            {
+                "description": "Hero section with a headline, subheading, and a call-to-action button.",
+                "purpose": "hero section",
+                "type": "group",
+                "kids": [
+                    {
+                        "description": "Large, eye-catching headline for the landing page.",
+                        "purpose": "headline",
+                        "type": "text",
+                        "style": "heading",
+                        "text": "The Freshest Bananas, Delivered."
+                    },
+                    {
+                        "description": "Engaging subheading to complement the headline.",
+                        "purpose": "subheading",
+                        "type": "text",
+                        "style": "normal",
+                        "text": "Experience the convenience of farm-fresh bananas, delivered right to your doorstep."
+                    },
+                    {
+                        "description": "High-quality image or animation of a stylized banana.",
+                        "purpose": "hero image",
+                        "type": "image",
+                        "aspectRatio": "1:1",
+                        "slug": "stylized-banana-image"
+                    },
+                    {
+                        "description": "Call-to-action button to encourage user engagement.",
+                        "purpose": "call to action button",
+                        "type": "placeholder"
+                    }
+                ],
+                "layout": "column",
+                "scrollable": false
+            },
+            {
+                "description": "A group displaying three features, each with a title and description.",
+                "purpose": "features section",
+                "type": "placeholder"
+            },
+            {
+                "description": "About Us section with descriptive text.",
+                "purpose": "about us section",
+                "type": "placeholder"
+            },
+            {
+                "description": "Contact form section with input fields for name, email, message, and a submit button.",
+                "purpose": "contact form section",
+                "type": "placeholder"
+            }
+        ],
+        "layout": "column",
+        "purpose": "landing page",
+        "scrollable": true,
+        "type": "group"
+    },
+    "initialState": [
+        {
+            "key": "headlineText",
+            "value": {
+                "type": "string",
+                "value": "Welcome to BananaTech!"
+            }
+        },
+        {
+            "key": "subheadingText",
+            "value": {
+                "type": "string",
+                "value": "Innovating the future, one banana at a time."
+            }
+        },
+        {
+            "key": "heroCtaButtonText",
+            "value": {
+                "type": "string",
+                "value": "Get in Touch"
+            }
+        },
+        {
+            "key": "feature1Title",
+            "value": {
+                "type": "string",
+                "value": "Superior Quality"
+            }
+        },
+        {
+            "key": "feature1Description",
+            "value": {
+                "type": "string",
+                "value": "We source the finest ingredients for our revolutionary products."
+            }
+        },
+        {
+            "key": "feature2Title",
+            "value": {
+                "type": "string",
+                "value": "Cutting-Edge Technology"
+            }
+        },
+        {
+            "key": "feature2Description",
+            "value": {
+                "type": "string",
+                "value": "Harnessing the power of advanced research and development."
+            }
+        },
+        {
+            "key": "feature3Title",
+            "value": {
+                "type": "string",
+                "value": "Sustainable Practices"
+            }
+        },
+        {
+            "key": "feature3Description",
+            "value": {
+                "type": "string",
+                "value": "Committed to eco-friendly solutions for a better tomorrow."
+            }
+        },
+        {
+            "key": "aboutUsText",
+            "value": {
+                "type": "string",
+                "value": "BananaTech is a forward-thinking company dedicated to revolutionizing the tech industry with innovative and sustainable solutions. Our mission is to create products that are not only cutting-edge but also accessible and beneficial to everyone."
+            }
+        },
+        {
+            "key": "contactFormNamePlaceholder",
+            "value": {
+                "type": "string",
+                "value": "Your Name"
+            }
+        },
+        {
+            "key": "contactFormEmailPlaceholder",
+            "value": {
+                "type": "string",
+                "value": "Your Email"
+            }
+        },
+        {
+            "key": "contactFormMessagePlaceholder",
+            "value": {
+                "type": "string",
+                "value": "Your Message"
+            }
+        },
+        {
+            "key": "contactFormSubmitButtonText",
+            "value": {
+                "type": "string",
+                "value": "Send Message"
+            }
+        },
+        {
+            "key": "contactFormSuccessMessage",
+            "value": {
+                "type": "string",
+                "value": "Message sent successfully!"
+            }
+        },
+        {
+            "key": "contactFormErrorMessage",
+            "value": {
+                "type": "string",
+                "value": "Please fill in all fields."
+            }
+        }
+    ]
+}

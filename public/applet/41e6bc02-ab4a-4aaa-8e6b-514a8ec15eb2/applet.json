@@ -1,0 +1,52 @@
+{
+    "metadata": {
+        "id": "41e6bc02-ab4a-4aaa-8e6b-514a8ec15eb2"
+    },
+    "design": {
+        "appearanceSpecification": "The applet will have a clean and simple design. A light background color (e.g., white or very light gray) will be used. Text elements will be in a dark, easily readable color (e.g., black or dark gray). Buttons will have a subtle accent color, perhaps a shade of green or yellow to subtly associate with bananas. The overall theme is minimalist and focused on presenting information clearly.",
+        "blueprint": "- App Title: 'Banana Varieties'\n- Main View:\n  - Header:\n    - Title text: 'Banana Varieties'\n  - Content:\n    - A scrollable list of banana types.\n    - Each item in the list will display:\n      - Banana Name (text)\n      - A brief description (text)\n      - An optional small image of the banana (image)\n  - Footer:\n    - No specific elements required in the footer for this basic view.",
+        "functionalitySpecification": "The primary function of this applet is to display a list of different banana types. The user will be able to scroll through the list to view all available banana varieties. Each list item will provide the name of the banana and a short description. Optionally, a small visual representation of the banana can be included with each entry. There are no interactive elements beyond scrolling and reading the information.",
+        "name": "Banana Varieties List"
+    },
+    "body": {
+        "kids": [
+            {
+                "description": "A header section containing the app title.",
+                "purpose": "header",
+                "type": "placeholder"
+            },
+            {
+                "description": "A list of banana varieties, each with a name and description, and an optional image. This list should be scrollable.",
+                "purpose": "banana list",
+                "type": "placeholder"
+            }
+        ],
+        "layout": "column",
+        "purpose": "main container",
+        "scrollable": false,
+        "type": "group"
+    },
+    "initialState": [
+        {
+            "key": "appTitle",
+            "value": {
+                "type": "string",
+                "value": "Banana Varieties"
+            }
+        },
+        {
+            "key": "headerTitle",
+            "value": {
+                "type": "string",
+                "value": "Banana Varieties"
+            }
+        },
+        {
+            "key": "bananaList",
+            "value": {
+                "type": "string",
+                "value": ""
+            }
+        }
+    ]
+}
