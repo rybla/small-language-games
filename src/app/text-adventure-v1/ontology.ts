@@ -150,7 +150,7 @@ export const PlayerTakesItem = z.object({
   ),
   newItemLocationDescription:
     StoredInPlayerInventory.shape.description.describe(
-      `for after the item is stored in player's inventory, ${StoredInPlayerInventory.shape.description}`,
+      `for after the item is stored in player's inventory, ${StoredInPlayerInventory.shape.description.description!}`,
     ),
 });
 
@@ -162,7 +162,7 @@ export const PlayerDropsItem = z.object({
     "one-paragraph description of how the player drops the item",
   ),
   newItemLocationDescription: PlacedInRoom.shape.description.describe(
-    `for after the item is dropped, ${PlacedInRoom.shape.description}`,
+    `for after the item is dropped, ${PlacedInRoom.shape.description.description!}`,
   ),
 });
 
@@ -174,7 +174,7 @@ export const PlayerEquipsItem = z.object({
     "one-paragraph description of how the player equips the item",
   ),
   newItemLocationDescription: EquippedByPlayer.shape.description.describe(
-    `for after the item is equipped, ${EquippedByPlayer.shape.description}`,
+    `for after the item is equipped, ${EquippedByPlayer.shape.description.description!}`,
   ),
 });
 
@@ -189,7 +189,7 @@ export const PlayerStoresItemInInventory = z.object({
   ),
   newItemLocationDescription:
     StoredInPlayerInventory.shape.description.describe(
-      `for after the item is stored in the player's inventory, ${StoredInPlayerInventory.shape.description}`,
+      `for after the item is stored in the player's inventory, ${StoredInPlayerInventory.shape.description.description!}`,
     ),
 });
 

@@ -15,7 +15,7 @@ import {
   ImageElement,
   PlaceholderElement,
 } from "./ontology";
-import { presentElement, walkElement } from "./semantics";
+import { walkElement } from "./semantics";
 
 export const generateAppletDesign = ai.defineFlow(
   {
@@ -33,7 +33,7 @@ export const generateAppletDesign = ai.defineFlow(
       system: `
 You are a UI design assistant. The user will provide a high-level description for an applet they want built. You should carefully consider their specification, and then write a structured design for a UI that satisfies all of their specification. Your design should be comprehensive and specific.
 
-The UI you design will be able to use the following element types: ${elementTypeDescriptions}.
+The UI you design will be able to use the following element types: ${elementTypeDescriptions.join(", ")}.
 `.trim(),
       prompt: input.prompt.trim(),
       output: { schema: AppletDesign },

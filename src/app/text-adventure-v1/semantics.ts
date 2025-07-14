@@ -213,16 +213,18 @@ World description: ${game.world.description}
 
 ## Players
 
-${game.world.players.map((player) => {
-  const playerLocation = getPlayerLocation(game.world, player.name);
-  return `
+${game.world.players
+  .map((player) => {
+    const playerLocation = getPlayerLocation(game.world, player.name);
+    return `
 **${player.name}**: ${player.shortDescription}
   - Appearance: ${player.appearanceDescription}
   - Personality: ${player.personalityDescription}
   - Skills: ${player.skills.join(", ")}
   - Located in "${playerLocation.room}": ${playerLocation.description}
 `.trim();
-})}
+  })
+  .join("\n\n")}
 
 ## Rooms
 

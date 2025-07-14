@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import Test from "@/backend/ai/Test";
 import style from "./page.module.css";
+import { spawnAsync } from "@/utility";
 
 export default function Page() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -13,13 +14,15 @@ export default function Page() {
       <input ref={inputRef} placeholder="prompt" className={style["input"]} />
       <button
         className={style["submit"]}
-        onClick={async () => {
-          if (inputRef.current === null) return;
-          const { message: output } = await Test({
-            message: inputRef.current.value,
-          });
-          set_output(output);
-        }}
+        onClick={() =>
+          spawnAsync(async () => {
+            if (inputRef.current === null) return;
+            const { message: output } = await Test({
+              message: inputRef.current.value,
+            });
+            set_output(output);
+          })
+        }
       >
         submit
       </button>

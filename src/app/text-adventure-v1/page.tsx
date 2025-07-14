@@ -28,7 +28,7 @@ import {
   presentGameWorldFromPlayerPerspective,
 } from "./semantics";
 import Markdown from "react-markdown";
-import { do_, unwords } from "@/utility";
+import { do_, spawnAsync, unwords } from "@/utility";
 
 export default function Page() {
   // @ts-expect-error mismatch when inferring type from zod schema
@@ -42,13 +42,9 @@ export default function Page() {
     undefined,
   );
 
-  useEffect(
-    () => {
-      set_playerName(game?.world.players[0]?.name);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [gameName],
-  );
+  useEffect(() => {
+    set_playerName(game?.world.players[0]?.name);
+  }, [game, gameName]);
 
   async function update_game() {
     if (game !== undefined) {
@@ -212,7 +208,7 @@ function PlayGame(props: {
         });
         await promptGame(game.name, props.playerName, prompt);
         set_partialTurn(undefined);
-        props.update_game();
+        spawnAsync(props.update_game);
       } catch (exception: unknown) {
         prompt_inputRef.current!.value = prompt;
         set_partialTurn(undefined);
@@ -265,7 +261,7 @@ function PlayGame(props: {
             inputRef={prompt_inputRef}
             onEnter={async () => await submit(game)}
           />
-          <Button onClick={async () => await submit(game)}>Submit</Button>
+          <Button onClick={() => void submit(game)}>Submit</Button>
         </div>
       </Panel>
     );
@@ -295,27 +291,29 @@ function NewGame(props: { set_game: Dispatch<SetStateAction<Game>> }) {
         <InputField label="player" inputRef={prompt_player_inputRef} />
       </Section>
       <Button
-        onClick={async () => {
-          try {
-            set_status("initializing new game...");
-            const gameName = await initializeGame({
-              game: prompt_game_inputRef.current!.value,
-              room: prompt_room_inputRef.current!.value,
-              player: prompt_player_inputRef.current!.value,
-            });
-            set_status(`successfully initialize a new game "${gameName}"`);
-            props.set_game(await getGame(gameName));
-          } catch (exception: unknown) {
-            if (exception instanceof Error) {
-              set_status(
-                `failed to initialize a new game:\n${exception.toString()}`,
-              );
-            } else {
-              set_status("failed to initialize a new game");
-              throw exception;
+        onClick={() =>
+          spawnAsync(async () => {
+            try {
+              set_status("initializing new game...");
+              const gameName = await initializeGame({
+                game: prompt_game_inputRef.current!.value,
+                room: prompt_room_inputRef.current!.value,
+                player: prompt_player_inputRef.current!.value,
+              });
+              set_status(`successfully initialize a new game "${gameName}"`);
+              props.set_game(await getGame(gameName));
+            } catch (exception: unknown) {
+              if (exception instanceof Error) {
+                set_status(
+                  `failed to initialize a new game:\n${exception.toString()}`,
+                );
+              } else {
+                set_status("failed to initialize a new game");
+                throw exception;
+              }
             }
-          }
-        }}
+          })
+        }
       >
         Submit
       </Button>
@@ -332,12 +330,12 @@ function SavedGames(props: { set_game: Dispatch<SetStateAction<Game>> }) {
   }
 
   useEffect(() => {
-    update_savedGamenames();
+    void update_savedGamenames();
   }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      update_savedGamenames();
+      void update_savedGamenames();
     }, 1000);
 
     // Cleanup function to clear the interval when the component unmounts
@@ -349,7 +347,9 @@ function SavedGames(props: { set_game: Dispatch<SetStateAction<Game>> }) {
       {savedGamenames.map((name, i) => (
         <Button
           key={i}
-          onClick={async () => props.set_game(await getGame(name))}
+          onClick={() =>
+            spawnAsync(async () => props.set_game(await getGame(name)))
+          }
         >
           {name}
         </Button>
@@ -427,11 +427,13 @@ function InputField(props: {
         className={style["input"]}
         ref={props.inputRef}
         placeholder={props.placeholder}
-        onKeyUp={async (event) => {
-          if (event.key === "Enter") {
-            await props.onEnter?.(event);
-          }
-        }}
+        onKeyUp={(event) =>
+          spawnAsync(async () => {
+            if (event.key === "Enter") {
+              await props.onEnter?.(event);
+            }
+          })
+        }
       />
     </div>
   );

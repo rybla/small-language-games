@@ -1,10 +1,11 @@
 "use client";
 
 import { useRef, useState } from "react";
-import AppletView from "./component/AppletView";
-import type { Applet } from "./ontology";
+import * as server from "../server";
 import styles from "./page.module.css";
-import * as server from "./server";
+import Link from "next/link";
+import type { Applet } from "../ontology";
+import { rootName } from "../common";
 import { spawnAsync } from "@/utility";
 
 export default function Page() {
@@ -14,8 +15,8 @@ export default function Page() {
   async function submitPrompt() {
     if (inputRef.current === null) return;
     if (inputRef.current.value.length === 0) return;
-
-    set_applet(await server.generateApplet(inputRef.current.value));
+    const applet = await server.generateApplet(inputRef.current.value);
+    set_applet(applet);
   }
 
   return (
@@ -30,18 +31,15 @@ export default function Page() {
           Submit
         </button>
       </div>
-      {applet === undefined ? (
-        <div className={styles.applet_placeholder}></div>
-      ) : (
-        <div className={styles.applet_container}>
-          <AppletView
-            applet={applet}
-            fillPlaceholder={async (placeholder) => {
-              set_applet(await server.fillPlaceholder(applet, placeholder));
-            }}
-          />
-        </div>
-      )}
+      <div className={styles.result}>
+        {applet === undefined ? (
+          <></>
+        ) : (
+          <Link href={`${rootName}/view/appletId=${applet.metadata.id}`}>
+            {applet.design.name}
+          </Link>
+        )}
+      </div>
     </main>
   );
 }

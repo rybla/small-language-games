@@ -120,7 +120,7 @@ export async function promptGame(
               name: playerRoom.name,
               appearanceDescription: playerRoom.longDescription,
             });
-            saveRoomImage(game.metadata.id, roomImage);
+            await saveRoomImage(game.metadata.id, roomImage);
           }),
           do_(async () => {
             console.log(`generating room items for ${playerRoom.name}`);
@@ -168,5 +168,5 @@ export async function promptGame(
     throw new Error(`interpret action errors:\n${errors.join("\n")}`);
 
   game.turns.push(turn);
-  saveGame(game);
+  await saveGame(game);
 }

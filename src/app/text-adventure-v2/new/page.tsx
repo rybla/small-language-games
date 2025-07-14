@@ -6,6 +6,7 @@ import style from "./page.module.css";
 import * as server from "../server";
 import type { GameMetadata } from "../ontology";
 import Link from "next/link";
+import { spawnAsync } from "@/utility";
 
 type Phase =
   | {
@@ -39,21 +40,25 @@ export default function Page() {
             <div className={style.heading}>Prompt</div>
             <textarea
               ref={promptRef}
-              onKeyUp={(event) => {
-                event.preventDefault();
-                if (event.key === "Enter") {
-                  if (promptRef.current === null) return;
-                  if (promptRef.current.value.length === 0) return;
-                  submitPrompt(promptRef.current.value);
-                }
-              }}
+              onKeyUp={(event) =>
+                spawnAsync(async () => {
+                  event.preventDefault();
+                  if (event.key === "Enter") {
+                    if (promptRef.current === null) return;
+                    if (promptRef.current.value.length === 0) return;
+                    await submitPrompt(promptRef.current.value);
+                  }
+                })
+              }
             />
             <button
-              onClick={() => {
-                if (promptRef.current === null) return;
-                if (promptRef.current.value.length === 0) return;
-                submitPrompt(promptRef.current.value);
-              }}
+              onClick={() =>
+                spawnAsync(async () => {
+                  if (promptRef.current === null) return;
+                  if (promptRef.current.value.length === 0) return;
+                  await submitPrompt(promptRef.current.value);
+                })
+              }
             >
               Submit
             </button>

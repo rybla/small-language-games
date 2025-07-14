@@ -115,5 +115,5 @@ export async function promptGame(
     throw new Error(`interpret action errors:\n${errors.join("\n")}`);
 
   game.turns.push(turn);
-  saveGame(game);
+  await saveGame(game);
 }

@@ -1,20 +1,20 @@
 "use client";
 
+import { findMap, spawnAsync } from "@/utility";
+import Image from "next/image";
+import { ReactNode, useState } from "react";
 import {
   type Applet,
+  type AppletState,
   type Element,
   type GroupElement,
-  type AppletState,
-  type Value,
   type PlaceholderElement,
   TextElement,
+  type Value,
 } from "../ontology";
-import { ReactNode, useState } from "react";
-import styles from "./AppletView.module.css";
-import Image from "next/image";
-import * as server from "../server";
 import Paths from "../paths";
-import { findMap, stringify } from "@/utility";
+import * as server from "../server";
+import styles from "./AppletView.module.css";
 
 const paths = new Paths("/");
 
@@ -143,7 +143,11 @@ export default function AppletView(props: {
       case "button": {
         return (
           <div className={styles.button} key={key}>
-            <button onClick={async () => interpretAction(element.clickEffect)}>
+            <button
+              onClick={() =>
+                spawnAsync(async () => interpretAction(element.clickEffect))
+              }
+            >
               {element.label}
             </button>
           </div>
@@ -154,7 +158,9 @@ export default function AppletView(props: {
           <div
             className={styles.placeholder}
             key={key}
-            onClick={async () => await props.fillPlaceholder(element)}
+            onClick={() =>
+              spawnAsync(async () => await props.fillPlaceholder(element))
+            }
           >
             {element.description}
           </div>

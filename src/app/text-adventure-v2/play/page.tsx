@@ -1,6 +1,6 @@
 "use client";
 
-import { stringify, do_, unwords } from "@/utility";
+import { spawnAsync, stringify, unwords } from "@/utility";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { ReactNode, useEffect, useRef, useState } from "react";
@@ -89,7 +89,7 @@ export default function Page() {
 
   useEffect(
     () => {
-      update_game();
+      void update_game();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [gameId],
@@ -307,28 +307,30 @@ export default function Page() {
           <div className={style.Prompt}>
             <textarea
               ref={promptRef}
-              onKeyUp={async (event) => {
-                if (event.key === "Enter") {
-                  event.preventDefault();
-                  if (promptRef.current === null) return;
-                  if (promptRef.current.value.length === 0) return;
-                  const prompt = promptRef.current.value.trim();
-                  promptRef.current.value = "";
-                  set_submittedPrompt(prompt);
-                  try {
-                    await server.promptGame(game.metadata.id, prompt);
-                    set_submittedPrompt(undefined);
-                    await update_game();
-                  } catch (exception: unknown) {
-                    if (exception instanceof Error) {
-                      set_status(exception.message);
-                    } else {
-                      set_status("An unknown error occurred.");
+              onKeyUp={(event) =>
+                spawnAsync(async () => {
+                  if (event.key === "Enter") {
+                    event.preventDefault();
+                    if (promptRef.current === null) return;
+                    if (promptRef.current.value.length === 0) return;
+                    const prompt = promptRef.current.value.trim();
+                    promptRef.current.value = "";
+                    set_submittedPrompt(prompt);
+                    try {
+                      await server.promptGame(game.metadata.id, prompt);
+                      set_submittedPrompt(undefined);
+                      await update_game();
+                    } catch (exception: unknown) {
+                      if (exception instanceof Error) {
+                        set_status(exception.message);
+                      } else {
+                        set_status("An unknown error occurred.");
+                      }
+                      promptRef.current.value = prompt;
                     }
-                    promptRef.current.value = prompt;
                   }
-                }
-              }}
+                })
+              }
               placeholder="..."
             ></textarea>
             <div className={style.player_info}>

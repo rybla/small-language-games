@@ -158,7 +158,7 @@ export const PlayerTakesItem = (itemNames?: NonEmptyArray<ItemName>) =>
       ),
       newItemLocationDescription:
         ItemLocationInPlayerInventory.shape.description.describe(
-          `for after the item is stored in player's inventory, ${ItemLocationInPlayerInventory.shape.description!}`,
+          `for after the item is stored in player's inventory, ${ItemLocationInPlayerInventory.shape.description.description!}`,
         ),
     })
     .describe(
@@ -175,7 +175,7 @@ export const PlayerDropsItem = (itemNames?: NonEmptyArray<ItemName>) =>
         "one-paragraph description of how the player drops the item",
       ),
       newItemLocationDescription: ItemLocationInRoom.shape.description.describe(
-        `for after the item is dropped, ${ItemLocationInRoom.shape.description!}`,
+        `for after the item is dropped, ${ItemLocationInRoom.shape.description.description!}`,
       ),
     })
     .describe(
@@ -216,7 +216,7 @@ export const PlayerUsesItem = (itemNames?: NonEmptyArray<ItemName>) =>
               type: z.enum(["dropped"]),
               newItemLocationDescription:
                 ItemLocationInRoom.shape.description.describe(
-                  `for after the item is used, ${ItemLocationInRoom.shape.description!}`,
+                  `for after the item is used, ${ItemLocationInRoom.shape.description.description!}`,
                 ),
             })
             .describe(
@@ -226,8 +226,8 @@ export const PlayerUsesItem = (itemNames?: NonEmptyArray<ItemName>) =>
             .object({
               type: z.enum(["inventory"]),
               newItemLocationDescription:
-                ItemLocationInRoom.shape.description.describe(
-                  `for after the item is used, ${ItemLocationInPlayerInventory.shape.description!}`,
+                ItemLocationInPlayerInventory.shape.description.describe(
+                  `for after the item is used, ${ItemLocationInPlayerInventory.shape.description.description!}`,
                 ),
             })
             .describe(`the item was kept in the player's inventory`),

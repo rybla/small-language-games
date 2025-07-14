@@ -2,7 +2,6 @@ export type Domain<T> = T extends (x: infer A, ...xs: unknown[]) => unknown
   ? A
   : never;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Codomain<T> = T extends (...args: any) => infer B ? B : never;
 
 export type UnPromise<T> = T extends Promise<infer A> ? A : never;
@@ -111,6 +110,10 @@ export type Optionalize<O extends object> = {
   [K in keyof O]: O[K] | undefined;
 };
 
-export function deepcopy(x: any) {
+export function deepcopy<A>(x: A): A {
   return JSON.parse(JSON.stringify(x));
+}
+
+export function spawnAsync(k: () => Promise<void>): void {
+  void k();
 }
