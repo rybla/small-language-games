@@ -32,9 +32,16 @@ const eslintConfig = [
     extends: ["next"],
     settings: {
       next: {
-        rootDir: "packages/my-app/",
+        rootDir: ".",
       },
     },
+    // extends: [
+    //   "plugin:@typescript-eslint/recommended",
+    //   "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    //   "plugin:react/recommended",
+    //   "plugin:react-hooks/recommended",
+    //   "plugin:jsx-a11y/recommended",
+    // ],
   }),
 ];
 

@@ -1,21 +1,27 @@
 "use client";
 
-import { useRef, useState } from "react";
-import AppletView from "./component/AppletView";
-import type { Applet } from "./ontology";
+import { spawnAsync } from "@/utility";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { rootName } from "./common";
 import styles from "./page.module.css";
 import * as server from "./server";
-import { spawnAsync } from "@/utility";
 
 export default function Page() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const [applet, set_applet] = useState<Applet | undefined>(undefined);
+  const [appletInfos, set_appletInfos] = useState<server.AppletInfo[]>([]);
+
+  async function update_appletInfos() {
+    set_appletInfos(await server.getAppletInfos());
+  }
+
+  useEffect(() => spawnAsync(update_appletInfos), []);
 
   async function submitPrompt() {
     if (inputRef.current === null) return;
     if (inputRef.current.value.length === 0) return;
-
-    set_applet(await server.generateApplet(inputRef.current.value));
+    await server.generateApplet(inputRef.current.value);
+    await update_appletInfos();
   }
 
   return (
@@ -30,18 +36,15 @@ export default function Page() {
           Submit
         </button>
       </div>
-      {applet === undefined ? (
-        <div className={styles.applet_placeholder}></div>
-      ) : (
-        <div className={styles.applet_container}>
-          <AppletView
-            applet={applet}
-            fillPlaceholder={async (placeholder) => {
-              set_applet(await server.fillPlaceholder(applet, placeholder));
-            }}
-          />
-        </div>
-      )}
+      <div className={styles.applets}>
+        {appletInfos.map((appletInfo, i) => (
+          <div className={styles.appletInfo} key={i}>
+            <Link href={`/${rootName}/view?appletId=${appletInfo.id}`}>
+              {appletInfo.name}
+            </Link>
+          </div>
+        ))}
+      </div>
     </main>
   );
 }

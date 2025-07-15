@@ -1,0 +1,251 @@
+/*
+This CSS module file provides styles for the Next.js page component.
+It's designed with a minimalist, geometric, and animated aesthetic.
+
+--- FILE ORGANIZATION ---
+
+1.  **CSS Variables (:root)**: Defines the color palette and animation timings for a consistent and easily customizable theme.
+2.  **Global & Body Styles**: Sets a base font and a dynamic, animated gradient background for the entire page.
+3.  **Main Layout (.main)**: Uses a CSS Grid to structure the page into two main columns: the prompt area and the applets list.
+4.  **Prompt Section (.prompt, .title, .input, .button)**: Styles the left column.
+    * `.prompt`: A container with a subtle background and a "glassmorphism" effect.
+    * `.title`: A clean, modern heading.
+    * `.input`: A minimalist textarea with a focus animation on its border.
+    * `.button`: The star of the show. A circular button with a morphing hover effect, a gradient shift, and a subtle pulse to attract attention.
+5.  **Applets List (.applets, .appletInfo)**: Styles the right column.
+    * `.applets`: A grid container for the list of generated applets.
+    * `.appletInfo`: Each applet is a "card" with a 3D tilt effect on hover. An animated border appears on hover, and the link inside has a creative underline effect.
+6.  **Keyframe Animations (@keyframes)**: Contains all the custom animations used throughout the stylesheet.
+    * `gradientPan`: Creates the smoothly shifting animated background.
+    * `pulse`: Gives the submit button a gentle, rhythmic throbbing effect.
+    * `fadeIn`: A standard fade-in for elements loading onto the page.
+    * `slideUp`: Makes the applet list items enter with a smooth upward motion.
+*/
+
+:root {
+    --background-start: #1a1a2e;
+    --background-mid: #16213e;
+    --background-end: #0f3460;
+    --accent-primary: #e94560;
+    --accent-secondary: #533483;
+    --text-color: #dcdcdc;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --border-color: rgba(227, 227, 227, 0.2);
+    --hover-glow: #e94560;
+    --anim-speed-fast: 0.3s;
+    --anim-speed-slow: 0.6s;
+}
+
+.main {
+    flex: 1 1 0;
+    min-height: 0;
+
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    padding: 4rem;
+    width: 100%;
+    color: var(--text-color);
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+        Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: linear-gradient(
+        -45deg,
+        var(--background-start),
+        var(--background-mid),
+        var(--background-end)
+    );
+    background-size: 400% 400%;
+    animation: gradientPan 15s ease infinite;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .main {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+        gap: 2rem;
+    }
+}
+
+.prompt {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    animation: fadeIn var(--anim-speed-slow) ease-out;
+    transition: transform var(--anim-speed-fast) ease;
+}
+
+.prompt:hover {
+    transform: translateY(-5px);
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+}
+
+.input {
+    width: 100%;
+    min-height: 200px;
+    background: transparent;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1rem;
+    color: var(--text-color);
+    font-size: 1rem;
+    resize: none;
+    transition:
+        border-color var(--anim-speed-fast) ease,
+        box-shadow var(--anim-speed-fast) ease;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 15px var(--accent-primary);
+}
+
+.button {
+    --button-size: 70px;
+    width: var(--button-size);
+    height: var(--button-size);
+    align-self: center;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(
+        45deg,
+        var(--accent-primary),
+        var(--accent-secondary)
+    );
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all var(--anim-speed-fast) cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation: pulse 2s infinite;
+}
+
+.button:hover {
+    transform: scale(1.1) rotate(15deg);
+    border-radius: 20px; /* Morph shape on hover */
+    box-shadow: 0 0 25px var(--hover-glow);
+    animation-play-state: paused;
+}
+
+.button:active {
+    transform: scale(0.95);
+}
+
+.applets {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    align-content: start;
+}
+
+.appletInfo {
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    perspective: 1000px;
+    transition:
+        transform var(--anim-speed-fast) ease,
+        box-shadow var(--anim-speed-fast) ease;
+    animation: slideUp 0.5s ease-out forwards;
+    opacity: 0;
+    animation-delay: calc(var(--i, 0) * 0.1s);
+}
+
+.appletInfo:hover {
+    transform: translateY(-10px) rotateX(10deg) rotateY(-5deg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    border-color: var(--accent-primary);
+}
+
+.appletInfo a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    position: relative;
+}
+
+.appletInfo a::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--accent-primary);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.appletInfo:hover a::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* Keyframe Animations */
+
+@keyframes gradientPan {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(233, 69, 96, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 20px rgba(233, 69, 96, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(233, 69, 96, 0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

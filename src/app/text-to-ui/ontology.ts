@@ -189,10 +189,12 @@ export const AppletState = z
 
 // Applet
 
+export type AppletMetadata = z.infer<typeof AppletMetadata>;
 export const AppletMetadata = z.object({
   id: z.string(),
 });
 
+export type AppletDesign = z.infer<typeof AppletDesign>;
 export const AppletDesign = z.object({
   name: z.string().nonempty().describe("name of the applet"),
   blueprint: z

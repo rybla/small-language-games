@@ -1,5 +1,5 @@
 import { rootName } from "./common";
-import style from "./layout.module.css";
+import styles from "./layout.module.css";
 import Header from "@/app/component/Header";
 
 export default function Layout(
@@ -10,7 +10,7 @@ export default function Layout(
   return (
     <>
       <Header
-        className={style.header}
+        className={styles.header}
         root={{ label: rootName, href: `/${rootName}` }}
         branches={[{ label: "new", href: `/${rootName}/new` }]}
       />

@@ -5,17 +5,37 @@ import { existsSync } from "fs";
 import * as fs from "fs/promises";
 import path from "path";
 import * as flow from "./flow";
-import { Applet, AppletState, PlaceholderElement } from "./ontology";
+import {
+  Applet,
+  AppletDesign,
+  AppletMetadata,
+  AppletState,
+  PlaceholderElement,
+} from "./ontology";
 import Paths from "./paths";
 import { foldElement } from "./semantics";
 
 const paths = new Paths(path.join(".", "public"));
 
-export async function getAppletIds(): Promise<string[]> {
-  return (await fs.readdir(path.join(paths.appletsDirpath))).flatMap(
-    (filename) =>
-      filename.endsWith(".json") ? [filename.slice(0, -".json".length)] : [],
-  );
+export type AppletInfo = {
+  id: AppletMetadata["id"];
+  name: AppletDesign["name"];
+};
+
+export async function getAppletInfos(): Promise<AppletInfo[]> {
+  return (
+    await Promise.all(
+      (await fs.readdir(path.join(paths.appletsDirpath))).map(
+        async (filename) => {
+          if (filename.includes(".")) return [];
+          console.log(filename);
+          const appletId = filename;
+          const applet = await getApplet(appletId);
+          return [{ id: appletId, name: applet.design.name }];
+        },
+      ),
+    )
+  ).flat();
 }
 
 export async function getApplet(appletId: string): Promise<Applet> {

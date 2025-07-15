@@ -1,0 +1,179 @@
+/*
+This CSS module file provides styles for the main page component in a Next.js application.
+It aims for a minimalist, modern, and artistic aesthetic with a focus on geometric patterns,
+animations, and interactive hover effects.
+
+- CSS Variables: At the top, we define a color palette and animation timings for easy
+  theming and consistency.
+- Main Container (`.main`): This class styles the primary container of the page. It features
+  an animated gradient background composed of several large, soft-colored circles that slowly
+  move and fade, creating a dynamic yet calming geometric backdrop.
+- Text Styles (`.error`, `.applet_loading`): These classes are for displaying
+  status messages. They use a clean, modern font and have a subtle fade-in animation.
+  The `.applet_loading` class includes a custom geometric loading animation where three
+  shapes (a circle, a square, and a triangle) rotate and change color.
+- Applet Container (`.applet_container`): This is the container for the main application
+  content. It's designed to look like a floating card with a gentle box-shadow that
+  intensifies on hover. The container itself has a subtle "pop-in" animation when it appears.
+- Keyframe Animations: Several `@keyframes` rules define the animations used throughout the
+  stylesheet, including the background gradient movement, the loading indicator's rotation,
+  and the fade-in effects.
+*/
+
+:root {
+    --background-start: #f0f2f5;
+    --background-end: #e6e9ed;
+    --primary-accent: #ff6b6b;
+    --secondary-accent: #4ecdc4;
+    --tertiary-accent: #45b7d1;
+    --text-color: #333;
+    --container-bg: rgba(255, 255, 255, 0.7);
+    --container-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    --container-shadow-hover: 0 12px 40px 0 rgba(31, 38, 135, 0.2);
+    --animation-speed-slow: 25s;
+    --animation-speed-fast: 1.5s;
+}
+
+.main {
+    flex: 1 1 0;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: var(--background-start);
+    overflow: hidden;
+    position: relative;
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+        Arial, sans-serif;
+}
+
+.main::before,
+.main::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: 1;
+}
+
+.main::before {
+    width: 40vw;
+    height: 40vw;
+    background-color: var(--secondary-accent);
+    top: -10%;
+    left: -10%;
+    animation: moveShape1 var(--animation-speed-slow) infinite alternate
+        ease-in-out;
+}
+
+.main::after {
+    width: 35vw;
+    height: 35vw;
+    background-color: var(--tertiary-accent);
+    bottom: -15%;
+    right: -15%;
+    animation: moveShape2 var(--animation-speed-slow) infinite alternate
+        ease-in-out;
+}
+
+.error,
+.applet_loading {
+    z-index: 2;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    padding: 2rem 3rem;
+    background: var(--container-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: var(--container-shadow);
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.applet_loading {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.applet_loading::before {
+    content: "";
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 4px solid var(--primary-accent);
+    border-top-color: transparent;
+    animation: spin var(--animation-speed-fast) linear infinite;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+.applet_container {
+    margin: 1rem;
+    flex: 1 1 0;
+    min-height: 0;
+    z-index: 2;
+    width: 90%;
+    max-width: 1000px;
+    padding: 1rem;
+    background: var(--container-bg);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--container-shadow);
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes moveShape1 {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+        transform: translate(20vw, 15vh) rotate(180deg);
+    }
+}
+
+@keyframes moveShape2 {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+        transform: translate(-15vw, -20vh) rotate(-180deg);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

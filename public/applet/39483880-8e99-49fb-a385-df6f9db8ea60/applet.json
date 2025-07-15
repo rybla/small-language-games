@@ -1,0 +1,41 @@
+{
+    "metadata": {
+        "id": "39483880-8e99-49fb-a385-df6f9db8ea60"
+    },
+    "design": {
+        "name": "Counter Demo",
+        "blueprint": "- App Title: Counter Demo\n- Main Display:\n  - Text element to show the current count.\n  - Font size should be large and prominent.\n- Controls:\n  - Button element labeled \"Increment\".\n  - Button should be clearly visible and easy to tap.\n- State:\n  - A variable to hold the current count, initialized to 0.",
+        "functionalitySpecification": "1. **Initialization**: On applet load, the count displayed will be 0.\n2. **Increment**: Tapping the \"Increment\" button will increase the displayed count by 1. The text element will update to reflect the new count immediately.",
+        "appearanceSpecification": "A clean and minimalist design. The primary color is a light blue, with white used for text and buttons. The background is a subtle grey. Elements are centered vertically and horizontally."
+    },
+    "initialState": [
+        {
+            "key": "current_count",
+            "value": {
+                "type": "number",
+                "value": 0
+            }
+        }
+    ],
+    "body": {
+        "type": "group",
+        "purpose": "Main container for the counter demo UI",
+        "layout": "column",
+        "scrollable": false,
+        "kids": [
+            {
+                "type": "variable",
+                "purpose": "Display the current count",
+                "description": "Displays the current value of the counter. It should be updated when the counter is incremented.",
+                "key": "current_count"
+            },
+            {
+                "type": "button",
+                "purpose": "Increment the counter",
+                "description": "A button that increases the counter value by 1 when tapped.",
+                "clickEffect": "Increments the value of the current_count variable by 1.",
+                "label": "Increment"
+            }
+        ]
+    }
+}
