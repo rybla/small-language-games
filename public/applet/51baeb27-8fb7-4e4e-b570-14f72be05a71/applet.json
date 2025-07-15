@@ -1,0 +1,432 @@
+{
+    "metadata": {
+        "id": "51baeb27-8fb7-4e4e-b570-14f72be05a71"
+    },
+    "design": {
+        "name": "BananaTech Landing Page",
+        "blueprint": "- Header:\n  - Logo: \"BananaTech\" (text)\n  - Navigation: \"Products\", \"Research\", \"About Us\", \"Contact\" (buttons)\n- Hero Section:\n  - Background Image: High-resolution image of a futuristic banana.\n  - Headline: \"Innovating the Future of Bananas\" (text)\n  - Subheadline: \"Discover our cutting-edge research and revolutionary products.\" (text)\n  - Call to Action: \"Explore Our Innovations\" (button)\n- Featured Products Section:\n  - Section Title: \"Our Latest Innovations\" (text)\n  - Product Showcase (Row):\n    - Product 1:\n      - Image: \"BananaBot Image\" (image)\n      - Title: \"BananaBot\" (text)\n      - Description: \"The ultimate banana harvesting robot.\" (text)\n      - Button: \"Learn More\" (button)\n    - Product 2:\n      - Image: \"NutriBanana Image\" (image)\n      - Title: \"NutriBanana\" (text)\n      - Description: \"Genetically enhanced bananas for optimal nutrition.\" (text)\n      - Button: \"Learn More\" (button)\n    - Product 3:\n      - Image: \"BananaNet Image\" (image)\n      - Title: \"BananaNet\" (text)\n      - Description: \"A decentralized network for banana supply chain management.\" (text)\n      - Button: \"Learn More\" (button)\n- Research Highlights Section:\n  - Section Title: \"Pioneering Research\" (text)\n  - Research Showcase (Column):\n    - Research Area 1:\n      - Image: \"BioEngineering Image\" (image)\n      - Title: \"Banana Bio-Engineering\" (text)\n      - Description: \"Advancing the genetic potential of bananas.\" (text)\n      - Button: \"Read More\" (button)\n    - Research Area 2:\n      - Image: \"Robotics Image\" (image)\n      - Title: \"Agricultural Robotics\" (text)\n      - Description: \"Developing autonomous solutions for farming.\" (text)\n      - Button: \"Read More\" (button)\n- Footer:\n  - Copyright: \"© 2023 BananaTech. All rights reserved.\" (text)\n  - Social Media Links (Row):\n    - Facebook Icon (image)\n    - Twitter Icon (image)\n    - LinkedIn Icon (image)",
+        "functionalitySpecification": "1. **Navigation:** Users can click on navigation buttons ('Products', 'Research', 'About Us', 'Contact') to be taken to respective sections or pages of the website.\n2. **Hero Section CTA:** Clicking the 'Explore Our Innovations' button will scroll the user down to the Featured Products Section.\n3. **Product Learn More:** Clicking a 'Learn More' button under a product will direct the user to a detailed page for that specific product.\n4. **Research Read More:** Clicking a 'Read More' button under a research highlight will direct the user to a detailed page for that research area.\n5. **Footer Links:** Clicking on social media icons will open the respective social media profiles in new tabs.",
+        "appearanceSpecification": "The landing page should have a clean and modern aesthetic with a dark mode theme. A prominent color palette would include deep blues, blacks, and accents of vibrant yellow and green to evoke technology and bananas. High-resolution images and subtle animations should be used throughout to create an engaging and futuristic feel."
+    },
+    "initialState": [
+        {
+            "key": "logoText",
+            "value": {
+                "type": "string",
+                "value": "BananaTech"
+            }
+        },
+        {
+            "key": "navButtons",
+            "value": {
+                "type": "string",
+                "value": "Products, Research, About Us, Contact"
+            }
+        },
+        {
+            "key": "heroBackgroundImage",
+            "value": {
+                "type": "string",
+                "value": "futuristic_banana.jpg"
+            }
+        },
+        {
+            "key": "heroHeadline",
+            "value": {
+                "type": "string",
+                "value": "Innovating the Future of Bananas"
+            }
+        },
+        {
+            "key": "heroSubheadline",
+            "value": {
+                "type": "string",
+                "value": "Discover our cutting-edge research and revolutionary products."
+            }
+        },
+        {
+            "key": "heroCtaButton",
+            "value": {
+                "type": "string",
+                "value": "Explore Our Innovations"
+            }
+        },
+        {
+            "key": "featuredProductsSectionTitle",
+            "value": {
+                "type": "string",
+                "value": "Our Latest Innovations"
+            }
+        },
+        {
+            "key": "product1Image",
+            "value": {
+                "type": "string",
+                "value": "BananaBot Image"
+            }
+        },
+        {
+            "key": "product1Title",
+            "value": {
+                "type": "string",
+                "value": "BananaBot"
+            }
+        },
+        {
+            "key": "product1Description",
+            "value": {
+                "type": "string",
+                "value": "The ultimate banana harvesting robot."
+            }
+        },
+        {
+            "key": "product1LearnMoreButton",
+            "value": {
+                "type": "string",
+                "value": "Learn More"
+            }
+        },
+        {
+            "key": "product2Image",
+            "value": {
+                "type": "string",
+                "value": "NutriBanana Image"
+            }
+        },
+        {
+            "key": "product2Title",
+            "value": {
+                "type": "string",
+                "value": "NutriBanana"
+            }
+        },
+        {
+            "key": "product2Description",
+            "value": {
+                "type": "string",
+                "value": "Genetically enhanced bananas for optimal nutrition."
+            }
+        },
+        {
+            "key": "product2LearnMoreButton",
+            "value": {
+                "type": "string",
+                "value": "Learn More"
+            }
+        },
+        {
+            "key": "product3Image",
+            "value": {
+                "type": "string",
+                "value": "BananaNet Image"
+            }
+        },
+        {
+            "key": "product3Title",
+            "value": {
+                "type": "string",
+                "value": "BananaNet"
+            }
+        },
+        {
+            "key": "product3Description",
+            "value": {
+                "type": "string",
+                "value": "A decentralized network for banana supply chain management."
+            }
+        },
+        {
+            "key": "product3LearnMoreButton",
+            "value": {
+                "type": "string",
+                "value": "Learn More"
+            }
+        },
+        {
+            "key": "researchHighlightsSectionTitle",
+            "value": {
+                "type": "string",
+                "value": "Pioneering Research"
+            }
+        },
+        {
+            "key": "research1Image",
+            "value": {
+                "type": "string",
+                "value": "BioEngineering Image"
+            }
+        },
+        {
+            "key": "research1Title",
+            "value": {
+                "type": "string",
+                "value": "Banana Bio-Engineering"
+            }
+        },
+        {
+            "key": "research1Description",
+            "value": {
+                "type": "string",
+                "value": "Advancing the genetic potential of bananas."
+            }
+        },
+        {
+            "key": "research1ReadMoreButton",
+            "value": {
+                "type": "string",
+                "value": "Read More"
+            }
+        },
+        {
+            "key": "research2Image",
+            "value": {
+                "type": "string",
+                "value": "Robotics Image"
+            }
+        },
+        {
+            "key": "research2Title",
+            "value": {
+                "type": "string",
+                "value": "Agricultural Robotics"
+            }
+        },
+        {
+            "key": "research2Description",
+            "value": {
+                "type": "string",
+                "value": "Developing autonomous solutions for farming."
+            }
+        },
+        {
+            "key": "research2ReadMoreButton",
+            "value": {
+                "type": "string",
+                "value": "Read More"
+            }
+        },
+        {
+            "key": "footerCopyright",
+            "value": {
+                "type": "string",
+                "value": "© 2023 BananaTech. All rights reserved."
+            }
+        },
+        {
+            "key": "footerFacebookIcon",
+            "value": {
+                "type": "string",
+                "value": "Facebook Icon"
+            }
+        },
+        {
+            "key": "footerTwitterIcon",
+            "value": {
+                "type": "string",
+                "value": "Twitter Icon"
+            }
+        },
+        {
+            "key": "footerLinkedInIcon",
+            "value": {
+                "type": "string",
+                "value": "LinkedIn Icon"
+            }
+        },
+        {
+            "key": "theme",
+            "value": {
+                "type": "string",
+                "value": "dark"
+            }
+        },
+        {
+            "key": "primaryColor",
+            "value": {
+                "type": "string",
+                "value": "#000080"
+            }
+        },
+        {
+            "key": "accentColor1",
+            "value": {
+                "type": "string",
+                "value": "#FFFF00"
+            }
+        },
+        {
+            "key": "accentColor2",
+            "value": {
+                "type": "string",
+                "value": "#00FF00"
+            }
+        }
+    ],
+    "body": {
+        "type": "group",
+        "purpose": "main applet container",
+        "layout": "column",
+        "scrollable": true,
+        "kids": [
+            {
+                "type": "group",
+                "purpose": "header",
+                "description": "A navigation bar containing the company logo and navigation links.",
+                "kids": [
+                    {
+                        "description": "The company logo text for BananaTech.",
+                        "purpose": "logo",
+                        "type": "variable",
+                        "key": "logoText"
+                    },
+                    {
+                        "description": "Navigation buttons for Products, Research, About Us, and Contact.",
+                        "purpose": "navigation",
+                        "type": "group",
+                        "kids": [
+                            {
+                                "description": "Button linking to the Products section.",
+                                "purpose": "navigation-products",
+                                "type": "button",
+                                "clickEffect": "Scroll to the Products section.",
+                                "label": "Products"
+                            },
+                            {
+                                "description": "Button linking to the Research section.",
+                                "purpose": "navigation-research",
+                                "type": "button",
+                                "clickEffect": "Scroll to the Research section.",
+                                "label": "Research"
+                            },
+                            {
+                                "description": "Button linking to the About Us section.",
+                                "purpose": "navigation-about-us",
+                                "type": "button",
+                                "clickEffect": "Scroll to the About Us section.",
+                                "label": "About Us"
+                            },
+                            {
+                                "description": "Button linking to the Contact section.",
+                                "purpose": "navigation-contact",
+                                "type": "button",
+                                "clickEffect": "Scroll to the Contact section.",
+                                "label": "Contact"
+                            }
+                        ],
+                        "layout": "row",
+                        "scrollable": false
+                    }
+                ],
+                "layout": "row",
+                "scrollable": false
+            },
+            {
+                "type": "group",
+                "purpose": "hero section",
+                "description": "A hero section with a background image, headline, subheadline, and a call-to-action button.",
+                "kids": [
+                    {
+                        "description": "The background image for the hero section, showing a futuristic banana.",
+                        "purpose": "hero-background-image",
+                        "type": "variable",
+                        "key": "heroBackgroundImage"
+                    },
+                    {
+                        "description": "The main headline of the hero section.",
+                        "purpose": "hero-headline",
+                        "type": "placeholder"
+                    },
+                    {
+                        "description": "The subheadline providing more context for the hero section.",
+                        "purpose": "hero-subheadline",
+                        "type": "placeholder"
+                    },
+                    {
+                        "description": "A call-to-action button to explore innovations.",
+                        "purpose": "hero-cta-button",
+                        "type": "placeholder"
+                    }
+                ],
+                "layout": "column",
+                "scrollable": false
+            },
+            {
+                "type": "group",
+                "purpose": "featured products section",
+                "description": "A section displaying featured products with a title and individual product cards.",
+                "kids": [
+                    {
+                        "description": "The title for the Featured Products section.",
+                        "purpose": "featured-products-section-title",
+                        "type": "placeholder"
+                    },
+                    {
+                        "description": "A row containing the featured product cards.",
+                        "purpose": "featured-products-row",
+                        "type": "group",
+                        "kids": [
+                            {
+                                "description": "Card for the BananaBot product, including its image, title, description, and a learn more button.",
+                                "purpose": "product-card",
+                                "type": "group",
+                                "kids": [
+                                    {
+                                        "description": "Image for the BananaBot product.",
+                                        "purpose": "product1Image",
+                                        "type": "variable",
+                                        "key": "product1Image"
+                                    },
+                                    {
+                                        "description": "Title for the BananaBot product.",
+                                        "purpose": "product1Title",
+                                        "type": "variable",
+                                        "key": "product1Title"
+                                    },
+                                    {
+                                        "description": "Description for the BananaBot product.",
+                                        "purpose": "product1Description",
+                                        "type": "variable",
+                                        "key": "product1Description"
+                                    },
+                                    {
+                                        "description": "Learn More button for the BananaBot product.",
+                                        "purpose": "product1LearnMoreButton",
+                                        "type": "button",
+                                        "clickEffect": "Navigate to the BananaBot product details page.",
+                                        "label": "Learn More"
+                                    }
+                                ],
+                                "layout": "column",
+                                "scrollable": false
+                            },
+                            {
+                                "description": "Card for the NutriBanana product, including its image, title, description, and a learn more button.",
+                                "purpose": "product-card",
+                                "type": "placeholder"
+                            },
+                            {
+                                "description": "Card for the BananaNet product, including its image, title, description, and a learn more button.",
+                                "purpose": "product-card",
+                                "type": "placeholder"
+                            }
+                        ],
+                        "layout": "row",
+                        "scrollable": false
+                    }
+                ],
+                "layout": "column",
+                "scrollable": false
+            },
+            {
+                "type": "placeholder",
+                "purpose": "research highlights section",
+                "description": "A section highlighting research initiatives with a title and individual research cards."
+            },
+            {
+                "type": "placeholder",
+                "purpose": "footer",
+                "description": "A footer containing copyright information and social media links."
+            }
+        ]
+    }
+}

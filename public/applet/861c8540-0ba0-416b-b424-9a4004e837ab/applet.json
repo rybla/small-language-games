@@ -1,0 +1,90 @@
+{
+    "metadata": {
+        "id": "861c8540-0ba0-416b-b424-9a4004e837ab"
+    },
+    "design": {
+        "name": "Image Gallery",
+        "blueprint": "- App Title: 'Image Gallery'\n- Image Display:\n  - Grid layout\n  - Each cell displays a thumbnail image\n  - Tapping a thumbnail opens a larger view\n- Navigation:\n  - Back button to return to the grid view",
+        "functionalitySpecification": "Users can view a gallery of images. Tapping on any image in the gallery will display a larger version of that image. A back button will be available to return to the gallery view. \n\nWorkflow:\n1. App opens to a grid of image thumbnails.\n2. User taps on a thumbnail.\n3. A full-screen view of the selected image is displayed with a back button.\n4. User taps the back button.\n5. User is returned to the grid view.",
+        "appearanceSpecification": "The applet should have a clean and modern aesthetic, with a light gray background. The text elements should be in a dark gray color. Buttons should have a primary blue color with white text. Images will be displayed in a grid layout with rounded corners and a subtle shadow."
+    },
+    "initialState": [
+        {
+            "key": "currentView",
+            "value": {
+                "type": "string",
+                "value": "gridView"
+            }
+        },
+        {
+            "key": "images",
+            "value": {
+                "type": "string",
+                "value": "[]"
+            }
+        },
+        {
+            "key": "selectedImage",
+            "value": {
+                "type": "string",
+                "value": ""
+            }
+        },
+        {
+            "key": "backgroundColor",
+            "value": {
+                "type": "string",
+                "value": "#f0f0f0"
+            }
+        },
+        {
+            "key": "textColor",
+            "value": {
+                "type": "string",
+                "value": "#333333"
+            }
+        },
+        {
+            "key": "buttonColor",
+            "value": {
+                "type": "string",
+                "value": "#007bff"
+            }
+        },
+        {
+            "key": "buttonTextColor",
+            "value": {
+                "type": "string",
+                "value": "#ffffff"
+            }
+        },
+        {
+            "key": "imageCornerRadius",
+            "value": {
+                "type": "number",
+                "value": 8
+            }
+        },
+        {
+            "key": "imageShadow",
+            "value": {
+                "type": "string",
+                "value": "0 2px 4px rgba(0,0,0,0.1)"
+            }
+        }
+    ],
+    "body": {
+        "type": "group",
+        "purpose": "Applet root layout",
+        "layout": "column",
+        "scrollable": false,
+        "kids": [
+            {
+                "type": "variable",
+                "purpose": "Main content area",
+                "description": "This group will conditionally display either the image grid or the full-screen image based on the currentView state.",
+                "key": "currentView"
+            }
+        ]
+    }
+}

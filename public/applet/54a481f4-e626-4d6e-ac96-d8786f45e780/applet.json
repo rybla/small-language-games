@@ -1,0 +1,49 @@
+{
+    "metadata": {
+        "id": "54a481f4-e626-4d6e-ac96-d8786f45e780"
+    },
+    "design": {
+        "name": "Cat Image Viewer",
+        "blueprint": "- Applet Name: Cat Image Viewer\n- Elements:\n  - Image: Displays a cat.\n  - Text: Displays the caption \"this is a cat\".\n- Layout:\n  - Vertical arrangement of Image and Text.\n  - Both Image and Text are centered horizontally.",
+        "functionalitySpecification": "This applet displays a static image of a cat and a static caption below it. The user interaction is purely passive viewing. The applet's sole purpose is to present this visual information.",
+        "appearanceSpecification": "A clean, minimalist design. The image will be centered, with the caption directly below it, also centered. The background will be a neutral color."
+    },
+    "initialState": [
+        {
+            "key": "image_url",
+            "value": {
+                "type": "string",
+                "value": "https://cataas.com/cat"
+            }
+        },
+        {
+            "key": "caption_text",
+            "value": {
+                "type": "string",
+                "value": "this is a cat"
+            }
+        }
+    ],
+    "body": {
+        "type": "group",
+        "purpose": "main content area",
+        "layout": "column",
+        "scrollable": false,
+        "kids": [
+            {
+                "type": "image",
+                "purpose": "cat image",
+                "description": "A placeholder for the cat image",
+                "aspectRatio": "1:1",
+                "slug": "cat-image"
+            },
+            {
+                "type": "text",
+                "purpose": "caption text",
+                "description": "A placeholder for the caption text",
+                "style": "normal",
+                "text": "this is a cat"
+            }
+        ]
+    }
+}
