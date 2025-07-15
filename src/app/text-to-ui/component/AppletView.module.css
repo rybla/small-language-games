@@ -112,6 +112,8 @@
 
 .console {
     flex: 1;
+    min-width: 15rem;
+    font-size: 10pt;
     background-color: var(--console-background);
     color: var(--secondary-text-color);
     border-radius: var(--border-radius-md);
@@ -320,7 +322,7 @@
     padding: 0.75rem;
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: var(--border-radius-sm);
-    animation: fadeIn 0.4s ease-out;
+    animation: message-in 0.5s ease-out;
     border-left: 3px solid transparent;
     transition: all var(--transition-speed) ease;
 }

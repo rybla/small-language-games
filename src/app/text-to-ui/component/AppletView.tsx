@@ -2,7 +2,7 @@
 
 import { findMap, spawnAsync } from "@/utility";
 import Image from "next/image";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import {
   type Applet,
   type AppletState,
@@ -30,6 +30,13 @@ export default function AppletView(props: {
 }): ReactNode {
   const [consoleMessages, set_consoleMessages] = useState<ConsoleMessage[]>([]);
   const [state, set_state] = useState<AppletState>(props.applet.initialState);
+  const consoleRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (consoleRef.current) {
+      consoleRef.current.scrollTop = consoleRef.current.scrollHeight;
+    }
+  }, [consoleMessages]);
 
   async function interpretAction(effect: string) {
     set_consoleMessages((consoleMessages) => [
@@ -176,10 +183,9 @@ export default function AppletView(props: {
       <div className={styles.body}>{renderElement(props.applet.body)}</div>
     );
   }
-
   function renderConsole() {
     return (
-      <div className={styles.console}>
+      <div className={styles.console} ref={consoleRef}>
         {consoleMessages.map((consoleMessage, i) => (
           <div className={styles.message} key={i}>
             <div className={styles.label}>{consoleMessage.label}</div>
