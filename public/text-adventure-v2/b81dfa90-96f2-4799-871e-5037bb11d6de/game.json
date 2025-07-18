@@ -533,12 +533,22 @@
             "prompt": "look more closely at the computers",
             "actions": [
                 {
-                    "description": "Orion looks more closely at the computer banks, their screens displaying a complex array of data and schematics. The soft, multicolored glow illuminates the scientist's focused expression.",
+                    "type": "PlayerInspectsItem",
                     "item": "Computer Banks",
-                    "type": "PlayerInspectsItem"
+                    "description": "Orion looks more closely at the computer banks, their screens displaying a complex array of data and schematics. The soft, multicolored glow illuminates the scientist's focused expression."
                 }
             ],
             "description": "Orion leans in closer to the computer banks, their screens displaying a complex array of data and schematics. The soft, multicolored glow illuminates the scientist's focused expression."
+        },
+        {
+            "prompt": "read the computer again",
+            "actions": [
+                {
+                    "description": "Orion approaches the computer banks, their attention drawn to the complex data and schematics displayed on the screens.",
+                    "type": "PlayerInspectsRoom"
+                }
+            ],
+            "description": "Orion turns their gaze back to the imposing computer banks, a flicker of renewed curiosity in their eyes. The screens continue to display a complex array of data and schematics, their soft, multicolored glow painting Orion's focused expression in hues of blue and green. The scientist takes a step closer, intending to delve deeper into the displayed information."
         }
     ]
 }

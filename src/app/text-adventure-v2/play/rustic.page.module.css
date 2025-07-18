@@ -1,0 +1,460 @@
+/*
+ * =================================================================================================
+ * DESIGN BLUEPRINT: "The Explorer's Journal"
+ * =================================================================================================
+ *
+ * Theme: Old Rustic Retro, Vintage, Analog, Discovery
+ *
+ * Core Concept:
+ * The UI is designed to feel like leafing through the pages of a well-worn explorer's journal
+ * from the early 20th century. The aesthetic is analog, textured, and slightly mysterious.
+ * We're avoiding clean, modern digital interfaces in favor of something that feels tangible
+ * and historical. The color palette is muted and aged, typography is reminiscent of old
+ * typewriters and field notes, and animations are subtle and organic, mimicking physical
+
+ * interactions like paper fading, ink blotting, and the gentle flicker of gaslight.
+ *
+ * Color Palette:
+ * - Parchment: The primary background, a textured, off-white/beige.
+ * - Sepia & Umber: For text, borders, and aged photo effects.
+ * - Faded Ink Blue: Used for interactive elements and highlights, like an old fountain pen.
+ * - Muted Gold: For important labels or headings, giving a touch of antique elegance.
+ * - Charcoal: For secondary text and providing depth.
+ *
+ * Typography:
+ * - Primary Font ('Special Elite'): A classic typewriter font for the main narrative and prompts.
+ * It provides a strong retro, mechanical feel.
+ * - Secondary Font ('IM Fell English'): An old-style serif for headings and labels, evoking
+ * the feeling of printed material from a bygone era.
+ *
+ * Layout & Structure:
+ * The layout is centered, with a main content column that feels like the page of a book.
+ * Information is compartmentalized into sections that resemble pasted-in notes, diagrams,
+ * and photographs. Whitespace is used to guide the eye, but the overall feel is dense with
+ * information, like a scrapbook.
+ *
+ * Animations & Transitions (Passive & Active):
+ * - Text Fade-in: New turns and descriptions appear with a soft, slow fade, as if the ink is
+ * settling on the page.
+ * - Image Flicker: A very subtle, slow pulsing opacity on images to simulate the flicker of
+ * candlelight or an old projector.
+ * - Hover Effects: Interactive elements like items and rooms will have a gentle lift (box-shadow)
+ * and a slight color shift, as if being examined more closely.
+ * - Processing Animation: Instead of a modern spinner, we use a "pulsing ellipsis" that looks
+ * like ink dots slowly appearing, enhancing the analog feel.
+ * - Modal Transition: The image modal fades in slowly, with the background darkening like a
+ * shadow falling over the page.
+ *
+ * =================================================================================================
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Special+Elite&display=swap");
+
+:root {
+    /* Colors */
+    --color-parchment: #f5eeda;
+    --color-parchment-darker: #e0d8c3;
+    --color-sepia: #704214;
+    --color-umber: #3a2e20;
+    --color-charcoal: #413f3d;
+    --color-ink-blue: #3a506b;
+    --color-ink-blue-hover: #4e6a8d;
+    --color-muted-gold: #a8935b;
+    --color-modal-overlay: rgba(40, 30, 20, 0.85);
+
+    /* Fonts */
+    --font-body: "Special Elite", monospace;
+    --font-heading: "IM Fell English", serif;
+
+    /* Spacing & Borders */
+    --spacing-unit: 8px;
+    --border-radius: 3px;
+    --border-standard: 1px solid var(--color-umber);
+    --border-dashed: 1px dashed rgba(58, 46, 32, 0.5);
+
+    /* Effects */
+    --shadow-subtle: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --shadow-lifted: 0 5px 15px rgba(0, 0, 0, 0.2);
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Base Styles */
+.main {
+    flex: 1 1 0;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-parchment);
+    background-image:
+        linear-gradient(rgba(224, 216, 195, 0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(224, 216, 195, 0.5) 1px, transparent 1px);
+    background-size: 20px 20px;
+    padding: calc(var(--spacing-unit) * 4);
+    font-family: var(--font-body);
+    color: var(--color-charcoal);
+}
+
+.content_column {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1px 1fr;
+    gap: calc(var(--spacing-unit) * 4);
+    background: var(--color-parchment);
+    border: var(--border-standard);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lifted);
+    padding: calc(var(--spacing-unit) * 3);
+}
+
+.separator {
+    background-color: var(--color-umber);
+    opacity: 0.5;
+}
+
+/* Turns & Narrative Flow */
+.turns {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 4);
+    height: 80vh;
+    overflow-y: auto;
+    padding-right: calc(var(--spacing-unit) * 2);
+}
+
+/* Custom scrollbar for the turns container */
+.turns::-webkit-scrollbar {
+    width: 6px;
+}
+.turns::-webkit-scrollbar-track {
+    background: var(--color-parchment-darker);
+    border-radius: 3px;
+}
+.turns::-webkit-scrollbar-thumb {
+    background-color: var(--color-sepia);
+    border-radius: 3px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.PlayerTurn,
+.PrePlayerTurn {
+    animation: fadeIn 0.8s ease-out forwards;
+    border-left: 2px solid var(--color-muted-gold);
+    padding-left: calc(var(--spacing-unit) * 2);
+}
+
+.PlayerTurn .input,
+.PrePlayerTurn .input {
+    margin-bottom: var(--spacing-unit);
+}
+
+.PlayerTurn .prompt,
+.PrePlayerTurn .prompt {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--color-ink-blue);
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+}
+
+.PlayerTurn .output {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 2);
+}
+
+.PlayerTurn .description {
+    line-height: 1.7;
+    font-size: 1.1rem;
+}
+
+.PlayerTurn .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(var(--spacing-unit) * 2);
+}
+
+.PlayerAction {
+    background: rgba(224, 216, 195, 0.6);
+    padding: var(--spacing-unit);
+    border: var(--border-dashed);
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.PlayerAction .label {
+    font-size: 0.9rem;
+    color: var(--color-umber);
+    margin-bottom: var(--spacing-unit);
+}
+
+/* Special Name Styling */
+.ItemName,
+.RoomName {
+    font-family: var(--font-heading);
+    color: var(--color-sepia);
+    font-weight: bold;
+    padding: 2px 4px;
+    background: var(--color-parchment-darker);
+    border-radius: var(--border-radius);
+}
+
+/* Processing Animation */
+.PrePlayerTurn .processing {
+    color: var(--color-charcoal);
+    font-style: italic;
+}
+
+@keyframes blink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.PrePlayerTurn .processing span {
+    animation: blink 1.4s infinite;
+}
+.PrePlayerTurn .processing span:nth-child(1) {
+    animation-delay: 0s;
+}
+.PrePlayerTurn .processing span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.PrePlayerTurn .processing span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* Prompt & Info Panels */
+.Prompt {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 3);
+    height: 80vh;
+    overflow-y: auto;
+    padding-right: calc(var(--spacing-unit) * 2);
+}
+
+.Prompt::-webkit-scrollbar {
+    width: 6px;
+}
+.Prompt::-webkit-scrollbar-track {
+    background: var(--color-parchment-darker);
+    border-radius: 3px;
+}
+.Prompt::-webkit-scrollbar-thumb {
+    background-color: var(--color-sepia);
+    border-radius: 3px;
+}
+
+.Prompt textarea {
+    width: 100%;
+    min-height: 100px;
+    background: var(--color-parchment-darker);
+    border: var(--border-standard);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-unit);
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: var(--color-umber);
+    resize: vertical;
+    transition: var(--transition-smooth);
+}
+
+.Prompt textarea:focus {
+    outline: none;
+    border-color: var(--color-muted-gold);
+    background: var(--color-parchment);
+    box-shadow: var(--shadow-subtle);
+}
+
+.player_info,
+.room_info,
+.inventory_info {
+    border: var(--border-dashed);
+    padding: calc(var(--spacing-unit) * 2);
+    border-radius: var(--border-radius);
+}
+
+.heading {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--color-sepia);
+    margin-bottom: calc(var(--spacing-unit) * 2);
+    border-bottom: 1px solid var(--color-muted-gold);
+    padding-bottom: var(--spacing-unit);
+}
+
+/* Item and Room Views */
+@keyframes imageFlicker {
+    0% {
+        filter: sepia(60%) brightness(1);
+    }
+    50% {
+        filter: sepia(65%) brightness(1.05);
+    }
+    100% {
+        filter: sepia(60%) brightness(1);
+    }
+}
+
+.ItemView,
+.RoomView {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-unit);
+    transition: var(--transition-smooth);
+}
+
+.ItemView:hover,
+.RoomView:hover {
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+.ItemView .image,
+.RoomView .image {
+    aspect-ratio: 1 / 1;
+    max-width: 100%;
+    height: auto;
+
+    border: 4px solid var(--color-umber);
+    border-radius: var(--border-radius);
+    background: var(--color-umber);
+    box-shadow: var(--shadow-subtle);
+
+    /* transition: var(--transition-smooth); */
+    /* animation: imageFlicker 1s infinite ease-in-out; */
+    /* object-fit: cover; */
+}
+
+.ItemView:hover .image,
+.RoomView:hover .image {
+    box-shadow: var(--shadow-lifted);
+    border-color: var(--color-muted-gold);
+}
+
+.ItemView .name,
+.RoomView .name {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    color: var(--color-sepia);
+    background: var(--color-parchment-darker);
+    padding: 3px 8px;
+    border-radius: var(--border-radius);
+}
+
+.inventory_info .items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: var(--spacing-unit);
+}
+
+/* Labeled Value Component */
+.LabeledValue {
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+    line-height: 1.6;
+}
+
+.LabeledValue .label {
+    font-family: var(--font-heading);
+    color: var(--color-muted-gold);
+    font-size: 1.1rem;
+}
+
+.LabeledValue .value {
+    color: var(--color-charcoal);
+    padding-left: var(--spacing-unit);
+}
+
+/* Panels (Status, Dev) */
+.panel {
+    width: 100%;
+    max-width: 1200px;
+    margin-top: calc(var(--spacing-unit) * 2);
+    padding: calc(var(--spacing-unit) * 2);
+    border-radius: var(--border-radius);
+    border: var(--border-dashed);
+}
+
+.status {
+    background-color: rgba(168, 147, 91, 0.2);
+    color: var(--color-sepia);
+    text-align: center;
+}
+
+.dev {
+    background-color: rgba(0, 0, 0, 0.05);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-unit);
+}
+
+.Markdown {
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+    background: var(--color-parchment-darker);
+    padding: var(--spacing-unit);
+    border-radius: var(--border-radius);
+    height: 400px;
+    overflow: auto;
+}
+
+/* Image Modal */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.ImageModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-modal-overlay);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: modalFadeIn 0.5s forwards;
+    padding: 5vw;
+}
+
+.ImageModal .image {
+    max-width: 90%;
+    max-height: 90%;
+    width: auto;
+    height: auto;
+    border: 8px solid var(--color-parchment);
+    box-shadow: var(--shadow-lifted);
+    background: var(--color-umber);
+    filter: sepia(60%);
+}

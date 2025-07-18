@@ -25,7 +25,8 @@ import {
   presentGameFromPlayerPerspective,
 } from "../semantics";
 import * as server from "../server";
-import style from "./page.module.css";
+// import style from "./futuristic.page.module.css";
+import style from "./rustic.page.module.css";
 
 /**
  * The component for playing the text adventure game.
