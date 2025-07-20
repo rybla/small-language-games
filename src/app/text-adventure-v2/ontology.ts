@@ -147,12 +147,21 @@ export const World = z.object({
 
 // Action
 
+const x = Array(1, 2, 2);
+
+function dedup<A>(xs: A[]): A[] {
+  return Array(...new Set(xs));
+}
+
 export type PlayerTakesItem = z.infer<Codomain<typeof PlayerTakesItem>>;
 export const PlayerTakesItem = (itemNames?: NonEmptyArray<ItemName>) =>
   z
     .object({
       type: z.enum(["PlayerTakesItem"]),
-      item: itemNames === undefined ? ItemName : z.enum(itemNames),
+      item:
+        itemNames === undefined
+          ? ItemName
+          : z.enum(dedup(itemNames) as NonEmptyArray<ItemName>),
       description: NeString.describe(
         "one-paragraph description of how the player takes the item",
       ),
@@ -170,7 +179,10 @@ export const PlayerDropsItem = (itemNames?: NonEmptyArray<ItemName>) =>
   z
     .object({
       type: z.enum(["PlayerDropsItem"]),
-      item: itemNames === undefined ? ItemName : z.enum(itemNames),
+      item:
+        itemNames === undefined
+          ? ItemName
+          : z.enum(dedup(itemNames) as NonEmptyArray<ItemName>),
       description: NeString.describe(
         "one-paragraph description of how the player drops the item",
       ),
@@ -187,7 +199,10 @@ export const PlayerInspectsItem = (itemNames?: NonEmptyArray<ItemName>) =>
   z
     .object({
       type: z.enum(["PlayerInspectsItem"]),
-      item: itemNames === undefined ? ItemName : z.enum(itemNames),
+      item:
+        itemNames === undefined
+          ? ItemName
+          : z.enum(dedup(itemNames) as NonEmptyArray<ItemName>),
       description: NeString.describe(
         "one-paragraph description of how the player inspects the item",
       ),
@@ -201,7 +216,10 @@ export const PlayerUsesItem = (itemNames?: NonEmptyArray<ItemName>) =>
   z
     .object({
       type: z.enum(["PlayerUsesItem"]),
-      item: itemNames === undefined ? ItemName : z.enum(itemNames),
+      item:
+        itemNames === undefined
+          ? ItemName
+          : z.enum(dedup(itemNames) as NonEmptyArray<ItemName>),
       statusAfterUse: z
         .union([
           z

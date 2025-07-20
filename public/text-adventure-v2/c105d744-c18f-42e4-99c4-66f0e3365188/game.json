@@ -1,0 +1,120 @@
+{
+    "metadata": {
+        "name": "Void Whispers",
+        "id": "c105d744-c18f-42e4-99c4-66f0e3365188"
+    },
+    "world": {
+        "description": "You awaken in the disquieting silence of the starship *Odyssey*. The usual hum of the engines is absent, replaced by an unnerving stillness. Emergency lights flicker sporadically, casting long, dancing shadows that play tricks on your eyes. The air, once crisp and recycled, now carries a faint, metallic tang, and an inexplicable chill permeates every bulkhead. Whatever happened here, it happened suddenly and completely, leaving you adrift in a metal tomb, the vast, uncaring void your only witness.",
+        "player": {
+            "name": "Sparky",
+            "shortDescription": "A lanky, grease-stained tinkerer with an insatiable curiosity.",
+            "appearanceDescription": "This individual possesses a lanky frame, usually clad in practical, utilitarian jumpsuits that bear the faint scorch marks and grease stains of a life spent tinkering. Their hands are calloused, their fingers long and nimble, adept at manipulating delicate circuitry or prying open stubborn hatches. A pair of oversized, multi-lensed goggles are perpetually perched on their forehead, ready to be deployed for detailed inspection, and a scattering of faint freckles dot their nose and cheeks.",
+            "personalityDescription": "Sparky is a tinkerer and a problem-solver, possessing an insatiable curiosity about how things work, and a near-fanatical dedication to fixing them. They are resourceful and often think outside the box, sometimes to the point of eccentricity. While generally good-natured and optimistic, Sparky can become intensely focused when engrossed in a task, sometimes to the detriment of their social awareness. They have a habit of muttering to themselves while they work and are rarely seen without some kind of tool or component in hand.",
+            "skills": [
+                "Mechanical Aptitude",
+                "Electronics Repair",
+                "Problem Solving",
+                "Scavenging"
+            ]
+        },
+        "playerLocation": {
+            "player": "Sparky",
+            "room": "Command Corridor",
+            "description": "The player stands in the center of the Command Corridor, a long, metallic passageway bathed in the intermittent red glow of emergency lighting. They are facing away from the entrance to the bridge, their posture relaxed but attentive, as if they just stepped out of a side room. Their feet are planted firmly on the grated floor, one hand idly tapping against a cool, unresponsive bulkhead."
+        },
+        "rooms": [
+            {
+                "longDescription": "You find yourself in the central command corridor of the starship *Odyssey*. Emergency lights flicker, casting a morbid glow on the cold, metallic walls. The air is thick with a metallic tang and an unnatural silence, the usual hum of the ship's life support replaced by an unnerving stillness. The corridor stretches out in both directions, lined with various access panels and doorways, most of which appear sealed or damaged. The floor is scuffed in places, hinting at a hasty departure or struggle, but is otherwise clean. A large viewport on your left shows only the silent, unforgiving blackness of space.",
+                "name": "Command Corridor",
+                "shortDescription": "A dimly lit command corridor aboard a silent starship."
+            },
+            {
+                "longDescription": "This chamber serves as the primary medical bay. Examination tables are overturned, medical supplies are scattered across the floor, and the lingering scent of antiseptic struggles against the metallic tang in the air. A large diagnostic screen on the far wall is cracked, displaying only static. Faint, dark stains mar the pristine white floor near one of the tables, hinting at a hurried, desperate struggle. The room is otherwise eerily empty.",
+                "name": "Meditation Chamber",
+                "shortDescription": "A somber medical bay lies in disarray."
+            },
+            {
+                "longDescription": "The ship's mess hall is surprisingly intact, though chairs are overturned and trays are scattered, as if a meal was interrupted mid-bite. The self-heating dispensers are cold, and the filtered water coolers are empty. A panoramic viewscreen on one wall, usually displaying serene cosmic vistas, is now a dark, reflective surface. A single datapad lies on a table, its screen cracked but faintly glowing, possibly containing logs or personal messages.",
+                "name": "Mess Hall",
+                "shortDescription": "The ship's mess hall, frozen in a moment of chaos."
+            },
+            {
+                "longDescription": "This small, circular room appears to be a private meditation chamber, its walls lined with soft, sound-dampening material. In the center sits a single, ornate cushion, undisturbed by the ship's apparent catastrophe. A subtle warmth emanates from the walls, and a faint, almost imperceptible hum can be felt if one concentrates. A single, intricately carved wooden panel is set into one wall, appearing distinct from the rest of the room's construction.",
+                "name": "Meditation Chamber",
+                "shortDescription": "A strangely serene private meditation room."
+            }
+        ],
+        "items": [
+            {
+                "name": "Datapad",
+                "shortDescription": "A standard issue datapad.",
+                "appearanceDescription": "This datapad is a standard issue navigational aid for the *Odyssey*'s crew. Its casing is made of a dark, resilient composite material, and it's roughly the size of a small tablet. The screen is currently dark and shows a few minor scratches, but it appears to be intact. It rests face-down on the grimy floor."
+            },
+            {
+                "name": "Wrench",
+                "shortDescription": "A sturdy adjustable wrench.",
+                "appearanceDescription": "A heavy-duty maintenance tool, this wrench is made of a dark, non-reflective metal. It's approximately 18 inches long, with an adjustable jaw mechanism at one end. It's covered in a light sheen of oil and grime, indicating recent use. It's lying casually on a grated floor."
+            },
+            {
+                "name": "Access Panel",
+                "shortDescription": "A metallic access panel set into the wall.",
+                "appearanceDescription": "This access panel is a standard component of the *Odyssey*'s internal structure. It's a rectangular plate of polished grey metal, approximately two feet by three feet, set flush into the corridor's bulkhead. It features a small, recessed triangular slot for a security keycard or a specialized tool, and the edges appear slightly scuffed, suggesting it has been accessed recently."
+            },
+            {
+                "name": "Viewport",
+                "shortDescription": "A large viewport looking out into space.",
+                "appearanceDescription": "This viewport is a large, thick pane of reinforced transparisteel, offering an unobstructed view of the cosmos. The starship's interior lights cast a dim reflection on its surface, obscuring the external view slightly. Outside, only the vast, black expanse of space, punctuated by distant, unblinking stars, is visible."
+            }
+        ],
+        "itemLocations": [
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Command Corridor",
+                "item": "Datapad",
+                "description": "A standard issue datapad lies face-down on the grated floor, approximately three feet away from the player's left foot, near the bulkhead. Its screen is angled slightly upwards, catching the sporadic flicker of the emergency lights."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Command Corridor",
+                "item": "Wrench",
+                "description": "A large, adjustable wrench lies on the grated floor, about five feet in front of the player and slightly to their right. It's positioned parallel to the corridor's direction, as if it were dropped during a hasty retreat."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Command Corridor",
+                "item": "Access Panel",
+                "description": "An access panel is mounted on the starboard bulkhead, about ten feet down the corridor to the player's right. It is positioned at chest height, flush with the surrounding metallic wall."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Command Corridor",
+                "item": "Viewport",
+                "description": "A large viewport is located on the port side bulkhead, to the player's left. It stretches from waist height to just above head height, providing a wide vista of the exterior of the *Odyssey*."
+            }
+        ],
+        "roomConnections": [
+            {
+                "room1": "Command Corridor",
+                "room2": "Meditation Chamber",
+                "descriptionOfPathFromRoom1ToRoom2": "A narrow gap in the sealed blast door beckons, offering a claustrophobic passage into the medical bay.",
+                "descriptionOfPathFromRoom2ToRoom1": "A sealed blast door, ajar just enough for a person to squeeze through, offers access to the corridor."
+            },
+            {
+                "room1": "Command Corridor",
+                "room2": "Mess Hall",
+                "descriptionOfPathFromRoom1ToRoom2": "The main corridor ends abruptly at a warped metal doorway, leading into what appears to be the mess hall.",
+                "descriptionOfPathFromRoom2ToRoom1": "Through a heavy, buckled doorway, the main corridor continues, leading towards the crew quarters."
+            },
+            {
+                "room1": "Command Corridor",
+                "room2": "Meditation Chamber",
+                "descriptionOfPathFromRoom1ToRoom2": "An unassuming, circular opening in the corridor wall is partially concealed by a sliding panel, leading into a quiet chamber.",
+                "descriptionOfPathFromRoom2ToRoom1": "A circular aperture, hidden behind a sliding panel, connects the meditation chamber to the main corridor."
+            }
+        ],
+        "visitedRooms": [
+            "Command Corridor"
+        ]
+    },
+    "turns": []
+}

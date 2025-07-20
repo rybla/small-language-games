@@ -1,0 +1,362 @@
+{
+    "metadata": {
+        "id": "d33be6f7-58bd-4505-abdc-f1f3893b06d4",
+        "name": "The Crumbling Crypts of Xylos"
+    },
+    "world": {
+        "description": "Dust motes dance in the weak torchlight that cuts through the oppressive gloom of the Crumbling Crypts of Xylos. Once a magnificent tomb for a forgotten sorcerer-king, the crypts have long since fallen into ruin, their stone halls choked with debris and infested with creatures of the dark. Cobwebs hang like tattered banners from vaulted ceilings, and the air is thick with the smell of damp earth and something faintly, disturbingly sweet. Every shadow seems to writhe with unseen life, and the silence is broken only by the drip, drip, drip of unseen water and the adventurer's own ragged breath.",
+        "player": {
+            "name": "Kael",
+            "shortDescription": "A wary and observant scavenger.",
+            "appearanceDescription": "The newcomer stands lean and wiry, clad in practical, well-worn leather armor that has seen better days. A faded, dark blue scarf is tied loosely around their neck, offering a splash of muted color against the muted tones of their attire. Their short, dark hair is unkempt, framing a face that bears the subtle markings of someone accustomed to hard work and long journeys. Their eyes, sharp and observant, constantly scan their surroundings.",
+            "personalityDescription": "Kael is a pragmatist, quick to assess situations and prioritize survival. They are not overly talkative, preferring action to words, but possess a sharp wit and a surprisingly dry sense of humor that surfaces in tense moments. While independent and self-reliant, they are not entirely without empathy, though they tend to express it through deeds rather than declarations.",
+            "skills": [
+                "Scavenging",
+                "Stealth",
+                "Basic lockpicking"
+            ]
+        },
+        "playerLocation": {
+            "room": "The Collapsed Vestibule",
+            "description": "Kael stands in the Collapsed Vestibule, the heavy, iron-banded wooden door to the south now slightly ajar behind them. The air here is still thick with dust, but a faint, cool draft suggests a connection to the outside world."
+        },
+        "rooms": [
+            {
+                "name": "The Collapsed Vestibule",
+                "shortDescription": "You are in a dusty, ruined chamber lit by a single torch.",
+                "longDescription": "You find yourself in a roughly circular chamber, constructed from massive, uneven blocks of stone. The air is heavy with the scent of dust and decay. Faint, flickering light emanates from a single, sputtering torch set in a rusty bracket on the west wall, casting long, dancing shadows that play tricks on the eyes. Cobwebs, thick as felt, drape from the high, arched ceiling, and the floor is a mess of fallen stones and grit. In the center of the room, a pile of recently disturbed rubble suggests a recent collapse or excavation. Passages lead off in several directions: a grand, arched doorway to the north, a narrow, jagged opening to the south, and a more natural-looking fissure to the east."
+            },
+            {
+                "name": "Antechamber of the Forgotten King",
+                "shortDescription": "A dimly lit antechamber with a large sarcophagus.",
+                "longDescription": "This chamber appears to be an antechamber to the main burial vault. A massive stone sarcophagus dominates the center of the room, its lid slightly ajar, revealing only darkness within. Faded murals adorn the walls, depicting scenes of arcane rituals and a fallen king. To the north, a sturdy wooden door is set into the stone. To the east, a narrow, rubble-strewn passage seems to descend further into the earth."
+            },
+            {
+                "name": "The Prisoner's Despair",
+                "shortDescription": "A damp, unpleasant cell.",
+                "longDescription": "A small, dank cell. The walls are slick with a foul-smelling slime, and the floor is littered with gnawed bones and fragments of rusted chains. A narrow, barred opening high on the west wall suggests a former use as a prison or holding area. To the south, the only apparent exit, a dark, narrow crack in the wall offers a desperate means of escape, or perhaps entry."
+            },
+            {
+                "name": "The Whispering Chasm",
+                "shortDescription": "A vast cavern bisected by a perilous chasm.",
+                "longDescription": "This cavernous space is dominated by a chasm of indeterminate depth, its darkness absolute and its chill palpable. A rickety, rope bridge, frayed and ancient, spans the gap, swaying precariously in an unseen breeze. On the far side, barely visible in the gloom, are the remnants of what might have been a ritualistic altar. To the west, the path from which you came. To the east, a sheer drop into oblivion."
+            },
+            {
+                "name": "Corridor of Faded Markings",
+                "shortDescription": "A corridor with ancient markings on the walls.",
+                "longDescription": "This corridor stretches northwards, carved with surprising precision from the solid rock. The walls are smooth, hinting at a time when this place was not yet forgotten. Faint, ethereal markings, almost like faded tattoos, can be seen etched into the stone, their purpose lost to time. The air here is slightly less stale than in the antechamber, carrying a whisper of a dry, ancient scent, like desiccated parchment. The corridor continues onward, disappearing into the deeper darkness. To the south, the sturdy wooden door provides a passage back to the antechamber."
+            },
+            {
+                "name": "Descending Passageway",
+                "shortDescription": "A narrow, rubble-strewn passage that slopes downwards.",
+                "longDescription": "This narrow passage slopes downwards, choked with loose stones and debris that crunch underfoot with every step. The walls are rough and unworked, a stark contrast to the smoother stonework found elsewhere. The descent is steep, and the darkness here seems to cling more tightly, amplifying the feeling of isolation. A faint, metallic tang hangs in the air, mingled with the pervasive smell of damp earth. The passage continues its downward trek, vanishing into oppressive blackness. The way back, to the antechamber, lies to the west."
+            }
+        ],
+        "items": [
+            {
+                "name": "Rubble",
+                "shortDescription": "A large pile of rubble from a recent collapse.",
+                "appearanceDescription": "A large pile of stone fragments and splintered wooden beams, clearly the result of a recent collapse. Some of the larger stones are jagged and sharp, while the wooden beams are brittle and coated in thick dust. Smaller pieces of debris are scattered across the floor around the main heap."
+            },
+            {
+                "name": "Dust and Grit",
+                "shortDescription": "The floor is covered in dust and grit.",
+                "appearanceDescription": "The floor is uneven and gritty, covered in a thick layer of dust and small fragments of stone. It appears to have been disturbed in places, possibly by the collapse."
+            },
+            {
+                "name": "Jagged Opening",
+                "shortDescription": "A narrow, jagged opening in the southern wall.",
+                "appearanceDescription": "A narrow opening in the southern wall, roughly hewn from the rock. The edges are jagged and sharp, suggesting a recent tear or break rather than a constructed passage."
+            },
+            {
+                "name": "Fissure",
+                "shortDescription": "A natural-looking fissure in the eastern wall.",
+                "appearanceDescription": "A fissure in the eastern wall, appearing more like a natural crack in the stone than a purposefully made passageway. It is partially obscured by shadows."
+            },
+            {
+                "name": "Cobwebs",
+                "shortDescription": "Thick cobwebs hang from the ceiling.",
+                "appearanceDescription": "Thick, grey strands of cobweb hang like tattered shrouds from the high, vaulted ceiling, catching the meager light of the torch and casting further shadows."
+            },
+            {
+                "name": "Sputtering Torch",
+                "shortDescription": "A sputtering torch.",
+                "appearanceDescription": "A sputtering torch."
+            },
+            {
+                "name": "Sarcophagus",
+                "shortDescription": "A massive, ancient stone sarcophagus rests in the center of the room.",
+                "appearanceDescription": "A massive stone sarcophagus rests in the center of the chamber, its lid slightly askew, hinting at its age and the mysteries it might contain. The stone is dark and appears to be intricately carved with faded hieroglyphs that speak of forgotten royalty."
+            },
+            {
+                "name": "Faded Murals",
+                "shortDescription": "Faded murals depicting arcane rituals cover the walls.",
+                "appearanceDescription": "Faded, yet intricate murals cover the stone walls, depicting a sequence of arcane rituals. In these scenes, robed figures gather around a central, regal figure, presumably the forgotten king, as they perform complex magical rites. The colors are muted, but the ghostly outlines of the images are still discernible."
+            },
+            {
+                "name": "Sturdy Wooden Door",
+                "shortDescription": "A sturdy wooden door reinforced with iron bands is set into the north wall.",
+                "appearanceDescription": "This sturdy wooden door is reinforced with thick bands of dark, aged iron. It appears to be ancient but well-constructed, set firmly into the stone northern wall."
+            },
+            {
+                "name": "Rubble-Strewn Passage",
+                "shortDescription": "A narrow passage filled with rubble leads east, descending further into the earth.",
+                "appearanceDescription": "A narrow passage, choked with loose stones and debris, descends into the earth. The opening is rough and appears unstable, hinting at further dangers below."
+            },
+            {
+                "name": "Dense Cobwebs",
+                "shortDescription": "A thick, sticky mass of cobwebs covers part of the south wall.",
+                "appearanceDescription": "A pile of particularly thick and resilient cobwebs clings to the southern wall, far denser than those seen elsewhere. They seem almost woven, forming a sticky, grey tapestry."
+            }
+        ],
+        "itemLocations": [
+            {
+                "type": "ItemLocationInPlayerInventory",
+                "item": "Sputtering Torch",
+                "description": "Kael holds the sputtering torch in their right hand, its flickering light casting dancing shadows on the surrounding debris."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "The Collapsed Vestibule",
+                "item": "Rubble",
+                "description": "In the approximate center of the Collapsed Vestibule, this significant pile of rubble occupies a large portion of the floor space. It appears to have recently fallen from the ceiling or one of the walls, creating a substantial obstacle and obscuring whatever might lie beneath."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "The Collapsed Vestibule",
+                "item": "Dust and Grit",
+                "description": "The floor of the Collapsed Vestibule is entirely covered by dust and small stone fragments."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "The Collapsed Vestibule",
+                "item": "Jagged Opening",
+                "description": "This jagged opening is located in the southern wall of the chamber, offering a cramped and uncertain path forward."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "The Collapsed Vestibule",
+                "item": "Fissure",
+                "description": "Located in the eastern wall of the Collapsed Vestibule, this fissure seems to be a natural formation."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "The Collapsed Vestibule",
+                "item": "Cobwebs",
+                "description": "Draped from the vaulted ceiling of the Collapsed Vestibule, these cobwebs extend across large swathes of the upper chamber."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Antechamber of the Forgotten King",
+                "item": "Sarcophagus",
+                "description": "The sarcophagus is positioned squarely in the middle of the Antechamber of the Forgotten King, its imposing form a central feature of the room. It lies parallel to the northern and southern walls, with its head oriented towards the north wall."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Antechamber of the Forgotten King",
+                "item": "Faded Murals",
+                "description": "The murals adorn the entirety of the circular stone walls of the Antechamber of the Forgotten King, encircling the central sarcophagus. They stretch from the floor to the arched ceiling."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Antechamber of the Forgotten King",
+                "item": "Sturdy Wooden Door",
+                "description": "The northern wall of the Antechamber of the Forgotten King features this sturdy wooden door. It is set flush with the stone, its heavy iron bands catching the torchlight."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Antechamber of the Forgotten King",
+                "item": "Rubble-Strewn Passage",
+                "description": "The eastern wall of the Antechamber of the Forgotten King conceals this narrow, rubble-strewn passage. It is partially obscured by shadows and the general detritus of the crypts."
+            },
+            {
+                "type": "ItemLocationInRoom",
+                "room": "Antechamber of the Forgotten King",
+                "item": "Dense Cobwebs",
+                "description": "Draped heavily across the lower section of the southern wall in the Antechamber of the Forgotten King, these cobwebs form a dense barrier against the stone."
+            }
+        ],
+        "roomConnections": [
+            {
+                "room1": "The Collapsed Vestibule",
+                "room2": "Antechamber of the Forgotten King",
+                "descriptionOfPathFromRoom1ToRoom2": "A sturdy wooden door, set with thick iron bands, is visible to the north, connecting to what appears to be an antechamber.",
+                "descriptionOfPathFromRoom2ToRoom1": "A heavy, iron-banded wooden door, slightly ajar, leads from this antechamber into a preceding area."
+            },
+            {
+                "room1": "The Collapsed Vestibule",
+                "room2": "The Prisoner's Despair",
+                "descriptionOfPathFromRoom1ToRoom2": "A narrow, jagged fissure in the south wall of this dusty crypt opens into a cramped, slime-coated cell.",
+                "descriptionOfPathFromRoom2ToRoom1": "From the darkness within the cell, one can see a small, crudely carved opening in the wall that seems to lead into a more open, though still dimly lit, passage."
+            },
+            {
+                "room1": "The Collapsed Vestibule",
+                "room2": "The Whispering Chasm",
+                "descriptionOfPathFromRoom1ToRoom2": "To the east, a natural fissure in the crypt wall leads to a vast, echoing cavern that plunges into a seemingly bottomless chasm, spanned only by a fragile-looking rope bridge.",
+                "descriptionOfPathFromRoom2ToRoom1": "The rough-hewn passage opens onto a dizzying precipice. A perilous rope bridge stretches across the expanse, leading into the darkness beyond."
+            },
+            {
+                "room1": "Antechamber of the Forgotten King",
+                "room2": "Corridor of Faded Markings",
+                "descriptionOfPathFromRoom1ToRoom2": "To the north, beyond the now-cleared cobwebs and the sturdy wooden door, a well-traveled path beckons.",
+                "descriptionOfPathFromRoom2ToRoom1": "The sturdy wooden door to the south leads back to the familiar gloom of the Antechamber of the Forgotten King."
+            },
+            {
+                "room1": "Antechamber of the Forgotten King",
+                "room2": "Descending Passageway",
+                "descriptionOfPathFromRoom1ToRoom2": "To the east, a rubble-strewn passage descends, promising further exploration into the depths.",
+                "descriptionOfPathFromRoom2ToRoom1": "The passage to the west leads back up, out of the rubble and into the Antechamber of the Forgotten King."
+            }
+        ],
+        "visitedRooms": [
+            "The Collapsed Vestibule",
+            "Antechamber of the Forgotten King"
+        ]
+    },
+    "turns": [
+        {
+            "prompt": "look around",
+            "actions": [
+                {
+                    "type": "PlayerInspectsRoom",
+                    "description": "Kael looks around the Collapsed Vestibule, taking in the details of the ruined chamber."
+                }
+            ],
+            "description": "Kael surveys the scene, the sputtering torch casting long, dancing shadows across the dust-covered floor and debris-strewn chamber. The air is heavy with the scent of decay and neglect."
+        },
+        {
+            "prompt": "take the torch",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "Sputtering Torch",
+                    "description": "Kael reaches for the sputtering torch, his fingers closing around the rough, wooden handle. The flame casts dancing shadows on his face as he carefully dislodges it from its rusty bracket.",
+                    "newItemLocationDescription": "Kael holds the sputtering torch in their right hand, its weak flame providing a small circle of light in the oppressive darkness."
+                }
+            ],
+            "description": "Kael reaches for the sputtering torch, his fingers closing around the rough, wooden handle. The flame casts dancing shadows on his face as he carefully dislodges it from its rusty bracket. Kael now holds the sputtering torch in their right hand, its weak flame providing a small circle of light in the oppressive darkness."
+        },
+        {
+            "prompt": "throw the torch at the wall",
+            "actions": [
+                {
+                    "type": "PlayerUsesItem",
+                    "item": "Sputtering Torch",
+                    "statusAfterUse": {
+                        "type": "destroyed"
+                    },
+                    "description": "Kael raises the sputtering torch and hurls it with practiced force at the eastern wall."
+                }
+            ],
+            "description": "Kael raises the sputtering torch and hurls it with practiced force at the eastern wall. The torch arcs through the dusty air, its weak flame sputtering valiantly before it impacts the stone with a dull thud. The flame is immediately extinguished, plunging the Collapsed Vestibule into near-total darkness, save for the faint ambient light filtering from the passageways."
+        },
+        {
+            "prompt": "pick up the torch again",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "Sputtering Torch",
+                    "description": "Kael reaches down and grasps the sputtering torch. The heat is noticeable through their glove, but not unbearable.",
+                    "newItemLocationDescription": "Kael holds the sputtering torch in their right hand, its flickering light casting dancing shadows on the surrounding debris."
+                }
+            ],
+            "description": "Kael reaches down and grasps the sputtering torch. The heat is noticeable through their glove, but not unbearable. They hold the sputtering torch in their right hand, its flickering light casting dancing shadows on the surrounding debris."
+        },
+        {
+            "prompt": "look for exits to the room",
+            "actions": [
+                {
+                    "type": "PlayerInspectsRoom",
+                    "description": "Kael scans the room for any signs of exits."
+                }
+            ],
+            "description": "Kael surveys the Collapsed Vestibule, their torchlight cutting through the gloom, seeking any way forward."
+        },
+        {
+            "prompt": "are there any other rooms around me?",
+            "actions": [
+                {
+                    "type": "PlayerInspectsRoom",
+                    "description": "Kael scans the dusty chamber, taking in the extent of the destruction and noting the various openings and passages that hint at further depths within these ancient crypts."
+                }
+            ],
+            "description": "Kael surveys the Collapsed Vestibule, noting the north doorway, the southern fissure, and the eastern passage that connect to other parts of this grim complex."
+        },
+        {
+            "prompt": "go through the north doorway",
+            "actions": [
+                {
+                    "type": "PlayerMovesToDifferentRoom",
+                    "room": "Antechamber of the Forgotten King",
+                    "newPlayerLocationDescription": "Kael stands before the sturdy wooden door to the north, its iron bands glinting faintly in the torchlight. The thick cobweb that previously draped across it has been disturbed, revealing the doorway more clearly.",
+                    "description": "Kael moves towards the sturdy wooden door to the north, pushing aside hanging cobwebs."
+                }
+            ],
+            "description": "Kael moves towards the sturdy wooden door to the north, pushing aside hanging cobwebs that cling to the frame. The thick cobweb that previously draped across it has been disturbed, revealing the doorway more clearly. Kael now stands before the sturdy wooden door to the north, its iron bands glinting faintly in the torchlight."
+        },
+        {
+            "prompt": "go back to the Collapsed Vestibule",
+            "actions": [
+                {
+                    "type": "PlayerMovesToDifferentRoom",
+                    "room": "The Collapsed Vestibule",
+                    "newPlayerLocationDescription": "Kael stands in the Collapsed Vestibule, the heavy, iron-banded wooden door to the south now slightly ajar behind them. The air here is still thick with dust, but a faint, cool draft suggests a connection to the outside world.",
+                    "description": "Kael decides to retrace their steps and moves back towards the Collapsed Vestibule through the heavy, iron-banded wooden door."
+                }
+            ],
+            "description": "Kael, holding the sputtering torch aloft, turns away from the formidable door and the mysteries of the Antechamber. With a determined stride, they move back through the heavy, iron-banded wooden door. The oppressive silence of the Antechamber is replaced by the echoing emptiness of the Collapsed Vestibule. Kael finds themselves standing back in the antechamber, the southern door now slightly ajar behind them, a faint, cool draft hinting at a passage beyond."
+        },
+        {
+            "prompt": "look for any items in the room",
+            "actions": [
+                {
+                    "type": "PlayerInspectsRoom",
+                    "description": "Kael looks around the Collapsed Vestibule, taking in the scene."
+                }
+            ],
+            "description": "Kael surveys the Collapsed Vestibule, a chamber choked with dust and debris. The weak light of their sputtering torch illuminates a scene of decay and ruin. A large pile of rubble dominates the center of the room, while thick cobwebs obscure the northern doorway. Dust and grit coat the floor, and a jagged opening is visible in the southern wall. A fissure pierces the eastern wall, hinting at further depths."
+        },
+        {
+            "prompt": "pick up an item off the floor",
+            "actions": [
+                {
+                    "type": "PlayerMovesInsideCurrentRoom",
+                    "description": "Kael surveys the room, taking in the fallen stones, the cobweb-laden doorway, and the general decay.",
+                    "newPlayerLocationDescription": "Kael stands in the Collapsed Vestibule, the heavy, iron-banded wooden door to the south now slightly ajar behind them. The air here is still thick with dust, but a faint, cool draft suggests a connection to the outside world."
+                }
+            ],
+            "description": "Kael takes a moment to survey the Collapsed Vestibule, the torchlight flickering and casting dancing shadows. The air is thick with dust and the scent of decay. A draft from the south hints at an exit, while the north beckons with a grander, though cobweb-choked, passage. The southern wall also bears a jagged opening, and the eastern wall a natural fissure. Debris litters the floor, obscuring much of the room."
+        },
+        {
+            "prompt": "take the cobweb",
+            "actions": [
+                {
+                    "type": "PlayerTakesItem",
+                    "item": "Thick Cobweb",
+                    "description": "Kael reaches out and carefully plucks a thick strand of cobweb from the doorway.",
+                    "newItemLocationDescription": "A few strands of cobweb are stuck to Kael's gloved fingers, and the rest of the thick cobweb still drapes across the grand, arched doorway to the north."
+                }
+            ],
+            "description": "Kael reaches out and carefully plucks a thick strand of cobweb from the doorway. A few strands of cobweb are stuck to Kael's gloved fingers, and the rest of the thick cobweb still drapes across the grand, arched doorway to the north."
+        },
+        {
+            "prompt": "burn the cobweb with my torch",
+            "actions": [
+                {
+                    "description": "Kael holds the sputtering torch aloft, extending it towards the thick cobwebs that hang ominously from the vaulted ceiling. The torchlight, though weak, is enough to ignite the dry, ancient strands.",
+                    "item": "Thick Cobweb",
+                    "type": "PlayerInspectsItem"
+                },
+                {
+                    "description": "Kael thrusts the sputtering torch forward, bringing the flame into contact with the thick cobwebs. The ancient, dry material catches fire with surprising speed, the flames crackling and spreading rapidly upwards, consuming the cobwebs in a brief, bright inferno.",
+                    "item": "Thick Cobweb",
+                    "statusAfterUse": {
+                        "type": "destroyed"
+                    },
+                    "type": "PlayerUsesItem"
+                }
+            ],
+            "description": "Kael holds the sputtering torch aloft, extending it towards the thick cobwebs that hang ominously from the vaulted ceiling. The torchlight, though weak, is enough to ignite the dry, ancient strands. Kael thrusts the sputtering torch forward, bringing the flame into contact with the thick cobwebs. The ancient, dry material catches fire with surprising speed, the flames crackling and spreading rapidly upwards, consuming the cobwebs in a brief, bright inferno."
+        }
+    ]
+}
