@@ -1,46 +1,71 @@
+import { Result } from "@/utility";
 import { z } from "genkit";
+import { ReactNode } from "react";
 
 // -----------------------------------------------------------------------------
-// spec
+// Spec
 // -----------------------------------------------------------------------------
 
-export type SpecCommon<Name extends string, State, View, Action> = {
-  name: Name;
+export type SpecCommon<N extends string> = {
+  name: N;
 };
 
-export type SpecServer<Name extends string, State, View, Action> = {
-  common: SpecCommon<Name, State, View, Action>;
-  initializeState: (prompt: string) => Promise<State>;
-  actionSchema: (state: State, view: View) => z.ZodType<Action>;
-  view: (state: State) => View;
-  printPromptMessages: (
-    view: View,
-    prompt: string,
-  ) => {
-    system: string;
-    prompt: string;
-  };
-  interpretAction: (state: State, action: Action) => Promise<State>;
+export type SpecParams = {
+  initialization: unknown;
+  action: unknown;
 };
 
-export type SpecClient<Name extends string, State, View, Action> = {
-  common: SpecCommon<Name, State, View, Action>;
-  renderView: (view: View) => React.ReactNode;
+export type SpecServer<N extends string, P extends SpecParams, S, V, A> = {
+  initializeState: (SpecParams: P["initialization"]) => Promise<S>;
+  view: (state: S) => V;
+  generateAction: (
+    view: V,
+    SpecParams: P["action"],
+  ) => Promise<Result<{ message: string }, { action: A; description: string }>>;
+  interpretAction: (state: S, action: A) => Promise<void>;
+} & SpecCommon<N>;
+
+export type SpecClient<N extends string, P extends SpecParams, S, V, A> = {
+  // components
+  PromptInitializationComponent: (props: {
+    submit: (params: P["initialization"]) => Promise<void>;
+  }) => ReactNode;
+  ViewComponent: (props: { view: V }) => ReactNode;
+  PromptActionComponent: (props: {
+    view: V;
+    set_inst: (inst: InstClient<S, V, A>) => void;
+  }) => ReactNode;
+  TurnComponent: (props: { turn: Omit<Turn<S, A>, "state"> }) => ReactNode;
+  // callbacks
+  initialize: (params: P["initialization"]) => Promise<void>;
+  loadInst: (id: string) => Promise<void>;
+  getInst: () => Promise<InstClient<S, V, A> | undefined>;
+} & SpecCommon<N>;
+
+// -----------------------------------------------------------------------------
+// Inst
+// -----------------------------------------------------------------------------
+
+export type Inst<N extends string, S, A> = {
+  name: N;
+  metadata: InstMetadata;
+  initialState: S;
+  state: S;
+  turns: Turn<S, A>[];
 };
 
-// -----------------------------------------------------------------------------
-// inst
-// -----------------------------------------------------------------------------
-
-export type Inst<Name extends string, State, View, Action> = {
-  name: Name;
+export type InstMetadata = {
   id: string;
-  state: State;
-  turns: Turn<State, Action>[];
+  creationDate: number;
 };
 
-export type Turn<State, Action> = {
-  state: State;
-  action: Action;
+export type Turn<S, A> = {
+  state: S;
+  action: A;
   description: string;
+};
+
+export type InstClient<S, V, A> = {
+  view: V;
+  turns: Turn<S, A>[];
 };

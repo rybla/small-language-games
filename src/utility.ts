@@ -138,3 +138,35 @@ export function sleep(ms: number): Promise<void> {
 export function range(n: number): number[] {
   return Array.from({ length: n }, (_, index) => index);
 }
+
+export type Result<E extends object, A extends object> =
+  | ({ type: "err" } & E)
+  | ({ type: "ok" } & A);
+
+export function err<E extends object, A extends object>(e: E): Result<E, A> {
+  return { type: "err", ...e };
+}
+
+export function ok<A extends object, E extends object>(a: A): Result<E, A> {
+  return { type: "ok", ...a };
+}
+
+export function isErr<E extends object, A extends object>(
+  result: Result<E, A>,
+): result is { type: "err" } & E {
+  return result.type === "err";
+}
+
+export function isOk<E extends object, A extends object>(
+  result: Result<E, A>,
+): result is { type: "ok" } & A {
+  return result.type === "ok";
+}
+
+export function TODO(msg?: string): any {
+  throw new Error(`TODO${msg === undefined ? "" : ` ${msg}`}`);
+}
+
+export function fromNever(x: never): any {
+  throw new Error(`Unexpected value that has type \`never\`: ${x}`);
+}
