@@ -18,6 +18,9 @@ export default function Page() {
           <li>
             <Link href="/text-to-ui">text-to-ui</Link>
           </li>
+          <li>
+            <Link href="/test-streaming">test-streaming</Link>
+          </li>
         </ul>
       </div>
     </>

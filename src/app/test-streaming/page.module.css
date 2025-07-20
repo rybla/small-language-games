@@ -1,0 +1,190 @@
+/*
+================================================================================
+|                                                                              |
+|   CSS Blueprint: Flat Abstract Checkerboard                                  |
+|                                                                              |
+|   Design Philosophy:                                                         |
+|   This design embraces a minimalist, high-contrast, black-and-white          |
+|   aesthetic. The core theme is a flat, abstract checkerboard pattern         |
+|   that serves as the primary background, creating a visually engaging        |
+|   yet uncluttered canvas. The style is geometric and sharp, avoiding         |
+|   gradients, shadows, and rounded corners to maintain a pure, flat look.     |
+|                                                                              |
+|   Color Palette:                                                             |
+|   - Primary: Pure Black (#000000) for text, borders, and UI elements.        |
+|   - Secondary: Pure White (#FFFFFF) for backgrounds and contrasting text.    |
+|   - Background: A repeating black-and-white checkerboard pattern.            |
+|                                                                              |
+|   Typography:                                                                |
+|   - Font: 'Roboto Mono', a clean, monospaced font that complements the       |
+|     geometric theme and enhances readability.                                |
+|   - Hierarchy: Clear distinction between titles, labels, and values through |
+|     font size and weight.                                                    |
+|                                                                              |
+|   Layout & Spacing:                                                          |
+|   - A consistent spacing unit is used for all padding and margins to create  |
+|     a harmonious and balanced layout.                                        |
+|   - Flexbox is used for alignment to ensure content is centered and well-    |
+|     organized.                                                               |
+|                                                                              |
+|   Animation & Interactivity:                                                 |
+|   - Animations are subtle and purposeful, providing feedback without         |
+|     being distracting.                                                       |
+|   - Interactive elements like buttons have a clean invert-color effect on   |
+|     hover.                                                                   |
+|   - A subtle pulsing animation is included to visually indicate the          |
+|     "streaming" state, providing real-time feedback to the user.             |
+|                                                                              |
+================================================================================
+*/
+
+/*
+:root -> Defines global CSS variables for easy theme management.
+*/
+:root {
+    --primary-color: #000000;
+    --secondary-color: #ffffff;
+    --font-family: "Roboto Mono", monospace;
+    --spacing-unit: 1.5rem;
+    --checker-size: 40px; /* Size of the checkerboard squares */
+}
+
+/*
+.page -> The main container for the entire application.
+- Fills the viewport height.
+- Uses a repeating conic gradient to create the checkerboard background.
+- Uses flexbox to center its content both horizontally and vertically.
+*/
+.page {
+    flex: 1 1 0;
+    min-height: 0;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: calc(var(--spacing-unit) * 2);
+    font-family: var(--font-family);
+    background-color: var(--secondary-color);
+    background-image: repeating-conic-gradient(
+        var(--primary-color) 0% 25%,
+        var(--secondary-color) 25% 50%
+    );
+    background-size: var(--checker-size) var(--checker-size);
+    color: var(--primary-color);
+    box-sizing: border-box;
+}
+
+/*
+.title -> The main heading of the page.
+- Styled to be prominent and readable against the busy background.
+- A solid white background with black padding creates a "cutout" effect.
+*/
+.title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-color: var(--secondary-color);
+    padding: var(--spacing-unit);
+    border: 3px solid var(--primary-color);
+    margin-bottom: var(--spacing-unit);
+    text-align: center;
+}
+
+/*
+button -> The primary action button.
+- Simple, flat design with sharp corners.
+- Inverts colors on hover for clear visual feedback.
+- A slight scale transform adds a tactile feel.
+*/
+.button {
+    font-family: var(--font-family);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: calc(var(--spacing-unit) / 2) var(--spacing-unit);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: 3px solid var(--primary-color);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: var(--spacing-unit);
+}
+
+.button:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.button:active {
+    transform: scale(0.98);
+}
+
+/*
+.status -> Container for the status display section.
+- Provides a solid background to separate the status info from the main page background.
+- Uses flexbox to lay out the status items.
+*/
+.status {
+    background-color: var(--secondary-color);
+    border: 3px solid var(--primary-color);
+    padding: var(--spacing-unit);
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) / 2);
+}
+
+/*
+.item -> A single key-value pair within the status section.
+- Uses flexbox to align the label and value side-by-side.
+*/
+.item {
+    display: flex;
+    align-items: flex-start;
+    gap: calc(var(--spacing-unit) / 2);
+}
+
+/*
+.label -> The key part of a status item (e.g., "isStreaming:").
+- Fixed width and bolded for alignment and emphasis.
+*/
+.label {
+    font-weight: 700;
+    flex-shrink: 0; /* Prevents the label from shrinking */
+}
+
+/*
+.value -> The value part of a status item.
+- This will display the dynamic data.
+- A subtle pulsing animation is defined for use when streaming is active.
+- The 'result' value uses 'pre-wrap' to respect newlines from the stream.
+*/
+.value {
+    word-break: break-all;
+    white-space: pre-wrap; /* Ensures newline characters from the stream are rendered */
+}
+
+/* Note for developer: To activate the streaming animation,
+  you can conditionally apply a class like 'streaming' to the .value div
+  when the `isStreaming` state is true in your React component.
+  Example: className={`${styles.value} ${isStreaming ? styles.streaming : ''}`}
+*/
+.streaming {
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 1;
+    }
+}

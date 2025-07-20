@@ -117,3 +117,24 @@ export function deepcopy<A>(x: A): A {
 export function spawnAsync(k: () => Promise<void>): void {
   void k();
 }
+
+export function complementRecord<
+  K extends string | number | symbol,
+  V,
+  R1 extends Record<K, V>,
+  R2 extends Record<keyof R1, V>,
+>(r1_minus_r2: Omit<R1, keyof R2>, r2: R2): R1 {
+  // @ts-ignore r1 - r2 + r2 = r1
+  return { ...r1_minus_r2, ...r2 };
+}
+
+export function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ * Non-inclusive range.
+ */
+export function range(n: number): number[] {
+  return Array.from({ length: n }, (_, index) => index);
+}
