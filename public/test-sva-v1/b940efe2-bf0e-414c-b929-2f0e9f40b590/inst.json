@@ -1,0 +1,18 @@
+{
+    "specName": "test-sva-v1",
+    "metadata": {
+        "id": "b940efe2-bf0e-414c-b929-2f0e9f40b590",
+        "creationDate": 1753056554316
+    },
+    "initialState": {
+        "counter": "counter1",
+        "counter1": 0,
+        "counter2": 0
+    },
+    "state": {
+        "counter": "counter1",
+        "counter1": 0,
+        "counter2": 0
+    },
+    "turns": []
+}

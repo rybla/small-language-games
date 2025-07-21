@@ -1,6 +1,6 @@
 "use client";
 
-import { do_, stringify } from "@/utility";
+import { do_, isErr, stringify } from "@/utility";
 import SimpleClient from "../library/sva/library/simple/SimpleClient";
 import { SpecClient } from "../library/sva/ontology";
 import * as common from "./common";
@@ -12,13 +12,19 @@ const spec: SpecClient<N, P, S, V, A> = {
   ...common.spec,
   // components
   PromptInitializationComponent(props) {
-    return <div className={styles.PromptInitialization}></div>;
+    return (
+      <div className={styles.PromptInitialization}>
+        <button className={styles.button} onClick={() => void props.submit({})}>
+          start
+        </button>
+      </div>
+    );
   },
   ViewComponent(props) {
     return (
       <div className={styles.View}>
         <div className={styles.name}>{props.view.counter}</div>
-        <div className={styles.value}>{props.view.counter}</div>
+        <div className={styles.value}>{props.view.value}</div>
       </div>
     );
   },
@@ -30,6 +36,10 @@ const spec: SpecClient<N, P, S, V, A> = {
           onClick={() =>
             void do_(async () => {
               const result = await server.act(p);
+              if (isErr(result)) return;
+              const inst = await server.getInst();
+              if (inst === undefined) return;
+              props.set_inst(inst);
             })
           }
         >
@@ -40,13 +50,13 @@ const spec: SpecClient<N, P, S, V, A> = {
 
     return (
       <div className={styles.PromptAction}>
-        {makeButton("counter1", {
+        {makeButton("view counter 1", {
           type: "set counter",
           counter: "counter1",
         })}
-        {makeButton("counter2", {
+        {makeButton("view counter 2", {
           type: "set counter",
-          counter: "counter1",
+          counter: "counter2",
         })}
         {makeButton("increment", {
           type: "increment this counter",
@@ -57,7 +67,6 @@ const spec: SpecClient<N, P, S, V, A> = {
   TurnComponent(props) {
     return (
       <div className={styles.Turn}>
-        <div className={styles.action}>{stringify(props.turn.action)}</div>
         <div className={styles.description}>{props.turn.description}</div>
       </div>
     );
@@ -71,6 +80,12 @@ const spec: SpecClient<N, P, S, V, A> = {
   },
   async getInst() {
     return await server.getInst();
+  },
+  async saveInst() {
+    return await server.saveInst();
+  },
+  async getInstIds() {
+    return await server.getInstIds();
   },
 };
 

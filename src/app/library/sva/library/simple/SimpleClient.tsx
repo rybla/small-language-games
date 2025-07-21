@@ -1,6 +1,12 @@
-import { fromNever } from "@/utility";
-import { useState } from "react";
-import type { InstClient, SpecClient, SpecParams, Turn } from "../../ontology";
+import { do_, fromNever } from "@/utility";
+import { useEffect, useRef, useState } from "react";
+import {
+  InstMetadata,
+  type InstClient,
+  type SpecClient,
+  type SpecParams,
+  type Turn,
+} from "../../ontology";
 import styles from "./SimpleClient.module.css";
 
 type State<S, V, A> =
@@ -17,9 +23,30 @@ export default function SimpleClient<
   A,
 >(props: { spec: SpecClient<N, P, S, V, A> }) {
   const [state, set_state] = useState<State<S, V, A>>({ type: "New" });
+  const [instIds, set_instIds] = useState<string[]>([]);
   const [logs, set_logs] = useState<string[]>([]);
 
-  function New({ state }: { state: State<S, V, A> & { type: "New" } }) {
+  async function update_instIds() {
+    set_instIds(await props.spec.getInstIds());
+  }
+
+  useEffect(
+    () => {
+      void update_instIds();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [props.spec],
+  );
+
+  function New({
+    state,
+    set_state,
+    set_logs,
+  }: {
+    state: State<S, V, A> & { type: "New" };
+    set_state: (state: State<S, V, A>) => void;
+    set_logs: (k: (logs: string[]) => string[]) => void;
+  }) {
     const Prompt = props.spec.PromptInitializationComponent;
     return (
       <div className={styles.New}>
@@ -29,9 +56,10 @@ export default function SimpleClient<
             await props.spec.initialize(params);
             const inst = await props.spec.getInst();
             if (inst === undefined) {
-              logs.push(
-                "[New.Prompt.submit] await props.spec.getInst() ==> undefined",
-              );
+              set_logs((logs) => [
+                ...logs,
+                "[New.Prompt.submit] await spec.getInst() ==> undefined",
+              ]);
               return;
             }
             set_state({ type: "Loaded", inst });
@@ -41,7 +69,7 @@ export default function SimpleClient<
     );
   }
 
-  function Initializing({
+  function Initializing<N extends string, P extends SpecParams, S, V, A>({
     state,
   }: {
     state: State<S, V, A> & { type: "Initializing" };
@@ -54,34 +82,81 @@ export default function SimpleClient<
   }
 
   function Loaded({ state }: { state: State<S, V, A> & { type: "Loaded" } }) {
+    const [inst, set_inst] = useState<InstClient<S, V, A>>(state.inst);
+    const turnsBottom_ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      turnsBottom_ref.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+    }, [inst]);
+
     const View = props.spec.ViewComponent;
     const PromptAction = props.spec.PromptActionComponent;
     const Turn = props.spec.TurnComponent;
     return (
       <div className={styles.Loaded}>
-        <View view={state.inst.view} />
-        <div className={styles.column}>
-          <PromptAction
-            view={state.inst.view}
-            set_inst={(inst) => set_state((state) => ({ ...state, inst }))}
-          />
-          <div className={styles.turns}>
-            {state.inst.turns.map((turn, i) => (
-              <div key={i}>
-                <Turn turn={turn} />
-              </div>
-            ))}
+        <div className={styles.sidebar}>
+          <div className={styles.controls}>
+            <button
+              className={styles.button}
+              onClick={() =>
+                void do_(async () => {
+                  await props.spec.saveInst();
+                  await update_instIds();
+                  set_state({ type: "New" });
+                })
+              }
+            >
+              Save
+            </button>
           </div>
+          <div className={styles.turns}>
+            {inst.turns.map((turn, i) => (
+              <Turn turn={turn} key={i} />
+            ))}
+            <div className={styles.turnsBottom} ref={turnsBottom_ref} />
+          </div>
+          <PromptAction view={inst.view} set_inst={(inst) => set_inst(inst)} />
         </div>
+        <View view={inst.view} />
       </div>
     );
   }
 
   return (
     <div className={styles.SimpleClient}>
+      <div className={styles.controls}>
+        <div className={styles.sectionTitle}>Load</div>
+        {instIds.map((id, i) => (
+          <button
+            className={styles.button}
+            key={i}
+            onClick={() =>
+              void do_(async () => {
+                set_state({ type: "Loading", id });
+                await props.spec.loadInst(id);
+                const inst = await props.spec.getInst();
+                if (inst === undefined) {
+                  set_state({ type: "New" });
+                  set_logs((logs) => [
+                    ...logs,
+                    `[load] Failed to load instance: "${id}"`,
+                  ]);
+                  return;
+                }
+                set_state({ type: "Loaded", inst });
+              })
+            }
+          >
+            {id}
+          </button>
+        ))}
+      </div>
       <div className={styles.content}>
         {state.type === "New" ? (
-          <New state={state} />
+          <New state={state} set_state={set_state} set_logs={set_logs} />
         ) : state.type === "Initializing" ? (
           <Initializing state={state} />
         ) : state.type === "Loading" ? (

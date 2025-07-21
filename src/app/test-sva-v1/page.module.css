@@ -1,2 +1,171 @@
-.view {
+/*
+ * === CSS Blueprint: Minimalist Black & White ===
+ *
+ * Design Philosophy:
+ * This stylesheet implements a clean, minimalist, and flat design language. The core
+ * principles are clarity, simplicity, and a strong emphasis on typography and negative
+ * space. The aesthetic is strictly black and white, avoiding grays or other colors
+ * to create a stark, high-contrast, and focused user interface.
+ *
+ * The layout is structured and predictable, using flexbox for alignment and consistent
+ * spacing units for a harmonious rhythm throughout the component hierarchy.
+ *
+ * Interactivity & Animations:
+ * User interactions are met with subtle and immediate feedback. There are no complex
+ * or lengthy animations. Instead, simple transitions on properties like color and
+ * background-color provide a responsive feel without distracting from the content.
+ * The goal is to make the interface feel alive but professional and uncluttered.
+ *
+ * Typography:
+ * A modern, clean, sans-serif font is used for maximum readability. Font weights and
+ * sizes are used to establish a clear visual hierarchy between different pieces of
+ * information (e.g., names, values, descriptions).
+ *
+ * Component Styling Notes:
+ * - Containers (.View, .Turn): Styled as distinct "cards" with clean borders and
+ * padding to visually group related content.
+ * - Interactive Elements (.button): Designed for clear affordance. They have a
+ * default "outlined" look and invert colors on hover for unambiguous feedback.
+ * - Text Elements (.name, .value, .action, .description): Styled for clarity, with
+ * font variations to differentiate their purpose.
+ *
+ */
+
+/* === Root Variables: Theming & Configuration === */
+:root {
+    /* Colors */
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --border-color: #eeeeee;
+    --interactive-border-color: #000000;
+
+    /* Button States */
+    --button-bg-default: var(--background-color);
+    --button-text-default: var(--text-color);
+    --button-bg-hover: var(--text-color);
+    --button-text-hover: var(--background-color);
+
+    /* Typography */
+    --font-family-sans:
+        "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif;
+    --font-family-mono:
+        "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+    /* Spacing & Sizing */
+    --spacing-unit: 8px;
+    --spacing-xs: calc(var(--spacing-unit) * 0.5); /* 4px */
+    --spacing-sm: var(--spacing-unit); /* 8px */
+    --spacing-md: calc(var(--spacing-unit) * 2); /* 16px */
+    --spacing-lg: calc(var(--spacing-unit) * 3); /* 24px */
+    --spacing-xl: calc(var(--spacing-unit) * 4); /* 32px */
+
+    /* Borders */
+    --border-radius-sm: 4px;
+    --border-width: 1px;
+
+    /* Transitions */
+    --transition-speed: 0.2s;
+    --transition-timing: ease-in-out;
+}
+
+/* === Component Styles === */
+
+/* An empty component, can be used for spacing or as a future placeholder. */
+.PromptInitialization {
+    /* No styles needed currently */
+}
+
+/* The primary container for displaying view data. */
+.View {
+    flex: 1 1 0;
+    min-height: 0;
+    min-width: 0;
+
+    background-color: var(--background-color);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+/* Styles for the "name" or "label" part of the view. */
+.name {
+    font-family: var(--font-family-sans);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-color);
+    opacity: 0.7; /* Slightly de-emphasize the label */
+}
+
+/* Styles for the main "value" part of the view. */
+.value {
+    font-family: var(--font-family-sans);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* Container for action buttons. */
+.PromptAction {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg);
+}
+
+/* The main interactive button style. */
+.button {
+    font-family: var(--font-family-sans);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--button-text-default);
+    background-color: var(--button-bg-default);
+    border: var(--border-width) solid var(--interactive-border-color);
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    cursor: pointer;
+    text-align: center;
+    transition:
+        background-color var(--transition-speed) var(--transition-timing),
+        color var(--transition-speed) var(--transition-timing);
+}
+
+/* Hover state for the button to provide clear feedback. */
+.button:hover {
+    background-color: var(--button-bg-hover);
+    color: var(--button-text-hover);
+}
+
+/* Container for displaying a single "turn" or event. */
+.Turn {
+    background-color: var(--background-color);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+/* Style for the action part of a turn, using a monospace font for code-like text. */
+.action {
+    font-family: var(--font-family-mono);
+    font-size: 0.9rem;
+    color: var(--text-color);
+    background-color: #f9f9f9; /* A very light background to distinguish it */
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+}
+
+/* Style for the descriptive text of a turn. */
+.description {
+    font-family: var(--font-family-sans);
+    font-size: 1rem;
+    color: var(--text-color);
+    padding-top: var(--spacing-sm);
 }

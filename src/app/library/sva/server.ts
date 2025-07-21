@@ -17,7 +17,7 @@ export async function initialize<
 ): Promise<Inst<N, S, A>> {
   const initialState = await spec.initializeState(params);
   return {
-    name: spec.name,
+    specName: spec.name,
     metadata: {
       id: randomUUID(),
       creationDate: Date.now(),
@@ -67,32 +67,44 @@ export function toInstClient<N extends string, P extends SpecParams, S, V, A>(
 
 // root
 
-export const rootDirpath = (name: string) => path.join("public", name);
+export const rootDirpath = (specName: string) => path.join("public", specName);
+
+export async function getInstIds(specName: string): Promise<string[]> {
+  await fs.mkdir(rootDirpath(specName), { recursive: true });
+  return (await fs.readdir(rootDirpath(specName))).filter(
+    (filename) => !filename.includes("."),
+  );
+}
 
 // Inst
 
-export const instDirpath = (name: string, id: string) =>
-  path.join(rootDirpath(name), id);
+export const instDirpath = (specName: string, instId: string) =>
+  path.join(rootDirpath(specName), instId);
 
-export const instFilepath = (name: string, id: string) =>
-  path.join(instDirpath(name, id), "inst.json");
+export const instFilepath = (specName: string, instId: string) =>
+  path.join(instDirpath(specName, instId), "inst.json");
 
 export async function saveInst<N extends string, P extends SpecParams, S, V, A>(
   inst: Inst<N, S, A>,
 ): Promise<void> {
-  await fs.mkdir(rootDirpath(inst.name), { recursive: true });
+  await fs.mkdir(instDirpath(inst.specName, inst.metadata.id), {
+    recursive: true,
+  });
   await fs.writeFile(
-    instFilepath(inst.name, inst.metadata.id),
+    instFilepath(inst.specName, inst.metadata.id),
     stringify(inst),
+    "utf8",
   );
 }
 
 export async function loadInst<N extends string, S, A>(
-  name: string,
-  id: string,
+  specName: string,
+  instId: string,
 ): Promise<Inst<N, S, A> | undefined> {
   try {
-    return JSON.parse(await fs.readFile(instFilepath(name, id), "utf8"));
+    return JSON.parse(
+      await fs.readFile(instFilepath(specName, instId), "utf8"),
+    );
   } catch {
     return undefined;
   }
@@ -100,15 +112,28 @@ export async function loadInst<N extends string, S, A>(
 
 // Asset
 
-export const assetDirpath = (name: string, id: string): string =>
-  path.join(instDirpath(name, id), "asset");
+export const assetDirpath = (specName: string, instId: string): string =>
+  path.join(instDirpath(specName, instId), "asset");
 
-export const assetFilepath = (name: string, id: string, filename: string) =>
-  path.join(assetDirpath(name, id), filename);
+export async function getAssetFilenames(
+  specName: string,
+  instId: string,
+  ext: string,
+): Promise<string[]> {
+  return (await fs.readdir(assetDirpath(specName, instId))).filter(
+    (filename) => path.extname(filename) === ext,
+  );
+}
+
+export const assetFilepath = (
+  specName: string,
+  instId: string,
+  filename: string,
+) => path.join(assetDirpath(specName, instId), filename);
 
 export async function saveAsset(
-  name: string,
-  id: string,
+  specName: string,
+  instId: string,
   filename: string,
   content:
     | string
@@ -118,20 +143,20 @@ export async function saveAsset(
     | Stream,
   encoding: BufferEncoding,
 ): Promise<void> {
-  await fs.mkdir(assetDirpath(name, id), { recursive: true });
-  await fs.writeFile(assetFilepath(name, id, filename), content, {
+  await fs.mkdir(assetDirpath(specName, instId), { recursive: true });
+  await fs.writeFile(assetFilepath(specName, instId, filename), content, {
     encoding,
   });
 }
 
 export async function loadAsset(
-  name: string,
-  id: string,
+  specName: string,
+  instId: string,
   filename: string,
   encoding: BufferEncoding,
 ): Promise<string | undefined> {
   try {
-    return await fs.readFile(assetFilepath(name, id, filename), {
+    return await fs.readFile(assetFilepath(specName, instId, filename), {
       encoding,
     });
   } catch {

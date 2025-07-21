@@ -1,0 +1,228 @@
+/*
+  Blueprint: SimpleClient CSS Module
+
+  **Theme:** Minimalist, Flat, Geometrical
+
+  **Core Principles:**
+  - **Clarity and Focus:** The layout should be clean and uncluttered, guiding the user's attention to the primary content area.
+  - **Geometric Foundation:** All elements will be based on simple geometric shapes, primarily rectangles. Corners will be sharp and precise.
+  - **Flat Design:** No gradients or realistic shadows. Depth will be conveyed through layering and subtle color shifts, not skeuomorphism.
+  - **Limited Color Palette:** A monochrome base with a single accent color for interactive elements to create a sophisticated and focused aesthetic.
+  - **Typography:** A clean, sans-serif font will be used for readability. A monospaced font will be used for logs and IDs to ensure alignment and clarity.
+  - **Passive & Active Animation:**
+    - State transitions (e.g., from "Loading" to "Loaded") will be handled with smooth opacity fades.
+    - User interactions (button clicks, hovers) will trigger subtle, non-intrusive animations like slight color shifts or scaling.
+    - The overall feel should be responsive and fluid, but calm and professional.
+
+  **Layout Structure (based on SimpleClient.tsx):**
+  - `.SimpleClient` (Main Container): A three-column grid layout.
+    1. Left Column: `.controls` for loading saved instances.
+    2. Center Column: `.content` for the main application state (New, Initializing, Loading, Loaded).
+    3. Right Column: `.logs` for displaying logs.
+  - `.Loaded` (Active State): A two-column flex layout.
+    1. Left Column: `.sidebar` containing controls and the turns list.
+    2. Right Column: The main `View` component.
+
+  **Component Styling Notes:**
+  - **Buttons (`.button`):** Will be simple rectangles with a solid background. Hover and active states will have a distinct but minimal visual change.
+  - **Panels (`.controls`, `.sidebar`, `.logs`):** Will have a slightly different background color from the main page to create a sense of layered panes.
+  - **State Indicators (`.Initializing`, `.Loading`):** Will be centered text with a subtle pulsing animation to indicate an active process.
+  - **Turns List (`.turns`):** A scrollable list with clean separation between items.
+*/
+
+:root {
+    /* Colors */
+    --color-background: #f0f2f5; /* A very light grey for the main background */
+    --color-panel-background: #ffffff; /* White for side panels and content areas */
+    --color-border: #d9d9d9; /* A light grey for borders and dividers */
+    --color-text-primary: #262626; /* Dark grey for primary text */
+    --color-text-secondary: #8c8c8c; /* Lighter grey for secondary text or placeholders */
+    --color-accent: #096dd9; /* A strong blue for buttons and interactive elements */
+    --color-accent-hover: #0050b3; /* A darker blue for hover states */
+    --color-log-background: #fafafa; /* A slightly off-white for the log area */
+
+    /* Typography */
+    --font-primary:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+        Arial, sans-serif;
+    --font-mono:
+        "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+
+    /* Spacing & Sizing */
+    --spacing-unit: 8px;
+    --sidebar-width: 320px;
+    --controls-width: 240px;
+    --logs-width: 280px;
+
+    /* Borders & Shadows */
+    --border-radius: 4px; /* A very slight radius for softness, but still geometric */
+    --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+    /* Transitions */
+    --transition-speed: 0.2s;
+}
+
+/* Main Layout Container */
+.SimpleClient {
+    flex: 1 1 0;
+    height: 0;
+
+    display: grid;
+    grid-template-columns: var(--controls-width) 1fr var(--logs-width);
+    width: 100$;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    font-family: var(--font-primary);
+    gap: calc(var(--spacing-unit) * 2);
+    padding: calc(var(--spacing-unit) * 2);
+    box-sizing: border-box;
+}
+
+/* General Controls & Logs Panels */
+.controls {
+    flex: 0 0 auto;
+    background-color: var(--color-panel-background);
+    border-radius: var(--border-radius);
+    padding: calc(var(--spacing-unit) * 2);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-unit);
+}
+
+.logs {
+    background-color: var(--color-panel-background);
+    border-radius: var(--border-radius);
+    padding: calc(var(--spacing-unit) * 2);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-unit);
+    overflow-y: auto;
+}
+
+.sectionTitle {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-unit);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-unit);
+}
+
+/* Main Content Area */
+.content {
+    background-color: var(--color-panel-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Ensures children like .Loaded fill correctly */
+}
+
+/* Generic Button Style */
+.button {
+    flex: 0 0 auto;
+
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 1.5);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    text-align: left;
+    transition:
+        background-color var(--transition-speed) ease,
+        transform var(--transition-speed) ease;
+}
+
+.button:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.button:active {
+    transform: scale(0.98);
+}
+
+/* State-Specific Styles */
+.New,
+.Initializing,
+.Loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--color-text-secondary);
+    font-size: 1.2em;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Loaded State Layout */
+.Loaded {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    animation: fadeIn 0.5s ease;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    background-color: var(
+        --color-background
+    ); /* Slightly different to stand out */
+    border-right: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    padding: calc(var(--spacing-unit) * 2);
+    box-sizing: border-box;
+}
+
+.sidebar .controls {
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.turns {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: var(--spacing-unit); /* For scrollbar */
+}
+
+/* Invisible element to ensure smooth scrolling to the bottom */
+.turnsBottom {
+    height: 1px;
+}
+
+/* Log Styles */
+.logs {
+    background-color: var(--color-log-background);
+}
+
+.log {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    color: var(--color-text-secondary);
+    padding: calc(var(--spacing-unit) / 2) var(--spacing-unit);
+    border-radius: var(--border-radius);
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.log:nth-child(odd) {
+    background-color: #f0f0f0;
+}

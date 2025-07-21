@@ -39,6 +39,8 @@ export type SpecClient<N extends string, P extends SpecParams, S, V, A> = {
   // callbacks
   initialize: (params: P["initialization"]) => Promise<void>;
   loadInst: (id: string) => Promise<void>;
+  saveInst: () => Promise<void>;
+  getInstIds: () => Promise<string[]>;
   getInst: () => Promise<InstClient<S, V, A> | undefined>;
 } & SpecCommon<N>;
 
@@ -47,7 +49,7 @@ export type SpecClient<N extends string, P extends SpecParams, S, V, A> = {
 // -----------------------------------------------------------------------------
 
 export type Inst<N extends string, S, A> = {
-  name: N;
+  specName: N;
   metadata: InstMetadata;
   initialState: S;
   state: S;

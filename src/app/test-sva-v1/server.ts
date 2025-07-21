@@ -1,6 +1,6 @@
 "use server";
 
-import { fromNever, stringify } from "@/utility";
+import { err, fromNever, Result, stringify } from "@/utility";
 import { Inst, InstClient, SpecServer } from "../library/sva/ontology";
 import * as server from "../library/sva/server";
 import * as common from "./common";
@@ -37,6 +37,7 @@ const spec: SpecServer<N, P, S, V, A> = {
         break;
       }
       case "set counter": {
+        console.log("set counter", action.counter);
         state.counter = action.counter;
         break;
       }
@@ -63,8 +64,19 @@ export async function initialize(params: P["initialization"]): Promise<void> {
   inst = await server.initialize(spec, params);
 }
 
-export async function act(params: P["action"]) {
-  if (inst === undefined) return;
+export async function act(
+  params: P["action"],
+): Promise<Result<{ message: string }, {}>> {
+  if (inst === undefined) return err({ message: "inst === unhdefined" });
   const result = await server.runPrompt(spec, inst, params);
   return result;
+}
+
+export async function saveInst() {
+  if (inst === undefined) return;
+  await server.saveInst(inst);
+}
+
+export async function getInstIds() {
+  return await server.getInstIds(name);
 }
