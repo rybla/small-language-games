@@ -33,14 +33,14 @@ export type SpecClient<N extends string, P extends SpecParams, S, V, A> = {
   ViewComponent: (props: { view: V }) => ReactNode;
   PromptActionComponent: (props: {
     view: V;
-    set_inst: (inst: InstClient<S, V, A>) => void;
+    update: () => Promise<void>;
   }) => ReactNode;
   TurnComponent: (props: { turn: Omit<Turn<S, A>, "state"> }) => ReactNode;
   // callbacks
   initialize: (params: P["initialization"]) => Promise<void>;
   loadInst: (id: string) => Promise<void>;
-  saveInst: () => Promise<void>;
-  getInstIds: () => Promise<string[]>;
+  saveInst: (name?: string) => Promise<void>;
+  getInstMetadatas: () => Promise<InstMetadata[]>;
   getInst: () => Promise<InstClient<S, V, A> | undefined>;
 } & SpecCommon<N>;
 
@@ -58,6 +58,7 @@ export type Inst<N extends string, S, A> = {
 
 export type InstMetadata = {
   id: string;
+  name: string;
   creationDate: number;
 };
 
@@ -68,6 +69,7 @@ export type Turn<S, A> = {
 };
 
 export type InstClient<S, V, A> = {
+  metadata: InstMetadata;
   view: V;
   turns: Turn<S, A>[];
 };

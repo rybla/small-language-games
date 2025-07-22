@@ -1,19 +1,17 @@
-import { do_, fromNever } from "@/utility";
+import { formatDate, fromNever, intercalate } from "@/utility";
 import { useEffect, useRef, useState } from "react";
-import {
+import type {
+  InstClient,
   InstMetadata,
-  type InstClient,
-  type SpecClient,
-  type SpecParams,
-  type Turn,
+  SpecClient,
+  SpecParams,
 } from "../../ontology";
 import styles from "./SimpleClient.module.css";
 
-type State<S, V, A> =
-  | { type: "New" }
-  | { type: "Initializing" }
-  | { type: "Loading"; id: string }
-  | { type: "Loaded"; inst: InstClient<S, V, A> };
+type InstStatus<S, V, A> =
+  | { type: "none" }
+  | { type: "loading"; instMetadata: InstMetadata }
+  | { type: "loaded"; inst: InstClient<S, V, A> };
 
 export default function SimpleClient<
   N extends string,
@@ -21,158 +19,183 @@ export default function SimpleClient<
   S,
   V,
   A,
->(props: { spec: SpecClient<N, P, S, V, A> }) {
-  const [state, set_state] = useState<State<S, V, A>>({ type: "New" });
-  const [instIds, set_instIds] = useState<string[]>([]);
+>({ spec }: { spec: SpecClient<N, P, S, V, A> }) {
+  const [instMetadatas, set_instMetadatas] = useState<InstMetadata[]>([]);
   const [logs, set_logs] = useState<string[]>([]);
+  const [isShownPopupNew, set_isShownPopupNew] = useState(false);
+  const [instStatus, set_instStatus] = useState<InstStatus<S, V, A>>({
+    type: "none",
+  });
+  const turnsBottom_ref = useRef<HTMLDivElement>(null);
+  const logsBottom_ref = useRef<HTMLDivElement>(null);
+  const inputName_ref = useRef<HTMLInputElement>(null);
 
-  async function update_instIds() {
-    set_instIds(await props.spec.getInstIds());
+  async function updateInst() {
+    set_logs((logs) => [...logs, `[updateInst]`]);
+    await spec.saveInst();
+    const inst = await spec.getInst();
+    if (inst === undefined) {
+      set_instStatus({ type: "none" });
+      set_logs((logs) => [...logs, `[updateInst] failed to get inst`]);
+      return;
+    }
+    set_instStatus({ type: "loaded", inst });
+  }
+
+  async function loadInst(id: string): Promise<void> {
+    set_logs((logs) => [...logs, `[loadInst] id = ${id}`]);
+    await spec.loadInst(id);
+    await updateInst();
   }
 
   useEffect(
     () => {
-      void update_instIds();
+      if (instStatus.type === "loading") {
+        void loadInst(instStatus.instMetadata.id);
+      }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [props.spec],
+    [spec, instStatus],
   );
 
-  function New({
-    state,
-    set_state,
-    set_logs,
-  }: {
-    state: State<S, V, A> & { type: "New" };
-    set_state: (state: State<S, V, A>) => void;
-    set_logs: (k: (logs: string[]) => string[]) => void;
-  }) {
-    const Prompt = props.spec.PromptInitializationComponent;
-    return (
-      <div className={styles.New}>
-        <Prompt
-          submit={async (params: P["initialization"]) => {
-            set_state({ type: "Initializing" });
-            await props.spec.initialize(params);
-            const inst = await props.spec.getInst();
-            if (inst === undefined) {
-              set_logs((logs) => [
-                ...logs,
-                "[New.Prompt.submit] await spec.getInst() ==> undefined",
-              ]);
-              return;
-            }
-            set_state({ type: "Loaded", inst });
+  async function update_instMetadatas() {
+    set_logs((logs) => [...logs, `[update_instMetadatas]`]);
+    set_instMetadatas(await spec.getInstMetadatas());
+  }
+
+  useEffect(
+    () => {
+      void update_instMetadatas();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [spec],
+  );
+
+  async function submitPrompt(params: P["initialization"]) {
+    set_logs((logs) => [...logs, `[submitPrompt]`]);
+    await spec.initialize(params);
+    await update_instMetadatas();
+    await updateInst();
+  }
+
+  useEffect(() => {
+    if (turnsBottom_ref.current === null) return;
+    turnsBottom_ref.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  }, [instStatus]);
+
+  useEffect(() => {
+    if (logsBottom_ref.current === null) return;
+    logsBottom_ref.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  });
+
+  async function setInstName(name: string): Promise<void> {
+    set_logs((logs) => [...logs, `[setInstName]`]);
+    await spec.saveInst(name);
+    await update_instMetadatas();
+  }
+
+  const PromptInitialization = spec.PromptInitializationComponent;
+  const View = spec.ViewComponent;
+  const PromptAction = spec.PromptActionComponent;
+  const Turn = spec.TurnComponent;
+  return (
+    <div className={styles.SimpleClient}>
+      <div
+        className={[
+          styles.popup,
+          styles.New,
+          isShownPopupNew ? styles.shown : styles.hidden,
+        ].join(" ")}
+      >
+        <div className={styles.toolbar}>
+          <div className={styles.title}>New</div>
+          <button
+            className={styles.button}
+            onClick={() => set_isShownPopupNew(false)}
+          >
+            Cancel
+          </button>
+        </div>
+        <PromptInitialization
+          submit={async (params) => {
+            await submitPrompt(params);
+            set_isShownPopupNew(false);
           }}
         />
       </div>
-    );
-  }
-
-  function Initializing<N extends string, P extends SpecParams, S, V, A>({
-    state,
-  }: {
-    state: State<S, V, A> & { type: "Initializing" };
-  }) {
-    return <div className={styles.Initializing}>{"Initializing..."}</div>;
-  }
-
-  function Loading({ state }: { state: State<S, V, A> & { type: "Loading" } }) {
-    return <div className={styles.Loading}>{"Loading..."}</div>;
-  }
-
-  function Loaded({ state }: { state: State<S, V, A> & { type: "Loaded" } }) {
-    const [inst, set_inst] = useState<InstClient<S, V, A>>(state.inst);
-    const turnsBottom_ref = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-      turnsBottom_ref.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-      });
-    }, [inst]);
-
-    const View = props.spec.ViewComponent;
-    const PromptAction = props.spec.PromptActionComponent;
-    const Turn = props.spec.TurnComponent;
-    return (
-      <div className={styles.Loaded}>
-        <div className={styles.sidebar}>
-          <div className={styles.controls}>
+      <div className={styles.sidebar}>
+        <div className={styles.sectionTitle}>New</div>
+        <button
+          className={styles.button}
+          onClick={() => set_isShownPopupNew(true)}
+        >
+          New
+        </button>
+        <div className={styles.sectionTitle}>Load</div>
+        {instMetadatas.map((instMetadata, i) => (
+          <div className={styles.item_load} key={i}>
+            <div className={styles.date}>
+              {formatDate(new Date(instMetadata.creationDate))
+                .split(" ")
+                .map((s, i) => (
+                  <div key={i}>{s}</div>
+                ))}
+            </div>
             <button
               className={styles.button}
-              onClick={() =>
-                void do_(async () => {
-                  await props.spec.saveInst();
-                  await update_instIds();
-                  set_state({ type: "New" });
-                })
-              }
+              key={i}
+              onClick={() => set_instStatus({ type: "loading", instMetadata })}
             >
-              Save
+              {instMetadata.name ?? instMetadata.id}
             </button>
           </div>
-          <div className={styles.turns}>
-            {inst.turns.map((turn, i) => (
-              <Turn turn={turn} key={i} />
-            ))}
-            <div className={styles.turnsBottom} ref={turnsBottom_ref} />
-          </div>
-          <PromptAction view={inst.view} set_inst={(inst) => set_inst(inst)} />
-        </div>
-        <View view={inst.view} />
-      </div>
-    );
-  }
-
-  return (
-    <div className={styles.SimpleClient}>
-      <div className={styles.controls}>
-        <div className={styles.sectionTitle}>Load</div>
-        {instIds.map((id, i) => (
-          <button
-            className={styles.button}
-            key={i}
-            onClick={() =>
-              void do_(async () => {
-                set_state({ type: "Loading", id });
-                await props.spec.loadInst(id);
-                const inst = await props.spec.getInst();
-                if (inst === undefined) {
-                  set_state({ type: "New" });
-                  set_logs((logs) => [
-                    ...logs,
-                    `[load] Failed to load instance: "${id}"`,
-                  ]);
-                  return;
-                }
-                set_state({ type: "Loaded", inst });
-              })
-            }
-          >
-            {id}
-          </button>
         ))}
       </div>
-      <div className={styles.content}>
-        {state.type === "New" ? (
-          <New state={state} set_state={set_state} set_logs={set_logs} />
-        ) : state.type === "Initializing" ? (
-          <Initializing state={state} />
-        ) : state.type === "Loading" ? (
-          <Loading state={state} />
-        ) : state.type === "Loaded" ? (
-          <Loaded state={state} />
-        ) : (
-          fromNever(state)
-        )}
-      </div>
+      {instStatus.type === "none" ? (
+        <></>
+      ) : instStatus.type === "loading" ? (
+        <></>
+      ) : instStatus.type === "loaded" ? (
+        <div className={styles.view}>
+          <div className={styles.sidebar}>
+            <div className={styles.metadata}>
+              <input
+                className={styles.inputName}
+                ref={inputName_ref}
+                defaultValue={instStatus.inst.metadata.name}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    void setInstName(e.currentTarget.value);
+                  }
+                }}
+              />
+            </div>
+            <div className={styles.turns}>
+              {instStatus.inst.turns.map((turn, i) => (
+                <Turn turn={turn} key={i} />
+              ))}
+              <div className={styles.turnsBottom} ref={turnsBottom_ref} />
+            </div>
+            <PromptAction view={instStatus.inst.view} update={updateInst} />
+          </div>
+          <View view={instStatus.inst.view} />
+        </div>
+      ) : (
+        fromNever(instStatus)
+      )}
       <div className={styles.logs}>
         {logs.map((log, index) => (
           <div className={styles.log} key={index}>
             {log}
           </div>
         ))}
+        <div className={styles.logsBottom} ref={logsBottom_ref} />
       </div>
     </div>
   );

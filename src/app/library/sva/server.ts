@@ -3,7 +3,14 @@ import { randomUUID } from "crypto";
 import * as fs from "fs/promises";
 import path from "path";
 import Stream from "stream";
-import { Inst, InstClient, SpecParams, SpecServer, Turn } from "./ontology";
+import {
+  Inst,
+  InstClient,
+  InstMetadata,
+  SpecParams,
+  SpecServer,
+  Turn,
+} from "./ontology";
 
 export async function initialize<
   N extends string,
@@ -16,10 +23,12 @@ export async function initialize<
   params: P["initialization"],
 ): Promise<Inst<N, S, A>> {
   const initialState = await spec.initializeState(params);
+  const id = randomUUID();
   return {
     specName: spec.name,
     metadata: {
-      id: randomUUID(),
+      id,
+      name: id,
       creationDate: Date.now(),
     },
     initialState,
@@ -60,6 +69,7 @@ export function toInstClient<N extends string, P extends SpecParams, S, V, A>(
   inst: Inst<N, S, A>,
 ): InstClient<S, V, A> {
   return {
+    metadata: inst.metadata,
     view: spec.view(inst.state),
     turns: inst.turns,
   };
@@ -76,6 +86,16 @@ export async function getInstIds(specName: string): Promise<string[]> {
   );
 }
 
+export async function getInstMetadatas(
+  specName: string,
+): Promise<InstMetadata[]> {
+  return (
+    await Promise.all(
+      (await getInstIds(specName)).map((id) => loadInstMetadata(specName, id)),
+    )
+  ).filter((result) => result !== undefined);
+}
+
 // Inst
 
 export const instDirpath = (specName: string, instId: string) =>
@@ -83,6 +103,9 @@ export const instDirpath = (specName: string, instId: string) =>
 
 export const instFilepath = (specName: string, instId: string) =>
   path.join(instDirpath(specName, instId), "inst.json");
+
+export const instMetadataFilepath = (specName: string, instId: string) =>
+  path.join(instDirpath(specName, instId), "inst_metadata.json");
 
 export async function saveInst<N extends string, P extends SpecParams, S, V, A>(
   inst: Inst<N, S, A>,
@@ -95,6 +118,11 @@ export async function saveInst<N extends string, P extends SpecParams, S, V, A>(
     stringify(inst),
     "utf8",
   );
+  await fs.writeFile(
+    instMetadataFilepath(inst.specName, inst.metadata.id),
+    stringify(inst.metadata),
+    "utf8",
+  );
 }
 
 export async function loadInst<N extends string, S, A>(
@@ -104,6 +132,19 @@ export async function loadInst<N extends string, S, A>(
   try {
     return JSON.parse(
       await fs.readFile(instFilepath(specName, instId), "utf8"),
+    );
+  } catch {
+    return undefined;
+  }
+}
+
+export async function loadInstMetadata(
+  specName: string,
+  instId: string,
+): Promise<InstMetadata | undefined> {
+  try {
+    return JSON.parse(
+      await fs.readFile(instMetadataFilepath(specName, instId), "utf8"),
     );
   } catch {
     return undefined;

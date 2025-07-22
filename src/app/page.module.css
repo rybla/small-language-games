@@ -1,2 +1,198 @@
+/*
+================================================================================
+  CSS Blueprint: Fluid Rainbow
+================================================================================
+  Designer: NextJS CSS
+  Date: 2024-07-21
+
+  --- Philosophy ---
+  This design embodies a "less is more" minimalist approach, creating a
+  clean, uncluttered canvas. The core theme is "Fluid Rainbow," which
+  combines a dark, flat, and sharp-edged UI with dynamic, eye-catching
+  rainbow accents on interactive elements. The "fluid material" concept is
+  realized through a subtle, perpetually moving gradient background, giving
+  the page a sense of life without being distracting.
+
+  --- Core Concepts ---
+  1.  **Flat & Minimalist:** The UI is intentionally sparse. There are no
+      unnecessary borders, gradients (on static elements), or embellishments.
+      The focus is purely on the content.
+
+  2.  **Sharp Corners:** As requested, all elements will have a border-radius
+      of 0, creating a crisp, geometric, and modern aesthetic.
+
+  3.  **Fluid Material Background:** The main background is not static. It uses
+      a large, slow-moving, dark linear gradient that shifts over time. This
+      creates a subtle, premium feel, like looking at the surface of a dark,
+      viscous liquid.
+
+  4.  **Rainbow Accents:** The "wow" factor comes from interaction. When a user
+      hovers over a link, it triggers an animated, vibrant rainbow box-shadow.
+      This provides a stark, beautiful contrast to the otherwise monochromatic
+      design and serves as a clear, rewarding feedback mechanism for user
+      interaction.
+
+  --- Color & Typography ---
+  -   **Palette:** A primarily dark theme (near-black backgrounds) is used to
+      make the text highly legible and to ensure the rainbow accents are as
+      vibrant as possible.
+  -   **Font:** A clean, system-based sans-serif font is used for maximum
+      readability and performance, avoiding the need for external font loading.
+
+  --- Animation Principles ---
+  -   **Background:** The background animation is intentionally slow and smooth
+      to be non-distracting.
+  -   **Interaction:** Link hover effects are quick but smooth, using CSS
+      transitions to ease into the animated state. The rainbow glow itself is
+      a continuous, looping animation that activates on hover.
+
+================================================================================
+*/
+
+/* --- Root Variables: Customize your theme here --- */
+:root {
+    --background-start-rgb: 3, 0, 20;
+    --background-end-rgb: 25, 0, 35;
+    --text-color: #e0e0e0;
+    --accent-color: #a0a0a0;
+    --link-background-color: rgba(255, 255, 255, 0.05);
+    --font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+        sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    --spacing-unit: 1rem;
+}
+
+/* --- Keyframe Animations --- */
+
+/* Animation for the fluid background gradient */
+@keyframes fluid-background {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Animation for the rainbow box-shadow on links */
+@keyframes rainbow-glow {
+    0% {
+        box-shadow:
+            0 0 4px #ff0000,
+            0 0 6px #ff7f00;
+    }
+    15% {
+        box-shadow:
+            0 0 4px #ff7f00,
+            0 0 6px #ffff00;
+    }
+    30% {
+        box-shadow:
+            0 0 4px #ffff00,
+            0 0 6px #00ff00;
+    }
+    45% {
+        box-shadow:
+            0 0 4px #00ff00,
+            0 0 6px #0000ff;
+    }
+    60% {
+        box-shadow:
+            0 0 4px #0000ff,
+            0 0 6px #4b0082;
+    }
+    75% {
+        box-shadow:
+            0 0 4px #4b0082,
+            0 0 6px #9400d3;
+    }
+    100% {
+        box-shadow:
+            0 0 4px #9400d3,
+            0 0 6px #ff0000;
+    }
+}
+
+/* --- Main Layout & Global Styles --- */
+
+.main {
+    flex: 1 1 0;
+    min-height: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: calc(var(--spacing-unit) * 2);
+    font-family: var(--font-family);
+
+    /* The Fluid Material Background */
+    background: linear-gradient(
+        135deg,
+        rgb(var(--background-start-rgb)),
+        rgb(var(--background-end-rgb))
+    );
+    background-size: 400% 400%;
+    animation: fluid-background 20s ease infinite;
+}
+
+/* --- Content Container & List Styles --- */
+
 .links {
+    width: 100%;
+    max-width: 600px;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: calc(var(--spacing-unit) * 2);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.links ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.links li {
+    margin-bottom: var(--spacing-unit);
+}
+
+/* --- Section & Link Specific Styles --- */
+
+.sectionTitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    margin-top: calc(var(--spacing-unit) * 2);
+    margin-bottom: var(--spacing-unit);
+    padding-bottom: calc(var(--spacing-unit) / 4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* First section title doesn't need a top margin */
+.links ul > .sectionTitle:first-child {
+    margin-top: 0;
+}
+
+/* Style the anchor tag directly for hover effects */
+.links li > a {
+    display: block;
+    padding: var(--spacing-unit);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 0.5em;
+    background-color: var(--link-background-color);
+    transition:
+        transform 0.2s ease-out,
+        background-color 0.2s ease-out;
+}
+
+/* The main interactive effect */
+.links li > a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(10px);
+    animation: rainbow-glow 2s linear infinite;
 }

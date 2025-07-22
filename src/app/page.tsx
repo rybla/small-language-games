@@ -3,22 +3,24 @@ import styles from "./page.module.css";
 
 export default function Page() {
   return (
-    <>
-      <div className={styles["links"]}>
+    <main className={styles.main}>
+      <div className={styles.links}>
         <ul>
-          <li>
-            <Link href="/test">test</Link>
-          </li>
+          <div className={styles.sectionTitle}>Games</div>
           <li>
             <Link href="/text-adventure-v1">text-adventure-v1</Link>
           </li>
           <li>
             <Link href="/text-adventure-v2">text-adventure-v2</Link>
           </li>
+          <div className={styles.sectionTitle}>Tools</div>
           <li>
             <Link href="/text-to-ui">text-to-ui</Link>
           </li>
-          <hr />
+          <div className={styles.sectionTitle}>Tests</div>
+          <li>
+            <Link href="/test">test</Link>
+          </li>
           <li>
             <Link href="/test-streaming">test-streaming</Link>
           </li>
@@ -27,6 +29,6 @@ export default function Page() {
           </li>
         </ul>
       </div>
-    </>
+    </main>
   );
 }

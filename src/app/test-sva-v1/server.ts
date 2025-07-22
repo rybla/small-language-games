@@ -72,11 +72,12 @@ export async function act(
   return result;
 }
 
-export async function saveInst() {
+export async function saveInst(name?: string) {
   if (inst === undefined) return;
+  if (name) inst.metadata.name = name;
   await server.saveInst(inst);
 }
 
-export async function getInstIds() {
-  return await server.getInstIds(name);
+export async function getInstMetadatas() {
+  return await server.getInstMetadatas(name);
 }

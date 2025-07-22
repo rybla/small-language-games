@@ -39,7 +39,7 @@ const spec: SpecClient<N, P, S, V, A> = {
               if (isErr(result)) return;
               const inst = await server.getInst();
               if (inst === undefined) return;
-              props.set_inst(inst);
+              props.update(inst);
             })
           }
         >
@@ -76,16 +76,16 @@ const spec: SpecClient<N, P, S, V, A> = {
     return await server.initialize(params);
   },
   async loadInst(id) {
-    await server.loadInst(id);
+    return await server.loadInst(id);
   },
   async getInst() {
     return await server.getInst();
   },
-  async saveInst() {
-    return await server.saveInst();
+  async saveInst(name) {
+    return await server.saveInst(name);
   },
-  async getInstIds() {
-    return await server.getInstIds();
+  async getInstMetadatas() {
+    return await server.getInstMetadatas();
   },
 };
 
