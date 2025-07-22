@@ -1,0 +1,19 @@
+{
+    "specName": "test-sva-v1",
+    "metadata": {
+        "id": "315f9888-024e-4816-a531-e756cc491a2e",
+        "name": "this is a brand new test",
+        "creationDate": 1753159188232
+    },
+    "initialState": {
+        "counter": "counter1",
+        "counter1": 0,
+        "counter2": 0
+    },
+    "state": {
+        "counter": "counter1",
+        "counter1": 0,
+        "counter2": 0
+    },
+    "turns": []
+}

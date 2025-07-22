@@ -11,9 +11,250 @@
         "counter2": 0
     },
     "state": {
-        "counter": "counter1",
+        "counter": "counter2",
         "counter1": 0,
-        "counter2": 0
+        "counter2": 17
     },
-    "turns": []
+    "turns": [
+        {
+            "state": {
+                "counter": "counter1",
+                "counter1": 0,
+                "counter2": 0
+            },
+            "action": {
+                "type": "set counter",
+                "counter": "counter1"
+            },
+            "description": "{\n    \"type\": \"set counter\",\n    \"counter\": \"counter1\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 0
+            },
+            "action": {
+                "type": "set counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"set counter\",\n    \"counter\": \"counter2\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 1
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 2
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 3
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 4
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 5
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 6
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 7
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 8
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 9
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 10
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 11
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 12
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 13
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 13
+            },
+            "action": {
+                "type": "set counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"set counter\",\n    \"counter\": \"counter2\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 14
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 15
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 16
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter2",
+                "counter1": 0,
+                "counter2": 17
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter2"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        }
+    ]
 }

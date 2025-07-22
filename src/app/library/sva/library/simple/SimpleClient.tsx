@@ -40,6 +40,9 @@ export default function SimpleClient<
       return;
     }
     set_instStatus({ type: "loaded", inst });
+    if (inputName_ref.current !== null) {
+      inputName_ref.current.value = inst.metadata.name;
+    }
   }
 
   async function loadInst(id: string): Promise<void> {
@@ -71,7 +74,7 @@ export default function SimpleClient<
     [spec],
   );
 
-  async function submitPrompt(params: P["initialization"]) {
+  async function submitPromptInitialization(params: P["initialization"]) {
     set_logs((logs) => [...logs, `[submitPrompt]`]);
     await spec.initialize(params);
     await update_instMetadatas();
@@ -124,7 +127,7 @@ export default function SimpleClient<
         </div>
         <PromptInitialization
           submit={async (params) => {
-            await submitPrompt(params);
+            await submitPromptInitialization(params);
             set_isShownPopupNew(false);
           }}
         />

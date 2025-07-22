@@ -37,9 +37,7 @@ const spec: SpecClient<N, P, S, V, A> = {
             void do_(async () => {
               const result = await server.act(p);
               if (isErr(result)) return;
-              const inst = await server.getInst();
-              if (inst === undefined) return;
-              props.update(inst);
+              props.update();
             })
           }
         >
