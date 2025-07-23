@@ -1,0 +1,104 @@
+{
+    "specName": "test-sva-v1",
+    "metadata": {
+        "id": "02a0127f-8594-45b9-a084-c54b611476a5",
+        "name": "02a0127f-8594-45b9-a084-c54b611476a5",
+        "creationDate": 1753235145091
+    },
+    "initialState": {
+        "counter": "counter1",
+        "counter1": 0,
+        "counter2": 0
+    },
+    "state": {
+        "counter": "counter1",
+        "counter1": 6,
+        "counter2": 0
+    },
+    "turns": [
+        {
+            "state": {
+                "counter": "counter1",
+                "counter1": 0,
+                "counter2": 0
+            },
+            "action": {
+                "type": "set counter",
+                "counter": "counter1"
+            },
+            "description": "{\n    \"type\": \"set counter\",\n    \"counter\": \"counter1\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter1",
+                "counter1": 1,
+                "counter2": 0
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter1"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter1",
+                "counter1": 2,
+                "counter2": 0
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter1"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter1",
+                "counter1": 3,
+                "counter2": 0
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter1"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter1",
+                "counter1": 4,
+                "counter2": 0
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter1"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter1",
+                "counter1": 5,
+                "counter2": 0
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter1"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        },
+        {
+            "state": {
+                "counter": "counter1",
+                "counter1": 6,
+                "counter2": 0
+            },
+            "action": {
+                "type": "increment counter",
+                "counter": "counter1"
+            },
+            "description": "{\n    \"type\": \"increment this counter\"\n}"
+        }
+    ]
+}

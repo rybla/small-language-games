@@ -1,171 +1,243 @@
 /*
- * === CSS Blueprint: Minimalist Black & White ===
+ * =================================================================
+ * ==                    DESIGN BLUEPRINT:                        ==
+ * ==                      "AURORA GLASS"                         ==
+ * =================================================================
  *
- * Design Philosophy:
- * This stylesheet implements a clean, minimalist, and flat design language. The core
- * principles are clarity, simplicity, and a strong emphasis on typography and negative
- * space. The aesthetic is strictly black and white, avoiding grays or other colors
- * to create a stark, high-contrast, and focused user interface.
  *
- * The layout is structured and predictable, using flexbox for alignment and consistent
- * spacing units for a harmonious rhythm throughout the component hierarchy.
+ * --- CORE CONCEPT ---
+ * "Aurora Glass" is a design system that blends minimalism with
+ * vibrant, ethereal aesthetics. The core idea is to simulate
+ * components made of frosted, fluid glass, through which a soft,
+ * shifting aurora of colors is visible. This creates a look that
+ * is clean, modern, and subtly dynamic.
  *
- * Interactivity & Animations:
- * User interactions are met with subtle and immediate feedback. There are no complex
- * or lengthy animations. Instead, simple transitions on properties like color and
- * background-color provide a responsive feel without distracting from the content.
- * The goal is to make the interface feel alive but professional and uncluttered.
+ * --- LAYOUT & SPACING ---
+ * The layout is governed by a central column, using flexbox to
+ * center content both vertically and horizontally. A consistent
+ * spacing unit (`--spacing-unit`) ensures rhythmic and balanced
+ * negative space, preventing visual clutter and guiding the user's
+ * focus to interactive elements.
  *
- * Typography:
- * A modern, clean, sans-serif font is used for maximum readability. Font weights and
- * sizes are used to establish a clear visual hierarchy between different pieces of
- * information (e.g., names, values, descriptions).
+ * --- COLOR & TYPOGRAPHY ---
+ * - Palette: A deeply desaturated, dark background (`--background-color`)
+ * serves as a canvas, allowing the vibrant rainbow accents to
+ * stand out dramatically. Component backgrounds (`--component-bg`)
+ * are semi-transparent and blurred to achieve the glass effect.
+ * Text is rendered in a soft, off-white (`--text-color`) for
+ * optimal readability against the dark, blurred backdrops.
+ * - Typography: The 'Inter' font family is chosen for its clean,
+ * neutral, and highly legible letterforms, which complement the
+ * minimalist aesthetic. Font weights and sizes are used to
+ * establish a clear visual hierarchy.
  *
- * Component Styling Notes:
- * - Containers (.View, .Turn): Styled as distinct "cards" with clean borders and
- * padding to visually group related content.
- * - Interactive Elements (.button): Designed for clear affordance. They have a
- * default "outlined" look and invert colors on hover for unambiguous feedback.
- * - Text Elements (.name, .value, .action, .description): Styled for clarity, with
- * font variations to differentiate their purpose.
+ * --- MATERIALS & EFFECTS ---
+ * - Glassmorphism: The "fluid material" effect is achieved using
+ * the `backdrop-filter: blur()` property, combined with a
+ * semi-transparent background and a delicate 1px border. This
+ * creates the illusion of a frosted glass pane that distorts the
+ * background behind it.
+ * - Rainbow Accents: The signature "rainbow accent" is implemented
+ * as an animated `box-shadow` on interactive elements like buttons.
+ * A custom `@keyframes` animation (`rainbow-glow`) continuously
+ * rotates the hue of the shadow, producing a mesmerizing, passive
+ *_  aurora effect. This glow intensifies on hover, providing clear
+ * visual feedback.
+ *
+ * --- ANIMATION & TRANSITION ---
+ * All state changes (hover, active) are smoothed with a consistent
+ * transition duration (`--transition-speed`) and an `ease-in-out`
+ * timing function. This ensures all interactions feel fluid and
+ * responsive, rather than abrupt. The primary passive animation is
+ * the slow, continuous `rainbow-glow`, which makes the UI feel
+ * alive even when idle.
  *
  */
 
-/* === Root Variables: Theming & Configuration === */
+/* --- Root Variables for Theming --- */
 :root {
-    /* Colors */
-    --background-color: #ffffff;
-    --text-color: #000000;
-    --border-color: #eeeeee;
-    --interactive-border-color: #000000;
+    --background-color: #121212;
+    --component-bg: rgba(30, 30, 30, 0.65);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --text-color: #e0e0e0;
+    --text-color-dim: #a0a0a0;
+    --accent-hue: 0; /* Starting hue for the animation */
 
-    /* Button States */
-    --button-bg-default: var(--background-color);
-    --button-text-default: var(--text-color);
-    --button-bg-hover: var(--text-color);
-    --button-text-hover: var(--background-color);
-
-    /* Typography */
-    --font-family-sans:
+    --primary-font:
         "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        Helvetica, Arial, sans-serif;
-    --font-family-mono:
-        "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
 
-    /* Spacing & Sizing */
-    --spacing-unit: 8px;
-    --spacing-xs: calc(var(--spacing-unit) * 0.5); /* 4px */
-    --spacing-sm: var(--spacing-unit); /* 8px */
-    --spacing-md: calc(var(--spacing-unit) * 2); /* 16px */
-    --spacing-lg: calc(var(--spacing-unit) * 3); /* 24px */
-    --spacing-xl: calc(var(--spacing-unit) * 4); /* 32px */
-
-    /* Borders */
-    --border-radius-sm: 4px;
-    --border-width: 1px;
-
-    /* Transitions */
-    --transition-speed: 0.2s;
-    --transition-timing: ease-in-out;
+    --border-radius-md: 12px;
+    --border-radius-lg: 16px;
+    --spacing-unit: 1rem;
+    --transition-speed: 0.4s;
 }
 
-/* === Component Styles === */
+/* --- Global Styles & Background --- */
+/*
+  We apply a base style to the body to set the font and the dark background.
+  A subtle radial gradient is added to the background to give it some depth
+  and prevent it from being a flat, monotonous color.
+*/
+/* body {
+    background-color: var(--background-color);
+    background-image: radial-gradient(
+        circle at center,
+        rgba(255, 255, 255, 0.05) 0%,
+        rgba(255, 255, 255, 0) 60%
+    );
+    color: var(--text-color);
+    font-family: var(--primary-font);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-unit);
+    overflow: hidden;
+} */
 
-/* An empty component, can be used for spacing or as a future placeholder. */
-.PromptInitialization {
-    /* No styles needed currently */
+/* --- Keyframe Animation for Rainbow Glow --- */
+@keyframes rainbow-glow {
+    0% {
+        box-shadow:
+            0 0 12px 2px hsla(0, 80%, 70%, 0.6),
+            inset 0 0 4px 1px hsla(0, 80%, 70%, 0.2);
+    }
+    25% {
+        box-shadow:
+            0 0 12px 2px hsla(90, 80%, 70%, 0.6),
+            inset 0 0 4px 1px hsla(90, 80%, 70%, 0.2);
+    }
+    50% {
+        box-shadow:
+            0 0 12px 2px hsla(180, 80%, 70%, 0.6),
+            inset 0 0 4px 1px hsla(180, 80%, 70%, 0.2);
+    }
+    75% {
+        box-shadow:
+            0 0 12px 2px hsla(270, 80%, 70%, 0.6),
+            inset 0 0 4px 1px hsla(270, 80%, 70%, 0.2);
+    }
+    100% {
+        box-shadow:
+            0 0 12px 2px hsla(360, 80%, 70%, 0.6),
+            inset 0 0 4px 1px hsla(360, 80%, 70%, 0.2);
+    }
 }
 
-/* The primary container for displaying view data. */
+/* --- Base Component Styles --- */
+/*
+  These are the base styles for the main container components.
+  They establish the "glass" effect with a blurred backdrop,
+  rounded corners, and a subtle border.
+*/
+.PromptInitialization,
+.View,
+.PromptAction,
+.Turn {
+    background-color: var(--component-bg);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: calc(var(--spacing-unit) * 1);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-unit);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    transition: all var(--transition-speed) ease-in-out;
+}
+
 .View {
     flex: 1 1 0;
     min-height: 0;
-    min-width: 0;
-
-    background-color: var(--background-color);
-    border: var(--border-width) solid var(--border-color);
-    border-radius: var(--border-radius-sm);
-    padding: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
 }
 
-/* Styles for the "name" or "label" part of the view. */
-.name {
-    font-family: var(--font-family-sans);
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-color);
-    opacity: 0.7; /* Slightly de-emphasize the label */
-}
-
-/* Styles for the main "value" part of the view. */
-.value {
-    font-family: var(--font-family-sans);
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-/* Container for action buttons. */
+.PromptInitialization,
+.Turn,
 .PromptAction {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-lg);
+    flex: 1 1 auto;
 }
 
-/* The main interactive button style. */
+/* --- Button Style --- */
+/*
+  The button is the primary interactive element. It features the animated
+  rainbow glow. On hover, the background fills in, the glow intensifies,
+  and the button scales up slightly for a satisfying tactile feel.
+*/
 .button {
-    font-family: var(--font-family-sans);
+    font-family: var(--primary-font);
     font-size: 1rem;
     font-weight: 500;
-    color: var(--button-text-default);
-    background-color: var(--button-bg-default);
-    border: var(--border-width) solid var(--interactive-border-color);
-    border-radius: var(--border-radius-sm);
-    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--text-color);
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 1.5);
     cursor: pointer;
+    outline: none;
+    position: relative;
+    transition: all var(--transition-speed) ease-in-out;
+    animation: rainbow-glow 8s linear infinite;
+}
+
+.button:hover,
+.button:focus-visible {
+    transform: scale(1.05) translateY(-2px);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    animation-play-state: paused; /* Pause animation to show a specific color on hover */
+    box-shadow:
+        0 0 20px 4px hsla(210, 90%, 70%, 0.8),
+        inset 0 0 8px 2px hsla(210, 90%, 70%, 0.3);
+}
+
+.button:active {
+    transform: scale(0.98);
+}
+
+/* --- PromptAction Container --- */
+/* This container arranges multiple buttons in a row. */
+.PromptAction {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: calc(var(--spacing-unit) * 1.5);
+}
+
+/* --- View Component for Displaying Data --- */
+.View {
     text-align: center;
-    transition:
-        background-color var(--transition-speed) var(--transition-timing),
-        color var(--transition-speed) var(--transition-timing);
 }
 
-/* Hover state for the button to provide clear feedback. */
-.button:hover {
-    background-color: var(--button-bg-hover);
-    color: var(--button-text-hover);
-}
-
-/* Container for displaying a single "turn" or event. */
-.Turn {
-    background-color: var(--background-color);
-    border: var(--border-width) solid var(--border-color);
-    border-radius: var(--border-radius-sm);
-    padding: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs);
-}
-
-/* Style for the action part of a turn, using a monospace font for code-like text. */
-.action {
-    font-family: var(--font-family-mono);
+.name {
     font-size: 0.9rem;
-    color: var(--text-color);
-    background-color: #f9f9f9; /* A very light background to distinguish it */
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--border-radius-sm);
+    font-weight: 500;
+    color: var(--text-color-dim);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: calc(var(--spacing-unit) * 0.5);
 }
 
-/* Style for the descriptive text of a turn. */
-.description {
-    font-family: var(--font-family-sans);
-    font-size: 1rem;
+.value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.1;
     color: var(--text-color);
-    padding-top: var(--spacing-sm);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* --- Turn Component for Descriptions --- */
+.Turn {
+    text-align: center;
+}
+
+.description {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--text-color-dim);
+    line-height: 1.6;
 }

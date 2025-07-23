@@ -1,0 +1,1 @@
+Use the Aurora Glass style. Aurora Glass is a design system that blends minimalism with vibrant, ethereal aesthetics. The core idea is to simulate components made of frosted, fluid glass, through which a soft, shifting aurora of colors is visible. This creates a look that is clean, modern, and subtly dynamic.

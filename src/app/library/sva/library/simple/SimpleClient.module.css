@@ -133,7 +133,7 @@
     overflow-y: auto;
 }
 
-.view {
+.loaded {
     display: grid;
     grid-template-columns: 320px 1fr;
     overflow: hidden;
@@ -149,9 +149,8 @@
     width: 90%;
     max-width: 500px;
     background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
     z-index: 100;
+    border-radius: var(--border-radius-md);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     transition:
         transform var(--transition-speed-normal) var(--transition-easing),
@@ -177,7 +176,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
+    border-radius: var(--border-radius-md);
     backdrop-filter: blur(5px);
     z-index: -1;
     opacity: 0;
@@ -234,6 +233,10 @@
 
 .button:active {
     transform: translateY(-1px) rotate(-1deg);
+}
+
+.PromptInitialization {
+    padding: var(--spacing-lg);
 }
 
 .inputName {
@@ -300,8 +303,19 @@
     gap: var(--spacing-md);
 }
 
+.Turn {
+}
+
 .turnsBottom {
     height: 1px;
+}
+
+.PromptAction {
+    padding: var(--spacing-lg);
+}
+
+.View {
+    padding: var(--spacing-lg);
 }
 
 /* --- Logs --- */
@@ -309,7 +323,7 @@
     position: fixed;
     bottom: var(--spacing-md);
     right: var(--spacing-md);
-    width: 300px;
+    width: 30%;
     height: 100px;
     background-color: rgba(37, 37, 42, 0.7);
     backdrop-filter: blur(5px);
@@ -329,7 +343,6 @@
     font-family: "Courier New", Courier, monospace;
     font-size: 0.8em;
     color: var(--text-secondary);
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: pre-wrap;
 }

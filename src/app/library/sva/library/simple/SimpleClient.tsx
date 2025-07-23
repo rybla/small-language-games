@@ -125,12 +125,14 @@ export default function SimpleClient<
             Cancel
           </button>
         </div>
-        <PromptInitialization
-          submit={async (params) => {
-            await submitPromptInitialization(params);
-            set_isShownPopupNew(false);
-          }}
-        />
+        <div className={styles.PromptInitialization}>
+          <PromptInitialization
+            submit={async (params) => {
+              await submitPromptInitialization(params);
+              set_isShownPopupNew(false);
+            }}
+          />
+        </div>
       </div>
       <div className={styles.sidebar}>
         <div className={styles.sectionTitle}>New</div>
@@ -165,7 +167,7 @@ export default function SimpleClient<
       ) : instStatus.type === "loading" ? (
         <></>
       ) : instStatus.type === "loaded" ? (
-        <div className={styles.view}>
+        <div className={styles.loaded}>
           <div className={styles.sidebar}>
             <div className={styles.metadata}>
               <input
@@ -181,13 +183,19 @@ export default function SimpleClient<
             </div>
             <div className={styles.turns}>
               {instStatus.inst.turns.map((turn, i) => (
-                <Turn turn={turn} key={i} />
+                <div className={styles.Turn} key={i}>
+                  <Turn turn={turn} />
+                </div>
               ))}
               <div className={styles.turnsBottom} ref={turnsBottom_ref} />
             </div>
-            <PromptAction view={instStatus.inst.view} update={updateInst} />
+            <div className={styles.PromptAction}>
+              <PromptAction view={instStatus.inst.view} update={updateInst} />
+            </div>
           </div>
-          <View view={instStatus.inst.view} />
+          <div className={styles.View}>
+            <View view={instStatus.inst.view} />
+          </div>
         </div>
       ) : (
         fromNever(instStatus)
