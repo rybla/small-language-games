@@ -1,87 +1,102 @@
 /*
- * ===================================================================
- * AURORA GLASS - DESIGN BLUEPRINT
- * ===================================================================
+ * =================================================================
+ * CSS Blueprint: Retro Fluid Design System
+ * =================================================================
  *
- * Theme: Ethereal Minimalism
- * Core Concept: Simulate components made of frosted, fluid glass,
- * through which a soft, shifting aurora of colors is visible.
- * The aesthetic is clean, modern, and subtly dynamic, blending
- * minimalist layout with vibrant, organic color transitions.
+ * Theme: A fusion of 90s retro web blockiness with modern, fluid
+ * aesthetics. The design emphasizes typography, subtle animations,
+ * and a glassy, layered feel. It's built to be responsive and
+ * adaptable to both light and dark color schemes.
  *
- * --- Principles ---
- * 1. Depth & Layering: The UI is built on layers. The base layer
- * is the dynamic aurora. Content panels float above it, appearing
- * as frosted glass, creating a sense of depth.
- * 2. Light & Color: Light is not static. The aurora background
- * provides a constant, gentle motion of color, which subtly
- * influences the appearance of the glass panels.
- * 3. Clarity & Focus: While the background is dynamic, content
- * areas are designed for maximum clarity. The frosted glass
- * effect (backdrop-filter) blurs the background just enough
- * to make text highly legible.
- * 4. Fluidity & Animation: All interactions and transitions are
- * smooth and fluid, mimicking the gentle flow of the aurora.
- * Hover effects are subtle glows or soft shifts in opacity.
+ * Core Principles:
+ * 1.  **Content-First:** The layout is clean and centered,
+ * making the content (in this case, the links) the star.
+ * 2.  **Fluid Backgrounds:** Backgrounds are not static. They use
+ * subtle, slow-moving gradients to create a sense of depth
+ * and dynamism without being distracting.
+ * 3.  **Glassmorphism:** Key content containers sit on a blurred,
+ * semi-transparent "glass" layer, creating a modern,
+ * frosted look that separates them from the fluid background.
+ * 4.  **Retro Typography:** Monospace fonts are used for titles
+ * and key labels to evoke a sense of 90s command-line
+ * interfaces and early web design. Text decorations are used
+ * to add character.
+ * 5.  **Interactive Feedback:** Every interactive element provides
+ * clear, smooth, and thematic feedback on hover, focus, and
+ * click states. Animations are purposeful and not jarring.
+ * 6.  **Light & Dark Mode:** The entire system is designed with
+ * CSS variables to seamlessly switch between a light and
+ * dark theme based on user preference.
  *
- * --- Structure & Components ---
- * - Body/Main: Acts as the canvas for the aurora. It will have a
- * dark base color and contain the animated gradient.
- * - Glass Panels (`.links`): The primary content containers.
- * Key properties include `backdrop-filter: blur()`, a semi-
- * transparent background color, soft rounded corners, and a
- * delicate, almost invisible border to catch the light.
- * - Typography (`.sectionTitle`, `li`, `a`): Clean, sans-serif
- * font. Text has a subtle glow or shadow to lift it off the
- * glassy surface, ensuring readability.
+ * Structure & Layers:
+ * -   **Layer 1 (Background):** The `main` element. A full-screen,
+ * animated gradient.
+ * -   **Layer 2 (Content):** The `.links` container. A centered,
+ * glassy panel that holds the navigation list.
+ * -   **Layer 3 (Typography):** The `.sectionTitle` and `<a>` tags.
+ * These are the primary points of interaction and information.
  *
- * --- Color Palette ---
- * - Aurora: A mix of soft, cosmic purples, blues, and pinks.
- * - Glass: A near-white with low opacity to create the frosted look.
- * - Text: Primarily a soft white or very light gray for contrast.
+ * Animation Philosophy:
+ * -   **Background Animation:** A slow, 20-second pan across a
+ * large gradient to feel alive but not distracting.
+ * -   **Element Entrance:** The main content panel will fade and
+ * scale in on load for a soft, welcoming effect.
+ * -   **Hover/Focus:** Links will subtly lift and gain a glow,
+ * inviting clicks.
+ * -   **Active/Click:** Links will "press down" to give tactile
+ * feedback.
  *
- * --- Animation Philosophy ---
- * - Background: A slow, looping, large-scale gradient animation
- * that never distracts but provides a constant sense of life.
- * - Interactions: Hover and active states should have gentle,
- * quick transitions (e.g., 0.3s ease-out) to feel responsive
- * yet graceful.
- *
- * ===================================================================
  */
 
-/* --- Root Variables for Easy Customization --- */
+/* =================================================================
+ * CSS Variables for Theming
+ * ================================================================= */
 :root {
-    --font-family-main:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-        sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    /* Light Mode Palette */
+    --background-start-rgb: 230, 235, 240;
+    --background-end-rgb: 210, 220, 230;
+    --glass-bg-rgb: 255, 255, 255;
+    --glass-border-rgb: 255, 255, 255;
+    --text-primary-rgb: 30, 30, 40;
+    --text-secondary-rgb: 80, 80, 90;
+    --accent-color: #0070f3;
+    --shadow-color: rgba(0, 0, 0, 0.1);
 
-    /* Aurora Gradient Colors */
-    --aurora-color-1: #3a0ca3;
-    --aurora-color-2: #4361ee;
-    --aurora-color-3: #f72585;
-    --aurora-color-4: #7209b7;
-    --aurora-color-5: #4cc9f0;
+    /* Typography */
+    --font-mono:
+        "Menlo", "Monaco", "Lucida Console", "Liberation Mono",
+        "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace;
+    --font-sans:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
 
-    /* Glass & Text Colors */
-    --glass-bg-color: rgba(255, 255, 255, 0.08);
-    --glass-border-color: rgba(255, 255, 255, 0.2);
-    --text-color-primary: rgba(240, 240, 240, 0.95);
-    --text-color-secondary: rgba(220, 220, 220, 0.7);
-    --text-color-hover: #ffffff;
+    /* Spacing & Borders */
+    --border-radius: 12px;
+    --padding-base: 1.5rem;
 
-    /* Sizing & Spacing */
-    --border-radius-large: 16px;
-    --padding-large: 2rem;
-    --padding-medium: 1.5rem;
-
-    /* Animation */
-    --transition-speed-fast: 0.3s;
-    --transition-timing-function: ease-in-out;
+    /* Animations */
+    --transition-speed: 0.2s;
 }
 
-/* --- Keyframes for the Aurora Background --- */
-@keyframes aurora-gradient {
+/* Dark Mode Overrides */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-start-rgb: 10, 10, 20;
+        --background-end-rgb: 25, 15, 40;
+        --glass-bg-rgb: 25, 25, 45;
+        --glass-border-rgb: 50, 50, 70;
+        --text-primary-rgb: 230, 230, 245;
+        --text-secondary-rgb: 180, 180, 195;
+        --accent-color: #58a6ff;
+        --shadow-color: rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* =================================================================
+ * Keyframe Animations
+ * ================================================================= */
+@keyframes fluid-gradient {
     0% {
         background-position: 0% 50%;
     }
@@ -93,91 +108,121 @@
     }
 }
 
-/* --- Main Layout & Background --- */
+@keyframes fade-in-scale-up {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* =================================================================
+ * Core Styles
+ * ================================================================= */
 .main {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    width: 100%;
-    padding: 2rem;
-    font-family: var(--font-family-main);
+    padding: 4rem;
     background: linear-gradient(
         -45deg,
-        var(--aurora-color-1),
-        var(--aurora-color-2),
-        var(--aurora-color-3),
-        var(--aurora-color-4),
-        var(--aurora-color-5)
+        rgb(var(--background-start-rgb)),
+        rgb(var(--background-end-rgb)),
+        #4e54c8,
+        #8f94fb
     );
     background-size: 400% 400%;
-    animation: aurora-gradient 20s ease infinite;
-    box-sizing: border-box;
+    animation: fluid-gradient 20s ease infinite;
+    font-family: var(--font-sans);
 }
 
-/* --- The Glass Panel --- */
 .links {
-    background: var(--glass-bg-color);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px); /* For Safari */
-    border-radius: var(--border-radius-large);
-    border: 1px solid var(--glass-border-color);
-    padding: var(--padding-large);
     width: 100%;
-    max-width: 500px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-    transition: all var(--transition-speed-fast)
-        var(--transition-timing-function);
+    max-width: 40rem;
+    padding: calc(var(--padding-base) * 1.5);
+    border-radius: var(--border-radius);
+
+    /* Glassmorphism Effect */
+    background: rgba(var(--glass-bg-rgb), 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    border: 1px solid rgba(var(--glass-border-rgb), 0.5);
+    box-shadow: 0 8px 32px 0 var(--shadow-color);
+
+    /* Entrance Animation */
+    animation: fade-in-scale-up 0.5s ease-out forwards;
 }
 
-.links:hover {
-    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.25);
-    transform: translateY(-4px);
-}
-
-/* --- Typography & List Styling --- */
 .links ul {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.links li {
-    margin-bottom: 0.75rem;
-    font-size: 1.1rem;
-}
-
-.links li:last-child {
-    margin-bottom: 0;
-}
-
 .sectionTitle {
-    font-size: 1.4rem;
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
     font-weight: 600;
-    color: var(--text-color-primary);
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--glass-border-color);
+    color: rgb(var(--text-secondary-rgb));
+    padding: 1.5rem 0 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid rgba(var(--glass-border-rgb), 0.7);
+    text-decoration: overline;
+    text-decoration-thickness: 1px;
 }
 
-.links ul div:first-of-type {
-    margin-top: 0;
+.links li:first-child .sectionTitle {
+    padding-top: 0;
 }
 
-/* --- Link Styling --- */
-.links a {
-    color: var(--text-color-secondary);
-    text-decoration: none;
+.links li {
+    margin: 0;
+}
+
+.links li a {
     display: block;
-    padding: 0.5rem 0.25rem;
+    padding: 1rem 0.5rem;
+    margin: 0.5rem 0;
+    color: rgb(var(--text-primary-rgb));
+    text-decoration: none;
+    font-size: 1.1rem;
     border-radius: 8px;
-    transition: all var(--transition-speed-fast)
-        var(--transition-timing-function);
+    transition: all var(--transition-speed) ease-out;
+    position: relative;
+    font-family: var(--font-mono);
 }
 
-.links a:hover {
-    color: var(--text-color-hover);
-    background-color: rgba(255, 255, 255, 0.1);
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+.links li a::before {
+    content: "→ ";
+    color: var(--accent-color);
+    opacity: 0;
+    transition: opacity var(--transition-speed) ease-out;
+}
+
+/* =================================================================
+ * Interactive States & Animations
+ * ================================================================= */
+.links li a:hover,
+.links li a:focus {
+    background-color: rgba(var(--glass-border-rgb), 0.5);
+    color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px 0 rgba(var(--shadow-color), 0.5);
+    outline: none;
+}
+
+.links li a:hover::before,
+.links li a:focus::before {
+    opacity: 1;
+}
+
+.links li a:active {
+    transform: translateY(0px) scale(0.98);
+    background-color: rgba(var(--glass-border-rgb), 0.8);
+    transition-duration: 0.1s;
 }

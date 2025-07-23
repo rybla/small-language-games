@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 export default function Page() {
   return (
     <main className={styles.main}>
+      <div className={styles.title}>small-language-games</div>
       <div className={styles.links}>
         <ul>
           <div className={styles.sectionTitle}>Games</div>
