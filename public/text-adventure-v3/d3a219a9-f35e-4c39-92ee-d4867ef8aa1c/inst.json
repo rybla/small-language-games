@@ -1636,6 +1636,967 @@
                 "prompt": "g "
             },
             "description": "prompt: g "
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "test"
+            },
+            "description": "prompt: test"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "tes"
+            },
+            "description": "prompt: tes"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "tteste"
+            },
+            "description": "prompt: tteste"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "srtsads"
+            },
+            "description": "prompt: srtsads"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "adas"
+            },
+            "description": "prompt: adas"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "dad"
+            },
+            "description": "prompt: dad"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "asd"
+            },
+            "description": "prompt: asd"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "as"
+            },
+            "description": "prompt: as"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "da"
+            },
+            "description": "prompt: da"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "d"
+            },
+            "description": "prompt: d"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "d"
+            },
+            "description": "prompt: d"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "a"
+            },
+            "description": "prompt: a"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "da"
+            },
+            "description": "prompt: da"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "d"
+            },
+            "description": "prompt: d"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "as"
+            },
+            "description": "prompt: as"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "da"
+            },
+            "description": "prompt: da"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "da"
+            },
+            "description": "prompt: da"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "d"
+            },
+            "description": "prompt: d"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "s"
+            },
+            "description": "prompt: s"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "da"
+            },
+            "description": "prompt: da"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "da"
+            },
+            "description": "prompt: da"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "da"
+            },
+            "description": "prompt: da"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "sd"
+            },
+            "description": "prompt: sd"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "as"
+            },
+            "description": "prompt: as"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "d"
+            },
+            "description": "prompt: d"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "asd"
+            },
+            "description": "prompt: asd"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "a"
+            },
+            "description": "prompt: a"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "da"
+            },
+            "description": "prompt: da"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "ds"
+            },
+            "description": "prompt: ds"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "ads"
+            },
+            "description": "prompt: ads"
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "TODO:description",
+                        "player": {
+                            "name": "TODO:name",
+                            "description": "TODO:description",
+                            "appearanceDescription": "TODO:appearanceDescription",
+                            "room": "TODO:room"
+                        },
+                        "rooms": {
+                            "TODO:room": {
+                                "name": "TODO:room",
+                                "description": "TODO:description",
+                                "appearanceDescription": "TODO:appearanceDescription"
+                            }
+                        },
+                        "items": {},
+                        "itemLocations": {},
+                        "roomConnections": {
+                            "TODO:room": []
+                        }
+                    }
+                }
+            },
+            "action": {
+                "prompt": "d"
+            },
+            "description": "prompt: d"
         }
     ]
 }

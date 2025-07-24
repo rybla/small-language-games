@@ -36,9 +36,9 @@
 |
 | - Background: Almost black, with deep blue/purple undertones.
 | - Foreground/Text: A vibrant, slightly desaturated green.
-| - Accent/Glow: A brighter, more intense version of the foreground green.
+| - Primary Accent/Glow: A brighter, more intense version of the foreground green.
+| - Secondary Accent: A vibrant, retro orange for important UI elements.
 | - Secondary Text: A dimmer, less saturated green for less important info.
-| - Error/Alert: A classic amber or red color.
 |
 |--- TYPOGRAPHY ---------------------------------------------------------------|
 |
@@ -70,17 +70,25 @@
 */
 
 :root {
+    --x-color-orange: #ff9933;
+    --x-color-yellow: yellow;
+    --x-color-blue: #42cef5;
+    --x-color-accent-secondary: var(--x-color-blue);
+
     /* Color Palette */
     --color-bg: #02040a;
     --color-bg-gradient-start: #0d0d1a;
-    --color-bg-gradient-end: color-mix(in hsl, #050510, orange 10%);
+    --color-bg-gradient-end: #050510;
     --color-text: #00ff7f; /* SpringGreen */
     --color-text-dim: #00a854;
-    --color-accent: #39ff14; /* Neon Green */
+    --color-accent-primary: #39ff14; /* Neon Green */
+    --color-accent-secondary: var(
+        --x-color-accent-secondary
+    ); /* Retro Orange */
     --color-border: #00ff7f;
     --color-border-transparent: #00ff7f33;
-    --color-shadow: #00ff7f;
-    --color-error: #ffae42; /* Amber */
+    --color-shadow-primary: #00ff7f;
+    --color-shadow-secondary: var(--x-color-accent-secondary);
 
     /* Typography */
     --font-family-mono: "Fira Code", "Courier New", monospace;
@@ -125,19 +133,12 @@
     left: 0;
     right: 0;
     bottom: 0;
-    /* background: repeating-linear-gradient(
+    background: repeating-linear-gradient(
         0deg,
         rgba(0, 0, 0, 0) 0,
         rgba(0, 0, 0, 0) 2px,
         rgba(255, 255, 255, 0.03) 3px,
         rgba(255, 255, 255, 0.03) 4px
-    ); */
-    background: repeating-linear-gradient(
-        0,
-        rgba(0, 0, 0, 0) 0,
-        rgba(0, 0, 0, 0) 4px,
-        rgba(255, 255, 255, 0.03) 6px,
-        rgba(255, 255, 255, 0.03) 8px
     );
     animation: scanline 10s linear infinite;
     pointer-events: none;
@@ -172,7 +173,7 @@
     }
     50% {
         opacity: 0.5;
-        text-shadow: 0 0 5px var(--color-accent);
+        text-shadow: 0 0 5px var(--color-accent-primary);
     }
     100% {
         opacity: 1;
@@ -207,8 +208,8 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: var(--spacing-unit);
-    color: var(--color-accent);
-    text-shadow: 0 0 5px var(--color-accent);
+    color: var(--color-accent-secondary);
+    text-shadow: 0 0 5px var(--color-shadow-secondary);
 }
 
 .item {
@@ -242,8 +243,8 @@
 
 .button:hover {
     background-color: var(--color-border-transparent);
-    color: var(--color-accent);
-    box-shadow: 0 0 10px var(--color-shadow);
+    color: var(--color-accent-primary);
+    box-shadow: 0 0 10px var(--color-shadow-primary);
 }
 
 .button:active {
@@ -261,8 +262,8 @@
     width: 90%;
     max-width: 600px;
     background-color: var(--color-bg);
-    border: var(--border-width) solid var(--color-accent);
-    box-shadow: 0 0 25px var(--color-shadow);
+    border: var(--border-width) solid var(--color-accent-secondary);
+    box-shadow: 0 0 25px var(--color-shadow-secondary);
     transition:
         opacity var(--transition-speed-med) ease,
         transform var(--transition-speed-med) ease;
@@ -288,12 +289,12 @@
     justify-content: space-between;
     align-items: center;
     padding: var(--spacing-unit);
-    border-bottom: var(--border-width) solid var(--color-border);
+    border-bottom: var(--border-width) solid var(--color-accent-secondary);
 }
 
 .NewPanel .menubar .title {
     font-weight: bold;
-    color: var(--color-accent);
+    color: var(--color-accent-secondary);
     text-transform: uppercase;
 }
 
@@ -315,7 +316,7 @@
 
 .PromptInitializationPanel .title {
     font-weight: bold;
-    color: var(--color-accent);
+    color: var(--color-accent-secondary);
     text-transform: uppercase;
     margin-bottom: var(--spacing-unit);
 }
@@ -386,7 +387,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: calc(var(--spacing-unit) * 2);
-    height: calc(100% - 40px);
+    height: calc(100% - 10px);
 }
 
 .InstPanel .column {
@@ -401,26 +402,28 @@
 .textarea {
     background-color: transparent;
     border: none;
-    /* border-left: var(--border-width) solid var(--color-border); */
     border-bottom: var(--border-width) solid var(--color-border);
     color: var(--color-text);
     font-family: var(--font-family-mono);
     width: 100%;
     padding: var(--spacing-unit);
-    transition: border-color var(--transition-speed-fast) ease;
-}
-
-.input:hover,
-.textarea:hover {
-    border-bottom-color: var(--color-accent);
-    box-shadow: 0 0 5px -1px var(--color-shadow);
+    transition:
+        border-color var(--transition-speed-fast) ease,
+        box-shadow var(--transition-speed-fast) ease;
 }
 
 .input:focus,
 .textarea:focus {
     outline: none;
-    border-bottom-color: var(--color-accent);
-    box-shadow: 0 1px 0 var(--color-accent);
+    color: var(--color-accent-secondary);
+    border-bottom-color: var(--color-accent-secondary);
+}
+
+.input:hover,
+.textarea:hover {
+    outline: none;
+    color: var(--color-accent-secondary);
+    border-bottom-color: var(--color-accent-secondary);
 }
 
 .textarea {
@@ -497,6 +500,7 @@
     padding: var(--spacing-unit);
     border-bottom: var(--border-width) solid var(--color-border-transparent);
     cursor: default;
+    color: var(--color-accent-secondary);
 }
 
 .logs {

@@ -22,7 +22,7 @@ export default function Page() {
 
   const turnsBottom_ref = useRef<HTMLDivElement>(null);
   const logsBottom_ref = useRef<HTMLDivElement>(null);
-  const inputName_ref = useRef<HTMLInputElement>(null);
+  const name_ref = useRef<HTMLInputElement>(null);
   const inputPromptAction_ref = useRef<HTMLTextAreaElement>(null);
 
   // ---------------------------------------------------------------------------
@@ -47,8 +47,7 @@ export default function Page() {
       return;
     }
     set_instStatus({ type: "loaded", inst });
-    if (inputName_ref.current !== null)
-      inputName_ref.current.value = inst.metadata.name;
+    if (name_ref.current !== null) name_ref.current.value = inst.metadata.name;
   }
 
   async function loadInst(id: string) {
@@ -188,14 +187,13 @@ export default function Page() {
                         <td className={styles.value}>
                           <input
                             className={styles.input}
-                            ref={inputName_ref}
+                            ref={name_ref}
                             type="text"
                             defaultValue={instStatus.inst.metadata.name}
                             onKeyDown={(event) => {
                               if (event.key === "Enter") {
                                 event.preventDefault();
                                 const value = event.currentTarget.value;
-                                event.currentTarget.value = "";
                                 void saveInst(value);
                               }
                             }}
