@@ -1,12 +1,11 @@
 "use client";
 
-import { formatDate, fromNever, TODO } from "@/utility";
-import * as constant from "./constant";
-import * as server from "./server";
-import styles from "./page.module.css";
 import { InstClient, InstMetadata } from "@/library/sva/ontology";
-import { A, P, V } from "./constant";
+import { formatDate, fromNever, stringify } from "@/utility";
 import { useEffect, useRef, useState } from "react";
+import { A, P, V } from "./constant";
+import styles from "./page.module.css";
+import * as server from "./server";
 
 type InstStatus =
   | { type: "none" }
@@ -35,17 +34,27 @@ export default function Page() {
 
   async function newInst() {
     set_logs((logs) => [...logs, `[newInst]`]);
-    return TODO();
+    set_isShown_NewPanel(true);
   }
 
   async function updateInst() {
     set_logs((logs) => [...logs, `[updateInst]`]);
-    return TODO();
+    await server.saveInst();
+    const inst = await server.getInst();
+    if (inst === undefined) {
+      set_instStatus({ type: "none" });
+      set_logs((logs) => [...logs, `[updateInst] inst is undefined`]);
+      return;
+    }
+    set_instStatus({ type: "loaded", inst });
+    if (inputName_ref.current !== null)
+      inputName_ref.current.value = inst.metadata.name;
   }
 
   async function loadInst(id: string) {
     set_logs((logs) => [...logs, `[loadInst]`]);
-    return TODO();
+    await server.loadInst(id);
+    await updateInst();
   }
 
   async function saveInst(name?: string): Promise<void> {
@@ -70,12 +79,24 @@ export default function Page() {
   // ---------------------------------------------------------------------------
 
   useEffect(() => {
+    void refresh_saveds();
+  }, []);
+
+  useEffect(() => {
     if (turnsBottom_ref.current === null) return;
     turnsBottom_ref.current.scrollIntoView({
       behavior: "smooth",
       block: "end",
     });
   }, [instStatus]);
+
+  useEffect(() => {
+    if (logsBottom_ref.current === null) return;
+    logsBottom_ref.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  }, [logs]);
 
   // ---------------------------------------------------------------------------
 
@@ -98,13 +119,12 @@ export default function Page() {
         <div className={styles.content}>
           <PromptInitializationPanel
             submit={async (params) => {
-              await submitPromptInitialization(params);
               set_isShown_NewPanel(false);
+              await submitPromptInitialization(params);
             }}
           />
         </div>
       </div>
-      <div className={styles.title}>{constant.name}</div>
       <div className={styles.sidebar}>
         <div className={styles.section}>
           <div className={styles.heading}>New</div>
@@ -114,18 +134,20 @@ export default function Page() {
         </div>
         <div className={styles.section}>
           <div className={styles.heading}>Load</div>
-          {saveds.map((saved, i) => (
-            <div className={styles.item} key={i}>
-              <div className={styles.date}>
-                {formatDate(new Date(saved.creationDate))}
+          {saveds
+            .toSorted((x, y) => y.creationDate - x.creationDate)
+            .map((saved, i) => (
+              <div className={styles.item} key={i}>
+                <div className={styles.date}>
+                  {formatDate(new Date(saved.creationDate))}
+                </div>
+                <div className={styles.load}>
+                  <Button onClick={async () => loadInst(saved.id)}>
+                    {saved.name}
+                  </Button>
+                </div>
               </div>
-              <div className={styles.load}>
-                <Button onClick={async () => loadInst(saved.id)}>
-                  {saved.name}
-                </Button>
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
       <div className={styles.content}>
@@ -172,7 +194,9 @@ export default function Page() {
                             onKeyDown={(event) => {
                               if (event.key === "Enter") {
                                 event.preventDefault();
-                                void saveInst(event.currentTarget.value);
+                                const value = event.currentTarget.value;
+                                event.currentTarget.value = "";
+                                void saveInst(value);
                               }
                             }}
                           />
@@ -191,17 +215,30 @@ export default function Page() {
                         {/* TODO: maybe some more info about the structured action? */}
                       </div>
                     ))}
+                    <div className={styles.turnsBottom} ref={turnsBottom_ref} />
                   </div>
                   <div className={styles.prompt}>
                     <textarea
                       className={styles.textarea}
                       ref={inputPromptAction_ref}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter") {
+                          event.preventDefault();
+                          const value = event.currentTarget.value;
+                          event.currentTarget.value = "";
+                          void submitPromptAction({ prompt: value });
+                        }
+                      }}
                     />
                   </div>
                 </div>
               </div>
               <div className={styles.column}>
-                <div className={styles.ViewPanel}></div>
+                <div className={styles.ViewPanel}>
+                  <div className={styles.json}>
+                    {stringify(instStatus.inst.view)}
+                  </div>
+                </div>
               </div>
             </div>
           </>
@@ -217,6 +254,7 @@ export default function Page() {
               {log}
             </div>
           ))}
+          <div className={styles.logsBottom} ref={logsBottom_ref} />
         </div>
       </div>
     </div>

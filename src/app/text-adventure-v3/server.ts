@@ -4,23 +4,58 @@ import { Inst, InstClient, SpecServer } from "@/library/sva/ontology";
 import { N, S, A, V, P, name } from "./constant";
 import * as constant from "./constant";
 import * as server from "@/library/sva/server";
-import { err, Result, TODO } from "@/utility";
+import { err, ok, Result, sleep, TODO } from "@/utility";
+import { getGameView } from "./semantics";
 
 var inst: Inst<N, S, A> | undefined;
 
 const spec: SpecServer<N, P, S, V, A> = {
   ...constant.spec,
   async initializeState(params) {
-    return TODO();
+    await sleep(1000);
+    return {
+      game: {
+        world: {
+          description: "TODO:description",
+          player: {
+            name: "TODO:name",
+            description: "TODO:description",
+            appearanceDescription: "TODO:appearanceDescription",
+            room: "TODO:room",
+          },
+          rooms: {
+            "TODO:room": {
+              name: "TODO:room",
+              description: "TODO:description",
+              appearanceDescription: "TODO:appearanceDescription",
+            },
+          },
+          items: {},
+          itemLocations: {},
+          roomConnections: {
+            "TODO:room": [],
+          },
+        },
+      },
+    } satisfies S;
   },
-  async generateAction(params) {
-    return TODO();
+  async generateAction(view, params) {
+    return ok({
+      action: {
+        prompt: params.prompt,
+      },
+      description: `prompt: ${params.prompt}`,
+    });
   },
   async interpretAction(inst, state, action) {
-    return TODO();
+    return;
   },
   view(state) {
-    return TODO();
+    console.dir({ state }, { depth: 100 });
+    console.log(state.game.world.itemLocations);
+    return {
+      game: getGameView(state.game),
+    };
   },
 };
 

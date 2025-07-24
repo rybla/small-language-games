@@ -1,0 +1,528 @@
+/*
+================================================================================
+|                                                                              |
+|                      RETRO FLUID - TERMINAL THEME BLUEPRINT                    |
+|                                                                              |
+================================================================================
+|
+|--- CORE CONCEPT -------------------------------------------------------------|
+|
+| A fusion of 90s/80s terminal aesthetics with modern design's fluidity and
+| dynamic effects. The goal is to evoke a sense of nostalgia for classic
+| command-line interfaces while feeling fresh, responsive, and interactive.
+| The design prioritizes typography, clear hierarchies, and subtle but
+| satisfying animations.
+|
+|--- VISUAL THEMES ------------------------------------------------------------|
+|
+| 1. Fluid & Glitchy Backgrounds:
+|    - The background is a very dark, subtly moving gradient, giving a hint
+|      of an old CRT monitor's glow.
+|    - A faint, slow-moving scanline effect is overlaid to enhance the retro
+|      monitor feel.
+|
+| 2. Blocky, Wireframe Foregrounds:
+|    - Content containers are defined by sharp, glowing borders rather than
+|      solid background colors, resembling old terminal windows or wireframes.
+|    - A monospace font is used almost exclusively to reinforce the terminal
+|      aesthetic.
+|
+| 3. Interactive & Glowing Text:
+|    - Text is the primary element. Interactive elements like buttons and
+|      links glow and animate on interaction.
+|    - State changes are communicated through text animations and glows.
+|
+|--- COLOR PALETTE (CLASSIC TERMINAL) -----------------------------------------|
+|
+| - Background: Almost black, with deep blue/purple undertones.
+| - Foreground/Text: A vibrant, slightly desaturated green.
+| - Accent/Glow: A brighter, more intense version of the foreground green.
+| - Secondary Text: A dimmer, less saturated green for less important info.
+| - Error/Alert: A classic amber or red color.
+|
+|--- TYPOGRAPHY ---------------------------------------------------------------|
+|
+| - Primary Font: Monospace (e.g., 'Fira Code', 'Courier New', monospace)
+|   for everything to maintain the terminal look.
+| - Style: Regular weight, with bold for headings. Text is sharp and clear.
+|
+|--- ANIMATION & INTERACTIVITY ------------------------------------------------|
+|
+| - Passive Animation:
+|   - The background gradient slowly shifts.
+|   - A scanline overlay moves down the screen continuously.
+|
+| - Entrance Animation:
+|   - Elements fade in and flicker slightly, as if being drawn on a CRT screen.
+|
+| - Hover Animations:
+|   - Buttons and interactive elements intensify their glow.
+|   - Borders might animate or brighten.
+|
+| - Active/Click Animations:
+|   - Buttons have a "press down" effect, inverting their colors or scaling.
+|
+| - State Change Animation:
+|   - New logs "type out" or flicker into view.
+|   - Panels fade in and out smoothly.
+|
+================================================================================
+*/
+
+:root {
+    /* Color Palette */
+    --color-bg: #02040a;
+    --color-bg-gradient-start: #0d0d1a;
+    --color-bg-gradient-end: color-mix(in hsl, #050510, orange 10%);
+    --color-text: #00ff7f; /* SpringGreen */
+    --color-text-dim: #00a854;
+    --color-accent: #39ff14; /* Neon Green */
+    --color-border: #00ff7f;
+    --color-border-transparent: #00ff7f33;
+    --color-shadow: #00ff7f;
+    --color-error: #ffae42; /* Amber */
+
+    /* Typography */
+    --font-family-mono: "Fira Code", "Courier New", monospace;
+
+    /* Sizing & Spacing */
+    --spacing-unit: 8px;
+    --border-radius: 4px;
+    --border-width: 1px;
+
+    /* Animation */
+    --transition-speed-fast: 0.2s;
+    --transition-speed-med: 0.4s;
+    --transition-speed-slow: 0.8s;
+}
+
+.page {
+    flex: 1 1 0;
+    min-height: 0;
+    width: 100%;
+
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-family-mono);
+
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: 1fr;
+    background: linear-gradient(
+        135deg,
+        var(--color-bg-gradient-start),
+        var(--color-bg-gradient-end)
+    );
+    animation: fluidGradient 15s ease infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+.page::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0) 2px,
+        rgba(255, 255, 255, 0.03) 3px,
+        rgba(255, 255, 255, 0.03) 4px
+    ); */
+    background: repeating-linear-gradient(
+        0,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0) 4px,
+        rgba(255, 255, 255, 0.03) 6px,
+        rgba(255, 255, 255, 0.03) 8px
+    );
+    animation: scanline 10s linear infinite;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+@keyframes fluidGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(100px);
+    }
+}
+
+@keyframes flickerIn {
+    0% {
+        opacity: 0;
+        text-shadow: none;
+    }
+    50% {
+        opacity: 0.5;
+        text-shadow: 0 0 5px var(--color-accent);
+    }
+    100% {
+        opacity: 1;
+        text-shadow: none;
+    }
+}
+
+/* Layout Containers */
+.sidebar {
+    grid-column: 1 / 2;
+    border-right: var(--border-width) solid var(--color-border);
+    padding: calc(var(--spacing-unit) * 2);
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 4);
+    overflow-y: auto;
+}
+
+.content {
+    grid-column: 2 / 3;
+    padding: calc(var(--spacing-unit) * 2);
+    overflow-y: auto;
+}
+
+/* Sidebar Sections */
+.section {
+    animation: flickerIn 0.5s ease-out forwards;
+}
+
+.heading {
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: var(--spacing-unit);
+    color: var(--color-accent);
+    text-shadow: 0 0 5px var(--color-accent);
+}
+
+.item {
+    margin-bottom: var(--spacing-unit);
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) / 2);
+}
+
+.date {
+    font-size: 0.8em;
+    color: var(--color-text-dim);
+}
+
+.load {
+    display: flex;
+}
+
+/* Button */
+.button {
+    background-color: transparent;
+    border: var(--border-width) solid var(--color-border);
+    color: var(--color-text);
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 2);
+    font-family: var(--font-family-mono);
+    cursor: pointer;
+    transition: all var(--transition-speed-fast) ease;
+    text-align: left;
+    width: 100%;
+}
+
+.button:hover {
+    background-color: var(--color-border-transparent);
+    color: var(--color-accent);
+    box-shadow: 0 0 10px var(--color-shadow);
+}
+
+.button:active {
+    transform: scale(0.98);
+    background-color: var(--color-border);
+    color: var(--color-bg);
+}
+
+/* New Panel (Modal) */
+.NewPanel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    width: 90%;
+    max-width: 600px;
+    background-color: var(--color-bg);
+    border: var(--border-width) solid var(--color-accent);
+    box-shadow: 0 0 25px var(--color-shadow);
+    transition:
+        opacity var(--transition-speed-med) ease,
+        transform var(--transition-speed-med) ease;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+}
+
+.NewPanel.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.9);
+}
+
+.NewPanel.shown {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.NewPanel .menubar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-unit);
+    border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.NewPanel .menubar .title {
+    font-weight: bold;
+    color: var(--color-accent);
+    text-transform: uppercase;
+}
+
+.NewPanel .menubar .item {
+    margin: 0;
+}
+
+.NewPanel .content {
+    padding: calc(var(--spacing-unit) * 2);
+    overflow-y: auto;
+}
+
+/* Prompt Initialization Panel */
+.PromptInitializationPanel {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 2);
+}
+
+.PromptInitializationPanel .title {
+    font-weight: bold;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-unit);
+}
+
+/* Generic Panels & Tables */
+.InitializingPanel,
+.InstPanel,
+.MetadataPanel,
+.ChatPanel,
+.ViewPanel {
+    border: var(--border-width) solid var(--color-border-transparent);
+    padding: calc(var(--spacing-unit) * 2);
+    margin-bottom: calc(var(--spacing-unit) * 2);
+    animation: flickerIn 0.5s ease-out forwards;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table .label {
+    width: 100px;
+    font-weight: bold;
+    color: var(--color-text-dim);
+    padding-right: var(--spacing-unit);
+    vertical-align: top;
+}
+
+.table .value {
+    color: var(--color-text);
+    width: 100%;
+}
+
+/* Loading Panel */
+.LoadingPanel {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    margin-bottom: var(--spacing-unit);
+}
+
+.LoadingPanel .dot {
+    animation: dotPulse 1.4s infinite;
+}
+
+.LoadingPanel .dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.LoadingPanel .dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes dotPulse {
+    0%,
+    80%,
+    100% {
+        opacity: 0;
+    }
+    40% {
+        opacity: 1;
+    }
+}
+
+/* Inst Panel Layout */
+.InstPanel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(var(--spacing-unit) * 2);
+    height: calc(100% - 40px);
+}
+
+.InstPanel .column {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 2);
+    min-height: 0; /* Fix for flexbox overflow */
+}
+
+/* Inputs & Textareas */
+.input,
+.textarea {
+    background-color: transparent;
+    border: none;
+    /* border-left: var(--border-width) solid var(--color-border); */
+    border-bottom: var(--border-width) solid var(--color-border);
+    color: var(--color-text);
+    font-family: var(--font-family-mono);
+    width: 100%;
+    padding: var(--spacing-unit);
+    transition: border-color var(--transition-speed-fast) ease;
+}
+
+.input:hover,
+.textarea:hover {
+    border-bottom-color: var(--color-accent);
+    box-shadow: 0 0 5px -1px var(--color-shadow);
+}
+
+.input:focus,
+.textarea:focus {
+    outline: none;
+    border-bottom-color: var(--color-accent);
+    box-shadow: 0 1px 0 var(--color-accent);
+}
+
+.textarea {
+    resize: none;
+    min-height: 100px;
+    height: 100%;
+}
+
+/* Chat Panel */
+.ChatPanel {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.turns {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: var(--spacing-unit); /* For scrollbar */
+}
+
+.turn {
+    padding: var(--spacing-unit);
+    margin-bottom: var(--spacing-unit);
+    border: 1px solid var(--color-border-transparent);
+    animation: flickerIn 0.3s ease-out forwards;
+}
+
+.turnsBottom {
+    height: 1px;
+}
+
+.prompt {
+    padding-top: var(--spacing-unit);
+    border-top: var(--border-width) solid var(--color-border);
+}
+
+/* View Panel */
+.ViewPanel {
+    flex-grow: 1;
+    overflow: auto;
+}
+
+.json {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 0.9em;
+}
+
+/* Logs Panel */
+.LogsPanel {
+    position: fixed;
+    bottom: var(--spacing-unit);
+    right: var(--spacing-unit);
+    width: 400px;
+    max-width: 90vw;
+    border: var(--border-width) solid var(--color-border);
+    background-color: rgba(2, 4, 10, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 200;
+    transition: max-height var(--transition-speed-med) ease-in-out;
+    max-height: 120px; /* Collapsed height */
+    display: flex;
+    flex-direction: column;
+}
+
+.LogsPanel:hover {
+    max-height: 400px; /* Expanded height */
+}
+
+.LogsPanel .title {
+    font-weight: bold;
+    padding: var(--spacing-unit);
+    border-bottom: var(--border-width) solid var(--color-border-transparent);
+    cursor: default;
+}
+
+.logs {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: var(--spacing-unit);
+    font-size: 0.8em;
+}
+
+@keyframes newLog {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.log {
+    margin-bottom: calc(var(--spacing-unit) / 2);
+    animation: newLog 0.3s ease-out;
+    white-space: pre-wrap;
+}
+
+.logsBottom {
+    height: 1px;
+}

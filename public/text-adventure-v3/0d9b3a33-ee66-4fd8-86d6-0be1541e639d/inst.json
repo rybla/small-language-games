@@ -1,0 +1,59 @@
+{
+    "specName": "text-adventure-v3",
+    "metadata": {
+        "id": "0d9b3a33-ee66-4fd8-86d6-0be1541e639d",
+        "name": "0d9b3a33-ee66-4fd8-86d6-0be1541e639d",
+        "creationDate": 1753327797953
+    },
+    "initialState": {
+        "game": {
+            "world": {
+                "description": "TODO:description",
+                "player": {
+                    "name": "TODO:name",
+                    "description": "TODO:description",
+                    "appearanceDescription": "TODO:appearanceDescription",
+                    "room": "TODO:room"
+                },
+                "rooms": {
+                    "TODO:room": {
+                        "name": "TODO:room",
+                        "description": "TODO:description",
+                        "appearanceDescription": "TODO:appearanceDescription"
+                    }
+                },
+                "items": {},
+                "itemLocations": {},
+                "roomConnections": {
+                    "TODO:room": []
+                }
+            }
+        }
+    },
+    "state": {
+        "game": {
+            "world": {
+                "description": "TODO:description",
+                "player": {
+                    "name": "TODO:name",
+                    "description": "TODO:description",
+                    "appearanceDescription": "TODO:appearanceDescription",
+                    "room": "TODO:room"
+                },
+                "rooms": {
+                    "TODO:room": {
+                        "name": "TODO:room",
+                        "description": "TODO:description",
+                        "appearanceDescription": "TODO:appearanceDescription"
+                    }
+                },
+                "items": {},
+                "itemLocations": {},
+                "roomConnections": {
+                    "TODO:room": []
+                }
+            }
+        }
+    },
+    "turns": []
+}
