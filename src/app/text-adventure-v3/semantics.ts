@@ -40,7 +40,7 @@ export function getGameView(game: Game): GameView {
   };
 }
 
-export function renderGameViewAsMarkdown(view: GameView) {
+export function markdownifyGameView(view: GameView) {
   return trim(`
 # The Current Game State
 

@@ -54,7 +54,7 @@ export async function runPrompt<
   params: P["action"],
 ): Promise<Result<{ message: string }, {}>> {
   const view = spec.view(inst.state);
-  const result = await spec.generateAction(view, params);
+  const result = await spec.generateAction(view, params, inst.state);
   if (isErr(result)) {
     return err({
       message: `while generating action: ${result.message}`,

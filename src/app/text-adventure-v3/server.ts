@@ -48,18 +48,23 @@ const spec: SpecServer<N, P, S, V, A> = {
       game,
     };
   },
-  async generateAction(view, params) {
+  async generateAction(view, params, state) {
     const { gameAction } = await flow.GenerateAction({
       prompt: params.prompt,
-      view: view.game,
+      gameView: view.game,
+      game: state.game,
     });
+    const gameActions = [gameAction];
     const { description } = await flow.GenerateTurnDescription({
-      gameAction,
+      prompt: params.prompt,
+      gameView: view.game,
+      game: state.game,
+      gameActions,
     });
     return ok({
       action: {
         prompt: params.prompt,
-        gameActions: [gameAction],
+        gameActions,
       },
       description,
     });

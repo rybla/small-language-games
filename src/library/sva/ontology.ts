@@ -24,6 +24,7 @@ export type SpecServer<N extends string, P extends SpecParams, S, V, A> = {
   generateAction: (
     view: V,
     params: P["action"],
+    state: S,
   ) => Promise<Result<{ message: string }, { action: A; description: string }>>;
   interpretAction: (inst: Inst<N, S, A>, state: S, action: A) => Promise<void>;
 } & SpecCommon<N>;

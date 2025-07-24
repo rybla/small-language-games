@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { A, P, V } from "./constant";
 import styles from "./page.module.css";
 import * as server from "./server";
-import { renderGameViewAsMarkdown } from "./semantics";
+import { markdownifyGameView } from "./semantics";
 import Markdown from "react-markdown";
 
 type InstStatus =
@@ -243,7 +243,7 @@ export default function Page() {
                     {stringify(instStatus.inst.view)}
                   </div> */}
                   <Markdown>
-                    {renderGameViewAsMarkdown(instStatus.inst.view.game)}
+                    {markdownifyGameView(instStatus.inst.view.game)}
                   </Markdown>
                 </div>
               </div>

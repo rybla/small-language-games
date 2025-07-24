@@ -1,4 +1,4 @@
-import { Codomain, fromNever, isNonEmpty } from "@/utility";
+import { Codomain, fromNever, isNonEmpty, trim } from "@/utility";
 import { z } from "genkit";
 import { Game, ItemName, RoomName } from "./ontology";
 import {
@@ -150,6 +150,28 @@ export function interpretGameAction(game: Game, action: GameAction) {
     });
   } else {
     fromNever(action);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// render
+// -----------------------------------------------------------------------------
+
+export function markdownifyGameAction(action: GameAction) {
+  if (action.type === "PlayerGoesToRoom") {
+    return trim(`
+The player goes to the room ${action.room}
+  `);
+  } else if (action.type === "PlayerDropsItem") {
+    return trim(`
+The player drops the item ${action.item} from their inventory into their current location
+  `);
+  } else if (action.type === "PlayerTakesItem") {
+    return trim(`
+The player takes the item ${action.item} into their inventory
+  `);
+  } else {
+    return fromNever(action);
   }
 }
 
