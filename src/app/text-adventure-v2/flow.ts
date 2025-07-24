@@ -58,7 +58,7 @@ export const GeneratePreGame = ai.defineFlow(
   async (input) => {
     const response = await ai.generate({
       config: { temperature: temperature.creative },
-      model: model.speed,
+      model: model.text_speed,
       system: [
         makeTextPart(
           `
@@ -167,7 +167,7 @@ export const GeneratePlayer = ai.defineFlow(
   async (input) => {
     const response = await ai.generate({
       config: { temperature: temperature.creative },
-      model: model.speed,
+      model: model.text_speed,
       system: [
         makeTextPart(
           `
@@ -232,7 +232,7 @@ export const GenerateRoomItems = ai.defineFlow(
   async (input) => {
     const response = await ai.generate({
       config: { temperature: temperature.creative },
-      model: model.speed,
+      model: model.text_speed,
       system: [
         makeTextPart(
           `
@@ -308,7 +308,7 @@ export const GenerateItemImage = ai.defineFlow(
   },
   async (input) => {
     const response = await ai.generate({
-      model: model.image,
+      model: model.image_power,
       output: { format: "media" },
       prompt: `
 ${input.appearanceDescription}
@@ -335,7 +335,7 @@ export const GenerateRoomImage = ai.defineFlow(
   },
   async (input) => {
     const response = await ai.generate({
-      model: model.image,
+      model: model.image_power,
       output: { format: "media" },
       prompt: `
 ${input.appearanceDescription}
@@ -367,7 +367,7 @@ export const GenerateStartRoom = ai.defineFlow(
   async (input) => {
     const response = await ai.generate({
       config: { temperature: temperature.creative },
-      model: model.speed,
+      model: model.text_speed,
       system: [
         makeTextPart(
           `
@@ -445,7 +445,7 @@ export const GenerateRoomConnections = ai.defineFlow(
   async (input) => {
     const response = await ai.generate({
       config: { temperature: temperature.creative },
-      model: model.speed,
+      model: model.text_speed,
       system: [
         makeTextPart(
           `
@@ -508,7 +508,7 @@ export const GeneratePlayerTurn = ai.defineFlow(
     const response = await ai.generate({
       config: { temperature: temperature.normal },
       // model: model.power,
-      model: model.speed,
+      model: model.text_speed,
       system: [
         makeTextPart(`
 ${makeSystemPrelude()}

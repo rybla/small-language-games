@@ -1,6 +1,6 @@
 import { rootName } from "./common";
 import style from "./layout.module.css";
-import Header from "@/app/component/Header";
+import Header from "@/component/Header";
 
 export default function Layout(
   input: Readonly<{
@@ -10,7 +10,11 @@ export default function Layout(
   return (
     <>
       <Header
-        className={style.header}
+        classNames={{
+          header: style.header,
+          separator: style.header_separator,
+          branch: style.header_branch,
+        }}
         root={{ label: rootName, href: `/${rootName}` }}
         branches={[{ label: "new", href: `/${rootName}/new` }]}
       />

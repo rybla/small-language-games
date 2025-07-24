@@ -147,7 +147,7 @@ export function err<E extends object, A extends object>(e: E): Result<E, A> {
   return { type: "err", ...e };
 }
 
-export function ok<A extends object, E extends object>(a: A): Result<E, A> {
+export function ok<E extends object, A extends object>(a: A): Result<E, A> {
   return { type: "ok", ...a };
 }
 
@@ -179,3 +179,5 @@ export function formatDate(date: Date): string {
   const minutes = date.getMinutes().toString().padStart(2, "0");
   return `${year}/${month}/${day} ${hours}:${minutes}`;
 }
+
+export type Supertype<A, B extends A> = B;

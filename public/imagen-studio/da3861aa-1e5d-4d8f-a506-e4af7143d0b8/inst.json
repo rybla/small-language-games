@@ -1,0 +1,52 @@
+{
+    "specName": "imagen-studio",
+    "metadata": {
+        "id": "da3861aa-1e5d-4d8f-a506-e4af7143d0b8",
+        "name": "monkeys with bananas",
+        "creationDate": 1753314799550
+    },
+    "initialState": {
+        "model": "googleai/imagen-3.0-generate-002",
+        "temperature": 1,
+        "imageIds": []
+    },
+    "state": {
+        "model": "googleai/imagen-3.0-generate-002",
+        "temperature": 1,
+        "imageIds": [
+            "9ae043af-8ffb-46c5-bcde-1a1f073a13bf",
+            "9153ca7c-afc9-4d2f-8b5d-5514f4743106"
+        ]
+    },
+    "turns": [
+        {
+            "state": {
+                "model": "googleai/imagen-3.0-generate-002",
+                "temperature": 1,
+                "imageIds": [
+                    "9ae043af-8ffb-46c5-bcde-1a1f073a13bf"
+                ]
+            },
+            "action": {
+                "prompt_original": "monkey with a banana",
+                "prompt_enhanced": "monkey with a banana"
+            },
+            "description": "prompt: \"monkey with a banana\""
+        },
+        {
+            "state": {
+                "model": "googleai/imagen-3.0-generate-002",
+                "temperature": 1,
+                "imageIds": [
+                    "9ae043af-8ffb-46c5-bcde-1a1f073a13bf",
+                    "9153ca7c-afc9-4d2f-8b5d-5514f4743106"
+                ]
+            },
+            "action": {
+                "prompt_original": "monkey with 2 bananas ",
+                "prompt_enhanced": "monkey with 2 bananas "
+            },
+            "description": "prompt: \"monkey with 2 bananas \""
+        }
+    ]
+}

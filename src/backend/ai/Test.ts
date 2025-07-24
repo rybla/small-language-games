@@ -16,7 +16,7 @@ export const Test = ai.defineFlow(
   async (input) => {
     // return { output: `This is a test for the input: ${input}` };
     const response = await ai.generate({
-      model: model.cheap,
+      model: model.text_cheap,
       prompt: [{ text: input.message }],
     });
 

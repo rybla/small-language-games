@@ -22,7 +22,7 @@ export type SpecServer<N extends string, P extends SpecParams, S, V, A> = {
     view: V,
     SpecParams: P["action"],
   ) => Promise<Result<{ message: string }, { action: A; description: string }>>;
-  interpretAction: (state: S, action: A) => Promise<void>;
+  interpretAction: (inst: Inst<N, S, A>, state: S, action: A) => Promise<void>;
 } & SpecCommon<N>;
 
 export type SpecClient<N extends string, P extends SpecParams, S, V, A> = {
@@ -33,15 +33,16 @@ export type SpecClient<N extends string, P extends SpecParams, S, V, A> = {
   ViewComponent: (props: { view: V }) => ReactNode;
   PromptActionComponent: (props: {
     view: V;
-    update: () => Promise<void>;
+    submit: (params: P["action"]) => Promise<void>;
   }) => ReactNode;
   TurnComponent: (props: { turn: Omit<Turn<S, A>, "state"> }) => ReactNode;
   // callbacks
   initialize: (params: P["initialization"]) => Promise<void>;
+  act: (params: P["action"]) => Promise<void>;
   loadInst: (id: string) => Promise<void>;
   saveInst: (name?: string) => Promise<void>;
   getInstMetadatas: () => Promise<InstMetadata[]>;
-  getInst: () => Promise<InstClient<S, V, A> | undefined>;
+  getInst: () => Promise<InstClient<V, A> | undefined>;
 } & SpecCommon<N>;
 
 // -----------------------------------------------------------------------------
@@ -68,8 +69,14 @@ export type Turn<S, A> = {
   description: string;
 };
 
-export type InstClient<S, V, A> = {
+export type TurnClient<V, A> = {
+  view: V;
+  action: A;
+  description: string;
+};
+
+export type InstClient<V, A> = {
   metadata: InstMetadata;
   view: V;
-  turns: Turn<S, A>[];
+  turns: TurnClient<V, A>[];
 };

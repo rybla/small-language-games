@@ -48,7 +48,7 @@ export const GenerateGame = ai.defineFlow(
   async (input) => {
     const response = await ai.generate({
       config: { temperature: temperature.creative },
-      model: model.speed,
+      model: model.text_speed,
       system: [
         makeTextPart(
           `
@@ -100,7 +100,7 @@ export const GeneratePlayer = ai.defineFlow(
   async (input) => {
     const response = await ai.generate({
       config: { temperature: temperature.creative },
-      model: model.speed,
+      model: model.text_speed,
       system: [
         makeTextPart(
           `
@@ -164,7 +164,7 @@ export const GenerateRoomItems = ai.defineFlow(
   async (input) => {
     const response = await ai.generate({
       config: { temperature: temperature.creative },
-      model: model.speed,
+      model: model.text_speed,
       system: [
         makeTextPart(
           `
@@ -234,7 +234,7 @@ export const GenerateRoom = ai.defineFlow(
   async (input) => {
     const response = await ai.generate({
       config: { temperature: temperature.creative },
-      model: model.speed,
+      model: model.text_speed,
       system: [
         makeTextPart(
           `
@@ -268,7 +268,7 @@ export const GeneratePlayerTurn = ai.defineFlow(
   async (input) => {
     const response = await ai.generate({
       config: { temperature: temperature.normal },
-      model: model.speed,
+      model: model.text_speed,
       system: [
         makeTextPart(`
 ${makeSystemPrelude()}

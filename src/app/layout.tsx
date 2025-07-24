@@ -1,7 +1,8 @@
 import Head from "next/head";
 import "./global.css";
-import Header from "./component/Header";
+import Header from "../component/Header";
 import { app_name } from "@/context";
+import styles from "./layout.module.css";
 
 export default function RootLayout(
   input: Readonly<{
@@ -15,6 +16,11 @@ export default function RootLayout(
       </Head>
       <body className="vsc-initialized">
         <Header
+          classNames={{
+            header: styles.header,
+            separator: styles.header_separator,
+            branch: styles.header_branch,
+          }}
           root={{ label: app_name, href: "/" }}
           branches={[
             {

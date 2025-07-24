@@ -1,0 +1,485 @@
+/*
+================================================================================
+|                                                                              |
+|                      RETRO FLUID - DESIGN SYSTEM BLUEPRINT                     |
+|                                                                              |
+================================================================================
+|
+| CORE CONCEPT:
+| A fusion of 90s blocky, text-heavy web aesthetics with modern design's
+| fluidity, minimalism, and dynamic effects. The goal is to evoke a sense of
+| nostalgia while feeling fresh, responsive, and interactive.
+|
+|------------------------------------------------------------------------------
+|
+| VISUAL THEMES:
+| 1. Glassy and Fluid Backgrounds:
+|    - The main page background features a slow-moving, subtle gradient that
+|      animates continuously, creating a "lava lamp" or "fluid" effect.
+|
+| 2. Blocky and Structured Foregrounds:
+|    - Content containers (sidebars, popups, content cards) have defined
+|      borders and soft box-shadows, giving them a tangible, "card-like"
+|      feel that floats above the fluid background.
+|
+| 3. Decorative and Interactive Text:
+|    - Text is a key part of the UI. Interactive elements have prominent
+|      decorations and animations on interaction.
+|
+|------------------------------------------------------------------------------
+|
+| COLOR PALETTE (Dark Mode Focused):
+| - Background: Deep, moody gradients (midnight blue, deep purple).
+| - Foreground: Dark gray/charcoal cards with a subtle inner glow.
+| - Text: Light gray or off-white for readability.
+| - Accent: A vibrant, luminous color (electric blue/cyan) for highlights.
+|
+|------------------------------------------------------------------------------
+|
+| TYPOGRAPHY:
+| - Titles/Headers: Monospace font (e.g., 'Fira Code', 'Courier New'),
+|   often with generous letter-spacing.
+| - Body/Links: A clean, readable sans-serif font (e.g., 'Inter', 'system-ui').
+|
+|------------------------------------------------------------------------------
+|
+| ANIMATION & INTERACTIVITY:
+| - Passive Animation: The main background gradient is always in motion.
+| - Entrance Animation: Elements fade in and slide up slightly on load.
+| - Hover Animations: Links and cards lift or change background smoothly.
+| - State Change Animation: Elements like turns and popups fade in/out.
+|
+================================================================================
+*/
+
+/* --- CSS Variables --- */
+:root {
+    --font-mono: "Fira Code", "Courier New", monospace;
+    --font-sans:
+        "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif;
+
+    --color-bg-start: #0f0c29;
+    --color-bg-mid: #302b63;
+    --color-bg-end: #24243e;
+
+    --color-surface: rgba(22, 22, 35, 0.65);
+    --color-surface-light: rgba(40, 40, 60, 0.75);
+    --color-border: rgba(138, 142, 255, 0.2);
+    --color-shadow: rgba(0, 0, 0, 0.3);
+    --color-glow: rgba(100, 120, 255, 0.1);
+
+    --color-text-primary: #e0e0e0;
+    --color-text-secondary: #a0a0b0;
+    --color-text-accent: #00c6ff;
+    --color-text-accent-dark: #0072ff;
+
+    --border-radius: 8px;
+    --spacing-unit: 8px;
+    --transition-speed-fast: 0.2s;
+    --transition-speed-med: 0.4s;
+    --transition-speed-slow: 0.8s;
+}
+
+/* --- Keyframe Animations --- */
+@keyframes fluidBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideUpFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes loadingPulse {
+    0%,
+    100% {
+        opacity: 0.2;
+        transform: scale(0.9);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+/* --- Base & Page Layout --- */
+.page {
+    flex: 1 1 0;
+    min-height: 0;
+
+    display: flex;
+    width: 100%;
+    color: var(--color-text-primary);
+    background: linear-gradient(
+        -45deg,
+        var(--color-bg-start),
+        var(--color-bg-mid),
+        var(--color-bg-end)
+    );
+    background-size: 400% 400%;
+    animation: fluidBackground 25s ease infinite;
+    font-family: var(--font-sans);
+    overflow: hidden; /* Prevents scrollbars from the main layout */
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 2);
+    padding: calc(var(--spacing-unit) * 3);
+    width: 300px;
+    flex-shrink: 0;
+    background: var(--color-surface);
+    border-right: 1px solid var(--color-border);
+    backdrop-filter: blur(10px);
+    overflow-y: auto;
+}
+
+/* --- Popups --- */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 90%;
+    max-width: 500px;
+    background: var(--color-surface-light);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px var(--color-shadow);
+    backdrop-filter: blur(15px);
+    z-index: 100;
+    transition:
+        transform var(--transition-speed-med) ease,
+        opacity var(--transition-speed-med) ease;
+}
+
+.popup.hidden {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.popup.shown {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.popup .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 2);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.popup .title {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* --- Section & Item Styling --- */
+.sectionTitle {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    color: var(--color-text-accent);
+    margin-top: var(--spacing-unit);
+    padding-bottom: var(--spacing-unit);
+    border-bottom: 1px solid var(--color-border);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.item_load {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-unit);
+    padding: var(--spacing-unit);
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition-speed-fast);
+}
+
+.item_load:hover {
+    background-color: var(--color-glow);
+}
+
+.item_load .date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    text-align: center;
+}
+
+/* --- Interactive Elements --- */
+.button {
+    background: transparent;
+    border: 1px solid var(--color-text-accent);
+    color: var(--color-text-accent);
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 2);
+    border-radius: var(--border-radius);
+    font-family: var(--font-mono);
+    cursor: pointer;
+    transition: all var(--transition-speed-fast) ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.button:hover {
+    background: var(--color-text-accent);
+    color: var(--color-bg-start);
+    box-shadow: 0 0 15px var(--color-text-accent);
+    transform: translateY(-2px);
+}
+
+.button:active {
+    transform: translateY(0);
+}
+
+.page input,
+.page select {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-unit);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+}
+
+.page input:focus,
+.page select:focus {
+    outline: none;
+    border-color: var(--color-text-accent);
+    box-shadow: 0 0 10px var(--color-text-accent);
+}
+
+.inputName {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* --- Main Content Area --- */
+
+/* FANCY LOADING ANIMATION */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    gap: var(--spacing-unit);
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    color: var(--color-text-accent);
+}
+
+.loading .symbol {
+    animation: loadingPulse var(--transition-speed-slow) ease-in-out infinite;
+}
+
+.loading .symbol:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading .symbol:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* FANCY LOADED ANIMATION */
+.loaded {
+    display: flex;
+    flex-grow: 1;
+    animation: slideUpFadeIn var(--transition-speed-med) ease forwards;
+}
+
+.loaded > .sidebar {
+    width: 350px;
+}
+
+.turns {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: var(--spacing-unit); /* For scrollbar */
+}
+
+/* FANCY TURN ANIMATION */
+.Turn {
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 1.5);
+    margin-bottom: var(--spacing-unit);
+    background: rgba(0, 0, 0, 0.1);
+    border-left: 3px solid var(--color-text-accent);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    animation: slideUpFadeIn 0.5s ease forwards;
+}
+
+.description {
+    color: var(--color-text-secondary);
+}
+
+.turnsBottom {
+    height: 1px;
+}
+
+/* FANCY PROMPT INITIALIZATION ANIMATION */
+.PromptInitialization {
+    padding: calc(var(--spacing-unit) * 2);
+    animation: slideUpFadeIn var(--transition-speed-med) ease forwards;
+}
+
+.PromptInitialization .title,
+.PromptAction .title {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    color: var(--color-text-accent);
+    margin-bottom: var(--spacing-unit);
+}
+
+.params,
+.PromptAction table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.params td,
+.PromptAction td {
+    padding: var(--spacing-unit);
+}
+
+.params .label,
+.PromptAction .label {
+    font-family: var(--font-mono);
+    color: var(--color-text-secondary);
+    width: 1px; /* Let it shrink to content */
+    white-space: nowrap;
+}
+
+.View {
+    flex-grow: 1;
+    padding: calc(var(--spacing-unit) * 2);
+    overflow-y: auto;
+}
+
+.library {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
+    gap: calc(var(--spacing-unit) * 2);
+}
+
+.library .item {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 4px 15px var(--color-shadow);
+    transition:
+        transform var(--transition-speed-fast) ease,
+        box-shadow var(--transition-speed-fast) ease;
+}
+
+.library .item:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 25px var(--color-shadow);
+}
+
+.LargeImage {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* --- LOGS PANE --- */
+.logs {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    height: 100px; /* Collapsed height */
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 20px var(--color-shadow);
+    backdrop-filter: blur(10px);
+    z-index: 200;
+    overflow: hidden;
+    transition:
+        width var(--transition-speed-med) ease,
+        height var(--transition-speed-med) ease;
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-unit);
+}
+
+.logs:hover {
+    width: 500px;
+    height: 350px; /* Expanded height */
+}
+
+.log {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    padding: 2px 0;
+    border-bottom: 1px solid rgba(138, 142, 255, 0.05);
+}
+
+.logs:hover .log {
+    white-space: normal; /* Allow wrapping when expanded */
+}
+
+/* Add a pseudo-element for a title that's only visible when collapsed */
+.logs::before {
+    content: "LOGS";
+    font-family: var(--font-mono);
+    color: var(--color-text-accent);
+    text-align: center;
+    width: 100%;
+    padding-bottom: var(--spacing-unit);
+    transition: opacity var(--transition-speed-fast) ease;
+}
+
+.logs:hover::before {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+}
+
+.logsBottom {
+    min-height: 1px;
+    margin-top: auto;
+}

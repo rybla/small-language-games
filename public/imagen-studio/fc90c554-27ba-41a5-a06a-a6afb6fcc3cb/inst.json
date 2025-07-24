@@ -1,0 +1,52 @@
+{
+    "specName": "imagen-studio",
+    "metadata": {
+        "id": "fc90c554-27ba-41a5-a06a-a6afb6fcc3cb",
+        "name": "really big banana",
+        "creationDate": 1753314602747
+    },
+    "initialState": {
+        "model": "googleai/imagen-4.0-generate-preview-06-06",
+        "temperature": 1,
+        "imageIds": []
+    },
+    "state": {
+        "model": "googleai/imagen-4.0-generate-preview-06-06",
+        "temperature": 1,
+        "imageIds": [
+            "2b8dfd86-ff87-4a1a-a226-8c5d68cfbce3",
+            "da4bd209-01f4-48d0-b635-253738f67826"
+        ]
+    },
+    "turns": [
+        {
+            "state": {
+                "model": "googleai/imagen-4.0-generate-preview-06-06",
+                "temperature": 1,
+                "imageIds": [
+                    "2b8dfd86-ff87-4a1a-a226-8c5d68cfbce3"
+                ]
+            },
+            "action": {
+                "prompt_original": "a really big banana hovering over New York City ",
+                "prompt_enhanced": "a really big banana hovering over New York City "
+            },
+            "description": "prompt: \"a really big banana hovering over New York City \""
+        },
+        {
+            "state": {
+                "model": "googleai/imagen-4.0-generate-preview-06-06",
+                "temperature": 1,
+                "imageIds": [
+                    "2b8dfd86-ff87-4a1a-a226-8c5d68cfbce3",
+                    "da4bd209-01f4-48d0-b635-253738f67826"
+                ]
+            },
+            "action": {
+                "prompt_original": "a top-down view of Central Park in New York City ",
+                "prompt_enhanced": "a top-down view of Central Park in New York City "
+            },
+            "description": "prompt: \"a top-down view of Central Park in New York City \""
+        }
+    ]
+}

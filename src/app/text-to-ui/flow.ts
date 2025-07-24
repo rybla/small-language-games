@@ -29,7 +29,7 @@ export const generateAppletDesign = ai.defineFlow(
   },
   async (input) => {
     const response = await ai.generate({
-      model: model.speed,
+      model: model.text_speed,
       system: `
 You are a UI design assistant. The user will provide a high-level description for an applet they want built. You should carefully consider their specification, and then write a structured design for a UI that satisfies all of their specification. Your design should be comprehensive and specific.
 
@@ -55,7 +55,7 @@ export const generateAppletInitialState = ai.defineFlow(
   },
   async (input) => {
     const response = await ai.generate({
-      model: model.speed,
+      model: model.text_speed,
       system: `
 You are a UI design asistant. The user has written a detailed design specifcation for an applet UI. Your task is to define the initial applet state. Make sure to initialize all values that are referred to in the applet's design specifiction.
 `.trim(),
@@ -95,7 +95,7 @@ export const generateAppletBody = ai.defineFlow(
   },
   async (input) => {
     const response = await ai.generate({
-      model: model.speed,
+      model: model.text_speed,
       system: `
 You are a UI design assistant. The user has designed a UI for a new applet. Your task is to create a structured outline of the applet's UI layout. Make sure to follow the design specification very specifically.
 `.trim(),
@@ -159,7 +159,7 @@ export const generateImage = ai.defineFlow(
   },
   async (input) => {
     const response = await ai.generate({
-      model: model.image,
+      model: model.image_power,
       prompt: `
 You are a graphic designer for web app assets. Your task is the produce a high-quality image according to the following description: ${input.element.description}
 `.trim(),
@@ -182,7 +182,7 @@ export const fillPlaceholder = ai.defineFlow(
   },
   async (input) => {
     const response = await ai.generate({
-      model: model.speed,
+      model: model.text_speed,
       system: `
 You are a design assistant for building applet UIs.
 
@@ -240,7 +240,7 @@ export const interpretEffect = ai.defineFlow(
   },
   async (input) => {
     const response = await ai.generate({
-      model: model.speed,
+      model: model.text_speed,
       system: `
 You are a web development assistant who assists with tests by emulating how a natural-language description of how a UI will update an applet's state. Note that you are only allowed to modify the values of fields that are already in the applet's state. You CANNOT add new fields to the applet's state.
 

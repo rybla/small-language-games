@@ -1,4 +1,4 @@
-import { formatDate, fromNever, intercalate } from "@/utility";
+import { formatDate, fromNever } from "@/utility";
 import { useEffect, useRef, useState } from "react";
 import type {
   InstClient,
@@ -8,10 +8,10 @@ import type {
 } from "../../ontology";
 import styles from "./SimpleClient.module.css";
 
-type InstStatus<S, V, A> =
+type InstStatus<V, A> =
   | { type: "none" }
   | { type: "loading"; instMetadata: InstMetadata }
-  | { type: "loaded"; inst: InstClient<S, V, A> };
+  | { type: "loaded"; inst: InstClient<V, A> };
 
 export default function SimpleClient<
   N extends string,
@@ -23,7 +23,7 @@ export default function SimpleClient<
   const [instMetadatas, set_instMetadatas] = useState<InstMetadata[]>([]);
   const [logs, set_logs] = useState<string[]>([]);
   const [isShownPopupNew, set_isShownPopupNew] = useState(false);
-  const [instStatus, set_instStatus] = useState<InstStatus<S, V, A>>({
+  const [instStatus, set_instStatus] = useState<InstStatus<V, A>>({
     type: "none",
   });
   const turnsBottom_ref = useRef<HTMLDivElement>(null);
@@ -78,6 +78,11 @@ export default function SimpleClient<
     set_logs((logs) => [...logs, `[submitPrompt]`]);
     await spec.initialize(params);
     await update_instMetadatas();
+    await updateInst();
+  }
+
+  async function submitPromptAction(params: P["action"]) {
+    await spec.act(params);
     await updateInst();
   }
 
@@ -190,7 +195,10 @@ export default function SimpleClient<
               <div className={styles.turnsBottom} ref={turnsBottom_ref} />
             </div>
             <div className={styles.PromptAction}>
-              <PromptAction view={instStatus.inst.view} update={updateInst} />
+              <PromptAction
+                view={instStatus.inst.view}
+                submit={submitPromptAction}
+              />
             </div>
           </div>
           <div className={styles.View}>

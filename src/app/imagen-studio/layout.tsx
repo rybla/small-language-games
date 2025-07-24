@@ -1,5 +1,5 @@
 import { rootName } from "./common";
-import styles from "./layout.module.css";
+import style from "./layout.module.css";
 import Header from "@/component/Header";
 
 export default function Layout(
@@ -11,12 +11,12 @@ export default function Layout(
     <>
       <Header
         classNames={{
-          header: styles.header,
-          separator: styles.header_separator,
-          branch: styles.header_branch,
+          header: style.header,
+          separator: style.header_separator,
+          branch: style.header_branch,
         }}
         root={{ label: rootName, href: `/${rootName}` }}
-        branches={[{ label: "new", href: `/${rootName}/new` }]}
+        branches={[]}
       />
       {input.children}
     </>

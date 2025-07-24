@@ -10,7 +10,11 @@ import {
   SpecParams,
   SpecServer,
   Turn,
+  TurnClient,
 } from "./ontology";
+import Paths from "./paths";
+
+const paths = new Paths("public");
 
 export async function initialize<
   N extends string,
@@ -57,7 +61,7 @@ export async function runPrompt<
   }
   const { action, description } = result;
   const state = deepcopy(inst.state);
-  await spec.interpretAction(state, action);
+  await spec.interpretAction(inst, state, action);
   const turn: Turn<S, A> = { state, action, description };
   inst.turns.push(turn);
   inst.state = state;
@@ -67,21 +71,30 @@ export async function runPrompt<
 export function toInstClient<N extends string, P extends SpecParams, S, V, A>(
   spec: SpecServer<N, P, S, V, A>,
   inst: Inst<N, S, A>,
-): InstClient<S, V, A> {
+): InstClient<V, A> {
   return {
     metadata: inst.metadata,
     view: spec.view(inst.state),
-    turns: inst.turns,
+    turns: inst.turns.map((turn) => toTurnClient(spec, turn)),
+  };
+}
+
+export function toTurnClient<N extends string, P extends SpecParams, S, V, A>(
+  spec: SpecServer<N, P, S, V, A>,
+  turn: Turn<S, A>,
+): TurnClient<V, A> {
+  return {
+    view: spec.view(turn.state),
+    action: turn.action,
+    description: turn.description,
   };
 }
 
 // root
 
-export const rootDirpath = (specName: string) => path.join("public", specName);
-
 export async function getInstIds(specName: string): Promise<string[]> {
-  await fs.mkdir(rootDirpath(specName), { recursive: true });
-  return (await fs.readdir(rootDirpath(specName))).filter(
+  await fs.mkdir(paths.rootDirpath(specName), { recursive: true });
+  return (await fs.readdir(paths.rootDirpath(specName))).filter(
     (filename) => !filename.includes("."),
   );
 }
@@ -98,40 +111,31 @@ export async function getInstMetadatas(
 
 // Inst
 
-export const instDirpath = (specName: string, instId: string) =>
-  path.join(rootDirpath(specName), instId);
-
-export const instFilepath = (specName: string, instId: string) =>
-  path.join(instDirpath(specName, instId), "inst.json");
-
-export const instMetadataFilepath = (specName: string, instId: string) =>
-  path.join(instDirpath(specName, instId), "inst_metadata.json");
-
 export async function saveInst<N extends string, P extends SpecParams, S, V, A>(
   inst: Inst<N, S, A>,
 ): Promise<void> {
-  await fs.mkdir(instDirpath(inst.specName, inst.metadata.id), {
+  await fs.mkdir(paths.instDirpath(inst.specName, inst.metadata.id), {
     recursive: true,
   });
   await fs.writeFile(
-    instFilepath(inst.specName, inst.metadata.id),
+    paths.instFilepath(inst.specName, inst.metadata.id),
     stringify(inst),
     "utf8",
   );
   await fs.writeFile(
-    instMetadataFilepath(inst.specName, inst.metadata.id),
+    paths.instMetadataFilepath(inst.specName, inst.metadata.id),
     stringify(inst.metadata),
     "utf8",
   );
 }
 
-export async function loadInst<N extends string, S, A>(
+export async function load<N extends string, S, A>(
   specName: string,
   instId: string,
 ): Promise<Inst<N, S, A> | undefined> {
   try {
     return JSON.parse(
-      await fs.readFile(instFilepath(specName, instId), "utf8"),
+      await fs.readFile(paths.instFilepath(specName, instId), "utf8"),
     );
   } catch {
     return undefined;
@@ -144,7 +148,7 @@ export async function loadInstMetadata(
 ): Promise<InstMetadata | undefined> {
   try {
     return JSON.parse(
-      await fs.readFile(instMetadataFilepath(specName, instId), "utf8"),
+      await fs.readFile(paths.instMetadataFilepath(specName, instId), "utf8"),
     );
   } catch {
     return undefined;
@@ -153,24 +157,15 @@ export async function loadInstMetadata(
 
 // Asset
 
-export const assetDirpath = (specName: string, instId: string): string =>
-  path.join(instDirpath(specName, instId), "asset");
-
 export async function getAssetFilenames(
   specName: string,
   instId: string,
   ext: string,
 ): Promise<string[]> {
-  return (await fs.readdir(assetDirpath(specName, instId))).filter(
+  return (await fs.readdir(paths.assetDirpath(specName, instId))).filter(
     (filename) => path.extname(filename) === ext,
   );
 }
-
-export const assetFilepath = (
-  specName: string,
-  instId: string,
-  filename: string,
-) => path.join(assetDirpath(specName, instId), filename);
 
 export async function saveAsset(
   specName: string,
@@ -184,8 +179,8 @@ export async function saveAsset(
     | Stream,
   encoding: BufferEncoding,
 ): Promise<void> {
-  await fs.mkdir(assetDirpath(specName, instId), { recursive: true });
-  await fs.writeFile(assetFilepath(specName, instId, filename), content, {
+  await fs.mkdir(paths.assetDirpath(specName, instId), { recursive: true });
+  await fs.writeFile(paths.assetFilepath(specName, instId, filename), content, {
     encoding,
   });
 }
@@ -197,7 +192,7 @@ export async function loadAsset(
   encoding: BufferEncoding,
 ): Promise<string | undefined> {
   try {
-    return await fs.readFile(assetFilepath(specName, instId, filename), {
+    return await fs.readFile(paths.assetFilepath(specName, instId, filename), {
       encoding,
     });
   } catch {

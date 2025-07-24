@@ -16,6 +16,9 @@ export default function Page() {
           </li>
           <div className={styles.sectionTitle}>Tools</div>
           <li>
+            <Link href="/imagen-studio">imagen-studio</Link>
+          </li>
+          <li>
             <Link href="/text-to-ui">text-to-ui</Link>
           </li>
           <div className={styles.sectionTitle}>Tests</div>

@@ -1,8 +1,8 @@
 "use server";
 
 import { err, fromNever, Result, stringify } from "@/utility";
-import { Inst, InstClient, SpecServer } from "../library/sva/ontology";
-import * as server from "../library/sva/server";
+import { Inst, InstClient, SpecServer } from "../../library/sva/ontology";
+import * as server from "../../library/sva/server";
 import * as common from "./common";
 import { A, N, name, P, S, V } from "./common";
 
@@ -30,7 +30,7 @@ const spec: SpecServer<N, P, S, V, A> = {
       description: stringify(prompt),
     };
   },
-  async interpretAction(state, action) {
+  async interpretAction(inst, state, action) {
     switch (action.type) {
       case "increment counter": {
         state[action.counter] += 1;
@@ -57,7 +57,7 @@ export async function getInst(): Promise<InstClient<S, V, A> | undefined> {
 }
 
 export async function loadInst(id: string): Promise<void> {
-  inst = await server.loadInst<N, S, A>(name, id);
+  inst = await server.load<N, S, A>(name, id);
 }
 
 export async function initialize(params: P["initialization"]): Promise<void> {
