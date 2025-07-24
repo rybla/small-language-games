@@ -126,6 +126,10 @@ export function addRoomConnection(
   roomConnection_to: RoomConnection,
   roomConnection_from: RoomConnection,
 ) {
+  console.log(
+    `[addRoomConnection]`,
+    stringify({ roomConnection_to, roomConnection_from }),
+  );
   addRoomConnection_oneWay(game, roomConnection_to);
   addRoomConnection_oneWay(game, roomConnection_from);
 }

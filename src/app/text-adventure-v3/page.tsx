@@ -63,14 +63,17 @@ export default function Page() {
   }
 
   async function submitPromptInitialization(params: P["initialization"]) {
-    set_logs((logs) => [...logs, `[submitPromptInitialization]`]);
+    set_logs((logs) => [
+      ...logs,
+      `[submitPromptInitialization] ${stringify(params)}`,
+    ]);
     await server.initializeInst(params);
     await refresh_saveds();
     await updateInst();
   }
 
   async function submitPromptAction(params: P["action"]) {
-    set_logs((logs) => [...logs, `[submitPromptAction]`]);
+    set_logs((logs) => [...logs, `[submitPromptAction] ${stringify(params)}`]);
     await server.actInst(params);
     await updateInst();
   }

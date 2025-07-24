@@ -26,15 +26,16 @@ export async function initialize<
   spec: SpecServer<N, P, S, V, A>,
   params: P["initialization"],
 ): Promise<Inst<N, S, A>> {
-  const initialState = await spec.initializeState(params);
   const id = randomUUID();
+  const metadata = {
+    id,
+    name: id,
+    creationDate: Date.now(),
+  };
+  const initialState = await spec.initializeState(metadata, params);
   return {
     specName: spec.name,
-    metadata: {
-      id,
-      name: id,
-      creationDate: Date.now(),
-    },
+    metadata,
     initialState,
     state: initialState,
     turns: [],

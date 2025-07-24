@@ -17,7 +17,7 @@ export type SpecParams = {
 
 export type SpecServer<N extends string, P extends SpecParams, S, V, A> = {
   initializeState: (
-    inst: Inst<N, S, A>,
+    instMetadata: InstMetadata,
     params: P["initialization"],
   ) => Promise<S>;
   view: (state: S) => V;

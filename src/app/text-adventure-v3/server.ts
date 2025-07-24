@@ -19,7 +19,7 @@ function getImageFilenameOfItemName(itemName: ItemName) {
 
 const spec: SpecServer<N, P, S, V, A> = {
   ...constant.spec,
-  async initializeState(inst, params) {
+  async initializeState(metadata, params) {
     const { game, itemImageDataUrls, roomImageDataUrls } =
       await flow.GenerateGame({ prompt: params.prompt });
 
@@ -27,7 +27,7 @@ const spec: SpecServer<N, P, S, V, A> = {
       ...Object.entries(itemImageDataUrls).map(([itemName, itemImageDataUrl]) =>
         server.saveAsset(
           name,
-          inst.metadata.id,
+          metadata.id,
           getImageFilenameOfItemName(itemName),
           fromDataUrlToBuffer(itemImageDataUrl),
           "base64",
@@ -36,7 +36,7 @@ const spec: SpecServer<N, P, S, V, A> = {
       ...Object.entries(roomImageDataUrls).map(([roomName, roomImageDataUrl]) =>
         server.saveAsset(
           name,
-          inst.metadata.id,
+          metadata.id,
           getImageFilenameOfItemName(roomName),
           fromDataUrlToBuffer(roomImageDataUrl),
           "base64",
@@ -94,7 +94,7 @@ export async function initializeInst(
 export async function actInst(
   params: P["action"],
 ): Promise<Result<{ message: string }, {}>> {
-  if (inst === undefined) return err({ message: "inst === unhdefined" });
+  if (inst === undefined) return err({ message: "inst === undefined" });
   const result = await server.runPrompt(spec, inst, params);
   return result;
 }

@@ -1,6 +1,6 @@
-import { ai } from "@/backend/ai";
+import { ai, model } from "@/backend/ai";
 import { getValidOutput } from "@/backend/ai/common";
-import { TODO } from "@/utility";
+import { TODO, trim } from "@/utility";
 import { GenerateOptions, z } from "genkit";
 import { GameAction } from "./action";
 import {
@@ -17,6 +17,15 @@ import {
   World,
 } from "./ontology";
 import { addItem, addRoom, addRoomConnection } from "./semantics";
+
+function makeSystemPrelude() {
+  return `
+You are the game master for a unique and creative text adventure game. Keep the following tips in mind:
+  - Be creative!
+  - Play along with the user, but also make sure to make the game play out coherently with according the the game's setting.
+  - All of your prose should use present tense and 3rd person perspecitve.
+`;
+}
 
 export const GenerateGame = ai.defineFlow(
   {
@@ -41,8 +50,15 @@ export const GenerateGame = ai.defineFlow(
       playerAppearanceDescription,
     } = getValidOutput(
       await ai.generate({
-        system: TODO(),
-        prompt: TODO(),
+        model: model.text_speed,
+        system: trim(`
+${makeSystemPrelude()}
+
+The user will provide a high-level idea of what they want a new game to be about. Your task is to expend the user's game idea into a flushed-out and structured description of an initial game world.
+`),
+        prompt: trim(`
+${prompt}
+`),
         output: {
           schema: z.object({
             worldDescription: World.shape.description,
@@ -134,8 +150,17 @@ export const GenerateStartingRoom = ai.defineFlow(
       startingRoomConnectedRooms,
     } = getValidOutput(
       await ai.generate({
-        system: TODO(),
-        prompt: TODO(),
+        model: model.text_speed,
+        system: trim(`
+${makeSystemPrelude()}
+
+The user will provide a description of the world where the game takes place. Your task is to create the starting room for the game that thematicaly fits into that world.
+`),
+        prompt: trim(`
+# World Description
+
+${worldDescription}
+`),
         output: {
           schema: z.object({
             startingRoomName: Room.shape.name,
