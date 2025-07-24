@@ -1,58 +1,75 @@
 "use server";
 
 import { Inst, InstClient, SpecServer } from "@/library/sva/ontology";
-import { N, S, A, V, P, name } from "./constant";
-import * as constant from "./constant";
 import * as server from "@/library/sva/server";
-import { err, ok, Result, sleep, TODO } from "@/utility";
+import { err, fromDataUrlToBuffer, ok, Result } from "@/utility";
+import filenamify from "filenamify";
+import { interpretGameAction } from "./action";
+import * as constant from "./constant";
+import { A, N, name, P, S, V } from "./constant";
+import * as flow from "./flow";
+import { ItemName } from "./ontology";
 import { getGameView } from "./semantics";
 
 var inst: Inst<N, S, A> | undefined;
 
+function getImageFilenameOfItemName(itemName: ItemName) {
+  return `${filenamify(itemName)}.png`;
+}
+
 const spec: SpecServer<N, P, S, V, A> = {
   ...constant.spec,
-  async initializeState(params) {
-    await sleep(1000);
+  async initializeState(inst, params) {
+    const { game, itemImageDataUrls, roomImageDataUrls } =
+      await flow.GenerateGame({ prompt: params.prompt });
+
+    await Promise.all([
+      ...Object.entries(itemImageDataUrls).map(([itemName, itemImageDataUrl]) =>
+        server.saveAsset(
+          name,
+          inst.metadata.id,
+          getImageFilenameOfItemName(itemName),
+          fromDataUrlToBuffer(itemImageDataUrl),
+          "base64",
+        ),
+      ),
+      ...Object.entries(roomImageDataUrls).map(([roomName, roomImageDataUrl]) =>
+        server.saveAsset(
+          name,
+          inst.metadata.id,
+          getImageFilenameOfItemName(roomName),
+          fromDataUrlToBuffer(roomImageDataUrl),
+          "base64",
+        ),
+      ),
+    ]);
+
     return {
-      game: {
-        world: {
-          description: "TODO:description",
-          player: {
-            name: "TODO:name",
-            description: "TODO:description",
-            appearanceDescription: "TODO:appearanceDescription",
-            room: "TODO:room",
-          },
-          rooms: {
-            "TODO:room": {
-              name: "TODO:room",
-              description: "TODO:description",
-              appearanceDescription: "TODO:appearanceDescription",
-            },
-          },
-          items: {},
-          itemLocations: {},
-          roomConnections: {
-            "TODO:room": [],
-          },
-        },
-      },
-    } satisfies S;
+      game,
+    };
   },
   async generateAction(view, params) {
+    const { gameAction } = await flow.GenerateAction({
+      prompt: params.prompt,
+      view: view.game,
+    });
+    const { description } = await flow.GenerateTurnDescription({
+      gameAction,
+    });
     return ok({
       action: {
         prompt: params.prompt,
+        gameActions: [gameAction],
       },
-      description: `prompt: ${params.prompt}`,
+      description,
     });
   },
   async interpretAction(inst, state, action) {
-    return;
+    for (const gameAction of action.gameActions) {
+      interpretGameAction(state.game, gameAction);
+    }
   },
   view(state) {
-    console.dir({ state }, { depth: 100 });
-    console.log(state.game.world.itemLocations);
     return {
       game: getGameView(state.game),
     };

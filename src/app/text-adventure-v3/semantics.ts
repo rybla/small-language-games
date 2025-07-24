@@ -1,4 +1,4 @@
-import { stringify, TODO } from "@/utility";
+import { stringify } from "@/utility";
 import {
   Game,
   GameView,
@@ -61,17 +61,20 @@ export function getPlayerRoomConnections(game: Game): RoomConnection[] {
   return getRoomConnections(game, getPlayerRoom(game).name);
 }
 
-export function getPlayerRoomItems(game: Game): Item[] {
-  const playerRoom = getPlayerRoom(game);
+export function getRoomItems(game: Game, roomName: RoomName) {
   return Array.from(
     Object.entries(game.world.itemLocations).flatMap(
       ([itemName, itemLocation]) =>
-        itemLocation.type === "room" &&
-        itemLocation.roomName === playerRoom.name
+        itemLocation.type === "room" && itemLocation.roomName === roomName
           ? [getItem(game, itemName)]
           : [],
     ),
   );
+}
+
+export function getPlayerRoomItems(game: Game): Item[] {
+  const playerRoom = getPlayerRoom(game);
+  return getRoomItems(game, playerRoom.name);
 }
 
 export function getItem(game: Game, itemName: ItemName): Item {
@@ -96,6 +99,18 @@ export function getRoomConnections(
   if (connections === undefined)
     throw new GameError(game, `Room "${roomName}" not found`);
   return connections;
+}
+
+export function doesPlayerHaveItem(game: Game, itemName: ItemName) {
+  return getPlayerItems(game).find((item) => item.name === itemName);
+}
+
+export function doesRoomHaveItem(
+  game: Game,
+  roomName: RoomName,
+  itemName: ItemName,
+) {
+  return getRoomItems;
 }
 
 // -----------------------------------------------------------------------------
@@ -125,6 +140,18 @@ function addRoomConnection_oneWay(game: Game, roomConnection: RoomConnection) {
 export function addItem(game: Game, item: Item, itemLocation: ItemLocation) {
   game.world.items[item.name] = item;
   game.world.itemLocations[item.name] = itemLocation;
+}
+
+export function setPlayerRoom(game: Game, roomName: RoomName) {
+  game.world.player.room = roomName;
+}
+
+export function setItemLocation(
+  game: Game,
+  itemName: ItemName,
+  itemLocation: ItemLocation,
+) {
+  game.world.itemLocations[itemName] = itemLocation;
 }
 
 // -----------------------------------------------------------------------------

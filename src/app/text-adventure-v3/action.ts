@@ -1,7 +1,16 @@
-import { Codomain, isNonEmpty } from "@/utility";
+import { Codomain, fromNever, isNonEmpty } from "@/utility";
 import { z } from "genkit";
 import { Game, ItemName, RoomName } from "./ontology";
-import { getPlayerItems, getPlayerRoomConnections } from "./semantics";
+import {
+  doesPlayerHaveItem,
+  doesRoomHaveItem,
+  GameError,
+  getPlayerItems,
+  getPlayerRoom,
+  getPlayerRoomConnections,
+  setItemLocation,
+  setPlayerRoom,
+} from "./semantics";
 
 // -----------------------------------------------------------------------------
 // GameAction
@@ -67,7 +76,7 @@ export const PlayerTakesItemAction = (game?: Game) => {
 
   function mkSchema(args: Codomain<typeof mkSchemaArgs>[number]) {
     return z.object({
-      type: z.enum(["PlayerGoesToRoom"]),
+      type: z.enum(["PlayerTakesItem"]),
       item: args.item,
     });
   }
@@ -110,6 +119,39 @@ export const PlayerDropsItemAction = (game?: Game) => {
       ]
     : mkSchemaArgs(game).map((args) => mkSchema(args));
 };
+
+// -----------------------------------------------------------------------------
+// interpretGameAction
+// -----------------------------------------------------------------------------
+
+export function interpretGameAction(game: Game, action: GameAction) {
+  if (action.type === "PlayerGoesToRoom") {
+    setPlayerRoom(game, action.room);
+  } else if (action.type === "PlayerDropsItem") {
+    const playerRoom = getPlayerRoom(game);
+    if (!doesPlayerHaveItem(game, action.item))
+      throw new GameError(
+        game,
+        `The player cannot drop the item "${action.item}" because that item is not in the player's inventory`,
+      );
+    setItemLocation(game, action.item, {
+      type: "room",
+      roomName: playerRoom.name,
+    });
+  } else if (action.type === "PlayerTakesItem") {
+    const playerRoom = getPlayerRoom(game);
+    if (!doesRoomHaveItem(game, playerRoom.name, action.item))
+      throw new GameError(
+        game,
+        `The player cannot take the item "${action.item}" because that item is not in the player's current room, "${playerRoom.name}"`,
+      );
+    setItemLocation(game, action.item, {
+      type: "player",
+    });
+  } else {
+    fromNever(action);
+  }
+}
 
 // -----------------------------------------------------------------------------
 // utilities

@@ -41,7 +41,7 @@ export type V = {
  */
 export type A = {
   prompt: string;
-  gameAction: GameAction;
+  gameActions: GameAction[];
 };
 
 export const spec: SpecCommon<N> = { name };

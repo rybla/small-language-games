@@ -16,11 +16,14 @@ export type SpecParams = {
 };
 
 export type SpecServer<N extends string, P extends SpecParams, S, V, A> = {
-  initializeState: (SpecParams: P["initialization"]) => Promise<S>;
+  initializeState: (
+    inst: Inst<N, S, A>,
+    params: P["initialization"],
+  ) => Promise<S>;
   view: (state: S) => V;
   generateAction: (
     view: V,
-    SpecParams: P["action"],
+    params: P["action"],
   ) => Promise<Result<{ message: string }, { action: A; description: string }>>;
   interpretAction: (inst: Inst<N, S, A>, state: S, action: A) => Promise<void>;
 } & SpecCommon<N>;

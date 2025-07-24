@@ -5,11 +5,14 @@ import { GenerateOptions, z } from "genkit";
 import { GameAction } from "./action";
 import {
   Game,
+  GameView,
   Item,
   ItemLocation,
+  ItemName,
   Player,
   Room,
   RoomConnection,
+  RoomName,
   ShortDescription,
   World,
 } from "./ontology";
@@ -23,13 +26,13 @@ export const GenerateGame = ai.defineFlow(
     }),
     outputSchema: z.object({
       game: Game,
-      itemImageDataUrls: z.array(z.string()),
-      roomImageDataUrls: z.array(z.string()),
+      itemImageDataUrls: z.record(ItemName, z.string()),
+      roomImageDataUrls: z.record(RoomName, z.string()),
     }),
   },
   async ({ prompt }) => {
-    const itemImageDataUrls: string[] = [];
-    const roomImageDataUrls: string[] = [];
+    const itemImageDataUrls: Record<ItemName, string> = {};
+    const roomImageDataUrls: Record<RoomName, string> = {};
 
     const {
       worldDescription,
@@ -269,6 +272,7 @@ export const GenerateAction = ai.defineFlow(
     name: "GenerateAction",
     inputSchema: z.object({
       prompt: z.string(),
+      view: GameView,
     }),
     outputSchema: z.object({
       gameAction: GameAction(),
@@ -282,7 +286,9 @@ export const GenerateAction = ai.defineFlow(
 export const GenerateTurnDescription = ai.defineFlow(
   {
     name: "GenerateTurnDescription",
-    inputSchema: z.object({}),
+    inputSchema: z.object({
+      gameAction: GameAction(),
+    }),
     outputSchema: z.object({
       description: z.string(),
     }),
