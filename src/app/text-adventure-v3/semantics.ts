@@ -1,5 +1,5 @@
-import { stringify } from "@/utility";
-import {
+import { stringify, trim } from "@/utility";
+import type {
   Game,
   GameView,
   Item,
@@ -38,6 +38,51 @@ export function getGameView(game: Game): GameView {
       visitedRooms: game.world.visitedRooms,
     },
   };
+}
+
+export function renderGameViewAsMarkdown(view: GameView) {
+  return trim(`
+# The Current Game State
+
+**Player name:** ${view.world.player.name}
+
+**Player description.** ${view.world.player.description}
+
+**Player appearance.** ${view.world.player.appearanceDescription}
+
+**Items in the player's inventory:** ${
+    view.world.player.items.length === 0
+      ? "none"
+      : view.world.player.items
+          .map((item) => `\n  - ${item.name}: ${item.description}`)
+          .join("")
+  }
+
+**Player location:** ${view.world.room.name}
+
+**Description of ${view.world.room.name}**: ${view.world.room.description}
+
+**Appearance of ${view.world.room.name}**: ${view.world.room.appearanceDescription}
+
+**Items located in ${view.world.room.name}:** ${
+    view.world.room.items.length === 0
+      ? "none"
+      : view.world.room.items
+          .map((item) => `\n  - ${item.name}: ${item.description}`)
+          .join("")
+  }
+
+**Other rooms connected to ${view.world.room.name}:** ${
+    view.world.room.connections.length === 0
+      ? "none"
+      : view.world.room.connections
+          .map(
+            (connection) =>
+              `\n  - ${connection.there}: ${connection.description}`,
+          )
+          .join("")
+  }
+`);
 }
 
 // -----------------------------------------------------------------------------

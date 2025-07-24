@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import { A, P, V } from "./constant";
 import styles from "./page.module.css";
 import * as server from "./server";
+import { renderGameViewAsMarkdown } from "./semantics";
+import Markdown from "react-markdown";
 
 type InstStatus =
   | { type: "none" }
@@ -237,9 +239,12 @@ export default function Page() {
               </div>
               <div className={styles.column}>
                 <div className={styles.ViewPanel}>
-                  <div className={styles.json}>
+                  {/* <div className={styles.json}>
                     {stringify(instStatus.inst.view)}
-                  </div>
+                  </div> */}
+                  <Markdown>
+                    {renderGameViewAsMarkdown(instStatus.inst.view.game)}
+                  </Markdown>
                 </div>
               </div>
             </div>
