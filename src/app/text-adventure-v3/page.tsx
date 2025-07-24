@@ -197,6 +197,7 @@ export default function Page() {
                                 void saveInst(value);
                               }
                             }}
+                            spellCheck={false}
                           />
                         </td>
                       </tr>

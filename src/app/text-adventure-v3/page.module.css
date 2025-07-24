@@ -193,9 +193,11 @@
 }
 
 .content {
-    grid-column: 2 / 3;
+    /* grid-column: 2 / 3; */
+    /* overflow-y: auto; */
     padding: calc(var(--spacing-unit) * 2);
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Sidebar Sections */
@@ -329,7 +331,7 @@
 .ViewPanel {
     border: var(--border-width) solid var(--color-border-transparent);
     padding: calc(var(--spacing-unit) * 2);
-    margin-bottom: calc(var(--spacing-unit) * 2);
+    /* margin-bottom: calc(var(--spacing-unit) * 2); */
     animation: flickerIn 0.5s ease-out forwards;
 }
 
@@ -356,7 +358,7 @@
     display: flex;
     align-items: center;
     font-size: 1.2em;
-    margin-bottom: var(--spacing-unit);
+    /* margin-bottom: var(--spacing-unit); */
 }
 
 .LoadingPanel .dot {
@@ -384,23 +386,24 @@
 
 /* Inst Panel Layout */
 .InstPanel {
+    flex: 1 1 0;
+
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: calc(var(--spacing-unit) * 2);
-    height: calc(100% - 10px);
+    /* height: calc(100% - 10px); */
 }
 
 .InstPanel .column {
     display: flex;
     flex-direction: column;
     gap: calc(var(--spacing-unit) * 2);
-    min-height: 0; /* Fix for flexbox overflow */
 }
 
 /* Inputs & Textareas */
 .input,
 .textarea {
-    background-color: transparent;
+    background-color: color-mix(in hsl, transparent, white 5%);
     border: none;
     border-bottom: var(--border-width) solid var(--color-border);
     color: var(--color-text);
@@ -441,7 +444,9 @@
 }
 
 .turns {
-    flex-grow: 1;
+    flex: 1 1 0;
+    min-height: 0;
+
     overflow-y: auto;
     padding-right: var(--spacing-unit); /* For scrollbar */
 }
