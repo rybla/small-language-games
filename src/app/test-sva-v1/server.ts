@@ -51,7 +51,7 @@ const spec: SpecServer<N, P, S, V, A> = {
   },
 };
 
-export async function getInst(): Promise<InstClient<S, V, A> | undefined> {
+export async function getInst(): Promise<InstClient<V, A> | undefined> {
   if (inst === undefined) return undefined;
   return server.toInstClient(spec, inst);
 }

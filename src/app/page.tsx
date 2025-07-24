@@ -14,6 +14,9 @@ export default function Page() {
           <li>
             <Link href="/text-adventure-v2">text-adventure-v2</Link>
           </li>
+          <li>
+            <Link href="/text-adventure-v3">text-adventure-v3</Link>
+          </li>
           <div className={styles.sectionTitle}>Tools</div>
           <li>
             <Link href="/imagen-studio">imagen-studio</Link>
