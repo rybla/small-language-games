@@ -1,6 +1,7 @@
 import { SpecCommon, SpecParams } from "@/library/sva/ontology";
-import { Supertype } from "@/utility";
+import { Subtype } from "@/utility";
 import { Game, GameView } from "./ontology";
+import { GameAction } from "./action";
 
 export const name = "text-adventure-v3" as const;
 
@@ -9,8 +10,7 @@ export type N = typeof name;
 /**
  * params
  */
-export type P = Supertype<
-  SpecParams,
+export type P = Subtype<
   {
     initialization: {
       prompt: string;
@@ -18,7 +18,8 @@ export type P = Supertype<
     action: {
       prompt: string;
     };
-  }
+  },
+  SpecParams
 >;
 
 /**
@@ -40,6 +41,7 @@ export type V = {
  */
 export type A = {
   prompt: string;
+  gameAction: GameAction;
 };
 
 export const spec: SpecCommon<N> = { name };

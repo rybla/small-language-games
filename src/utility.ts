@@ -181,3 +181,5 @@ export function formatDate(date: Date): string {
 }
 
 export type Supertype<A, B extends A> = B;
+
+export type Subtype<A extends B, B> = A;

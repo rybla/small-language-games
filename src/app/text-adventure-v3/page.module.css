@@ -5,66 +5,51 @@
 |                                                                              |
 ================================================================================
 |
-|--- CORE CONCEPT -------------------------------------------------------------|
+|--- FILE ORGANIZATION --------------------------------------------------------|
 |
-| A fusion of 90s/80s terminal aesthetics with modern design's fluidity and
-| dynamic effects. The goal is to evoke a sense of nostalgia for classic
-| command-line interfaces while feeling fresh, responsive, and interactive.
-| The design prioritizes typography, clear hierarchies, and subtle but
-| satisfying animations.
+| This CSS file establishes a "Retro Fluid Terminal" theme. It is organized
+| into the following sections:
 |
-|--- VISUAL THEMES ------------------------------------------------------------|
+| 1. :root Variables: Defines the entire color palette, typography settings,
+|    sizing, and animation speeds for the theme. This is the central
+|    configuration hub.
 |
-| 1. Fluid & Glitchy Backgrounds:
-|    - The background is a very dark, subtly moving gradient, giving a hint
-|      of an old CRT monitor's glow.
-|    - A faint, slow-moving scanline effect is overlaid to enhance the retro
-|      monitor feel.
+| 2. Global & Page Styles: Sets up the base page layout, including the fluid
+|    gradient background and the animated scanline overlay that are key to
+|    the retro CRT monitor aesthetic.
 |
-| 2. Blocky, Wireframe Foregrounds:
-|    - Content containers are defined by sharp, glowing borders rather than
-|      solid background colors, resembling old terminal windows or wireframes.
-|    - A monospace font is used almost exclusively to reinforce the terminal
-|      aesthetic.
+| 3. Custom Scrollbar Styles: This section provides custom styling for
+|    scrollbars across the application to match the theme. It makes the
+|    scrollbar a thin line, using the primary accent color by default and
+|    the secondary accent color on hover. A repeating-gradient is used to
+|    give the scrollbar a "grainy" or textured appearance, consistent with
+|    the retro vibe.
 |
-| 3. Interactive & Glowing Text:
-|    - Text is the primary element. Interactive elements like buttons and
-|      links glow and animate on interaction.
-|    - State changes are communicated through text animations and glows.
+| 4. Keyframe Animations: Contains all @keyframes rules for animations used
+|    throughout the theme, such as the background gradient movement, scanlines,
+|    and element flicker-in effects.
 |
-|--- COLOR PALETTE (CLASSIC TERMINAL) -----------------------------------------|
+| 5. Layout Containers: Styles for major layout blocks like `.sidebar` and
+|    `.content`.
 |
-| - Background: Almost black, with deep blue/purple undertones.
-| - Foreground/Text: A vibrant, slightly desaturated green.
-| - Primary Accent/Glow: A brighter, more intense version of the foreground green.
-| - Secondary Accent: A vibrant, retro orange for important UI elements.
-| - Secondary Text: A dimmer, less saturated green for less important info.
+| 6. Component Styles: The remainder of the file contains specific styling
+|    for individual components, such as sections, headings, buttons, panels,
+|    tables, inputs, and the chat/log views. Each component is styled to
+|    reinforce the terminal look and feel.
 |
-|--- TYPOGRAPHY ---------------------------------------------------------------|
+|--- SCROLLBAR IMPLEMENTATION -------------------------------------------------|
 |
-| - Primary Font: Monospace (e.g., 'Fira Code', 'Courier New', monospace)
-|   for everything to maintain the terminal look.
-| - Style: Regular weight, with bold for headings. Text is sharp and clear.
-|
-|--- ANIMATION & INTERACTIVITY ------------------------------------------------|
-|
-| - Passive Animation:
-|   - The background gradient slowly shifts.
-|   - A scanline overlay moves down the screen continuously.
-|
-| - Entrance Animation:
-|   - Elements fade in and flicker slightly, as if being drawn on a CRT screen.
-|
-| - Hover Animations:
-|   - Buttons and interactive elements intensify their glow.
-|   - Borders might animate or brighten.
-|
-| - Active/Click Animations:
-|   - Buttons have a "press down" effect, inverting their colors or scaling.
-|
-| - State Change Animation:
-|   - New logs "type out" or flicker into view.
-|   - Panels fade in and out smoothly.
+| To achieve the custom scrollbar styling, this file uses the `::-webkit-scrollbar`
+| pseudo-elements, which work in modern WebKit-based browsers (Chrome, Safari,
+| Edge, etc.).
+| - `::-webkit-scrollbar` sets the width of the scrollbar.
+| - `::-webkit-scrollbar-track` styles the background trough, which is made
+|   transparent here.
+| - `::-webkit-scrollbar-thumb` styles the draggable handle. It is styled
+|   with the primary accent color and a repeating-linear-gradient to create
+|   a grainy texture.
+| - `::-webkit-scrollbar-thumb:hover` changes the handle's color to the
+|   secondary accent color when the mouse is over it.
 |
 ================================================================================
 */
@@ -75,44 +60,40 @@
     --x-color-blue: #42cef5;
     --x-color-accent-secondary: var(--x-color-blue);
 
-    /* Color Palette */
     --color-bg: #02040a;
     --color-bg-gradient-start: #0d0d1a;
     --color-bg-gradient-end: #050510;
-    --color-text: #00ff7f; /* SpringGreen */
+    --color-text: #00ff7f;
     --color-text-dim: #00a854;
-    --color-accent-primary: #39ff14; /* Neon Green */
-    --color-accent-secondary: var(
-        --x-color-accent-secondary
-    ); /* Retro Orange */
+    --color-accent-primary: #39ff14;
+    --color-accent-secondary: var(--x-color-accent-secondary);
     --color-border: #00ff7f;
     --color-border-transparent: #00ff7f33;
     --color-shadow-primary: #00ff7f;
     --color-shadow-secondary: var(--x-color-accent-secondary);
 
-    /* Typography */
     --font-family-mono: "Fira Code", "Courier New", monospace;
 
-    /* Sizing & Spacing */
     --spacing-unit: 8px;
-    --border-radius: 4px;
+    /* --border-radius: 4px; */
+    --border-radius: 0;
     --border-width: 1px;
 
-    /* Animation */
     --transition-speed-fast: 0.2s;
     --transition-speed-med: 0.4s;
     --transition-speed-slow: 0.8s;
+
+    --scrollbar-width: 4px;
+    --scrollbar-height: 4px;
 }
 
 .page {
     flex: 1 1 0;
     min-height: 0;
     width: 100%;
-
     background-color: var(--color-bg);
     color: var(--color-text);
     font-family: var(--font-family-mono);
-
     display: grid;
     grid-template-columns: 250px 1fr;
     grid-template-rows: 1fr;
@@ -143,6 +124,32 @@
     animation: scanline 10s linear infinite;
     pointer-events: none;
     opacity: 0.5;
+}
+
+::-webkit-scrollbar {
+    width: var(--scrollbar-width);
+    height: var(--scrollbar-height);
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-accent-primary);
+    border-radius: var(--border-radius);
+    background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.25) 1px,
+        rgba(0, 0, 0, 0.25) 2px
+    );
+    transition: background-color var(--transition-speed-fast) ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-accent-secondary);
 }
 
 @keyframes fluidGradient {
@@ -181,7 +188,6 @@
     }
 }
 
-/* Layout Containers */
 .sidebar {
     grid-column: 1 / 2;
     border-right: var(--border-width) solid var(--color-border);
@@ -193,14 +199,11 @@
 }
 
 .content {
-    /* grid-column: 2 / 3; */
-    /* overflow-y: auto; */
     padding: calc(var(--spacing-unit) * 2);
     display: flex;
     flex-direction: column;
 }
 
-/* Sidebar Sections */
 .section {
     animation: flickerIn 0.5s ease-out forwards;
 }
@@ -230,7 +233,6 @@
     display: flex;
 }
 
-/* Button */
 .button {
     background-color: transparent;
     border: var(--border-width) solid var(--color-border);
@@ -255,7 +257,6 @@
     color: var(--color-bg);
 }
 
-/* New Panel (Modal) */
 .NewPanel {
     position: fixed;
     top: 50%;
@@ -309,7 +310,6 @@
     overflow-y: auto;
 }
 
-/* Prompt Initialization Panel */
 .PromptInitializationPanel {
     display: flex;
     flex-direction: column;
@@ -323,7 +323,6 @@
     margin-bottom: var(--spacing-unit);
 }
 
-/* Generic Panels & Tables */
 .InitializingPanel,
 .InstPanel,
 .MetadataPanel,
@@ -331,7 +330,6 @@
 .ViewPanel {
     border: var(--border-width) solid var(--color-border-transparent);
     padding: calc(var(--spacing-unit) * 2);
-    /* margin-bottom: calc(var(--spacing-unit) * 2); */
     animation: flickerIn 0.5s ease-out forwards;
 }
 
@@ -353,12 +351,10 @@
     width: 100%;
 }
 
-/* Loading Panel */
 .LoadingPanel {
     display: flex;
     align-items: center;
     font-size: 1.2em;
-    /* margin-bottom: var(--spacing-unit); */
 }
 
 .LoadingPanel .dot {
@@ -384,14 +380,11 @@
     }
 }
 
-/* Inst Panel Layout */
 .InstPanel {
     flex: 1 1 0;
-
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: calc(var(--spacing-unit) * 2);
-    /* height: calc(100% - 10px); */
 }
 
 .InstPanel .column {
@@ -400,7 +393,6 @@
     gap: calc(var(--spacing-unit) * 2);
 }
 
-/* Inputs & Textareas */
 .input,
 .textarea {
     background-color: color-mix(in hsl, transparent, white 5%);
@@ -435,7 +427,6 @@
     height: 100%;
 }
 
-/* Chat Panel */
 .ChatPanel {
     display: flex;
     flex-direction: column;
@@ -446,9 +437,8 @@
 .turns {
     flex: 1 1 0;
     min-height: 0;
-
     overflow-y: auto;
-    padding-right: var(--spacing-unit); /* For scrollbar */
+    padding-right: var(--spacing-unit);
 }
 
 .turn {
@@ -467,7 +457,6 @@
     border-top: var(--border-width) solid var(--color-border);
 }
 
-/* View Panel */
 .ViewPanel {
     flex-grow: 1;
     overflow: auto;
@@ -479,7 +468,6 @@
     font-size: 0.9em;
 }
 
-/* Logs Panel */
 .LogsPanel {
     position: fixed;
     bottom: var(--spacing-unit);
@@ -491,13 +479,13 @@
     backdrop-filter: blur(5px);
     z-index: 200;
     transition: max-height var(--transition-speed-med) ease-in-out;
-    max-height: 120px; /* Collapsed height */
+    max-height: 120px;
     display: flex;
     flex-direction: column;
 }
 
 .LogsPanel:hover {
-    max-height: 400px; /* Expanded height */
+    max-height: 400px;
 }
 
 .LogsPanel .title {

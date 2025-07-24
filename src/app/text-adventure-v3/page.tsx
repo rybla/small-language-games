@@ -1,6 +1,6 @@
 "use client";
 
-import { InstClient, InstMetadata } from "@/library/sva/ontology";
+import type { InstClient, InstMetadata } from "@/library/sva/ontology";
 import { formatDate, fromNever, stringify } from "@/utility";
 import { useEffect, useRef, useState } from "react";
 import { A, P, V } from "./constant";

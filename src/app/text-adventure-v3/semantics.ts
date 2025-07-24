@@ -1,8 +1,9 @@
-import { stringify } from "@/utility";
+import { stringify, TODO } from "@/utility";
 import {
   Game,
   GameView,
   Item,
+  ItemLocation,
   ItemName,
   Room,
   RoomConnection,
@@ -14,23 +15,10 @@ import {
 // -----------------------------------------------------------------------------
 
 export function getGameView(game: Game): GameView {
-  const items_player = Array.from(
-    Object.entries(game.world.itemLocations).flatMap(
-      ([itemName, itemLocation]) =>
-        itemLocation.type === "player" ? [getItem(game, itemName)] : [],
-    ),
-  );
-  const room_player = getRoom(game, game.world.player.room);
-  const items_room_player = Array.from(
-    Object.entries(game.world.itemLocations).flatMap(
-      ([itemName, itemLocation]) =>
-        itemLocation.type === "room" &&
-        itemLocation.roomName === room_player.name
-          ? [getItem(game, itemName)]
-          : [],
-    ),
-  );
-  const connections_room_player = getRoomConnection(game, room_player.name);
+  const playerItems = getPlayerItems(game);
+  const playerRoom = getPlayerRoom(game);
+  const playerRoomItems = getPlayerRoomItems(game);
+  const playerRoomConnections = getPlayerRoomConnections(game);
 
   return {
     world: {
@@ -38,42 +26,105 @@ export function getGameView(game: Game): GameView {
         name: game.world.player.name,
         description: game.world.player.description,
         appearanceDescription: game.world.player.appearanceDescription,
-        items: items_player,
+        items: playerItems,
       },
       room: {
-        name: room_player.name,
-        description: room_player.description,
-        appearanceDescription: room_player.appearanceDescription,
-        items: items_room_player,
-        connections: connections_room_player,
+        name: playerRoom.name,
+        description: playerRoom.description,
+        appearanceDescription: playerRoom.appearanceDescription,
+        items: playerRoomItems,
+        connections: playerRoomConnections,
       },
+      visitedRooms: game.world.visitedRooms,
     },
   };
 }
 
 // -----------------------------------------------------------------------------
-// utilities
+// getters
 // -----------------------------------------------------------------------------
 
-function getItem(game: Game, itemName: ItemName): Item {
+export function getPlayerItems(game: Game): Item[] {
+  return Array.from(
+    Object.entries(game.world.itemLocations).flatMap(
+      ([itemName, itemLocation]) =>
+        itemLocation.type === "player" ? [getItem(game, itemName)] : [],
+    ),
+  );
+}
+
+export function getPlayerRoom(game: Game): Room {
+  return getRoom(game, game.world.player.room);
+}
+
+export function getPlayerRoomConnections(game: Game): RoomConnection[] {
+  return getRoomConnections(game, getPlayerRoom(game).name);
+}
+
+export function getPlayerRoomItems(game: Game): Item[] {
+  const playerRoom = getPlayerRoom(game);
+  return Array.from(
+    Object.entries(game.world.itemLocations).flatMap(
+      ([itemName, itemLocation]) =>
+        itemLocation.type === "room" &&
+        itemLocation.roomName === playerRoom.name
+          ? [getItem(game, itemName)]
+          : [],
+    ),
+  );
+}
+
+export function getItem(game: Game, itemName: ItemName): Item {
   const item = game.world.items[itemName];
   if (item === undefined)
     throw new GameError(game, `Item "${itemName}" not found`);
   return item;
 }
 
-function getRoom(game: Game, roomName: RoomName): Room {
+export function getRoom(game: Game, roomName: RoomName): Room {
   const room = game.world.rooms[roomName];
   if (room === undefined)
     throw new GameError(game, `Room "${roomName}" not found`);
   return room;
 }
 
-function getRoomConnection(game: Game, roomName: RoomName): RoomConnection[] {
+export function getRoomConnections(
+  game: Game,
+  roomName: RoomName,
+): RoomConnection[] {
   const connections = game.world.roomConnections[roomName];
   if (connections === undefined)
     throw new GameError(game, `Room "${roomName}" not found`);
   return connections;
+}
+
+// -----------------------------------------------------------------------------
+// mutators
+// -----------------------------------------------------------------------------
+
+export function addRoom(game: Game, room: Room) {
+  game.world.rooms[room.name] = room;
+}
+
+export function addRoomConnection(
+  game: Game,
+  roomConnection_to: RoomConnection,
+  roomConnection_from: RoomConnection,
+) {
+  addRoomConnection_oneWay(game, roomConnection_to);
+  addRoomConnection_oneWay(game, roomConnection_from);
+}
+
+function addRoomConnection_oneWay(game: Game, roomConnection: RoomConnection) {
+  if (game.world.roomConnections[roomConnection.here] === undefined) {
+    game.world.roomConnections[roomConnection.here] = [];
+  }
+  game.world.roomConnections[roomConnection.here].push(roomConnection);
+}
+
+export function addItem(game: Game, item: Item, itemLocation: ItemLocation) {
+  game.world.items[item.name] = item;
+  game.world.itemLocations[item.name] = itemLocation;
 }
 
 // -----------------------------------------------------------------------------
