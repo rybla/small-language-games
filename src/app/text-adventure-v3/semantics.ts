@@ -193,6 +193,13 @@ export function addItem(game: Game, item: Item, itemLocation: ItemLocation) {
 
 export function setPlayerRoom(game: Game, roomName: RoomName) {
   game.world.player.room = roomName;
+  if (
+    !(
+      game.world.visitedRooms.includes(roomName) ||
+      game.world.newRooms.includes(roomName)
+    )
+  )
+    game.world.newRooms.push(roomName);
 }
 
 export function setItemLocation(

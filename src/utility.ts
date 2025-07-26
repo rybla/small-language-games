@@ -187,3 +187,11 @@ export type Subtype<A extends B, B> = A;
 export function trim(s: string) {
   return s.trim();
 }
+
+export function randomIntInRange([min, max]: [number, number]): number {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+export function randomFloatInRange([min, max]: [number, number]): number {
+  return Math.random() * (max - min) + min;
+}

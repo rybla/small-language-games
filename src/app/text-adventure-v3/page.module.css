@@ -500,7 +500,7 @@
     backdrop-filter: blur(5px);
     z-index: 200;
     transition: max-height var(--transition-speed-med) ease-in-out;
-    max-height: 120px;
+    max-height: 80px;
     display: flex;
     flex-direction: column;
 }

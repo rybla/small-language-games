@@ -20,29 +20,7 @@ function getImageFilenameOfItemName(itemName: ItemName) {
 const spec: SpecServer<N, P, S, V, A> = {
   ...constant.spec,
   async initializeState(metadata, params) {
-    const { game, itemImageDataUrls, roomImageDataUrls } =
-      await flow.GenerateGame({ prompt: params.prompt });
-
-    await Promise.all([
-      ...Object.entries(itemImageDataUrls).map(([itemName, itemImageDataUrl]) =>
-        server.saveAsset(
-          name,
-          metadata.id,
-          getImageFilenameOfItemName(itemName),
-          fromDataUrlToBuffer(itemImageDataUrl),
-          "base64",
-        ),
-      ),
-      ...Object.entries(roomImageDataUrls).map(([roomName, roomImageDataUrl]) =>
-        server.saveAsset(
-          name,
-          metadata.id,
-          getImageFilenameOfItemName(roomName),
-          fromDataUrlToBuffer(roomImageDataUrl),
-          "base64",
-        ),
-      ),
-    ]);
+    const { game } = await flow.GenerateGame({ prompt: params.prompt });
 
     return {
       game,
@@ -72,6 +50,10 @@ const spec: SpecServer<N, P, S, V, A> = {
   async interpretAction(inst, state, action) {
     for (const gameAction of action.gameActions) {
       interpretGameAction(state.game, gameAction);
+    }
+    for (const newRoom of state.game.world.newRooms) {
+      // TODO
+      // const { } = await flow.
     }
   },
   view(state) {

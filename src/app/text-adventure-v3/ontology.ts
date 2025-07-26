@@ -30,6 +30,7 @@ export const World = z.object({
     z.array(z.lazy(() => RoomConnection)),
   ),
   visitedRooms: z.array(z.lazy(() => RoomName)),
+  newRooms: z.array(z.lazy(() => RoomName)),
 });
 
 export type Player = z.infer<typeof Player>;

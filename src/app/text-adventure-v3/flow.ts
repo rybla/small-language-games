@@ -4,7 +4,7 @@ import {
   makeMarkdownFilePart,
   makeTextPart,
 } from "@/backend/ai/common";
-import { TODO, trim } from "@/utility";
+import { randomIntInRange, TODO, trim } from "@/utility";
 import { GenerateOptions, z } from "genkit";
 import { GameAction, markdownifyGameAction } from "./action";
 import {
@@ -24,6 +24,8 @@ import {
   addItem,
   addRoom,
   addRoomConnection,
+  getRoom,
+  getRoomConnections,
   markdownifyGameView,
 } from "./semantics";
 
@@ -44,14 +46,9 @@ export const GenerateGame = ai.defineFlow(
     }),
     outputSchema: z.object({
       game: Game,
-      itemImageDataUrls: z.record(ItemName, z.string()),
-      roomImageDataUrls: z.record(RoomName, z.string()),
     }),
   },
   async ({ prompt }) => {
-    const itemImageDataUrls: Record<ItemName, string> = {};
-    const roomImageDataUrls: Record<RoomName, string> = {};
-
     const {
       worldDescription,
       playerName,
@@ -79,11 +76,8 @@ ${prompt}
       } satisfies GenerateOptions),
     );
 
-    const {
-      room,
-      roomItemsAndItemLocations,
-      peripheralRoomsAndRoomConnections,
-    } = await GenerateStartingRoom({ worldDescription });
+    const { room, roomItemsAndItemLocations, connectedRooms } =
+      await GenerateStartingRoom({ worldDescription });
 
     const game: Game = {
       world: {
@@ -103,6 +97,7 @@ ${prompt}
           [room.name]: [],
         },
         visitedRooms: [room.name],
+        newRooms: [],
       },
     };
 
@@ -114,15 +109,13 @@ ${prompt}
       room,
       roomConnection_to,
       roomConnection_from,
-    } of peripheralRoomsAndRoomConnections) {
+    } of connectedRooms) {
       addRoom(game, room);
       addRoomConnection(game, roomConnection_to, roomConnection_from);
     }
 
     return {
       game,
-      itemImageDataUrls,
-      roomImageDataUrls,
     };
   },
 );
@@ -141,7 +134,7 @@ export const GenerateStartingRoom = ai.defineFlow(
           itemLocation: ItemLocation,
         }),
       ),
-      peripheralRoomsAndRoomConnections: z.array(
+      connectedRooms: z.array(
         z.object({
           room: Room,
           roomConnection_to: RoomConnection,
@@ -216,25 +209,23 @@ ${worldDescription}
           roomName: startingRoomName,
         },
       })),
-      peripheralRoomsAndRoomConnections: startingRoomConnectedRooms.map(
-        (x) => ({
-          room: {
-            name: x.roomName,
-            description: x.roomDescription,
-            appearanceDescription: x.roomAppearanceDescription,
-          } satisfies Room,
-          roomConnection_to: {
-            here: startingRoomName,
-            there: x.roomName,
-            description: x.descriptionOfPathFromHereToThere,
-          },
-          roomConnection_from: {
-            here: x.roomName,
-            there: startingRoomName,
-            description: x.descriptionOfPathFromThereToHere,
-          },
-        }),
-      ),
+      connectedRooms: startingRoomConnectedRooms.map((x) => ({
+        room: {
+          name: x.roomName,
+          description: x.roomDescription,
+          appearanceDescription: x.roomAppearanceDescription,
+        } satisfies Room,
+        roomConnection_to: {
+          here: startingRoomName,
+          there: x.roomName,
+          description: x.descriptionOfPathFromHereToThere,
+        },
+        roomConnection_from: {
+          here: x.roomName,
+          there: startingRoomName,
+          description: x.descriptionOfPathFromThereToHere,
+        },
+      })),
     };
   },
 );
@@ -251,10 +242,8 @@ export const GenerateCurrentRoom = ai.defineFlow(
         z.object({
           item: Item,
           itemLocation: ItemLocation,
-          itemImageDataUrl: z.string(),
         }),
       ),
-      roomImage_dataUrl: z.string(),
       roomConnections: z.array(RoomConnection),
     }),
   },
@@ -263,24 +252,73 @@ export const GenerateCurrentRoom = ai.defineFlow(
   },
 );
 
-export const GeneratePeripheralRooms = ai.defineFlow(
+export const GenerateNewRoom = ai.defineFlow(
   {
-    name: "GeneratePeripheralRooms",
+    name: "GenerateNewRoom",
     inputSchema: z.object({
       game: Game,
-      roomsCount: z.number().min(1),
+      roomName: RoomName,
+      range_items: z.tuple([z.number().min(1), z.number().min(1)]),
+      range_connectedRooms: z.tuple([z.number().min(1), z.number().min(1)]),
     }),
     outputSchema: z.object({
-      roomsAndRoomConnections: z.array(
+      locatedItems: z.array(
         z.object({
-          room: Room,
-          roomConnection: RoomConnection,
+          item: Item,
+          itemLocation: ItemLocation,
         }),
       ),
+      roomConnections: z.array(RoomConnection),
     }),
   },
-  async (input) => {
-    return TODO();
+  async ({ game, roomName, range_items, range_connectedRooms }) => {
+    const room = getRoom(game, roomName);
+    const roomConnections_existing = getRoomConnections(game, roomName);
+    const count_connectedRooms = randomIntInRange(range_connectedRooms);
+    const { items, connections } = getValidOutput(
+      await ai.generate({
+        system: TODO(),
+        prompt: TODO(),
+        output: {
+          schema: z.object({
+            items: z.array(
+              z.object({
+                name: Item.shape.name,
+                description: Item.shape.description,
+                appearanceDescription: Item.shape.appearanceDescription,
+              }),
+            ),
+            connections: z.array(
+              z.object({
+                there: RoomName,
+                description: RoomConnection.shape.description,
+              }),
+            ),
+          }),
+        },
+      } satisfies GenerateOptions),
+    );
+    return {
+      locatedItems: items.map((item) => ({
+        item: {
+          name: item.name,
+          description: item.description,
+          appearanceDescription: item.appearanceDescription,
+        },
+        itemLocation: {
+          type: "room" as const,
+          roomName,
+        } satisfies ItemLocation,
+      })),
+      roomConnections: connections.map(
+        (connection) =>
+          ({
+            here: roomName,
+            there: connection.there,
+            description: connection.description,
+          }) satisfies RoomConnection,
+      ),
+    };
   },
 );
 
