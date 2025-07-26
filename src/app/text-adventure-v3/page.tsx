@@ -8,6 +8,7 @@ import styles from "./page.module.css";
 import * as server from "./server";
 import { markdownifyGameView } from "./semantics";
 import Markdown from "react-markdown";
+import { ChevronRight, Quote } from "lucide-react";
 
 type InstStatus =
   | { type: "none" }
@@ -213,10 +214,62 @@ export default function Page() {
                   <div className={styles.turns}>
                     {instStatus.inst.turns.map((turn, i) => (
                       <div className={styles.turn} key={i}>
+                        <div className={styles.prompt}>
+                          <div className={styles.label}>
+                            <Quote size={20} />
+                          </div>
+                          <div className={styles.content}>
+                            {turn.action.prompt}
+                          </div>
+                        </div>
+                        <div className={styles.gameActions}>
+                          {turn.action.gameActions.map((gameAction, i) => (
+                            <div className={styles.gameAction} key={i}>
+                              {gameAction.type === "PlayerGoesToRoom" ? (
+                                <>
+                                  <div className={styles.label}>
+                                    <ChevronRight size={20} />
+                                  </div>
+                                  <div className={styles.content}>
+                                    go to{" "}
+                                    <span className={styles.roomName}>
+                                      {gameAction.room}
+                                    </span>
+                                  </div>
+                                </>
+                              ) : gameAction.type === "PlayerDropsItem" ? (
+                                <>
+                                  <div className={styles.label}>
+                                    <ChevronRight size={20} />
+                                  </div>
+                                  <div className={styles.content}>
+                                    drop{" "}
+                                    <span className={styles.itemName}>
+                                      {gameAction.item}
+                                    </span>
+                                  </div>
+                                </>
+                              ) : gameAction.type === "PlayerTakesItem" ? (
+                                <>
+                                  <div className={styles.label}>
+                                    <ChevronRight size={20} />
+                                  </div>
+                                  <div className={styles.content}>
+                                    take{" "}
+                                    <span className={styles.itemName}>
+                                      {gameAction.item}
+                                    </span>
+                                  </div>
+                                </>
+                              ) : (
+                                fromNever(gameAction)
+                              )}
+                            </div>
+                          ))}
+                        </div>
                         <div className={styles.description}>
                           {turn.description}
                         </div>
-                        {/* TODO: maybe some more info about the structured action? */}
                       </div>
                     ))}
                     <div className={styles.turnsBottom} ref={turnsBottom_ref} />

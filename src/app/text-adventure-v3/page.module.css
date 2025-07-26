@@ -445,7 +445,12 @@
     padding: var(--spacing-unit);
     margin-bottom: var(--spacing-unit);
     border: 1px solid var(--color-border-transparent);
+    border-top: var(--border-width) solid var(--color-border);
     animation: flickerIn 0.3s ease-out forwards;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-unit);
 }
 
 .turnsBottom {
@@ -454,7 +459,22 @@
 
 .prompt {
     padding-top: var(--spacing-unit);
-    border-top: var(--border-width) solid var(--color-border);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    font-size: 0.9rem;
+}
+
+.turn .prompt .label {
+    flex: 0 0 auto;
+    padding: calc(var(--spacing-unit));
+}
+
+.turn .prompt .content {
+    flex: 1 1 0;
+    padding: calc(var(--spacing-unit));
 }
 
 .ViewPanel {
@@ -523,4 +543,36 @@
 
 .logsBottom {
     height: 1px;
+}
+
+.turn .prompt {
+    padding: 0.5em;
+    background-color: color-mix(in hsl, transparent, white 5%);
+}
+
+.turn .gameActions {
+    padding: 0.5em;
+    background-color: color-mix(in hsl, transparent, white 5%);
+}
+
+.turn .gameActions .gameAction {
+    padding: var(--spacing-unit);
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-unit);
+}
+
+.turn .gameActions .gameAction .label {
+    padding: 0;
+}
+
+.turn .gameActions .gameAction .content {
+    padding: 0;
+    display: block;
+}
+
+.roomName {
+}
+
+.itemName {
 }

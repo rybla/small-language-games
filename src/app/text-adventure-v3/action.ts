@@ -8,6 +8,7 @@ import {
   getPlayerItems,
   getPlayerRoom,
   getPlayerRoomConnections,
+  getPlayerRoomItems,
   setItemLocation,
   setPlayerRoom,
 } from "./semantics";
@@ -65,7 +66,8 @@ export type PlayerTakesItemAction = z.infer<
 >;
 export const PlayerTakesItemAction = (game?: Game) => {
   function mkSchemaArgs(game: Game) {
-    const itemNames = getPlayerItems(game).map((i) => i.name);
+    const itemNames = getPlayerRoomItems(game).map((i) => i.name);
+    console.log(`[PlayerTakesItemAction] itemNames: ${itemNames}`);
     if (!isNonEmpty(itemNames)) return [];
     return [
       {

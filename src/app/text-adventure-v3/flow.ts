@@ -365,7 +365,7 @@ The user will provide:
 
 Your task is to write a one-paragraph 3rd-person narration of the player's turn as it would be written in the story of a text adventure game, taking into account the current game state and the player's actions. Make it exciting to read.
 
-CRITICAL: immediately response with JUST the narration.
+CRITICAL: ONLY write the narration in your response.
 `),
       prompt: [
         makeMarkdownFilePart(markdownifyGameView(gameView)),
