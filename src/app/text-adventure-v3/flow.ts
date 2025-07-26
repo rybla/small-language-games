@@ -31,7 +31,7 @@ import {
 
 function makeSystemPrelude() {
   return `
-You are the game master for a unique and creative text adventure game. Keep the following tips in mind:
+You are the game master for a unique and creative text adventure game. You are well-known for your unique environments, engaging narrative prose, and interesting world-building detailing. Keep the following tips in mind:
   - Be creative!
   - Play along with the user, but also make sure to make the game play out coherently with according the the game's setting.
   - All of your prose should use present tense and 3rd person perspecitve.
@@ -97,6 +97,8 @@ ${prompt}
         roomConnections: {
           [room.name]: [],
         },
+        startingRoom: room.name,
+        visitedRooms: [room.name],
       },
     };
 
@@ -167,26 +169,32 @@ ${worldDescription}
             roomName: Room.shape.name,
             description: Room.shape.description,
             appearanceDescription: Room.shape.appearanceDescription,
-            items: z.array(
-              z.object({
-                name: Item.shape.name,
-                description: Item.shape.description,
-                appearanceDescription: Item.shape.appearanceDescription,
-              }),
-            ),
-            connectedRooms: z.array(
-              z.object({
-                roomName: Room.shape.name,
-                roomDescription: Room.shape.description,
-                roomAppearanceDescription: Room.shape.appearanceDescription,
-                descriptionOfPathFromHereToThere: ShortDescription(
-                  `path from the starting room to this room`,
-                ),
-                descriptionOfPathFromThereToHere: ShortDescription(
-                  "path from this room to the starting room",
-                ),
-              }),
-            ),
+            items: z
+              .array(
+                z.object({
+                  name: Item.shape.name,
+                  description: Item.shape.description,
+                  appearanceDescription: Item.shape.appearanceDescription,
+                }),
+              )
+              .min(1)
+              .describe("All the items in the starting room"),
+            connectedRooms: z
+              .array(
+                z.object({
+                  roomName: Room.shape.name,
+                  roomDescription: Room.shape.description,
+                  roomAppearanceDescription: Room.shape.appearanceDescription,
+                  descriptionOfPathFromHereToThere: ShortDescription(
+                    `path from the starting room to this room`,
+                  ),
+                  descriptionOfPathFromThereToHere: ShortDescription(
+                    "path from this room to the starting room",
+                  ),
+                }),
+              )
+              .min(1)
+              .describe("All the rooms connected to the starting room"),
           }),
         },
       } satisfies GenerateOptions),
@@ -243,55 +251,103 @@ export const GenerateNewRoom = ai.defineFlow(
           itemLocation: ItemLocation,
         }),
       ),
-      roomConnections: z.array(RoomConnection),
+      connectedRooms: z.array(
+        z.object({
+          room: Room,
+          roomConnection_to: RoomConnection,
+          roomConnection_from: RoomConnection,
+        }),
+      ),
     }),
   },
   async ({ game, roomName }) => {
     const room = getRoom(game, roomName);
     const roomConnections_existing = getRoomConnections(game, roomName);
-    const { items, connections } = getValidOutput(
+    const { items, connectedRooms } = getValidOutput(
       await ai.generate({
-        system: TODO(),
-        prompt: TODO(),
+        model: model.text_speed,
+        system: trim(`
+${makeSystemPrelude()}
+
+Game world description: ${game.world.description}
+
+Your task is to follow the user's instructions to describe a new room in the game.
+`),
+        prompt: trim(`
+For this task, you will working with a new room in the game called "${room.name}".
+
+Room description: ${room.description}
+
+Room appearance: ${room.appearanceDescription}
+
+For this room, "${room.name}", create some items and connections to some other new rooms.
+Keep the following notes in mind:
+- Make sure you choose items that make sense to be located in this room.
+- Make sure you choose connections to other new rooms that make sense to be connected to this room.
+- Make sure all of the details you create are thematically coherent with the game world and this room's description.
+- Be creative! Include some normal items and new rooms as well as some exciting, unique creations that a player would only ever see in your inventive game world.
+`),
         output: {
           schema: z.object({
-            items: z.array(
-              z.object({
-                name: Item.shape.name,
-                description: Item.shape.description,
-                appearanceDescription: Item.shape.appearanceDescription,
-              }),
-            ),
-            connections: z.array(
-              z.object({
-                there: RoomName,
-                description: RoomConnection.shape.description,
-              }),
-            ),
+            items: z
+              .array(
+                z.object({
+                  name: Item.shape.name,
+                  description: Item.shape.description,
+                  appearanceDescription: Item.shape.appearanceDescription,
+                }),
+              )
+              .min(1)
+              .describe(`All the items to be placed in the room "${roomName}"`),
+            connectedRooms: z
+              .array(
+                z.object({
+                  roomName: Room.shape.name,
+                  roomDescription: Room.shape.description,
+                  roomAppearanceDescription: Room.shape.appearanceDescription,
+                  descriptionOfPathFromHereToThere: ShortDescription(
+                    `path from ${room.name} to this room`,
+                  ),
+                  descriptionOfPathFromThereToHere: ShortDescription(
+                    `path from this room to ${room.name}`,
+                  ),
+                }),
+              )
+              .min(1)
+              .describe(`All the rooms connected to the room "${roomName}"`),
           }),
         },
       } satisfies GenerateOptions),
     );
     return {
-      locatedItems: items.map((item) => ({
+      locatedItems: items.map((x) => ({
         item: {
-          name: item.name,
-          description: item.description,
-          appearanceDescription: item.appearanceDescription,
+          name: x.name,
+          description: x.description,
+          appearanceDescription: x.appearanceDescription,
         },
         itemLocation: {
           type: "room" as const,
-          roomName,
-        } satisfies ItemLocation,
+          roomName: roomName,
+        },
       })),
-      roomConnections: connections.map(
-        (connection) =>
-          ({
-            here: roomName,
-            there: connection.there,
-            description: connection.description,
-          }) satisfies RoomConnection,
-      ),
+      connectedRooms: connectedRooms.map((x) => ({
+        room: {
+          name: x.roomName,
+          description: x.roomDescription,
+          appearanceDescription: x.roomAppearanceDescription,
+        } satisfies Room,
+        roomConnection_to: {
+          here: roomName,
+          there: x.roomName,
+          description: x.descriptionOfPathFromHereToThere,
+        },
+        roomConnection_from: {
+          here: x.roomName,
+          there: roomName,
+          description: x.descriptionOfPathFromThereToHere,
+        },
+      })),
     };
   },
 );

@@ -13,51 +13,75 @@ export type World = z.infer<typeof World>;
 export const World = z.object({
   description: OverviewDescription("world"),
   player: z.lazy(() => Player),
-  rooms: z.record(
-    z.lazy(() => RoomName),
-    z.lazy(() => Room),
-  ),
-  items: z.record(
-    z.lazy(() => ItemName),
-    z.lazy(() => Item),
-  ),
-  itemLocations: z.record(
-    z.lazy(() => ItemName),
-    z.lazy(() => ItemLocation),
-  ),
-  roomConnections: z.record(
-    z.lazy(() => RoomName),
-    z.array(z.lazy(() => RoomConnection)),
-  ),
+  rooms: z
+    .record(
+      z.lazy(() => RoomName),
+      z.lazy(() => Room),
+    )
+    .describe("a mapping from each room's name to that room's properties"),
+  items: z
+    .record(
+      z.lazy(() => ItemName),
+      z.lazy(() => Item),
+    )
+    .describe("a mapping from each item's name to that item's properties"),
+  itemLocations: z
+    .record(
+      z.lazy(() => ItemName),
+      z.lazy(() => ItemLocation),
+    )
+    .describe(
+      "a mapping from each item's name to that item's current location",
+    ),
+  roomConnections: z
+    .record(
+      z.lazy(() => RoomName),
+      z.array(z.lazy(() => RoomConnection)),
+    )
+    .describe(
+      "a mapping from each room's name to the connections that room has to other rooms",
+    ),
+  startingRoom: z
+    .lazy(() => RoomName)
+    .describe("the name of the room that the player starts the game in"),
+  visitedRooms: z
+    .array(z.lazy(() => RoomName))
+    .describe("the names of all the rooms that the player has visited so far"),
 });
 
 export type Player = z.infer<typeof Player>;
-export const Player = z.object({
-  name: z.string(),
-  description: OverviewDescription("player"),
-  appearanceDescription: AppearanceDescription("player"),
-  room: z.lazy(() => RoomName),
-});
+export const Player = z
+  .object({
+    name: Name("the player character"),
+    description: OverviewDescription("player"),
+    appearanceDescription: AppearanceDescription("player"),
+    room: z.lazy(() => RoomName),
+  })
+  .describe(
+    `All the properties of the player character that the user is playing as`,
+  );
 
 export type RoomName = z.infer<typeof RoomName>;
-export const RoomName = z.string();
+export const RoomName = Name("room");
 
 export type Room = z.infer<typeof Room>;
 export const Room = z.object({
-  name: z.string(),
+  name: RoomName,
   description: OverviewDescription("room"),
   appearanceDescription: AppearanceDescription("room"),
 });
 
 export type RoomConnection = z.infer<typeof RoomConnection>;
 export const RoomConnection = z.object({
-  here: RoomName,
-  there: RoomName,
-  description: ShortDescription("path from here to there"),
+  here: Name("the name of the room the player is already in"),
+  there: Name("the name of the room the player is moving to"),
+  description: ShortDescription(
+    "path from the `here` room to the `there` room",
+  ),
 });
 
 export type ItemName = z.infer<typeof ItemName>;
-export const ItemName = z.string();
+export const ItemName = Name("item");
 
 export type Item = z.infer<typeof Item>;
 export const Item = z.object({
@@ -68,8 +92,16 @@ export const Item = z.object({
 
 export type ItemLocation = z.infer<typeof ItemLocation>;
 export const ItemLocation = z.union([
-  z.object({ type: z.enum(["player"]) }),
-  z.object({ type: z.enum(["room"]), roomName: RoomName }),
+  z
+    .object({ type: z.enum(["player"]) })
+    .describe(
+      "this property specifies that the item's location is in the player's inventory",
+    ),
+  z
+    .object({ type: z.enum(["room"]), roomName: RoomName })
+    .describe(
+      "this property specifies that the item's location is in the room of the specified name",
+    ),
   // z.object({ type: z.enum(["destroyed"]) }), // TODO:advanced
 ]);
 
@@ -86,6 +118,8 @@ export type WorldView = z.infer<typeof WorldView>;
 export const WorldView = z.object({
   player: z.lazy(() => PlayerView),
   room: z.lazy(() => RoomView),
+  visitedRooms: World.shape.visitedRooms,
+  startingRoom: World.shape.startingRoom,
 });
 
 export type PlayerView = z.infer<typeof PlayerView>;
@@ -93,7 +127,9 @@ export const PlayerView = z.object({
   name: Player.shape.name,
   description: Player.shape.description,
   appearanceDescription: Player.shape.appearanceDescription,
-  items: z.array(z.lazy(() => ItemView)),
+  items: z
+    .array(z.lazy(() => ItemView))
+    .describe("all the items in the player's inventory"),
 });
 
 export type RoomView = z.infer<typeof RoomView>;
@@ -101,8 +137,10 @@ export const RoomView = z.object({
   name: Room.shape.name,
   description: Room.shape.description,
   appearanceDescription: Room.shape.appearanceDescription,
-  items: z.array(z.lazy(() => ItemView)),
-  connections: z.array(RoomConnection),
+  items: z.array(z.lazy(() => ItemView)).describe("all the items in this room"),
+  connections: z
+    .array(RoomConnection)
+    .describe("all the connections from this room to other rooms"),
 });
 
 export type ItemView = z.infer<typeof ItemView>;
@@ -115,6 +153,10 @@ export const ItemView = z.object({
 // -----------------------------------------------------------------------------
 // utilities
 // -----------------------------------------------------------------------------
+
+export function Name(subject: string) {
+  return z.string().describe(`the name of the ${subject}`);
+}
 
 export function ShortDescription(subject: string) {
   return z.string().describe(`one-sentence description of the ${subject}`);

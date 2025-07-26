@@ -35,6 +35,8 @@ export function getGameView(game: Game): GameView {
         items: playerRoomItems,
         connections: playerRoomConnections,
       },
+      startingRoom: game.world.startingRoom,
+      visitedRooms: game.world.visitedRooms,
     },
   };
 }
@@ -43,7 +45,7 @@ export function markdownifyGameView(view: GameView) {
   return trim(`
 # The Current Game State
 
-**Player name:** ${view.world.player.name}
+**Player name:** _${view.world.player.name}_
 
 **Player description.** ${view.world.player.description}
 
@@ -53,31 +55,31 @@ export function markdownifyGameView(view: GameView) {
     view.world.player.items.length === 0
       ? "none"
       : view.world.player.items
-          .map((item) => `\n  - ${item.name}: ${item.description}`)
+          .map((item) => `\n  - _${item.name}_: ${item.description}`)
           .join("")
   }
 
-**Player location:** ${view.world.room.name}
+**Player location:** _${view.world.room.name}_
 
-**Description of ${view.world.room.name}**: ${view.world.room.description}
+**Description of _${view.world.room.name}_**: ${view.world.room.description}
 
-**Appearance of ${view.world.room.name}**: ${view.world.room.appearanceDescription}
+**Appearance of _${view.world.room.name}_**: ${view.world.room.appearanceDescription}
 
-**Items located in ${view.world.room.name}:** ${
+**Items located in _${view.world.room.name}_:** ${
     view.world.room.items.length === 0
       ? "none"
       : view.world.room.items
-          .map((item) => `\n  - ${item.name}: ${item.description}`)
+          .map((item) => `\n  - _${item.name}_: ${item.description}`)
           .join("")
   }
 
-**Other rooms connected to ${view.world.room.name}:** ${
+**Other rooms connected to _${view.world.room.name}_:** ${
     view.world.room.connections.length === 0
       ? "none"
       : view.world.room.connections
           .map(
             (connection) =>
-              `\n  - ${connection.there}: ${connection.description}`,
+              `\n  - _${connection.there}_: ${connection.description}`,
           )
           .join("")
   }
@@ -157,6 +159,10 @@ export function doesRoomHaveItem(
   return getRoomItems;
 }
 
+export function isRoomVisited(game: Game, roomName: RoomName) {
+  return game.world.visitedRooms.includes(roomName);
+}
+
 // -----------------------------------------------------------------------------
 // mutators
 // -----------------------------------------------------------------------------
@@ -200,6 +206,10 @@ export function setItemLocation(
   itemLocation: ItemLocation,
 ) {
   game.world.itemLocations[itemName] = itemLocation;
+}
+
+export function visitRoom(game: Game, roomName: RoomName) {
+  game.world.visitedRooms.push(roomName);
 }
 
 // -----------------------------------------------------------------------------

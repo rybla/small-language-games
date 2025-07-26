@@ -9,7 +9,15 @@ import * as constant from "./constant";
 import { A, N, name, P, S, V } from "./constant";
 import * as flow from "./flow";
 import { ItemName } from "./ontology";
-import { getGameView } from "./semantics";
+import {
+  addItem,
+  addRoom,
+  addRoomConnection,
+  getGameView,
+  getPlayerRoom,
+  isRoomVisited as isVisitedRoom,
+  visitRoom,
+} from "./semantics";
 
 var inst: Inst<N, S, A> | undefined;
 
@@ -51,7 +59,25 @@ const spec: SpecServer<N, P, S, V, A> = {
     for (const gameAction of action.gameActions) {
       interpretGameAction(state.game, gameAction);
     }
-    // TODO: if new room is empty, then need to generate stuff for it
+    const room = getPlayerRoom(state.game);
+    if (!isVisitedRoom(state.game, room.name)) {
+      const { locatedItems, connectedRooms } = await flow.GenerateNewRoom({
+        game: state.game,
+        roomName: room.name,
+      });
+      for (const { item, itemLocation } of locatedItems) {
+        addItem(state.game, item, itemLocation);
+      }
+      for (const {
+        room,
+        roomConnection_to,
+        roomConnection_from,
+      } of connectedRooms) {
+        addRoom(state.game, room);
+        addRoomConnection(state.game, roomConnection_to, roomConnection_from);
+      }
+      visitRoom(state.game, room.name);
+    }
   },
   view(state) {
     return {

@@ -334,7 +334,19 @@ function PromptInitializationPanel(props: {
           <tr>
             <td className={styles.label}>Prompt</td>
             <td className={styles.value}>
-              <textarea className={styles.textarea} ref={prompt_ref} />
+              <textarea
+                className={styles.textarea}
+                ref={prompt_ref}
+                onKeyDown={(event) => {
+                  if (
+                    event.key === "Enter" &&
+                    (event.altKey || event.metaKey)
+                  ) {
+                    event.preventDefault();
+                    void props.submit({ prompt: prompt_ref.current!.value });
+                  }
+                }}
+              />
             </td>
           </tr>
         </tbody>
