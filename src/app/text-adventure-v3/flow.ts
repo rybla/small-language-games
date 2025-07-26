@@ -235,8 +235,6 @@ export const GenerateNewRoom = ai.defineFlow(
     inputSchema: z.object({
       game: Game,
       roomName: RoomName,
-      range_items: z.tuple([z.number().min(1), z.number().min(1)]),
-      range_connectedRooms: z.tuple([z.number().min(1), z.number().min(1)]),
     }),
     outputSchema: z.object({
       locatedItems: z.array(
@@ -248,10 +246,9 @@ export const GenerateNewRoom = ai.defineFlow(
       roomConnections: z.array(RoomConnection),
     }),
   },
-  async ({ game, roomName, range_items, range_connectedRooms }) => {
+  async ({ game, roomName }) => {
     const room = getRoom(game, roomName);
     const roomConnections_existing = getRoomConnections(game, roomName);
-    const count_connectedRooms = randomIntInRange(range_connectedRooms);
     const { items, connections } = getValidOutput(
       await ai.generate({
         system: TODO(),
