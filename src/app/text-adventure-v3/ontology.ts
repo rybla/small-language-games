@@ -29,8 +29,6 @@ export const World = z.object({
     z.lazy(() => RoomName),
     z.array(z.lazy(() => RoomConnection)),
   ),
-  visitedRooms: z.array(z.lazy(() => RoomName)),
-  newRooms: z.array(z.lazy(() => RoomName)),
 });
 
 export type Player = z.infer<typeof Player>;
@@ -88,7 +86,6 @@ export type WorldView = z.infer<typeof WorldView>;
 export const WorldView = z.object({
   player: z.lazy(() => PlayerView),
   room: z.lazy(() => RoomView),
-  visitedRooms: World.shape.visitedRooms,
 });
 
 export type PlayerView = z.infer<typeof PlayerView>;

@@ -51,10 +51,7 @@ const spec: SpecServer<N, P, S, V, A> = {
     for (const gameAction of action.gameActions) {
       interpretGameAction(state.game, gameAction);
     }
-    for (const newRoom of state.game.world.newRooms) {
-      // TODO
-      // const { } = await flow.
-    }
+    // TODO: if new room is empty, then need to generate stuff for it
   },
   view(state) {
     return {

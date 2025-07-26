@@ -76,8 +76,9 @@ ${prompt}
       } satisfies GenerateOptions),
     );
 
-    const { room, roomItemsAndItemLocations, connectedRooms } =
-      await GenerateStartingRoom({ worldDescription });
+    const { room, locatedItems, connectedRooms } = await GenerateStartingRoom({
+      worldDescription,
+    });
 
     const game: Game = {
       world: {
@@ -96,12 +97,10 @@ ${prompt}
         roomConnections: {
           [room.name]: [],
         },
-        visitedRooms: [room.name],
-        newRooms: [],
       },
     };
 
-    for (const { item, itemLocation } of roomItemsAndItemLocations) {
+    for (const { item, itemLocation } of locatedItems) {
       addItem(game, item, itemLocation);
     }
 
@@ -128,7 +127,7 @@ export const GenerateStartingRoom = ai.defineFlow(
     }),
     outputSchema: z.object({
       room: Room,
-      roomItemsAndItemLocations: z.array(
+      locatedItems: z.array(
         z.object({
           item: Item,
           itemLocation: ItemLocation,
@@ -145,11 +144,11 @@ export const GenerateStartingRoom = ai.defineFlow(
   },
   async ({ worldDescription }) => {
     const {
-      startingRoomName,
-      startingRoomDescription,
-      startingRoomAppearanceDescription,
-      startingRoomItems,
-      startingRoomConnectedRooms,
+      roomName,
+      description,
+      appearanceDescription,
+      items,
+      connectedRooms,
     } = getValidOutput(
       await ai.generate({
         model: model.text_speed,
@@ -165,23 +164,23 @@ ${worldDescription}
 `),
         output: {
           schema: z.object({
-            startingRoomName: Room.shape.name,
-            startingRoomDescription: Room.shape.description,
-            startingRoomAppearanceDescription: Room.shape.appearanceDescription,
-            startingRoomItems: z.array(
+            roomName: Room.shape.name,
+            description: Room.shape.description,
+            appearanceDescription: Room.shape.appearanceDescription,
+            items: z.array(
               z.object({
-                itemName: Item.shape.name,
-                itemDescription: Item.shape.description,
-                itemAppearanceDescription: Item.shape.appearanceDescription,
+                name: Item.shape.name,
+                description: Item.shape.description,
+                appearanceDescription: Item.shape.appearanceDescription,
               }),
             ),
-            startingRoomConnectedRooms: z.array(
+            connectedRooms: z.array(
               z.object({
                 roomName: Room.shape.name,
                 roomDescription: Room.shape.description,
                 roomAppearanceDescription: Room.shape.appearanceDescription,
                 descriptionOfPathFromHereToThere: ShortDescription(
-                  "path from the startign room to this room",
+                  `path from the starting room to this room`,
                 ),
                 descriptionOfPathFromThereToHere: ShortDescription(
                   "path from this room to the starting room",
@@ -194,61 +193,39 @@ ${worldDescription}
     );
     return {
       room: {
-        name: startingRoomName,
-        description: startingRoomDescription,
-        appearanceDescription: startingRoomAppearanceDescription,
+        name: roomName,
+        description,
+        appearanceDescription,
       },
-      roomItemsAndItemLocations: startingRoomItems.map((x) => ({
+      locatedItems: items.map((x) => ({
         item: {
-          name: x.itemName,
-          description: x.itemDescription,
-          appearanceDescription: x.itemAppearanceDescription,
+          name: x.name,
+          description: x.description,
+          appearanceDescription: x.appearanceDescription,
         },
         itemLocation: {
           type: "room" as const,
-          roomName: startingRoomName,
+          roomName: roomName,
         },
       })),
-      connectedRooms: startingRoomConnectedRooms.map((x) => ({
+      connectedRooms: connectedRooms.map((x) => ({
         room: {
           name: x.roomName,
           description: x.roomDescription,
           appearanceDescription: x.roomAppearanceDescription,
         } satisfies Room,
         roomConnection_to: {
-          here: startingRoomName,
+          here: roomName,
           there: x.roomName,
           description: x.descriptionOfPathFromHereToThere,
         },
         roomConnection_from: {
           here: x.roomName,
-          there: startingRoomName,
+          there: roomName,
           description: x.descriptionOfPathFromThereToHere,
         },
       })),
     };
-  },
-);
-
-export const GenerateCurrentRoom = ai.defineFlow(
-  {
-    name: "GenerateCurrentRoom",
-    inputSchema: z.object({
-      game: Game,
-      roomConnectionsCount: z.number().min(1),
-    }),
-    outputSchema: z.object({
-      roomItems: z.array(
-        z.object({
-          item: Item,
-          itemLocation: ItemLocation,
-        }),
-      ),
-      roomConnections: z.array(RoomConnection),
-    }),
-  },
-  async (input) => {
-    return TODO();
   },
 );
 
@@ -319,22 +296,6 @@ export const GenerateNewRoom = ai.defineFlow(
           }) satisfies RoomConnection,
       ),
     };
-  },
-);
-
-export const GenerateItem = ai.defineFlow(
-  {
-    name: "GenerateItem",
-    inputSchema: z.object({
-      game: Game,
-      itemLocation: ItemLocation,
-    }),
-    outputSchema: z.object({
-      item: Item,
-    }),
-  },
-  async (input) => {
-    return TODO();
   },
 );
 
