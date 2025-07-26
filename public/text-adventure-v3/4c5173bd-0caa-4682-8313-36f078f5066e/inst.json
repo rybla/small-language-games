@@ -640,6 +640,193 @@
                 ]
             },
             "description": "Barry, ever the opportunist, spies a Woven Satchel lying discarded amongst the decaying leaves. With a surprising burst of agility for a banana, he scampers over and deftly scoops it up, securing the intriguing container within his grasp. The satchel feels light but sturdy, hinting at the potential for future discoveries."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Banana World is a vibrant and verdant planet where everything, from the flora to the fauna, is a variation of the banana. Towering banana trees with broad, emerald leaves form dense jungles, while rolling hills of soft, yellow peel stretch as far as the eye can see. Rivers of sweet banana nectar flow through fertile valleys, and the air is thick with the sweet, ripe aroma of potassium-rich goodness. The inhabitants, like yourself, are all manner of banana-based lifeforms, from the sturdy Plantain Guards to the diminutive Ladyfingers who tend the nectar farms. It is a world of simple pleasures and profound connection, but a shadow has begun to loom.",
+                        "player": {
+                            "name": "Barry",
+                            "description": "You are Barry, a sentient banana with a curious mind and an adventurous spirit. You hail from the Great Bunch, a sprawling metropolis of banana-folk nestled within the fertile crescent of the Banana Plains. Though your existence is typically one of peaceful ripening and occasional philosophical debates about the optimal temperature for potassium absorption, a great unease has settled upon the land.",
+                            "appearanceDescription": "The player is a bipedal banana, with a smooth, yellow peel that has a slight sheen. They have two simple black eyes positioned above a wide, expressive mouth. Their limbs are stubby but surprisingly agile, ending in rounded nubs that allow for basic manipulation.",
+                            "room": "The Banana Grove"
+                        },
+                        "rooms": {
+                            "The Banana Grove": {
+                                "name": "The Banana Grove",
+                                "description": "You find yourself in a tranquil clearing, a place of relative calm amidst the towering banana trees. This grove feels ancient and untouched, a sanctuary away from the bustling nectar farms and bustling communities.",
+                                "appearanceDescription": "You stand in a clearing within a grove of colossal banana trees. Their massive trunks, textured like rough peel, rise impossibly high, their broad, emerald leaves forming a dense canopy that filters the sunlight into dappled patterns on the ground. The air is alive with the gentle hum of unseen insects and the pervasive, sweet scent of overripe bananas. The ground beneath your feet is soft, carpeted with a thick layer of fallen, decaying leaves that squish slightly with every movement."
+                            },
+                            "The Whispering Jungle": {
+                                "name": "The Whispering Jungle",
+                                "description": "You are in a shadowy part of the banana jungle. The sheer scale of the trees is overwhelming, and the undergrowth is thick with ferns and broad-leafed plants. The silence here is profound, broken only by the occasional rustle in the leaves that hints at hidden life.",
+                                "appearanceDescription": "This part of the jungle is even denser, with vines as thick as your arm hanging from the colossal trees. The light is dimmer here, the air cooler and carrying the faint smell of damp earth mixed with banana. Strange, luminescent fungi cling to the bark of the trees, casting an eerie, greenish glow."
+                            },
+                            "The Golden Hills": {
+                                "name": "The Golden Hills",
+                                "description": "You have reached the rolling hills of peel, a place of open space and gentle warmth. These hills are a staple of Banana World, providing soft landings and a canvas for the planet's unique topography. The air here carries a lighter, fresher scent than in the jungle.",
+                                "appearanceDescription": "You are on a vast plain covered in soft, yielding surfaces that resemble the peels of enormous bananas. The hills roll gently in all directions, creating a landscape of smooth, golden curves. The sky above is a brilliant, clear blue, and the sun feels warm on your skin. In the distance, you can see structures that appear to be woven from banana leaves."
+                            }
+                        },
+                        "items": {
+                            "A Ripe Banana": {
+                                "name": "A Ripe Banana",
+                                "description": "A perfectly ripe banana. It smells wonderfully sweet and is undoubtedly a good source of energy.",
+                                "appearanceDescription": "This is a large, ripe banana, its peel a vibrant yellow with a few speckles of brown suggesting perfect ripeness. It feels firm and substantial in your hand."
+                            },
+                            "Woven Satchel": {
+                                "name": "Woven Satchel",
+                                "description": "A small bag, perfect for carrying provisions or treasures you might find on your journey.",
+                                "appearanceDescription": "A simple, woven satchel made from dried banana leaves. It is surprisingly sturdy and has a comfortable strap."
+                            }
+                        },
+                        "itemLocations": {
+                            "A Ripe Banana": {
+                                "type": "player"
+                            },
+                            "Woven Satchel": {
+                                "type": "room",
+                                "roomName": "The Banana Grove"
+                            }
+                        },
+                        "roomConnections": {
+                            "The Banana Grove": [
+                                {
+                                    "here": "The Banana Grove",
+                                    "there": "The Whispering Jungle",
+                                    "description": "A well-trodden path, worn smooth by countless feet, leads out of the clearing and into the dense jungle."
+                                },
+                                {
+                                    "here": "The Banana Grove",
+                                    "there": "The Golden Hills",
+                                    "description": "To your left, the ground slopes gently upwards, revealing a broad, open expanse dotted with smooth, yellow mounds."
+                                }
+                            ],
+                            "The Whispering Jungle": [
+                                {
+                                    "here": "The Whispering Jungle",
+                                    "there": "The Banana Grove",
+                                    "description": "Returning to this clearing, you see the jungle path you came from."
+                                }
+                            ],
+                            "The Golden Hills": [
+                                {
+                                    "here": "The Golden Hills",
+                                    "there": "The Banana Grove",
+                                    "description": "You descend from the rolling hills back into the relative shade of the banana grove."
+                                }
+                            ]
+                        },
+                        "visitedRooms": [
+                            "The Banana Grove"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "drop the woven satchel",
+                "gameActions": [
+                    {
+                        "item": "Woven Satchel",
+                        "type": "PlayerDropsItem"
+                    }
+                ]
+            },
+            "description": "Barry, the bipedal banana, surveys his surroundings. The Banana Grove, a place of serene tranquility, is bathed in the soft, filtered light of the sun piercing the dense canopy above. With a decisive motion, Barry places his Woven Satchel upon the soft, leaf-strewn ground. The simple bag, once a vessel for his journey, now rests as a temporary marker in this ancient sanctuary."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Banana World is a vibrant and verdant planet where everything, from the flora to the fauna, is a variation of the banana. Towering banana trees with broad, emerald leaves form dense jungles, while rolling hills of soft, yellow peel stretch as far as the eye can see. Rivers of sweet banana nectar flow through fertile valleys, and the air is thick with the sweet, ripe aroma of potassium-rich goodness. The inhabitants, like yourself, are all manner of banana-based lifeforms, from the sturdy Plantain Guards to the diminutive Ladyfingers who tend the nectar farms. It is a world of simple pleasures and profound connection, but a shadow has begun to loom.",
+                        "player": {
+                            "name": "Barry",
+                            "description": "You are Barry, a sentient banana with a curious mind and an adventurous spirit. You hail from the Great Bunch, a sprawling metropolis of banana-folk nestled within the fertile crescent of the Banana Plains. Though your existence is typically one of peaceful ripening and occasional philosophical debates about the optimal temperature for potassium absorption, a great unease has settled upon the land.",
+                            "appearanceDescription": "The player is a bipedal banana, with a smooth, yellow peel that has a slight sheen. They have two simple black eyes positioned above a wide, expressive mouth. Their limbs are stubby but surprisingly agile, ending in rounded nubs that allow for basic manipulation.",
+                            "room": "The Banana Grove"
+                        },
+                        "rooms": {
+                            "The Banana Grove": {
+                                "name": "The Banana Grove",
+                                "description": "You find yourself in a tranquil clearing, a place of relative calm amidst the towering banana trees. This grove feels ancient and untouched, a sanctuary away from the bustling nectar farms and bustling communities.",
+                                "appearanceDescription": "You stand in a clearing within a grove of colossal banana trees. Their massive trunks, textured like rough peel, rise impossibly high, their broad, emerald leaves forming a dense canopy that filters the sunlight into dappled patterns on the ground. The air is alive with the gentle hum of unseen insects and the pervasive, sweet scent of overripe bananas. The ground beneath your feet is soft, carpeted with a thick layer of fallen, decaying leaves that squish slightly with every movement."
+                            },
+                            "The Whispering Jungle": {
+                                "name": "The Whispering Jungle",
+                                "description": "You are in a shadowy part of the banana jungle. The sheer scale of the trees is overwhelming, and the undergrowth is thick with ferns and broad-leafed plants. The silence here is profound, broken only by the occasional rustle in the leaves that hints at hidden life.",
+                                "appearanceDescription": "This part of the jungle is even denser, with vines as thick as your arm hanging from the colossal trees. The light is dimmer here, the air cooler and carrying the faint smell of damp earth mixed with banana. Strange, luminescent fungi cling to the bark of the trees, casting an eerie, greenish glow."
+                            },
+                            "The Golden Hills": {
+                                "name": "The Golden Hills",
+                                "description": "You have reached the rolling hills of peel, a place of open space and gentle warmth. These hills are a staple of Banana World, providing soft landings and a canvas for the planet's unique topography. The air here carries a lighter, fresher scent than in the jungle.",
+                                "appearanceDescription": "You are on a vast plain covered in soft, yielding surfaces that resemble the peels of enormous bananas. The hills roll gently in all directions, creating a landscape of smooth, golden curves. The sky above is a brilliant, clear blue, and the sun feels warm on your skin. In the distance, you can see structures that appear to be woven from banana leaves."
+                            }
+                        },
+                        "items": {
+                            "A Ripe Banana": {
+                                "name": "A Ripe Banana",
+                                "description": "A perfectly ripe banana. It smells wonderfully sweet and is undoubtedly a good source of energy.",
+                                "appearanceDescription": "This is a large, ripe banana, its peel a vibrant yellow with a few speckles of brown suggesting perfect ripeness. It feels firm and substantial in your hand."
+                            },
+                            "Woven Satchel": {
+                                "name": "Woven Satchel",
+                                "description": "A small bag, perfect for carrying provisions or treasures you might find on your journey.",
+                                "appearanceDescription": "A simple, woven satchel made from dried banana leaves. It is surprisingly sturdy and has a comfortable strap."
+                            }
+                        },
+                        "itemLocations": {
+                            "A Ripe Banana": {
+                                "type": "player"
+                            },
+                            "Woven Satchel": {
+                                "type": "player"
+                            }
+                        },
+                        "roomConnections": {
+                            "The Banana Grove": [
+                                {
+                                    "here": "The Banana Grove",
+                                    "there": "The Whispering Jungle",
+                                    "description": "A well-trodden path, worn smooth by countless feet, leads out of the clearing and into the dense jungle."
+                                },
+                                {
+                                    "here": "The Banana Grove",
+                                    "there": "The Golden Hills",
+                                    "description": "To your left, the ground slopes gently upwards, revealing a broad, open expanse dotted with smooth, yellow mounds."
+                                }
+                            ],
+                            "The Whispering Jungle": [
+                                {
+                                    "here": "The Whispering Jungle",
+                                    "there": "The Banana Grove",
+                                    "description": "Returning to this clearing, you see the jungle path you came from."
+                                }
+                            ],
+                            "The Golden Hills": [
+                                {
+                                    "here": "The Golden Hills",
+                                    "there": "The Banana Grove",
+                                    "description": "You descend from the rolling hills back into the relative shade of the banana grove."
+                                }
+                            ]
+                        },
+                        "visitedRooms": [
+                            "The Banana Grove"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "take the satchel",
+                "gameActions": [
+                    {
+                        "item": "Woven Satchel",
+                        "type": "PlayerTakesItem"
+                    }
+                ]
+            },
+            "description": "Barry, a banana of discerning taste and adventurous spirit, surveys the ancient Banana Grove. His simple eyes, black and curious, fall upon a Woven Satchel resting near the base of a particularly grand banana tree. With a surprisingly agile shuffle of his stubby limbs, Barry approaches the satchel. He reaches out with a rounded nub of a hand and grasps the rough fibers, easily lifting the satchel and tucking it securely into his inventory."
         }
     ]
 }

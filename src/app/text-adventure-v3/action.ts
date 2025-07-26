@@ -20,22 +20,42 @@ import {
 export type GameAction = z.infer<Codomain<typeof GameAction>>;
 export const GameAction = (game?: Game) =>
   z.union([
-    ...PlayerGoesToRoomAction(game),
-    ...PlayerTakesItemAction(game),
-    ...PlayerDropsItemAction(game),
+    ...PlayerGoesToRoom_GameAction(game),
+    ...PlayerTakesItem_GameAction(game),
+    ...PlayerDropsItem_GameAction(game),
   ] as const as Readonly<
     [
-      Codomain<typeof PlayerGoesToRoomAction>[number],
-      Codomain<typeof PlayerTakesItemAction>[number],
-      Codomain<typeof PlayerDropsItemAction>[number],
+      Codomain<typeof PlayerGoesToRoom_GameAction>[number],
+      Codomain<typeof PlayerTakesItem_GameAction>[number],
+      Codomain<typeof PlayerDropsItem_GameAction>[number],
     ]
   >);
 
-export type PlayerGoesToRoomAction = z.infer<
-  Codomain<typeof PlayerGoesToRoomAction>[number]
+function mkGameActionSchema<A, S extends z.ZodTypeAny>({
+  mkSchemaArgs,
+  defaultSchemaArgs,
+  mkSchema,
+}: {
+  mkSchemaArgs: (game: Game) => A[];
+  defaultSchemaArgs: A;
+  mkSchema: (args: A) => S;
+}) {
+  return (game?: Game) => {
+    return game === undefined
+      ? [mkSchema(defaultSchemaArgs)]
+      : mkSchemaArgs(game).map((args) => mkSchema(args));
+  };
+}
+
+export type InferGameAction<
+  GameActionSchema extends (...args: any) => z.ZodTypeAny[],
+> = z.infer<Codomain<GameActionSchema>[number]>;
+
+export type PlayerGoesToRoom_GameAction = InferGameAction<
+  typeof PlayerGoesToRoom_GameAction
 >;
-export const PlayerGoesToRoomAction = (game?: Game) => {
-  function mkSchemaArgs(game: Game) {
+export const PlayerGoesToRoom_GameAction = mkGameActionSchema({
+  mkSchemaArgs(game) {
     const roomNames = getPlayerRoomConnections(game).map((rc) => rc.there);
     if (!isNonEmpty(roomNames)) return [];
     return [
@@ -43,60 +63,44 @@ export const PlayerGoesToRoomAction = (game?: Game) => {
         room: z.enum(Object.freeze(roomNames)),
       },
     ];
-  }
-
-  function mkSchema(args: Codomain<typeof mkSchemaArgs>[number]) {
+  },
+  defaultSchemaArgs: {
+    room: castStringSchemaToEnumSchema(RoomName),
+  },
+  mkSchema(args) {
     return z.object({
       type: z.enum(["PlayerGoesToRoom"]),
       room: args.room,
     });
-  }
+  },
+});
 
-  return game === undefined
-    ? [
-        mkSchema({
-          room: castStringSchemaToEnumSchema(RoomName),
-        }),
-      ]
-    : mkSchemaArgs(game).map((args) => mkSchema(args));
-};
-
-export type PlayerTakesItemAction = z.infer<
-  Codomain<typeof PlayerTakesItemAction>[number]
->;
-export const PlayerTakesItemAction = (game?: Game) => {
-  function mkSchemaArgs(game: Game) {
+export const PlayerTakesItem_GameAction = mkGameActionSchema({
+  mkSchemaArgs(game) {
     const itemNames = getPlayerRoomItems(game).map((i) => i.name);
-    console.log(`[PlayerTakesItemAction] itemNames: ${itemNames}`);
     if (!isNonEmpty(itemNames)) return [];
     return [
       {
         item: z.enum(Object.freeze(itemNames)),
       },
     ];
-  }
-
-  function mkSchema(args: Codomain<typeof mkSchemaArgs>[number]) {
+  },
+  defaultSchemaArgs: {
+    item: castStringSchemaToEnumSchema(ItemName),
+  },
+  mkSchema(args) {
     return z.object({
       type: z.enum(["PlayerTakesItem"]),
       item: args.item,
     });
-  }
+  },
+});
 
-  return game === undefined
-    ? [
-        mkSchema({
-          item: castStringSchemaToEnumSchema(ItemName),
-        }),
-      ]
-    : mkSchemaArgs(game).map((args) => mkSchema(args));
-};
-
-export type PlayerDropsItemAction = z.infer<
-  Codomain<typeof PlayerDropsItemAction>[number]
+export type PlayerDropsItem_GameAction = InferGameAction<
+  typeof PlayerDropsItem_GameAction
 >;
-export const PlayerDropsItemAction = (game?: Game) => {
-  function mkSchemaArgs(game: Game) {
+export const PlayerDropsItem_GameAction = mkGameActionSchema({
+  mkSchemaArgs(game) {
     const itemNames = getPlayerItems(game).map((i) => i.name);
     if (!isNonEmpty(itemNames)) return [];
     return [
@@ -104,23 +108,17 @@ export const PlayerDropsItemAction = (game?: Game) => {
         item: z.enum(Object.freeze(itemNames)),
       },
     ];
-  }
-
-  function mkSchema(args: Codomain<typeof mkSchemaArgs>[number]) {
+  },
+  defaultSchemaArgs: {
+    item: castStringSchemaToEnumSchema(ItemName),
+  },
+  mkSchema(args) {
     return z.object({
       type: z.enum(["PlayerDropsItem"]),
       item: args.item,
     });
-  }
-
-  return game === undefined
-    ? [
-        mkSchema({
-          item: castStringSchemaToEnumSchema(ItemName),
-        }),
-      ]
-    : mkSchemaArgs(game).map((args) => mkSchema(args));
-};
+  },
+});
 
 // -----------------------------------------------------------------------------
 // interpretGameAction
