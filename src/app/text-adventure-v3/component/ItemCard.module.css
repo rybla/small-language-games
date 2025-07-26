@@ -1,0 +1,27 @@
+.ItemCard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    justify-content: center;
+    align-items: center;
+}
+
+.ItemCard .item_container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ItemCard .item_container .frame {
+    z-index: 2;
+}
+
+.ItemCard .item_container .item {
+    position: absolute;
+    z-index: 1;
+}
+
+.ItemCard .item_container .placeholder {
+}

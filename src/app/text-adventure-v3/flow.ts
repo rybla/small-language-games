@@ -1,5 +1,6 @@
 import { ai, model } from "@/backend/ai";
 import {
+  getValidMedia,
   getValidOutput,
   makeMarkdownFilePart,
   makeTextPart,
@@ -29,12 +30,20 @@ import {
   markdownifyGameView,
 } from "./semantics";
 
-function makeSystemPrelude() {
+function makeSystemPrelude_text() {
   return `
 You are the game master for a unique and creative text adventure game. You are well-known for your unique environments, engaging narrative prose, and interesting world-building detailing. Keep the following tips in mind:
   - Be creative!
   - Play along with the user, but also make sure to make the game play out coherently with according the the game's setting.
   - All of your prose should use present tense and 3rd person perspecitve.
+`;
+}
+
+function makeSystemPrelude_image() {
+  return `
+You are a professional illustrator for a new unique and creative fantasy adventure game. You are well-known for your intricate styles and detailing. Keep the following tips in mind:
+  - Be creative!
+  - Make sure to follow the user's instructions carefully, while also fitting everything together thematically
 `;
 }
 
@@ -58,7 +67,7 @@ export const GenerateGame = ai.defineFlow(
       await ai.generate({
         model: model.text_speed,
         system: trim(`
-${makeSystemPrelude()}
+${makeSystemPrelude_text()}
 
 The user will provide a high-level idea of what they want a new game to be about. Your task is to expend the user's game idea into a flushed-out and structured description of an initial game world.
 `),
@@ -155,7 +164,7 @@ export const GenerateStartingRoom = ai.defineFlow(
       await ai.generate({
         model: model.text_speed,
         system: trim(`
-${makeSystemPrelude()}
+${makeSystemPrelude_text()}
 
 The user will provide a description of the world where the game takes place. Your task is to create the starting room for the game that thematicaly fits into that world.
 `),
@@ -267,7 +276,7 @@ export const GenerateNewRoom = ai.defineFlow(
       await ai.generate({
         model: model.text_speed,
         system: trim(`
-${makeSystemPrelude()}
+${makeSystemPrelude_text()}
 
 Game world description: ${game.world.description}
 
@@ -370,7 +379,7 @@ export const GenerateAction = ai.defineFlow(
       await ai.generate({
         model: model.text_speed,
         system: trim(`
-${makeSystemPrelude()}
+${makeSystemPrelude_text()}
 
 The user will provide:
   - a markdown document describing the current game state
@@ -408,7 +417,7 @@ export const GenerateTurnDescription = ai.defineFlow(
     const result = await ai.generate({
       model: model.text_speed,
       system: trim(`
-${makeSystemPrelude()}
+${makeSystemPrelude_text()}
 
 The user will provide:
 - a markdown document describing the current game state (before the player's turn)
@@ -431,5 +440,43 @@ ${gameActions.map((action) => `  - ${markdownifyGameAction(action)}`).join("\n")
       ],
     } satisfies GenerateOptions);
     return { description: result.text };
+  },
+);
+
+export const GenerateItemImage = ai.defineFlow(
+  {
+    name: "GenerateItemImage",
+    inputSchema: z.object({
+      game: Game,
+      item: Item,
+    }),
+    outputSchema: z.object({
+      dataUrl: z.string(),
+    }),
+  },
+  async ({ game, item }) => {
+    const media = getValidMedia(
+      await ai.generate({
+        model: model.image_cheap,
+        prompt: trim(`
+Style instructions:
+  - orthographic perspecitve
+  - slightly padded framing
+  - depth using shading and highlights
+  - realistic fantasy art style
+  - painterly art style
+  - borderless
+  - NO TEXT
+
+Image description: A game image asset that represents the item "${item.name}". ${item.appearanceDescription}
+`),
+        output: { format: "media" },
+        config: {
+          aspectRatio: "1:1",
+          numberOfImages: 1,
+        },
+      } as GenerateOptions),
+    );
+    return { dataUrl: media.url };
   },
 );

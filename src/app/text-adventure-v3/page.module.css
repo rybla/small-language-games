@@ -478,9 +478,18 @@
 }
 
 .ViewPanel {
+    margin-bottom: 4em;
     flex: 1 1 0;
     min-height: 0;
     overflow: auto;
+}
+
+.ViewPanel .inventory .items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-content: center;
 }
 
 .json {
@@ -493,7 +502,7 @@
     position: fixed;
     bottom: var(--spacing-unit);
     right: var(--spacing-unit);
-    width: 400px;
+    width: 550px;
     max-width: 90vw;
     border: var(--border-width) solid var(--color-border);
     background-color: rgba(2, 4, 10, 0.8);

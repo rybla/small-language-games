@@ -9,6 +9,7 @@ import * as server from "./server";
 import { markdownifyGameView } from "./semantics";
 import Markdown from "react-markdown";
 import { ChevronRight, Quote } from "lucide-react";
+import ItemCard from "./component/ItemCard";
 
 type InstStatus =
   | { type: "none" }
@@ -292,9 +293,21 @@ export default function Page() {
               </div>
               <div className={styles.column}>
                 <div className={styles.ViewPanel}>
-                  {/* <div className={styles.json}>
-                    {stringify(instStatus.inst.view)}
-                  </div> */}
+                  <div className={styles.inventory}>
+                    <div className={styles.title}>Inventory</div>
+                    <div className={styles.items}>
+                      {instStatus.inst.view.game.world.player.items.map(
+                        (item, i) => (
+                          <ItemCard
+                            inst={instStatus.inst}
+                            itemName={item.name}
+                            key={i}
+                            format={"icon"}
+                          />
+                        ),
+                      )}
+                    </div>
+                  </div>
                   <Markdown>
                     {markdownifyGameView(instStatus.inst.view.game)}
                   </Markdown>

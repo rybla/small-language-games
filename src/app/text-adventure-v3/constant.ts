@@ -1,7 +1,7 @@
-import { SpecCommon, SpecParams } from "@/library/sva/ontology";
-import { Subtype } from "@/utility";
-import { Game, GameView } from "./ontology";
-import { GameAction } from "./action";
+import type { SpecCommon, SpecParams } from "@/library/sva/ontology";
+import type { Subtype } from "@/utility";
+import type { Game, GameView } from "./ontology";
+import type { GameAction } from "./action";
 
 export const name = "text-adventure-v3" as const;
 

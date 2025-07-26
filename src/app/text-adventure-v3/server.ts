@@ -3,6 +3,7 @@
 import { Inst, InstClient, SpecServer } from "@/library/sva/ontology";
 import * as server from "@/library/sva/server";
 import { err, fromDataUrlToBuffer, ok, Result } from "@/utility";
+import * as fs from "fs/promises";
 import filenamify from "filenamify";
 import { interpretGameAction } from "./action";
 import * as constant from "./constant";
@@ -14,16 +15,17 @@ import {
   addRoom,
   addRoomConnection,
   getGameView,
+  getItem,
   getPlayerRoom,
   isRoomVisited as isVisitedRoom,
   visitRoom,
 } from "./semantics";
+import { exists } from "@/utility_fs";
+import Paths from "@/library/sva/paths";
+
+const paths = new Paths("public");
 
 var inst: Inst<N, S, A> | undefined;
-
-function getImageFilenameOfItemName(itemName: ItemName) {
-  return `${filenamify(itemName)}.png`;
-}
 
 const spec: SpecServer<N, P, S, V, A> = {
   ...constant.spec,
@@ -117,4 +119,37 @@ export async function saveInst(name?: string) {
 
 export async function getInstMetadatas() {
   return await server.getInstMetadatas(name);
+}
+
+function getItemImageFilename(itemName: ItemName): string {
+  return `${filenamify(itemName)}.png`;
+}
+
+export async function loadItemImageFilename(
+  itemName: ItemName,
+): Promise<string> {
+  if (inst === undefined) throw new Error("inst === undefined");
+  const filename = getItemImageFilename(itemName);
+  if (
+    !(await exists(
+      paths.assetFilepath(
+        spec.name,
+        inst.metadata.id,
+        getItemImageFilename(itemName),
+      ),
+    ))
+  ) {
+    const { dataUrl } = await flow.GenerateItemImage({
+      game: inst.state.game,
+      item: getItem(inst.state.game, itemName),
+    });
+    await server.saveAsset(
+      spec.name,
+      inst.metadata.id,
+      filename,
+      fromDataUrlToBuffer(dataUrl),
+      "base64",
+    );
+  }
+  return filename;
 }
