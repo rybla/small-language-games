@@ -177,7 +177,8 @@
                         "type": "nonexistent"
                     },
                     "Lemon Blossoms": {
-                        "type": "player"
+                        "type": "room",
+                        "roomName": "Citrus Grove"
                     },
                     "Seed-Singer's Bowl": {
                         "type": "room",
@@ -2205,6 +2206,691 @@
                 ]
             },
             "description": "Barty Banana, ever the curious explorer, reaches out and plucks a delicate Lemon Blossom from the sun-dappled ground. The fallen petals, still carrying the grove's invigorating scent, feel like soft whispers against his peel as they join his inventory, a fragrant reminder of this sharp and clear place."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Fruittopia is a world bursting with color and flavor. Towering trees bear succulent apples, plump berries carpet the rolling hills, and citrus groves scent the air with a refreshing zest. Rivers of sparkling fruit juice flow through verdant valleys, and the sky above is a perpetual, gentle gradient of sunset orange and soft lavender. The inhabitants are all manner of fruits, from the stoic Watermelons who act as guardians of the Melon Marches to the nimble Grapes who swing through the Viney Peaks. It is a land of abundance, but also of peril, where rival fruit factions vie for control of the Sun-Ripened territories and the shadowy rot threatens to consume the unwary.",
+                        "player": {
+                            "name": "Bartholomew 'Barty' Banana",
+                            "description": "You are Bartholomew 'Barty' Banana, a brave and adventurous Cavendish banana living in the vibrant and delicious world of Fruittopia. Unlike other bananas who are content to bask in the sun or be part of a perfectly balanced fruit salad, Barty yearns for exploration and excitement. He dreams of discovering the legendary Orchard of Infinite Zest, a place whispered about in hushed tones among the elder fruits.",
+                            "appearanceDescription": "You are a banana, long and curved with a bright yellow peel. A few brown spots mar your otherwise pristine skin, hinting at a ripeness that is just right for adventure. Your stem, once attached to a bunch, now stands like a proud crown atop your form.",
+                            "room": "Citrus Grove"
+                        },
+                        "rooms": {
+                            "The Fruity Clearing": {
+                                "name": "The Fruity Clearing",
+                                "description": "You find yourself in a vibrant clearing, a nexus point within the abundant world of Fruittopia. The air is alive with the sweet perfume of ripe fruits, and the very ground beneath your feet seems to hum with life. Paths beckon in multiple directions, each promising new flavors and experiences.",
+                                "appearanceDescription": "You stand in a clearing bathed in the warm, multicolored light filtering through the canopy of colossal fruit trees. The ground beneath your feet is a springy carpet of emerald green moss, studded with plump, dew-kissed blueberries. The air is thick with the sweet, intoxicating aroma of ripe peaches and a hint of tangy raspberries. To your north, a path winds through a grove of shimmering lemon trees, their waxy leaves rustling in a gentle breeze. To the east, a crystal-clear stream, its waters the color of pure apple juice, babbles merrily over smooth, polished stones. To the south, a dense thicket of blackberry bushes, heavy with fruit, blocks the way. To the west, a towering pineapple plant, its crown a vibrant explosion of spiky green, marks the edge of the clearing."
+                            },
+                            "Citrus Grove": {
+                                "name": "Citrus Grove",
+                                "description": "You are in a sun-dappled lemon grove. The bright yellow of the lemons is almost dazzling, and their sharp, clean scent fills your senses. The trees here are smaller than the giants in the clearing, but their branches are heavy with fruit. This is a place of sharp clarity and refreshing energy.",
+                                "appearanceDescription": "This part of the grove is filled with the vibrant yellow of lemon trees. Sunlight glints off their smooth, round fruits, and the air is alive with a zesty, invigorating scent. The ground is covered in fallen petals that crunch softly underfoot. A narrow track continues further north, disappearing into a denser part of the grove."
+                            },
+                            "Apple Juice Stream": {
+                                "name": "Apple Juice Stream",
+                                "description": "This is a tranquil riverside spot where a sweet apple juice stream meanders through a valley. The gentle flow of the juice is mesmerizing, and the air is filled with a comforting, familiar sweetness. It feels like a place of rest and simple pleasures.",
+                                "appearanceDescription": "You are beside a gently flowing river of pure apple juice. The liquid is a translucent, golden amber, and it reflects the soft lavender and orange sky like a mirror. Smooth, river-worn pebbles in shades of berry red and grape purple line the banks. The sweet, comforting aroma of baked apples fills the air, and the gentle gurgling of the juice creates a soothing soundscape."
+                            },
+                            "Dewdrop Oasis": {
+                                "name": "Dewdrop Oasis",
+                                "description": "This serene pond, known as the 'Dewdrop Oasis,' is a place of quiet reflection. The water is said to hold the purest essence of morning dew, imbued with a calming energy. Small, iridescent dragonflies with wings like stained glass flit just above the surface. It is a popular spot for many of Fruittopia's inhabitants to seek respite.",
+                                "appearanceDescription": "You stand at the edge of a tranquil pond, its surface like a mirror reflecting the soft lavender and orange hues of the Fruittopian sky. The water shimmers with an inner light, and smooth, grey river stones form a gentle slope leading into its depths. Luminescent lily pads, each as large as a dinner plate, float serenely on the water. The air here is cool and carries the faint, sweet aroma of nectar."
+                            },
+                            "Plum Patch": {
+                                "name": "Plum Patch",
+                                "description": "This is the Plum Patch, a region known for its abundant, sugar-rich fruit. The plums here are prized for their intense sweetness and are often used to make rich preserves and potent wines. However, the fallen fruit can attract less desirable visitors, and the shadows beneath the trees sometimes conceal the quick, scurrying movements of the dreaded Fruit Flies.",
+                                "appearanceDescription": "The air here is thick with the sweet, almost cloying scent of ripe plums. The trees are shorter and sturdier than the lemons, their bark a deep, rich mahogany. Their branches droop under the weight of dusky purple fruit, some of which have split open, revealing glistening, sugary interiors. The ground is littered with fallen plums, creating a soft, yielding carpet that muffles your footsteps."
+                            }
+                        },
+                        "items": {
+                            "Ripe Strawberry": {
+                                "name": "Ripe Strawberry",
+                                "description": "This is a plump, luscious strawberry, appearing to be at the peak of its ripeness. It looks incredibly juicy and delicious.",
+                                "appearanceDescription": "A single, perfectly ripe strawberry rests on a broad green leaf. Its deep red color is rich and inviting, and tiny, golden seeds are scattered across its surface. A faint, sweet scent emanates from it."
+                            },
+                            "Sturdy Branch": {
+                                "name": "Sturdy Branch",
+                                "description": "This appears to be a strong branch, possibly useful for poking, prodding, or perhaps as a makeshift tool or weapon.",
+                                "appearanceDescription": "A sturdy, gnarled branch has fallen from one of the giant fruit trees. It is rough to the touch, with a smooth, polished section where it might have broken cleanly. It is about the length of your arm."
+                            },
+                            "Strawberry-Laced Branch": {
+                                "appearanceDescription": "A sturdy, gnarled branch, about the length of your arm, now has a single, perfectly ripe strawberry impaled upon its tip. The deep red of the fruit contrasts sharply with the rough, brown bark of the branch, and a tiny smear of strawberry juice glistens near the point of attachment.",
+                                "description": "This unlikely combination yields a surprisingly effective tool. The sturdy branch provides a firm handle, while the impaled ripe strawberry acts as a sweet, tempting lure. It is ideal for distracting small, curious creatures or perhaps for a delicate, albeit sticky, method of gathering other fruits from high branches.",
+                                "name": "Strawberry-Laced Branch"
+                            },
+                            "Sun-Kissed Lemon": {
+                                "name": "Sun-Kissed Lemon",
+                                "description": "This is a prime example of a Sun-Kissed Lemon, renowned throughout Fruittopia for its potent flavor and refreshing juice. It is said that holding one of these lemons can invigorate the spirit and sharpen the mind.",
+                                "appearanceDescription": "A perfectly formed lemon, its skin a bright, cheerful yellow, rests on a low-hanging branch. It catches the sunlight, appearing to glow from within. Its surface is smooth and firm to the touch, and a gentle squeeze releases a burst of its characteristic zesty fragrance."
+                            },
+                            "Lemon Blossoms": {
+                                "name": "Lemon Blossoms",
+                                "description": "These are the fallen blossoms of the lemon trees. While delicate, they retain a hint of the tree's refreshing scent and are sometimes gathered by the local inhabitants for their subtle fragrance and mild calming properties.",
+                                "appearanceDescription": "Scattered across the ground are pale yellow petals, delicate and slightly curled at the edges. They have a papery texture and emit a faint, sweet-citrus perfume. When stepped upon, they offer a satisfyingly dry crunch."
+                            },
+                            "Seed-Singer's Bowl": {
+                                "name": "Seed-Singer's Bowl",
+                                "description": "This is a 'Seed-Singer's Bowl,' used by the ancient Citrus Sages to harmonize the energies of the grove. The seeds within are said to store the vibrations of laughter and sunlight, capable of dispelling gloom with their gentle hum.",
+                                "appearanceDescription": "A small, intricately carved wooden bowl rests at the base of a particularly large lemon tree. The bowl is made from the polished rind of a giant, ancient grapefruit and is filled with tiny, glittering seeds that hum with a faint, resonant energy."
+                            },
+                            "Zest-Laced Branch": {
+                                "appearanceDescription": "A sturdy, gnarled branch, roughly the length of your arm, now sports a bright yellow, glowing lemon impaled upon its tip. The lemon's cheerful hue contrasts sharply with the rough, brown bark of the branch. A tiny smear of lemon juice glistens near the point of attachment, mingling with the faint red blush left by the strawberry.",
+                                "description": "This curious concoction marries the invigorating zest of a Sun-Kissed Lemon with the deceptive sweetness of a Strawberry-Laced Branch. The resulting tool is both pungent and alluring. It is ideal for distracting small, curious creatures with its dual aroma, or perhaps for a surprisingly effective, albeit sticky, method of reaching and gathering other fruits from high branches. The lemon's potent fragrance is expected to enhance the lure's effectiveness, drawing creatures in from afar.",
+                                "name": "Zest-Laced Branch"
+                            }
+                        },
+                        "itemLocations": {
+                            "Ripe Strawberry": {
+                                "type": "nonexistent"
+                            },
+                            "Sturdy Branch": {
+                                "type": "nonexistent"
+                            },
+                            "Strawberry-Laced Branch": {
+                                "type": "nonexistent"
+                            },
+                            "Sun-Kissed Lemon": {
+                                "type": "nonexistent"
+                            },
+                            "Lemon Blossoms": {
+                                "type": "room",
+                                "roomName": "Citrus Grove"
+                            },
+                            "Seed-Singer's Bowl": {
+                                "type": "room",
+                                "roomName": "Citrus Grove"
+                            },
+                            "Zest-Laced Branch": {
+                                "type": "room",
+                                "roomName": "Citrus Grove"
+                            }
+                        },
+                        "roomConnections": {
+                            "The Fruity Clearing": [
+                                {
+                                    "here": "The Fruity Clearing",
+                                    "there": "Citrus Grove",
+                                    "description": "A winding path leads north through the citrus grove."
+                                },
+                                {
+                                    "here": "The Fruity Clearing",
+                                    "there": "Apple Juice Stream",
+                                    "description": "A shallow stream flows east from the clearing, leading into a valley."
+                                }
+                            ],
+                            "Citrus Grove": [
+                                {
+                                    "here": "Citrus Grove",
+                                    "there": "The Fruity Clearing",
+                                    "description": "The path from the Citrus Grove leads back south to this clearing."
+                                },
+                                {
+                                    "here": "Citrus Grove",
+                                    "there": "Dewdrop Oasis",
+                                    "description": "A narrow, winding path leads north from the citrus grove, through a curtain of fragrant lemon leaves."
+                                },
+                                {
+                                    "here": "Citrus Grove",
+                                    "there": "Plum Patch",
+                                    "description": "To the east, the lemon trees thin out, revealing a grove of deep purple plum trees laden with fruit, their branches heavy and low."
+                                }
+                            ],
+                            "Apple Juice Stream": [
+                                {
+                                    "here": "Apple Juice Stream",
+                                    "there": "The Fruity Clearing",
+                                    "description": "The stream bed leads west back to the main clearing."
+                                }
+                            ],
+                            "Dewdrop Oasis": [
+                                {
+                                    "here": "Dewdrop Oasis",
+                                    "there": "Citrus Grove",
+                                    "description": "The path back south is clearly marked by the soft crunch of fallen lemon petals underfoot."
+                                }
+                            ],
+                            "Plum Patch": [
+                                {
+                                    "here": "Plum Patch",
+                                    "there": "Citrus Grove",
+                                    "description": "Leaving the sweet, heavy scent of plums behind, you return to the sharp, invigorating aroma of the lemon grove."
+                                }
+                            ]
+                        },
+                        "startingRoom": "The Fruity Clearing",
+                        "visitedRooms": [
+                            "The Fruity Clearing",
+                            "Citrus Grove"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "drop the blossoms ",
+                "gameActions": [
+                    {
+                        "item": "Lemon Blossoms",
+                        "type": "PlayerDropsItem"
+                    }
+                ]
+            },
+            "description": "Barty Banana, with a gentle rustle of his peel, releases the delicate Lemon Blossoms from his grasp. They flutter down, landing softly amidst the fallen petals on the sun-drenched ground of the Citrus Grove. The faint, calming fragrance of the blossoms mingles with the sharp, invigorating scent of the lemons, creating a subtle, yet pleasant, aroma that seems to settle over the grove."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Fruittopia is a world bursting with color and flavor. Towering trees bear succulent apples, plump berries carpet the rolling hills, and citrus groves scent the air with a refreshing zest. Rivers of sparkling fruit juice flow through verdant valleys, and the sky above is a perpetual, gentle gradient of sunset orange and soft lavender. The inhabitants are all manner of fruits, from the stoic Watermelons who act as guardians of the Melon Marches to the nimble Grapes who swing through the Viney Peaks. It is a land of abundance, but also of peril, where rival fruit factions vie for control of the Sun-Ripened territories and the shadowy rot threatens to consume the unwary.",
+                        "player": {
+                            "name": "Bartholomew 'Barty' Banana",
+                            "description": "You are Bartholomew 'Barty' Banana, a brave and adventurous Cavendish banana living in the vibrant and delicious world of Fruittopia. Unlike other bananas who are content to bask in the sun or be part of a perfectly balanced fruit salad, Barty yearns for exploration and excitement. He dreams of discovering the legendary Orchard of Infinite Zest, a place whispered about in hushed tones among the elder fruits.",
+                            "appearanceDescription": "You are a banana, long and curved with a bright yellow peel. A few brown spots mar your otherwise pristine skin, hinting at a ripeness that is just right for adventure. Your stem, once attached to a bunch, now stands like a proud crown atop your form.",
+                            "room": "Citrus Grove"
+                        },
+                        "rooms": {
+                            "The Fruity Clearing": {
+                                "name": "The Fruity Clearing",
+                                "description": "You find yourself in a vibrant clearing, a nexus point within the abundant world of Fruittopia. The air is alive with the sweet perfume of ripe fruits, and the very ground beneath your feet seems to hum with life. Paths beckon in multiple directions, each promising new flavors and experiences.",
+                                "appearanceDescription": "You stand in a clearing bathed in the warm, multicolored light filtering through the canopy of colossal fruit trees. The ground beneath your feet is a springy carpet of emerald green moss, studded with plump, dew-kissed blueberries. The air is thick with the sweet, intoxicating aroma of ripe peaches and a hint of tangy raspberries. To your north, a path winds through a grove of shimmering lemon trees, their waxy leaves rustling in a gentle breeze. To the east, a crystal-clear stream, its waters the color of pure apple juice, babbles merrily over smooth, polished stones. To the south, a dense thicket of blackberry bushes, heavy with fruit, blocks the way. To the west, a towering pineapple plant, its crown a vibrant explosion of spiky green, marks the edge of the clearing."
+                            },
+                            "Citrus Grove": {
+                                "name": "Citrus Grove",
+                                "description": "You are in a sun-dappled lemon grove. The bright yellow of the lemons is almost dazzling, and their sharp, clean scent fills your senses. The trees here are smaller than the giants in the clearing, but their branches are heavy with fruit. This is a place of sharp clarity and refreshing energy.",
+                                "appearanceDescription": "This part of the grove is filled with the vibrant yellow of lemon trees. Sunlight glints off their smooth, round fruits, and the air is alive with a zesty, invigorating scent. The ground is covered in fallen petals that crunch softly underfoot. A narrow track continues further north, disappearing into a denser part of the grove."
+                            },
+                            "Apple Juice Stream": {
+                                "name": "Apple Juice Stream",
+                                "description": "This is a tranquil riverside spot where a sweet apple juice stream meanders through a valley. The gentle flow of the juice is mesmerizing, and the air is filled with a comforting, familiar sweetness. It feels like a place of rest and simple pleasures.",
+                                "appearanceDescription": "You are beside a gently flowing river of pure apple juice. The liquid is a translucent, golden amber, and it reflects the soft lavender and orange sky like a mirror. Smooth, river-worn pebbles in shades of berry red and grape purple line the banks. The sweet, comforting aroma of baked apples fills the air, and the gentle gurgling of the juice creates a soothing soundscape."
+                            },
+                            "Dewdrop Oasis": {
+                                "name": "Dewdrop Oasis",
+                                "description": "This serene pond, known as the 'Dewdrop Oasis,' is a place of quiet reflection. The water is said to hold the purest essence of morning dew, imbued with a calming energy. Small, iridescent dragonflies with wings like stained glass flit just above the surface. It is a popular spot for many of Fruittopia's inhabitants to seek respite.",
+                                "appearanceDescription": "You stand at the edge of a tranquil pond, its surface like a mirror reflecting the soft lavender and orange hues of the Fruittopian sky. The water shimmers with an inner light, and smooth, grey river stones form a gentle slope leading into its depths. Luminescent lily pads, each as large as a dinner plate, float serenely on the water. The air here is cool and carries the faint, sweet aroma of nectar."
+                            },
+                            "Plum Patch": {
+                                "name": "Plum Patch",
+                                "description": "This is the Plum Patch, a region known for its abundant, sugar-rich fruit. The plums here are prized for their intense sweetness and are often used to make rich preserves and potent wines. However, the fallen fruit can attract less desirable visitors, and the shadows beneath the trees sometimes conceal the quick, scurrying movements of the dreaded Fruit Flies.",
+                                "appearanceDescription": "The air here is thick with the sweet, almost cloying scent of ripe plums. The trees are shorter and sturdier than the lemons, their bark a deep, rich mahogany. Their branches droop under the weight of dusky purple fruit, some of which have split open, revealing glistening, sugary interiors. The ground is littered with fallen plums, creating a soft, yielding carpet that muffles your footsteps."
+                            }
+                        },
+                        "items": {
+                            "Ripe Strawberry": {
+                                "name": "Ripe Strawberry",
+                                "description": "This is a plump, luscious strawberry, appearing to be at the peak of its ripeness. It looks incredibly juicy and delicious.",
+                                "appearanceDescription": "A single, perfectly ripe strawberry rests on a broad green leaf. Its deep red color is rich and inviting, and tiny, golden seeds are scattered across its surface. A faint, sweet scent emanates from it."
+                            },
+                            "Sturdy Branch": {
+                                "name": "Sturdy Branch",
+                                "description": "This appears to be a strong branch, possibly useful for poking, prodding, or perhaps as a makeshift tool or weapon.",
+                                "appearanceDescription": "A sturdy, gnarled branch has fallen from one of the giant fruit trees. It is rough to the touch, with a smooth, polished section where it might have broken cleanly. It is about the length of your arm."
+                            },
+                            "Strawberry-Laced Branch": {
+                                "appearanceDescription": "A sturdy, gnarled branch, about the length of your arm, now has a single, perfectly ripe strawberry impaled upon its tip. The deep red of the fruit contrasts sharply with the rough, brown bark of the branch, and a tiny smear of strawberry juice glistens near the point of attachment.",
+                                "description": "This unlikely combination yields a surprisingly effective tool. The sturdy branch provides a firm handle, while the impaled ripe strawberry acts as a sweet, tempting lure. It is ideal for distracting small, curious creatures or perhaps for a delicate, albeit sticky, method of gathering other fruits from high branches.",
+                                "name": "Strawberry-Laced Branch"
+                            },
+                            "Sun-Kissed Lemon": {
+                                "name": "Sun-Kissed Lemon",
+                                "description": "This is a prime example of a Sun-Kissed Lemon, renowned throughout Fruittopia for its potent flavor and refreshing juice. It is said that holding one of these lemons can invigorate the spirit and sharpen the mind.",
+                                "appearanceDescription": "A perfectly formed lemon, its skin a bright, cheerful yellow, rests on a low-hanging branch. It catches the sunlight, appearing to glow from within. Its surface is smooth and firm to the touch, and a gentle squeeze releases a burst of its characteristic zesty fragrance."
+                            },
+                            "Lemon Blossoms": {
+                                "name": "Lemon Blossoms",
+                                "description": "These are the fallen blossoms of the lemon trees. While delicate, they retain a hint of the tree's refreshing scent and are sometimes gathered by the local inhabitants for their subtle fragrance and mild calming properties.",
+                                "appearanceDescription": "Scattered across the ground are pale yellow petals, delicate and slightly curled at the edges. They have a papery texture and emit a faint, sweet-citrus perfume. When stepped upon, they offer a satisfyingly dry crunch."
+                            },
+                            "Seed-Singer's Bowl": {
+                                "name": "Seed-Singer's Bowl",
+                                "description": "This is a 'Seed-Singer's Bowl,' used by the ancient Citrus Sages to harmonize the energies of the grove. The seeds within are said to store the vibrations of laughter and sunlight, capable of dispelling gloom with their gentle hum.",
+                                "appearanceDescription": "A small, intricately carved wooden bowl rests at the base of a particularly large lemon tree. The bowl is made from the polished rind of a giant, ancient grapefruit and is filled with tiny, glittering seeds that hum with a faint, resonant energy."
+                            },
+                            "Zest-Laced Branch": {
+                                "appearanceDescription": "A sturdy, gnarled branch, roughly the length of your arm, now sports a bright yellow, glowing lemon impaled upon its tip. The lemon's cheerful hue contrasts sharply with the rough, brown bark of the branch. A tiny smear of lemon juice glistens near the point of attachment, mingling with the faint red blush left by the strawberry.",
+                                "description": "This curious concoction marries the invigorating zest of a Sun-Kissed Lemon with the deceptive sweetness of a Strawberry-Laced Branch. The resulting tool is both pungent and alluring. It is ideal for distracting small, curious creatures with its dual aroma, or perhaps for a surprisingly effective, albeit sticky, method of reaching and gathering other fruits from high branches. The lemon's potent fragrance is expected to enhance the lure's effectiveness, drawing creatures in from afar.",
+                                "name": "Zest-Laced Branch"
+                            }
+                        },
+                        "itemLocations": {
+                            "Ripe Strawberry": {
+                                "type": "nonexistent"
+                            },
+                            "Sturdy Branch": {
+                                "type": "nonexistent"
+                            },
+                            "Strawberry-Laced Branch": {
+                                "type": "nonexistent"
+                            },
+                            "Sun-Kissed Lemon": {
+                                "type": "nonexistent"
+                            },
+                            "Lemon Blossoms": {
+                                "type": "room",
+                                "roomName": "Citrus Grove"
+                            },
+                            "Seed-Singer's Bowl": {
+                                "type": "room",
+                                "roomName": "Citrus Grove"
+                            },
+                            "Zest-Laced Branch": {
+                                "type": "room",
+                                "roomName": "Citrus Grove"
+                            }
+                        },
+                        "roomConnections": {
+                            "The Fruity Clearing": [
+                                {
+                                    "here": "The Fruity Clearing",
+                                    "there": "Citrus Grove",
+                                    "description": "A winding path leads north through the citrus grove."
+                                },
+                                {
+                                    "here": "The Fruity Clearing",
+                                    "there": "Apple Juice Stream",
+                                    "description": "A shallow stream flows east from the clearing, leading into a valley."
+                                }
+                            ],
+                            "Citrus Grove": [
+                                {
+                                    "here": "Citrus Grove",
+                                    "there": "The Fruity Clearing",
+                                    "description": "The path from the Citrus Grove leads back south to this clearing."
+                                },
+                                {
+                                    "here": "Citrus Grove",
+                                    "there": "Dewdrop Oasis",
+                                    "description": "A narrow, winding path leads north from the citrus grove, through a curtain of fragrant lemon leaves."
+                                },
+                                {
+                                    "here": "Citrus Grove",
+                                    "there": "Plum Patch",
+                                    "description": "To the east, the lemon trees thin out, revealing a grove of deep purple plum trees laden with fruit, their branches heavy and low."
+                                }
+                            ],
+                            "Apple Juice Stream": [
+                                {
+                                    "here": "Apple Juice Stream",
+                                    "there": "The Fruity Clearing",
+                                    "description": "The stream bed leads west back to the main clearing."
+                                }
+                            ],
+                            "Dewdrop Oasis": [
+                                {
+                                    "here": "Dewdrop Oasis",
+                                    "there": "Citrus Grove",
+                                    "description": "The path back south is clearly marked by the soft crunch of fallen lemon petals underfoot."
+                                }
+                            ],
+                            "Plum Patch": [
+                                {
+                                    "here": "Plum Patch",
+                                    "there": "Citrus Grove",
+                                    "description": "Leaving the sweet, heavy scent of plums behind, you return to the sharp, invigorating aroma of the lemon grove."
+                                }
+                            ]
+                        },
+                        "startingRoom": "The Fruity Clearing",
+                        "visitedRooms": [
+                            "The Fruity Clearing",
+                            "Citrus Grove"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "look for other areas nearby ",
+                "gameActions": [
+                    {
+                        "type": "PlayerInspectsCurrentRoom"
+                    }
+                ]
+            },
+            "description": "Bartholomew Banana takes a moment to survey his surroundings, the bright yellow of the lemon grove almost too dazzling to bear. The air is thick with a sharp, clean scent that tingles his peel. Sunlight glints off the smooth, round fruits hanging heavy on the branches, and fallen petals crunch softly beneath his feet. He notes the narrow track continuing north, disappearing into a denser part of the grove, and the path leading south back to the Fruity Clearing. To the east, the lemon trees yield to a patch of deep purple plum trees."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Fruittopia is a world bursting with color and flavor. Towering trees bear succulent apples, plump berries carpet the rolling hills, and citrus groves scent the air with a refreshing zest. Rivers of sparkling fruit juice flow through verdant valleys, and the sky above is a perpetual, gentle gradient of sunset orange and soft lavender. The inhabitants are all manner of fruits, from the stoic Watermelons who act as guardians of the Melon Marches to the nimble Grapes who swing through the Viney Peaks. It is a land of abundance, but also of peril, where rival fruit factions vie for control of the Sun-Ripened territories and the shadowy rot threatens to consume the unwary.",
+                        "player": {
+                            "name": "Bartholomew 'Barty' Banana",
+                            "description": "You are Bartholomew 'Barty' Banana, a brave and adventurous Cavendish banana living in the vibrant and delicious world of Fruittopia. Unlike other bananas who are content to bask in the sun or be part of a perfectly balanced fruit salad, Barty yearns for exploration and excitement. He dreams of discovering the legendary Orchard of Infinite Zest, a place whispered about in hushed tones among the elder fruits.",
+                            "appearanceDescription": "You are a banana, long and curved with a bright yellow peel. A few brown spots mar your otherwise pristine skin, hinting at a ripeness that is just right for adventure. Your stem, once attached to a bunch, now stands like a proud crown atop your form.",
+                            "room": "Citrus Grove"
+                        },
+                        "rooms": {
+                            "The Fruity Clearing": {
+                                "name": "The Fruity Clearing",
+                                "description": "You find yourself in a vibrant clearing, a nexus point within the abundant world of Fruittopia. The air is alive with the sweet perfume of ripe fruits, and the very ground beneath your feet seems to hum with life. Paths beckon in multiple directions, each promising new flavors and experiences.",
+                                "appearanceDescription": "You stand in a clearing bathed in the warm, multicolored light filtering through the canopy of colossal fruit trees. The ground beneath your feet is a springy carpet of emerald green moss, studded with plump, dew-kissed blueberries. The air is thick with the sweet, intoxicating aroma of ripe peaches and a hint of tangy raspberries. To your north, a path winds through a grove of shimmering lemon trees, their waxy leaves rustling in a gentle breeze. To the east, a crystal-clear stream, its waters the color of pure apple juice, babbles merrily over smooth, polished stones. To the south, a dense thicket of blackberry bushes, heavy with fruit, blocks the way. To the west, a towering pineapple plant, its crown a vibrant explosion of spiky green, marks the edge of the clearing."
+                            },
+                            "Citrus Grove": {
+                                "name": "Citrus Grove",
+                                "description": "You are in a sun-dappled lemon grove. The bright yellow of the lemons is almost dazzling, and their sharp, clean scent fills your senses. The trees here are smaller than the giants in the clearing, but their branches are heavy with fruit. This is a place of sharp clarity and refreshing energy.",
+                                "appearanceDescription": "This part of the grove is filled with the vibrant yellow of lemon trees. Sunlight glints off their smooth, round fruits, and the air is alive with a zesty, invigorating scent. The ground is covered in fallen petals that crunch softly underfoot. A narrow track continues further north, disappearing into a denser part of the grove."
+                            },
+                            "Apple Juice Stream": {
+                                "name": "Apple Juice Stream",
+                                "description": "This is a tranquil riverside spot where a sweet apple juice stream meanders through a valley. The gentle flow of the juice is mesmerizing, and the air is filled with a comforting, familiar sweetness. It feels like a place of rest and simple pleasures.",
+                                "appearanceDescription": "You are beside a gently flowing river of pure apple juice. The liquid is a translucent, golden amber, and it reflects the soft lavender and orange sky like a mirror. Smooth, river-worn pebbles in shades of berry red and grape purple line the banks. The sweet, comforting aroma of baked apples fills the air, and the gentle gurgling of the juice creates a soothing soundscape."
+                            },
+                            "Dewdrop Oasis": {
+                                "name": "Dewdrop Oasis",
+                                "description": "This serene pond, known as the 'Dewdrop Oasis,' is a place of quiet reflection. The water is said to hold the purest essence of morning dew, imbued with a calming energy. Small, iridescent dragonflies with wings like stained glass flit just above the surface. It is a popular spot for many of Fruittopia's inhabitants to seek respite.",
+                                "appearanceDescription": "You stand at the edge of a tranquil pond, its surface like a mirror reflecting the soft lavender and orange hues of the Fruittopian sky. The water shimmers with an inner light, and smooth, grey river stones form a gentle slope leading into its depths. Luminescent lily pads, each as large as a dinner plate, float serenely on the water. The air here is cool and carries the faint, sweet aroma of nectar."
+                            },
+                            "Plum Patch": {
+                                "name": "Plum Patch",
+                                "description": "This is the Plum Patch, a region known for its abundant, sugar-rich fruit. The plums here are prized for their intense sweetness and are often used to make rich preserves and potent wines. However, the fallen fruit can attract less desirable visitors, and the shadows beneath the trees sometimes conceal the quick, scurrying movements of the dreaded Fruit Flies.",
+                                "appearanceDescription": "The air here is thick with the sweet, almost cloying scent of ripe plums. The trees are shorter and sturdier than the lemons, their bark a deep, rich mahogany. Their branches droop under the weight of dusky purple fruit, some of which have split open, revealing glistening, sugary interiors. The ground is littered with fallen plums, creating a soft, yielding carpet that muffles your footsteps."
+                            }
+                        },
+                        "items": {
+                            "Ripe Strawberry": {
+                                "name": "Ripe Strawberry",
+                                "description": "This is a plump, luscious strawberry, appearing to be at the peak of its ripeness. It looks incredibly juicy and delicious.",
+                                "appearanceDescription": "A single, perfectly ripe strawberry rests on a broad green leaf. Its deep red color is rich and inviting, and tiny, golden seeds are scattered across its surface. A faint, sweet scent emanates from it."
+                            },
+                            "Sturdy Branch": {
+                                "name": "Sturdy Branch",
+                                "description": "This appears to be a strong branch, possibly useful for poking, prodding, or perhaps as a makeshift tool or weapon.",
+                                "appearanceDescription": "A sturdy, gnarled branch has fallen from one of the giant fruit trees. It is rough to the touch, with a smooth, polished section where it might have broken cleanly. It is about the length of your arm."
+                            },
+                            "Strawberry-Laced Branch": {
+                                "appearanceDescription": "A sturdy, gnarled branch, about the length of your arm, now has a single, perfectly ripe strawberry impaled upon its tip. The deep red of the fruit contrasts sharply with the rough, brown bark of the branch, and a tiny smear of strawberry juice glistens near the point of attachment.",
+                                "description": "This unlikely combination yields a surprisingly effective tool. The sturdy branch provides a firm handle, while the impaled ripe strawberry acts as a sweet, tempting lure. It is ideal for distracting small, curious creatures or perhaps for a delicate, albeit sticky, method of gathering other fruits from high branches.",
+                                "name": "Strawberry-Laced Branch"
+                            },
+                            "Sun-Kissed Lemon": {
+                                "name": "Sun-Kissed Lemon",
+                                "description": "This is a prime example of a Sun-Kissed Lemon, renowned throughout Fruittopia for its potent flavor and refreshing juice. It is said that holding one of these lemons can invigorate the spirit and sharpen the mind.",
+                                "appearanceDescription": "A perfectly formed lemon, its skin a bright, cheerful yellow, rests on a low-hanging branch. It catches the sunlight, appearing to glow from within. Its surface is smooth and firm to the touch, and a gentle squeeze releases a burst of its characteristic zesty fragrance."
+                            },
+                            "Lemon Blossoms": {
+                                "name": "Lemon Blossoms",
+                                "description": "These are the fallen blossoms of the lemon trees. While delicate, they retain a hint of the tree's refreshing scent and are sometimes gathered by the local inhabitants for their subtle fragrance and mild calming properties.",
+                                "appearanceDescription": "Scattered across the ground are pale yellow petals, delicate and slightly curled at the edges. They have a papery texture and emit a faint, sweet-citrus perfume. When stepped upon, they offer a satisfyingly dry crunch."
+                            },
+                            "Seed-Singer's Bowl": {
+                                "name": "Seed-Singer's Bowl",
+                                "description": "This is a 'Seed-Singer's Bowl,' used by the ancient Citrus Sages to harmonize the energies of the grove. The seeds within are said to store the vibrations of laughter and sunlight, capable of dispelling gloom with their gentle hum.",
+                                "appearanceDescription": "A small, intricately carved wooden bowl rests at the base of a particularly large lemon tree. The bowl is made from the polished rind of a giant, ancient grapefruit and is filled with tiny, glittering seeds that hum with a faint, resonant energy."
+                            },
+                            "Zest-Laced Branch": {
+                                "appearanceDescription": "A sturdy, gnarled branch, roughly the length of your arm, now sports a bright yellow, glowing lemon impaled upon its tip. The lemon's cheerful hue contrasts sharply with the rough, brown bark of the branch. A tiny smear of lemon juice glistens near the point of attachment, mingling with the faint red blush left by the strawberry.",
+                                "description": "This curious concoction marries the invigorating zest of a Sun-Kissed Lemon with the deceptive sweetness of a Strawberry-Laced Branch. The resulting tool is both pungent and alluring. It is ideal for distracting small, curious creatures with its dual aroma, or perhaps for a surprisingly effective, albeit sticky, method of reaching and gathering other fruits from high branches. The lemon's potent fragrance is expected to enhance the lure's effectiveness, drawing creatures in from afar.",
+                                "name": "Zest-Laced Branch"
+                            }
+                        },
+                        "itemLocations": {
+                            "Ripe Strawberry": {
+                                "type": "nonexistent"
+                            },
+                            "Sturdy Branch": {
+                                "type": "nonexistent"
+                            },
+                            "Strawberry-Laced Branch": {
+                                "type": "nonexistent"
+                            },
+                            "Sun-Kissed Lemon": {
+                                "type": "nonexistent"
+                            },
+                            "Lemon Blossoms": {
+                                "type": "room",
+                                "roomName": "Citrus Grove"
+                            },
+                            "Seed-Singer's Bowl": {
+                                "type": "room",
+                                "roomName": "Citrus Grove"
+                            },
+                            "Zest-Laced Branch": {
+                                "type": "room",
+                                "roomName": "Citrus Grove"
+                            }
+                        },
+                        "roomConnections": {
+                            "The Fruity Clearing": [
+                                {
+                                    "here": "The Fruity Clearing",
+                                    "there": "Citrus Grove",
+                                    "description": "A winding path leads north through the citrus grove."
+                                },
+                                {
+                                    "here": "The Fruity Clearing",
+                                    "there": "Apple Juice Stream",
+                                    "description": "A shallow stream flows east from the clearing, leading into a valley."
+                                }
+                            ],
+                            "Citrus Grove": [
+                                {
+                                    "here": "Citrus Grove",
+                                    "there": "The Fruity Clearing",
+                                    "description": "The path from the Citrus Grove leads back south to this clearing."
+                                },
+                                {
+                                    "here": "Citrus Grove",
+                                    "there": "Dewdrop Oasis",
+                                    "description": "A narrow, winding path leads north from the citrus grove, through a curtain of fragrant lemon leaves."
+                                },
+                                {
+                                    "here": "Citrus Grove",
+                                    "there": "Plum Patch",
+                                    "description": "To the east, the lemon trees thin out, revealing a grove of deep purple plum trees laden with fruit, their branches heavy and low."
+                                }
+                            ],
+                            "Apple Juice Stream": [
+                                {
+                                    "here": "Apple Juice Stream",
+                                    "there": "The Fruity Clearing",
+                                    "description": "The stream bed leads west back to the main clearing."
+                                }
+                            ],
+                            "Dewdrop Oasis": [
+                                {
+                                    "here": "Dewdrop Oasis",
+                                    "there": "Citrus Grove",
+                                    "description": "The path back south is clearly marked by the soft crunch of fallen lemon petals underfoot."
+                                }
+                            ],
+                            "Plum Patch": [
+                                {
+                                    "here": "Plum Patch",
+                                    "there": "Citrus Grove",
+                                    "description": "Leaving the sweet, heavy scent of plums behind, you return to the sharp, invigorating aroma of the lemon grove."
+                                }
+                            ]
+                        },
+                        "startingRoom": "The Fruity Clearing",
+                        "visitedRooms": [
+                            "The Fruity Clearing",
+                            "Citrus Grove"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "take fruit",
+                "gameActions": [
+                    {
+                        "type": "PlayerInspectsCurrentRoom"
+                    }
+                ]
+            },
+            "description": "Barty, the intrepid banana, surveys the sun-drenched Citrus Grove. The air is thick with the sharp, invigorating scent of lemons, and the ground is a carpet of fallen, white blossoms. His gaze drifts over the fallen petals, a nearby bowl filled with mysterious seeds, and a peculiar branch entwined with lemon zest and strawberry essence. While the allure of the grove's bounty is undeniable, Barty's adventurous spirit compels him to first understand his surroundings, taking a moment to absorb the details of this vibrant, citrus-scented locale."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Fruittopia is a world bursting with color and flavor. Towering trees bear succulent apples, plump berries carpet the rolling hills, and citrus groves scent the air with a refreshing zest. Rivers of sparkling fruit juice flow through verdant valleys, and the sky above is a perpetual, gentle gradient of sunset orange and soft lavender. The inhabitants are all manner of fruits, from the stoic Watermelons who act as guardians of the Melon Marches to the nimble Grapes who swing through the Viney Peaks. It is a land of abundance, but also of peril, where rival fruit factions vie for control of the Sun-Ripened territories and the shadowy rot threatens to consume the unwary.",
+                        "player": {
+                            "name": "Bartholomew 'Barty' Banana",
+                            "description": "You are Bartholomew 'Barty' Banana, a brave and adventurous Cavendish banana living in the vibrant and delicious world of Fruittopia. Unlike other bananas who are content to bask in the sun or be part of a perfectly balanced fruit salad, Barty yearns for exploration and excitement. He dreams of discovering the legendary Orchard of Infinite Zest, a place whispered about in hushed tones among the elder fruits.",
+                            "appearanceDescription": "You are a banana, long and curved with a bright yellow peel. A few brown spots mar your otherwise pristine skin, hinting at a ripeness that is just right for adventure. Your stem, once attached to a bunch, now stands like a proud crown atop your form.",
+                            "room": "Citrus Grove"
+                        },
+                        "rooms": {
+                            "The Fruity Clearing": {
+                                "name": "The Fruity Clearing",
+                                "description": "You find yourself in a vibrant clearing, a nexus point within the abundant world of Fruittopia. The air is alive with the sweet perfume of ripe fruits, and the very ground beneath your feet seems to hum with life. Paths beckon in multiple directions, each promising new flavors and experiences.",
+                                "appearanceDescription": "You stand in a clearing bathed in the warm, multicolored light filtering through the canopy of colossal fruit trees. The ground beneath your feet is a springy carpet of emerald green moss, studded with plump, dew-kissed blueberries. The air is thick with the sweet, intoxicating aroma of ripe peaches and a hint of tangy raspberries. To your north, a path winds through a grove of shimmering lemon trees, their waxy leaves rustling in a gentle breeze. To the east, a crystal-clear stream, its waters the color of pure apple juice, babbles merrily over smooth, polished stones. To the south, a dense thicket of blackberry bushes, heavy with fruit, blocks the way. To the west, a towering pineapple plant, its crown a vibrant explosion of spiky green, marks the edge of the clearing."
+                            },
+                            "Citrus Grove": {
+                                "name": "Citrus Grove",
+                                "description": "You are in a sun-dappled lemon grove. The bright yellow of the lemons is almost dazzling, and their sharp, clean scent fills your senses. The trees here are smaller than the giants in the clearing, but their branches are heavy with fruit. This is a place of sharp clarity and refreshing energy.",
+                                "appearanceDescription": "This part of the grove is filled with the vibrant yellow of lemon trees. Sunlight glints off their smooth, round fruits, and the air is alive with a zesty, invigorating scent. The ground is covered in fallen petals that crunch softly underfoot. A narrow track continues further north, disappearing into a denser part of the grove."
+                            },
+                            "Apple Juice Stream": {
+                                "name": "Apple Juice Stream",
+                                "description": "This is a tranquil riverside spot where a sweet apple juice stream meanders through a valley. The gentle flow of the juice is mesmerizing, and the air is filled with a comforting, familiar sweetness. It feels like a place of rest and simple pleasures.",
+                                "appearanceDescription": "You are beside a gently flowing river of pure apple juice. The liquid is a translucent, golden amber, and it reflects the soft lavender and orange sky like a mirror. Smooth, river-worn pebbles in shades of berry red and grape purple line the banks. The sweet, comforting aroma of baked apples fills the air, and the gentle gurgling of the juice creates a soothing soundscape."
+                            },
+                            "Dewdrop Oasis": {
+                                "name": "Dewdrop Oasis",
+                                "description": "This serene pond, known as the 'Dewdrop Oasis,' is a place of quiet reflection. The water is said to hold the purest essence of morning dew, imbued with a calming energy. Small, iridescent dragonflies with wings like stained glass flit just above the surface. It is a popular spot for many of Fruittopia's inhabitants to seek respite.",
+                                "appearanceDescription": "You stand at the edge of a tranquil pond, its surface like a mirror reflecting the soft lavender and orange hues of the Fruittopian sky. The water shimmers with an inner light, and smooth, grey river stones form a gentle slope leading into its depths. Luminescent lily pads, each as large as a dinner plate, float serenely on the water. The air here is cool and carries the faint, sweet aroma of nectar."
+                            },
+                            "Plum Patch": {
+                                "name": "Plum Patch",
+                                "description": "This is the Plum Patch, a region known for its abundant, sugar-rich fruit. The plums here are prized for their intense sweetness and are often used to make rich preserves and potent wines. However, the fallen fruit can attract less desirable visitors, and the shadows beneath the trees sometimes conceal the quick, scurrying movements of the dreaded Fruit Flies.",
+                                "appearanceDescription": "The air here is thick with the sweet, almost cloying scent of ripe plums. The trees are shorter and sturdier than the lemons, their bark a deep, rich mahogany. Their branches droop under the weight of dusky purple fruit, some of which have split open, revealing glistening, sugary interiors. The ground is littered with fallen plums, creating a soft, yielding carpet that muffles your footsteps."
+                            }
+                        },
+                        "items": {
+                            "Ripe Strawberry": {
+                                "name": "Ripe Strawberry",
+                                "description": "This is a plump, luscious strawberry, appearing to be at the peak of its ripeness. It looks incredibly juicy and delicious.",
+                                "appearanceDescription": "A single, perfectly ripe strawberry rests on a broad green leaf. Its deep red color is rich and inviting, and tiny, golden seeds are scattered across its surface. A faint, sweet scent emanates from it."
+                            },
+                            "Sturdy Branch": {
+                                "name": "Sturdy Branch",
+                                "description": "This appears to be a strong branch, possibly useful for poking, prodding, or perhaps as a makeshift tool or weapon.",
+                                "appearanceDescription": "A sturdy, gnarled branch has fallen from one of the giant fruit trees. It is rough to the touch, with a smooth, polished section where it might have broken cleanly. It is about the length of your arm."
+                            },
+                            "Strawberry-Laced Branch": {
+                                "appearanceDescription": "A sturdy, gnarled branch, about the length of your arm, now has a single, perfectly ripe strawberry impaled upon its tip. The deep red of the fruit contrasts sharply with the rough, brown bark of the branch, and a tiny smear of strawberry juice glistens near the point of attachment.",
+                                "description": "This unlikely combination yields a surprisingly effective tool. The sturdy branch provides a firm handle, while the impaled ripe strawberry acts as a sweet, tempting lure. It is ideal for distracting small, curious creatures or perhaps for a delicate, albeit sticky, method of gathering other fruits from high branches.",
+                                "name": "Strawberry-Laced Branch"
+                            },
+                            "Sun-Kissed Lemon": {
+                                "name": "Sun-Kissed Lemon",
+                                "description": "This is a prime example of a Sun-Kissed Lemon, renowned throughout Fruittopia for its potent flavor and refreshing juice. It is said that holding one of these lemons can invigorate the spirit and sharpen the mind.",
+                                "appearanceDescription": "A perfectly formed lemon, its skin a bright, cheerful yellow, rests on a low-hanging branch. It catches the sunlight, appearing to glow from within. Its surface is smooth and firm to the touch, and a gentle squeeze releases a burst of its characteristic zesty fragrance."
+                            },
+                            "Lemon Blossoms": {
+                                "name": "Lemon Blossoms",
+                                "description": "These are the fallen blossoms of the lemon trees. While delicate, they retain a hint of the tree's refreshing scent and are sometimes gathered by the local inhabitants for their subtle fragrance and mild calming properties.",
+                                "appearanceDescription": "Scattered across the ground are pale yellow petals, delicate and slightly curled at the edges. They have a papery texture and emit a faint, sweet-citrus perfume. When stepped upon, they offer a satisfyingly dry crunch."
+                            },
+                            "Seed-Singer's Bowl": {
+                                "name": "Seed-Singer's Bowl",
+                                "description": "This is a 'Seed-Singer's Bowl,' used by the ancient Citrus Sages to harmonize the energies of the grove. The seeds within are said to store the vibrations of laughter and sunlight, capable of dispelling gloom with their gentle hum.",
+                                "appearanceDescription": "A small, intricately carved wooden bowl rests at the base of a particularly large lemon tree. The bowl is made from the polished rind of a giant, ancient grapefruit and is filled with tiny, glittering seeds that hum with a faint, resonant energy."
+                            },
+                            "Zest-Laced Branch": {
+                                "appearanceDescription": "A sturdy, gnarled branch, roughly the length of your arm, now sports a bright yellow, glowing lemon impaled upon its tip. The lemon's cheerful hue contrasts sharply with the rough, brown bark of the branch. A tiny smear of lemon juice glistens near the point of attachment, mingling with the faint red blush left by the strawberry.",
+                                "description": "This curious concoction marries the invigorating zest of a Sun-Kissed Lemon with the deceptive sweetness of a Strawberry-Laced Branch. The resulting tool is both pungent and alluring. It is ideal for distracting small, curious creatures with its dual aroma, or perhaps for a surprisingly effective, albeit sticky, method of reaching and gathering other fruits from high branches. The lemon's potent fragrance is expected to enhance the lure's effectiveness, drawing creatures in from afar.",
+                                "name": "Zest-Laced Branch"
+                            }
+                        },
+                        "itemLocations": {
+                            "Ripe Strawberry": {
+                                "type": "nonexistent"
+                            },
+                            "Sturdy Branch": {
+                                "type": "nonexistent"
+                            },
+                            "Strawberry-Laced Branch": {
+                                "type": "nonexistent"
+                            },
+                            "Sun-Kissed Lemon": {
+                                "type": "nonexistent"
+                            },
+                            "Lemon Blossoms": {
+                                "type": "room",
+                                "roomName": "Citrus Grove"
+                            },
+                            "Seed-Singer's Bowl": {
+                                "type": "room",
+                                "roomName": "Citrus Grove"
+                            },
+                            "Zest-Laced Branch": {
+                                "type": "room",
+                                "roomName": "Citrus Grove"
+                            }
+                        },
+                        "roomConnections": {
+                            "The Fruity Clearing": [
+                                {
+                                    "here": "The Fruity Clearing",
+                                    "there": "Citrus Grove",
+                                    "description": "A winding path leads north through the citrus grove."
+                                },
+                                {
+                                    "here": "The Fruity Clearing",
+                                    "there": "Apple Juice Stream",
+                                    "description": "A shallow stream flows east from the clearing, leading into a valley."
+                                }
+                            ],
+                            "Citrus Grove": [
+                                {
+                                    "here": "Citrus Grove",
+                                    "there": "The Fruity Clearing",
+                                    "description": "The path from the Citrus Grove leads back south to this clearing."
+                                },
+                                {
+                                    "here": "Citrus Grove",
+                                    "there": "Dewdrop Oasis",
+                                    "description": "A narrow, winding path leads north from the citrus grove, through a curtain of fragrant lemon leaves."
+                                },
+                                {
+                                    "here": "Citrus Grove",
+                                    "there": "Plum Patch",
+                                    "description": "To the east, the lemon trees thin out, revealing a grove of deep purple plum trees laden with fruit, their branches heavy and low."
+                                }
+                            ],
+                            "Apple Juice Stream": [
+                                {
+                                    "here": "Apple Juice Stream",
+                                    "there": "The Fruity Clearing",
+                                    "description": "The stream bed leads west back to the main clearing."
+                                }
+                            ],
+                            "Dewdrop Oasis": [
+                                {
+                                    "here": "Dewdrop Oasis",
+                                    "there": "Citrus Grove",
+                                    "description": "The path back south is clearly marked by the soft crunch of fallen lemon petals underfoot."
+                                }
+                            ],
+                            "Plum Patch": [
+                                {
+                                    "here": "Plum Patch",
+                                    "there": "Citrus Grove",
+                                    "description": "Leaving the sweet, heavy scent of plums behind, you return to the sharp, invigorating aroma of the lemon grove."
+                                }
+                            ]
+                        },
+                        "startingRoom": "The Fruity Clearing",
+                        "visitedRooms": [
+                            "The Fruity Clearing",
+                            "Citrus Grove"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "look for other items here",
+                "gameActions": [
+                    {
+                        "type": "PlayerInspectsCurrentRoom"
+                    }
+                ]
+            },
+            "description": "Barty surveys the sun-drenched Citrus Grove, his banana peel rustling against the fallen lemon petals. The air is thick with the sharp, clean scent of citrus, a refreshing balm to his adventurous spirit. His gaze sweeps over the scattered Lemon Blossoms, the ancient Seed-Singer's Bowl, and the peculiar Zest-Laced Branch, each item promising a hint of the grove's secrets."
         }
     ]
 }

@@ -1,0 +1,507 @@
+{
+    "specName": "text-adventure-v3",
+    "metadata": {
+        "id": "e364bfa0-7d6c-406c-ba5f-ce9d2250e863",
+        "name": "cyberpunk",
+        "creationDate": 1753593668796
+    },
+    "initialState": {
+        "game": {
+            "world": {
+                "description": "Neo-Kyoto is a colossal monument to human ambition and technological excess. Towering arcologies pierce the perpetually smog-choked sky, their surfaces plastered with holographic advertisements that paint the rain-swept streets in a kaleidoscope of garish colors. Below the gleaming chrome and pulsating neon of the upper sectors lies the Undercity, a labyrinth of grimy alleys, overcrowded markets, and forgotten infrastructure where the dispossessed and defiant carve out a precarious existence. The air crackles with electromagnetic interference, and the omnipresent hum of cybernetic augmentation is the city's constant heartbeat. Corporations rule this domain with an iron fist, their influence extending from the data-rich sky-scrapers down to the bio-luminescent fungi that grow in the deepest sewers.",
+                "player": {
+                    "name": "Glitch",
+                    "description": "You are known only as 'Glitch' in the underbelly of the digital world. A phantom in the machine, you navigate the sprawling, rain-slicked metropolis of Neo-Kyoto, a city that bleeds light and information. Once a promising corporate netrunner, a botched data heist branded you a renegade, forcing you into the shadows. Now, you operate from a cramped, anonymous hab-unit, taking on risky jobs that skirt the edges of legality, always one step ahead of the omnipresent corporate security forces and the digital ghosts that haunt the datastreams.",
+                    "appearanceDescription": "You are a silhouette against the neon glow of Neo-Kyoto, clad in a worn, oil-stained synth-leather jacket. A neural interface port glints subtly at your temple, partially obscured by a shock of brightly dyed, unruly hair. Your eyes, sharp and perpetually scanning, are hidden behind mirrored AR goggles that display a constant stream of data, flickering with schematics and network traffic.",
+                    "room": "Hab-Unit 4B"
+                },
+                "rooms": {
+                    "Hab-Unit 4B": {
+                        "name": "Hab-Unit 4B",
+                        "description": "This is your private space, a meager refuge from the relentless press of Neo-Kyoto's Undercity. It's a testament to functional minimalism, designed for survival rather than comfort. Every inch of space is utilized, and the lingering scent of recycled air does little to mask the ever-present dampness.",
+                        "appearanceDescription": "You find yourself in a cramped, dimly lit hab-unit, the metallic walls slick with condensation and etched with the grime of countless occupants. A single, flickering fluorescent tube casts long, distorted shadows across the sparse furnishings. The air is thick with the smell of stale synth-noodles and ozone. A narrow viewport offers a distorted glimpse of the neon-drenched, rain-lashed cityscape far above, a stark reminder of the world outside this cramped existence."
+                    },
+                    "Sector 7 Transit Hub": {
+                        "name": "Sector 7 Transit Hub",
+                        "description": "This is the central transit hub of the lower sectors, a chaotic nexus where life grinds on in the perpetual twilight of Neo-Kyoto's Undercity. Clanking machinery, the cacophony of hawkers, and the murmur of a thousand hushed conversations create a constant din. It's a place of fleeting connections and dangerous anonymity.",
+                        "appearanceDescription": "The elevator car is a cage of corroded metal, sparks occasionally showering from exposed wiring. The floor is a sticky, indeterminate substance, and the air is heavy with the metallic tang of decay and desperation. Scrawled graffiti in a dozen dialects adorns every surface, telling tales of struggle and survival."
+                    }
+                },
+                "items": {
+                    "Synth-Leather Jacket": {
+                        "name": "Synth-Leather Jacket",
+                        "description": "This jacket offers minimal protection from the elements but is a familiar comfort. It might have a few hidden pockets useful for carrying small items.",
+                        "appearanceDescription": "A worn, synth-leather jacket, patched in several places with mismatched materials. It smells faintly of rain and something vaguely metallic."
+                    },
+                    "Cracked Data-Slate": {
+                        "name": "Cracked Data-Slate",
+                        "description": "This data-slate appears to be an outdated navigational tool for the lower sectors. Its current functionality is questionable, but it might contain valuable information if repaired or deciphered.",
+                        "appearanceDescription": "A cracked data-slate, its screen displaying a flickering, corrupted schematic of the Undercity's ventilation systems. The casing is scuffed and shows signs of having been dropped multiple times."
+                    },
+                    "Chipped Mug": {
+                        "name": "Chipped Mug",
+                        "description": "A simple drinking vessel. It's empty, but perhaps it could be filled with something from elsewhere in the city.",
+                        "appearanceDescription": "A chipped ceramic mug, stained with the residue of various beverages. It rests on a small, foldable metal table bolted to the wall."
+                    }
+                },
+                "itemLocations": {
+                    "Synth-Leather Jacket": {
+                        "type": "room",
+                        "roomName": "Hab-Unit 4B"
+                    },
+                    "Cracked Data-Slate": {
+                        "type": "room",
+                        "roomName": "Hab-Unit 4B"
+                    },
+                    "Chipped Mug": {
+                        "type": "room",
+                        "roomName": "Hab-Unit 4B"
+                    }
+                },
+                "roomConnections": {
+                    "Hab-Unit 4B": [
+                        {
+                            "here": "Hab-Unit 4B",
+                            "there": "Sector 7 Transit Hub",
+                            "description": "A rusted, shuddering elevator shaft descends into the murky depths of the Undercity."
+                        }
+                    ],
+                    "Sector 7 Transit Hub": [
+                        {
+                            "here": "Sector 7 Transit Hub",
+                            "there": "Hab-Unit 4B",
+                            "description": "The same rattling elevator groans its way back up to your hab-unit."
+                        }
+                    ]
+                },
+                "startingRoom": "Hab-Unit 4B",
+                "visitedRooms": [
+                    "Hab-Unit 4B"
+                ]
+            }
+        }
+    },
+    "state": {
+        "game": {
+            "world": {
+                "description": "Neo-Kyoto is a colossal monument to human ambition and technological excess. Towering arcologies pierce the perpetually smog-choked sky, their surfaces plastered with holographic advertisements that paint the rain-swept streets in a kaleidoscope of garish colors. Below the gleaming chrome and pulsating neon of the upper sectors lies the Undercity, a labyrinth of grimy alleys, overcrowded markets, and forgotten infrastructure where the dispossessed and defiant carve out a precarious existence. The air crackles with electromagnetic interference, and the omnipresent hum of cybernetic augmentation is the city's constant heartbeat. Corporations rule this domain with an iron fist, their influence extending from the data-rich sky-scrapers down to the bio-luminescent fungi that grow in the deepest sewers.",
+                "player": {
+                    "name": "Glitch",
+                    "description": "You are known only as 'Glitch' in the underbelly of the digital world. A phantom in the machine, you navigate the sprawling, rain-slicked metropolis of Neo-Kyoto, a city that bleeds light and information. Once a promising corporate netrunner, a botched data heist branded you a renegade, forcing you into the shadows. Now, you operate from a cramped, anonymous hab-unit, taking on risky jobs that skirt the edges of legality, always one step ahead of the omnipresent corporate security forces and the digital ghosts that haunt the datastreams.",
+                    "appearanceDescription": "You are a silhouette against the neon glow of Neo-Kyoto, clad in a worn, oil-stained synth-leather jacket. A neural interface port glints subtly at your temple, partially obscured by a shock of brightly dyed, unruly hair. Your eyes, sharp and perpetually scanning, are hidden behind mirrored AR goggles that display a constant stream of data, flickering with schematics and network traffic.",
+                    "room": "Hab-Unit 4B"
+                },
+                "rooms": {
+                    "Hab-Unit 4B": {
+                        "name": "Hab-Unit 4B",
+                        "description": "This is your private space, a meager refuge from the relentless press of Neo-Kyoto's Undercity. It's a testament to functional minimalism, designed for survival rather than comfort. Every inch of space is utilized, and the lingering scent of recycled air does little to mask the ever-present dampness.",
+                        "appearanceDescription": "You find yourself in a cramped, dimly lit hab-unit, the metallic walls slick with condensation and etched with the grime of countless occupants. A single, flickering fluorescent tube casts long, distorted shadows across the sparse furnishings. The air is thick with the smell of stale synth-noodles and ozone. A narrow viewport offers a distorted glimpse of the neon-drenched, rain-lashed cityscape far above, a stark reminder of the world outside this cramped existence."
+                    },
+                    "Sector 7 Transit Hub": {
+                        "name": "Sector 7 Transit Hub",
+                        "description": "This is the central transit hub of the lower sectors, a chaotic nexus where life grinds on in the perpetual twilight of Neo-Kyoto's Undercity. Clanking machinery, the cacophony of hawkers, and the murmur of a thousand hushed conversations create a constant din. It's a place of fleeting connections and dangerous anonymity.",
+                        "appearanceDescription": "The elevator car is a cage of corroded metal, sparks occasionally showering from exposed wiring. The floor is a sticky, indeterminate substance, and the air is heavy with the metallic tang of decay and desperation. Scrawled graffiti in a dozen dialects adorns every surface, telling tales of struggle and survival."
+                    }
+                },
+                "items": {
+                    "Synth-Leather Jacket": {
+                        "name": "Synth-Leather Jacket",
+                        "description": "This jacket offers minimal protection from the elements but is a familiar comfort. It might have a few hidden pockets useful for carrying small items.",
+                        "appearanceDescription": "A worn, synth-leather jacket, patched in several places with mismatched materials. It smells faintly of rain and something vaguely metallic."
+                    },
+                    "Cracked Data-Slate": {
+                        "name": "Cracked Data-Slate",
+                        "description": "This data-slate appears to be an outdated navigational tool for the lower sectors. Its current functionality is questionable, but it might contain valuable information if repaired or deciphered.",
+                        "appearanceDescription": "A cracked data-slate, its screen displaying a flickering, corrupted schematic of the Undercity's ventilation systems. The casing is scuffed and shows signs of having been dropped multiple times."
+                    },
+                    "Chipped Mug": {
+                        "name": "Chipped Mug",
+                        "description": "A simple drinking vessel. It's empty, but perhaps it could be filled with something from elsewhere in the city.",
+                        "appearanceDescription": "A chipped ceramic mug, stained with the residue of various beverages. It rests on a small, foldable metal table bolted to the wall."
+                    }
+                },
+                "itemLocations": {
+                    "Synth-Leather Jacket": {
+                        "type": "player"
+                    },
+                    "Cracked Data-Slate": {
+                        "type": "player"
+                    },
+                    "Chipped Mug": {
+                        "type": "room",
+                        "roomName": "Hab-Unit 4B"
+                    }
+                },
+                "roomConnections": {
+                    "Hab-Unit 4B": [
+                        {
+                            "here": "Hab-Unit 4B",
+                            "there": "Sector 7 Transit Hub",
+                            "description": "A rusted, shuddering elevator shaft descends into the murky depths of the Undercity."
+                        }
+                    ],
+                    "Sector 7 Transit Hub": [
+                        {
+                            "here": "Sector 7 Transit Hub",
+                            "there": "Hab-Unit 4B",
+                            "description": "The same rattling elevator groans its way back up to your hab-unit."
+                        }
+                    ]
+                },
+                "startingRoom": "Hab-Unit 4B",
+                "visitedRooms": [
+                    "Hab-Unit 4B"
+                ]
+            }
+        }
+    },
+    "turns": [
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Neo-Kyoto is a colossal monument to human ambition and technological excess. Towering arcologies pierce the perpetually smog-choked sky, their surfaces plastered with holographic advertisements that paint the rain-swept streets in a kaleidoscope of garish colors. Below the gleaming chrome and pulsating neon of the upper sectors lies the Undercity, a labyrinth of grimy alleys, overcrowded markets, and forgotten infrastructure where the dispossessed and defiant carve out a precarious existence. The air crackles with electromagnetic interference, and the omnipresent hum of cybernetic augmentation is the city's constant heartbeat. Corporations rule this domain with an iron fist, their influence extending from the data-rich sky-scrapers down to the bio-luminescent fungi that grow in the deepest sewers.",
+                        "player": {
+                            "name": "Glitch",
+                            "description": "You are known only as 'Glitch' in the underbelly of the digital world. A phantom in the machine, you navigate the sprawling, rain-slicked metropolis of Neo-Kyoto, a city that bleeds light and information. Once a promising corporate netrunner, a botched data heist branded you a renegade, forcing you into the shadows. Now, you operate from a cramped, anonymous hab-unit, taking on risky jobs that skirt the edges of legality, always one step ahead of the omnipresent corporate security forces and the digital ghosts that haunt the datastreams.",
+                            "appearanceDescription": "You are a silhouette against the neon glow of Neo-Kyoto, clad in a worn, oil-stained synth-leather jacket. A neural interface port glints subtly at your temple, partially obscured by a shock of brightly dyed, unruly hair. Your eyes, sharp and perpetually scanning, are hidden behind mirrored AR goggles that display a constant stream of data, flickering with schematics and network traffic.",
+                            "room": "Hab-Unit 4B"
+                        },
+                        "rooms": {
+                            "Hab-Unit 4B": {
+                                "name": "Hab-Unit 4B",
+                                "description": "This is your private space, a meager refuge from the relentless press of Neo-Kyoto's Undercity. It's a testament to functional minimalism, designed for survival rather than comfort. Every inch of space is utilized, and the lingering scent of recycled air does little to mask the ever-present dampness.",
+                                "appearanceDescription": "You find yourself in a cramped, dimly lit hab-unit, the metallic walls slick with condensation and etched with the grime of countless occupants. A single, flickering fluorescent tube casts long, distorted shadows across the sparse furnishings. The air is thick with the smell of stale synth-noodles and ozone. A narrow viewport offers a distorted glimpse of the neon-drenched, rain-lashed cityscape far above, a stark reminder of the world outside this cramped existence."
+                            },
+                            "Sector 7 Transit Hub": {
+                                "name": "Sector 7 Transit Hub",
+                                "description": "This is the central transit hub of the lower sectors, a chaotic nexus where life grinds on in the perpetual twilight of Neo-Kyoto's Undercity. Clanking machinery, the cacophony of hawkers, and the murmur of a thousand hushed conversations create a constant din. It's a place of fleeting connections and dangerous anonymity.",
+                                "appearanceDescription": "The elevator car is a cage of corroded metal, sparks occasionally showering from exposed wiring. The floor is a sticky, indeterminate substance, and the air is heavy with the metallic tang of decay and desperation. Scrawled graffiti in a dozen dialects adorns every surface, telling tales of struggle and survival."
+                            }
+                        },
+                        "items": {
+                            "Synth-Leather Jacket": {
+                                "name": "Synth-Leather Jacket",
+                                "description": "This jacket offers minimal protection from the elements but is a familiar comfort. It might have a few hidden pockets useful for carrying small items.",
+                                "appearanceDescription": "A worn, synth-leather jacket, patched in several places with mismatched materials. It smells faintly of rain and something vaguely metallic."
+                            },
+                            "Cracked Data-Slate": {
+                                "name": "Cracked Data-Slate",
+                                "description": "This data-slate appears to be an outdated navigational tool for the lower sectors. Its current functionality is questionable, but it might contain valuable information if repaired or deciphered.",
+                                "appearanceDescription": "A cracked data-slate, its screen displaying a flickering, corrupted schematic of the Undercity's ventilation systems. The casing is scuffed and shows signs of having been dropped multiple times."
+                            },
+                            "Chipped Mug": {
+                                "name": "Chipped Mug",
+                                "description": "A simple drinking vessel. It's empty, but perhaps it could be filled with something from elsewhere in the city.",
+                                "appearanceDescription": "A chipped ceramic mug, stained with the residue of various beverages. It rests on a small, foldable metal table bolted to the wall."
+                            }
+                        },
+                        "itemLocations": {
+                            "Synth-Leather Jacket": {
+                                "type": "room",
+                                "roomName": "Hab-Unit 4B"
+                            },
+                            "Cracked Data-Slate": {
+                                "type": "room",
+                                "roomName": "Hab-Unit 4B"
+                            },
+                            "Chipped Mug": {
+                                "type": "room",
+                                "roomName": "Hab-Unit 4B"
+                            }
+                        },
+                        "roomConnections": {
+                            "Hab-Unit 4B": [
+                                {
+                                    "here": "Hab-Unit 4B",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "A rusted, shuddering elevator shaft descends into the murky depths of the Undercity."
+                                }
+                            ],
+                            "Sector 7 Transit Hub": [
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Hab-Unit 4B",
+                                    "description": "The same rattling elevator groans its way back up to your hab-unit."
+                                }
+                            ]
+                        },
+                        "startingRoom": "Hab-Unit 4B",
+                        "visitedRooms": [
+                            "Hab-Unit 4B"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "look around my room ",
+                "gameActions": [
+                    {
+                        "type": "PlayerInspectsCurrentRoom"
+                    }
+                ]
+            },
+            "description": "Glitch, known only as a phantom in the digital underbelly, finds themselves in their cramped hab-unit. The metallic walls, slick with condensation and etched with the grime of past inhabitants, are illuminated by a single, flickering fluorescent tube that casts long, distorted shadows. The air is thick with the smell of stale synth-noodles and ozone. A narrow viewport offers a distorted glimpse of the neon-drenched, rain-lashed cityscape far above. Glitch surveys their meager surroundings: a synth-leather jacket draped over a chair, a cracked data-slate lying on a small table, and a chipped mug resting near the edge. The Sector 7 Transit Hub, a rusted elevator shaft, beckons from the doorway, a descent into the murky depths of the Undercity."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Neo-Kyoto is a colossal monument to human ambition and technological excess. Towering arcologies pierce the perpetually smog-choked sky, their surfaces plastered with holographic advertisements that paint the rain-swept streets in a kaleidoscope of garish colors. Below the gleaming chrome and pulsating neon of the upper sectors lies the Undercity, a labyrinth of grimy alleys, overcrowded markets, and forgotten infrastructure where the dispossessed and defiant carve out a precarious existence. The air crackles with electromagnetic interference, and the omnipresent hum of cybernetic augmentation is the city's constant heartbeat. Corporations rule this domain with an iron fist, their influence extending from the data-rich sky-scrapers down to the bio-luminescent fungi that grow in the deepest sewers.",
+                        "player": {
+                            "name": "Glitch",
+                            "description": "You are known only as 'Glitch' in the underbelly of the digital world. A phantom in the machine, you navigate the sprawling, rain-slicked metropolis of Neo-Kyoto, a city that bleeds light and information. Once a promising corporate netrunner, a botched data heist branded you a renegade, forcing you into the shadows. Now, you operate from a cramped, anonymous hab-unit, taking on risky jobs that skirt the edges of legality, always one step ahead of the omnipresent corporate security forces and the digital ghosts that haunt the datastreams.",
+                            "appearanceDescription": "You are a silhouette against the neon glow of Neo-Kyoto, clad in a worn, oil-stained synth-leather jacket. A neural interface port glints subtly at your temple, partially obscured by a shock of brightly dyed, unruly hair. Your eyes, sharp and perpetually scanning, are hidden behind mirrored AR goggles that display a constant stream of data, flickering with schematics and network traffic.",
+                            "room": "Hab-Unit 4B"
+                        },
+                        "rooms": {
+                            "Hab-Unit 4B": {
+                                "name": "Hab-Unit 4B",
+                                "description": "This is your private space, a meager refuge from the relentless press of Neo-Kyoto's Undercity. It's a testament to functional minimalism, designed for survival rather than comfort. Every inch of space is utilized, and the lingering scent of recycled air does little to mask the ever-present dampness.",
+                                "appearanceDescription": "You find yourself in a cramped, dimly lit hab-unit, the metallic walls slick with condensation and etched with the grime of countless occupants. A single, flickering fluorescent tube casts long, distorted shadows across the sparse furnishings. The air is thick with the smell of stale synth-noodles and ozone. A narrow viewport offers a distorted glimpse of the neon-drenched, rain-lashed cityscape far above, a stark reminder of the world outside this cramped existence."
+                            },
+                            "Sector 7 Transit Hub": {
+                                "name": "Sector 7 Transit Hub",
+                                "description": "This is the central transit hub of the lower sectors, a chaotic nexus where life grinds on in the perpetual twilight of Neo-Kyoto's Undercity. Clanking machinery, the cacophony of hawkers, and the murmur of a thousand hushed conversations create a constant din. It's a place of fleeting connections and dangerous anonymity.",
+                                "appearanceDescription": "The elevator car is a cage of corroded metal, sparks occasionally showering from exposed wiring. The floor is a sticky, indeterminate substance, and the air is heavy with the metallic tang of decay and desperation. Scrawled graffiti in a dozen dialects adorns every surface, telling tales of struggle and survival."
+                            }
+                        },
+                        "items": {
+                            "Synth-Leather Jacket": {
+                                "name": "Synth-Leather Jacket",
+                                "description": "This jacket offers minimal protection from the elements but is a familiar comfort. It might have a few hidden pockets useful for carrying small items.",
+                                "appearanceDescription": "A worn, synth-leather jacket, patched in several places with mismatched materials. It smells faintly of rain and something vaguely metallic."
+                            },
+                            "Cracked Data-Slate": {
+                                "name": "Cracked Data-Slate",
+                                "description": "This data-slate appears to be an outdated navigational tool for the lower sectors. Its current functionality is questionable, but it might contain valuable information if repaired or deciphered.",
+                                "appearanceDescription": "A cracked data-slate, its screen displaying a flickering, corrupted schematic of the Undercity's ventilation systems. The casing is scuffed and shows signs of having been dropped multiple times."
+                            },
+                            "Chipped Mug": {
+                                "name": "Chipped Mug",
+                                "description": "A simple drinking vessel. It's empty, but perhaps it could be filled with something from elsewhere in the city.",
+                                "appearanceDescription": "A chipped ceramic mug, stained with the residue of various beverages. It rests on a small, foldable metal table bolted to the wall."
+                            }
+                        },
+                        "itemLocations": {
+                            "Synth-Leather Jacket": {
+                                "type": "player"
+                            },
+                            "Cracked Data-Slate": {
+                                "type": "room",
+                                "roomName": "Hab-Unit 4B"
+                            },
+                            "Chipped Mug": {
+                                "type": "room",
+                                "roomName": "Hab-Unit 4B"
+                            }
+                        },
+                        "roomConnections": {
+                            "Hab-Unit 4B": [
+                                {
+                                    "here": "Hab-Unit 4B",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "A rusted, shuddering elevator shaft descends into the murky depths of the Undercity."
+                                }
+                            ],
+                            "Sector 7 Transit Hub": [
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Hab-Unit 4B",
+                                    "description": "The same rattling elevator groans its way back up to your hab-unit."
+                                }
+                            ]
+                        },
+                        "startingRoom": "Hab-Unit 4B",
+                        "visitedRooms": [
+                            "Hab-Unit 4B"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "take the jacket",
+                "gameActions": [
+                    {
+                        "item": "Synth-Leather Jacket",
+                        "type": "PlayerTakesItem"
+                    }
+                ]
+            },
+            "description": "Glitch, ever the pragmatist, shrugs off the oppressive atmosphere of the hab-unit and reaches for the worn synth-leather jacket. The familiar, slightly cracked material settles over their shoulders, a meager shield against the chill that seems to permeate the very walls of their temporary sanctuary. The jacket's numerous hidden pockets, a secret known only to its wearer, are a silent promise of discreet carrying, a small comfort in the harsh realities of Neo-Kyoto's underbelly."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Neo-Kyoto is a colossal monument to human ambition and technological excess. Towering arcologies pierce the perpetually smog-choked sky, their surfaces plastered with holographic advertisements that paint the rain-swept streets in a kaleidoscope of garish colors. Below the gleaming chrome and pulsating neon of the upper sectors lies the Undercity, a labyrinth of grimy alleys, overcrowded markets, and forgotten infrastructure where the dispossessed and defiant carve out a precarious existence. The air crackles with electromagnetic interference, and the omnipresent hum of cybernetic augmentation is the city's constant heartbeat. Corporations rule this domain with an iron fist, their influence extending from the data-rich sky-scrapers down to the bio-luminescent fungi that grow in the deepest sewers.",
+                        "player": {
+                            "name": "Glitch",
+                            "description": "You are known only as 'Glitch' in the underbelly of the digital world. A phantom in the machine, you navigate the sprawling, rain-slicked metropolis of Neo-Kyoto, a city that bleeds light and information. Once a promising corporate netrunner, a botched data heist branded you a renegade, forcing you into the shadows. Now, you operate from a cramped, anonymous hab-unit, taking on risky jobs that skirt the edges of legality, always one step ahead of the omnipresent corporate security forces and the digital ghosts that haunt the datastreams.",
+                            "appearanceDescription": "You are a silhouette against the neon glow of Neo-Kyoto, clad in a worn, oil-stained synth-leather jacket. A neural interface port glints subtly at your temple, partially obscured by a shock of brightly dyed, unruly hair. Your eyes, sharp and perpetually scanning, are hidden behind mirrored AR goggles that display a constant stream of data, flickering with schematics and network traffic.",
+                            "room": "Hab-Unit 4B"
+                        },
+                        "rooms": {
+                            "Hab-Unit 4B": {
+                                "name": "Hab-Unit 4B",
+                                "description": "This is your private space, a meager refuge from the relentless press of Neo-Kyoto's Undercity. It's a testament to functional minimalism, designed for survival rather than comfort. Every inch of space is utilized, and the lingering scent of recycled air does little to mask the ever-present dampness.",
+                                "appearanceDescription": "You find yourself in a cramped, dimly lit hab-unit, the metallic walls slick with condensation and etched with the grime of countless occupants. A single, flickering fluorescent tube casts long, distorted shadows across the sparse furnishings. The air is thick with the smell of stale synth-noodles and ozone. A narrow viewport offers a distorted glimpse of the neon-drenched, rain-lashed cityscape far above, a stark reminder of the world outside this cramped existence."
+                            },
+                            "Sector 7 Transit Hub": {
+                                "name": "Sector 7 Transit Hub",
+                                "description": "This is the central transit hub of the lower sectors, a chaotic nexus where life grinds on in the perpetual twilight of Neo-Kyoto's Undercity. Clanking machinery, the cacophony of hawkers, and the murmur of a thousand hushed conversations create a constant din. It's a place of fleeting connections and dangerous anonymity.",
+                                "appearanceDescription": "The elevator car is a cage of corroded metal, sparks occasionally showering from exposed wiring. The floor is a sticky, indeterminate substance, and the air is heavy with the metallic tang of decay and desperation. Scrawled graffiti in a dozen dialects adorns every surface, telling tales of struggle and survival."
+                            }
+                        },
+                        "items": {
+                            "Synth-Leather Jacket": {
+                                "name": "Synth-Leather Jacket",
+                                "description": "This jacket offers minimal protection from the elements but is a familiar comfort. It might have a few hidden pockets useful for carrying small items.",
+                                "appearanceDescription": "A worn, synth-leather jacket, patched in several places with mismatched materials. It smells faintly of rain and something vaguely metallic."
+                            },
+                            "Cracked Data-Slate": {
+                                "name": "Cracked Data-Slate",
+                                "description": "This data-slate appears to be an outdated navigational tool for the lower sectors. Its current functionality is questionable, but it might contain valuable information if repaired or deciphered.",
+                                "appearanceDescription": "A cracked data-slate, its screen displaying a flickering, corrupted schematic of the Undercity's ventilation systems. The casing is scuffed and shows signs of having been dropped multiple times."
+                            },
+                            "Chipped Mug": {
+                                "name": "Chipped Mug",
+                                "description": "A simple drinking vessel. It's empty, but perhaps it could be filled with something from elsewhere in the city.",
+                                "appearanceDescription": "A chipped ceramic mug, stained with the residue of various beverages. It rests on a small, foldable metal table bolted to the wall."
+                            }
+                        },
+                        "itemLocations": {
+                            "Synth-Leather Jacket": {
+                                "type": "player"
+                            },
+                            "Cracked Data-Slate": {
+                                "type": "room",
+                                "roomName": "Hab-Unit 4B"
+                            },
+                            "Chipped Mug": {
+                                "type": "room",
+                                "roomName": "Hab-Unit 4B"
+                            }
+                        },
+                        "roomConnections": {
+                            "Hab-Unit 4B": [
+                                {
+                                    "here": "Hab-Unit 4B",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "A rusted, shuddering elevator shaft descends into the murky depths of the Undercity."
+                                }
+                            ],
+                            "Sector 7 Transit Hub": [
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Hab-Unit 4B",
+                                    "description": "The same rattling elevator groans its way back up to your hab-unit."
+                                }
+                            ]
+                        },
+                        "startingRoom": "Hab-Unit 4B",
+                        "visitedRooms": [
+                            "Hab-Unit 4B"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "check out the data slate",
+                "gameActions": [
+                    {
+                        "item": "Cracked Data-Slate",
+                        "type": "PlayerInspectsItem"
+                    }
+                ]
+            },
+            "description": "Glitch, surrounded by the oppressive, damp confines of Hab-Unit 4B, turns their attention to the cracked data-slate lying on a cluttered surface. The device, clearly past its prime, displays a web of hairline fractures across its surface, obscuring much of its internal display. Yet, even through the damage, the faint glow of ancient navigational schematics for the lower sectors of Neo-Kyoto flickers to life, hinting at forgotten routes and hidden pathways within the sprawling digital labyrinth."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Neo-Kyoto is a colossal monument to human ambition and technological excess. Towering arcologies pierce the perpetually smog-choked sky, their surfaces plastered with holographic advertisements that paint the rain-swept streets in a kaleidoscope of garish colors. Below the gleaming chrome and pulsating neon of the upper sectors lies the Undercity, a labyrinth of grimy alleys, overcrowded markets, and forgotten infrastructure where the dispossessed and defiant carve out a precarious existence. The air crackles with electromagnetic interference, and the omnipresent hum of cybernetic augmentation is the city's constant heartbeat. Corporations rule this domain with an iron fist, their influence extending from the data-rich sky-scrapers down to the bio-luminescent fungi that grow in the deepest sewers.",
+                        "player": {
+                            "name": "Glitch",
+                            "description": "You are known only as 'Glitch' in the underbelly of the digital world. A phantom in the machine, you navigate the sprawling, rain-slicked metropolis of Neo-Kyoto, a city that bleeds light and information. Once a promising corporate netrunner, a botched data heist branded you a renegade, forcing you into the shadows. Now, you operate from a cramped, anonymous hab-unit, taking on risky jobs that skirt the edges of legality, always one step ahead of the omnipresent corporate security forces and the digital ghosts that haunt the datastreams.",
+                            "appearanceDescription": "You are a silhouette against the neon glow of Neo-Kyoto, clad in a worn, oil-stained synth-leather jacket. A neural interface port glints subtly at your temple, partially obscured by a shock of brightly dyed, unruly hair. Your eyes, sharp and perpetually scanning, are hidden behind mirrored AR goggles that display a constant stream of data, flickering with schematics and network traffic.",
+                            "room": "Hab-Unit 4B"
+                        },
+                        "rooms": {
+                            "Hab-Unit 4B": {
+                                "name": "Hab-Unit 4B",
+                                "description": "This is your private space, a meager refuge from the relentless press of Neo-Kyoto's Undercity. It's a testament to functional minimalism, designed for survival rather than comfort. Every inch of space is utilized, and the lingering scent of recycled air does little to mask the ever-present dampness.",
+                                "appearanceDescription": "You find yourself in a cramped, dimly lit hab-unit, the metallic walls slick with condensation and etched with the grime of countless occupants. A single, flickering fluorescent tube casts long, distorted shadows across the sparse furnishings. The air is thick with the smell of stale synth-noodles and ozone. A narrow viewport offers a distorted glimpse of the neon-drenched, rain-lashed cityscape far above, a stark reminder of the world outside this cramped existence."
+                            },
+                            "Sector 7 Transit Hub": {
+                                "name": "Sector 7 Transit Hub",
+                                "description": "This is the central transit hub of the lower sectors, a chaotic nexus where life grinds on in the perpetual twilight of Neo-Kyoto's Undercity. Clanking machinery, the cacophony of hawkers, and the murmur of a thousand hushed conversations create a constant din. It's a place of fleeting connections and dangerous anonymity.",
+                                "appearanceDescription": "The elevator car is a cage of corroded metal, sparks occasionally showering from exposed wiring. The floor is a sticky, indeterminate substance, and the air is heavy with the metallic tang of decay and desperation. Scrawled graffiti in a dozen dialects adorns every surface, telling tales of struggle and survival."
+                            }
+                        },
+                        "items": {
+                            "Synth-Leather Jacket": {
+                                "name": "Synth-Leather Jacket",
+                                "description": "This jacket offers minimal protection from the elements but is a familiar comfort. It might have a few hidden pockets useful for carrying small items.",
+                                "appearanceDescription": "A worn, synth-leather jacket, patched in several places with mismatched materials. It smells faintly of rain and something vaguely metallic."
+                            },
+                            "Cracked Data-Slate": {
+                                "name": "Cracked Data-Slate",
+                                "description": "This data-slate appears to be an outdated navigational tool for the lower sectors. Its current functionality is questionable, but it might contain valuable information if repaired or deciphered.",
+                                "appearanceDescription": "A cracked data-slate, its screen displaying a flickering, corrupted schematic of the Undercity's ventilation systems. The casing is scuffed and shows signs of having been dropped multiple times."
+                            },
+                            "Chipped Mug": {
+                                "name": "Chipped Mug",
+                                "description": "A simple drinking vessel. It's empty, but perhaps it could be filled with something from elsewhere in the city.",
+                                "appearanceDescription": "A chipped ceramic mug, stained with the residue of various beverages. It rests on a small, foldable metal table bolted to the wall."
+                            }
+                        },
+                        "itemLocations": {
+                            "Synth-Leather Jacket": {
+                                "type": "player"
+                            },
+                            "Cracked Data-Slate": {
+                                "type": "player"
+                            },
+                            "Chipped Mug": {
+                                "type": "room",
+                                "roomName": "Hab-Unit 4B"
+                            }
+                        },
+                        "roomConnections": {
+                            "Hab-Unit 4B": [
+                                {
+                                    "here": "Hab-Unit 4B",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "A rusted, shuddering elevator shaft descends into the murky depths of the Undercity."
+                                }
+                            ],
+                            "Sector 7 Transit Hub": [
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Hab-Unit 4B",
+                                    "description": "The same rattling elevator groans its way back up to your hab-unit."
+                                }
+                            ]
+                        },
+                        "startingRoom": "Hab-Unit 4B",
+                        "visitedRooms": [
+                            "Hab-Unit 4B"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "take the slate",
+                "gameActions": [
+                    {
+                        "item": "Cracked Data-Slate",
+                        "type": "PlayerTakesItem"
+                    }
+                ]
+            },
+            "description": "Glitch, ever the scavenger of forgotten knowledge, carefully picks up the cracked data-slate. Its chipped surface feels cool and alien against the worn synth-leather of the player's jacket as they tuck the device away, a potential key to unlocking further secrets within the labyrinthine digital arteries of Neo-Kyoto."
+        }
+    ]
+}
