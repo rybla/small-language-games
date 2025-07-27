@@ -299,7 +299,7 @@ export default function Page() {
                                       <ItemCard
                                         inst={state.inst}
                                         itemName={gameAction.item}
-                                        format="large"
+                                        format="chat"
                                       />
                                     </div>
                                   </div>
@@ -320,7 +320,7 @@ export default function Page() {
                                       <ItemCard
                                         inst={state.inst}
                                         itemName={gameAction.item}
-                                        format="large"
+                                        format="chat"
                                       />
                                     </div>
                                   </div>
@@ -341,7 +341,7 @@ export default function Page() {
                                       <ItemCard
                                         inst={state.inst}
                                         itemName={gameAction.item}
-                                        format="large"
+                                        format="chat"
                                       />
                                     </div>
                                   </div>
@@ -417,7 +417,7 @@ export default function Page() {
                             <ItemCard
                               inst={state.inst}
                               itemName={item.name}
-                              format="chat"
+                              format="view"
                             />
                           </div>
                         ),
@@ -576,7 +576,7 @@ export function RoomCard(props: {
 // ItemCard
 // -----------------------------------------------------------------------------
 
-type ItemCardFormat = "chat" | "large";
+type ItemCardFormat = "view" | "chat";
 
 type ItemCardState = { type: "loading" } | { type: "loaded"; filename: string };
 
@@ -589,7 +589,7 @@ function ItemCard(props: {
 
   const size = {
     chat: 150,
-    large: 200,
+    view: 200,
   }[props.format];
   const ratioOfItemImageToFrameImage = 0.75;
 

@@ -46,7 +46,7 @@
  * Loading indicators pulse with the accent color.
  * - **Entrance Animation:** Elements fade in and slide up slightly.
  * - **Hover Animations:** Buttons and interactive elements intensify
- * their glow.
+ * their glow. Panels can expand on hover.
  * - **Active/Click Animations:** Buttons have a "press down" effect.
  * - **State Changes:** Panels and modals fade in and out smoothly.
  *
@@ -119,6 +119,25 @@
     background-size: 400% 400%;
     animation: fluid-gradient 20s ease infinite;
     z-index: -1;
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-accent);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent-dark);
 }
 
 .sidebar {
@@ -230,7 +249,7 @@
     bottom: calc(var(--spacing-unit) * 2);
     right: calc(var(--spacing-unit) * 2);
     width: 400px;
-    height: 300px;
+    height: 80px; /* Collapsed height */
     background: var(--color-foreground-transparent);
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
@@ -239,8 +258,14 @@
     display: flex;
     flex-direction: column;
     padding: var(--spacing-unit);
-    transition: all var(--transition-speed) ease;
+    transition: height var(--transition-speed) ease; /* Animate only height */
     animation: fadeInSlideUp 0.9s ease-out forwards;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.LogsPanel:hover {
+    height: 300px; /* Expanded height */
 }
 
 .LogsPanel .title {
@@ -249,6 +274,7 @@
     border-bottom: 1px solid var(--color-border);
     margin-bottom: var(--spacing-unit);
     text-transform: uppercase;
+    flex-shrink: 0; /* Prevent title from shrinking */
 }
 
 .logs {
