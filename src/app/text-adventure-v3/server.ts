@@ -2,7 +2,14 @@
 
 import { Inst, InstClient, SpecServer } from "@/library/sva/ontology";
 import * as server from "@/library/sva/server";
-import { err, fromDataUrlToBuffer, ok, Result, stringify } from "@/utility";
+import {
+  err,
+  fromDataUrlToBuffer,
+  index_safe,
+  ok,
+  Result,
+  stringify,
+} from "@/utility";
 import * as fs from "fs/promises";
 import filenamify from "filenamify";
 import {
@@ -110,6 +117,14 @@ export async function saveInst(name?: string) {
   if (inst === undefined) return;
   if (name) inst.metadata.name = name;
   await server.saveInst(inst);
+}
+
+export async function resetInstToRightBeforeTurn(i: number) {
+  if (inst === undefined) return;
+  const turn = index_safe(i, inst.turns);
+  if (turn === undefined) throw new Error("Invalid turn index");
+  inst.turns = inst.turns.slice(0, i);
+  inst.state = turn.state;
 }
 
 export async function getInstMetadatas() {

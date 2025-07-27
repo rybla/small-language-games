@@ -172,7 +172,6 @@ ${worldDescription}
             appearanceDescription: Room.shape.appearanceDescription,
             items: z
               .array(Item)
-              .min(1)
               .describe("All the items in the starting room."),
             connectedRooms: z
               .array(
@@ -188,7 +187,6 @@ ${worldDescription}
                   ),
                 }),
               )
-              .min(1)
               .describe("All the rooms connected to the starting room"),
           }),
         },
@@ -266,7 +264,6 @@ Keep the following notes in mind:
           schema: z.object({
             items: z
               .array(Item)
-              .min(1)
               .describe(
                 `All the items to be placed in the container _${container.name}_.`,
               ),
@@ -332,7 +329,6 @@ Keep the following notes in mind:
           schema: z.object({
             items: z
               .array(Item)
-              .min(1)
               .describe(
                 `All the items to be placed in the room _${roomName}_.`,
               ),
@@ -350,7 +346,6 @@ Keep the following notes in mind:
                   ),
                 }),
               )
-              .min(1)
               .describe(`All the rooms connected to the room _${roomName}_`),
           }),
         },

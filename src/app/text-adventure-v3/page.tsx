@@ -95,6 +95,11 @@ export default function Page() {
     await updateInst();
   }
 
+  async function resetInstToRightBeforeTurn(i: number) {
+    await server.resetInstToRightBeforeTurn(i);
+    await updateInst();
+  }
+
   // ---------------------------------------------------------------------------
 
   useEffect(() => {
@@ -230,6 +235,13 @@ export default function Page() {
                   <div className={styles.turns}>
                     {state.inst.turns.map((turn, i) => (
                       <div className={styles.turn} key={i}>
+                        <div className={styles.controls}>
+                          <SmallButton
+                            onClick={() => resetInstToRightBeforeTurn(i)}
+                          >
+                            Reset
+                          </SmallButton>
+                        </div>
                         <div className={styles.prompt}>
                           <div className={styles.label}>
                             <Quote size={20} />
@@ -697,6 +709,22 @@ function Button(props: {
   return (
     <button
       className={styles.button}
+      onClick={(event: React.MouseEvent<HTMLButtonElement>) =>
+        void props.onClick()
+      }
+    >
+      {props.children}
+    </button>
+  );
+}
+
+function SmallButton(props: {
+  onClick: () => Promise<void>;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      className={`${styles.button} ${styles.SmallButton}`}
       onClick={(event: React.MouseEvent<HTMLButtonElement>) =>
         void props.onClick()
       }

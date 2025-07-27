@@ -114,7 +114,9 @@ export const PlayerGoesToRoom_GameAction = mkGameActionSchema({
         type: z.enum(["PlayerGoesToRoom"]),
         room: args.room,
       })
-      .describe("the action where the player goes to a another room");
+      .describe(
+        "the action where the player takes a path that goes to a another room",
+      );
   },
 });
 
@@ -160,7 +162,7 @@ export const PlayerInspectsConnectionToAnotherRoom_GameAction =
           room: args.room,
         })
         .describe(
-          "the action where the player inspects a connection to another room",
+          "the action where the player inspects an area of the room that connects to another room",
         );
     },
   });
@@ -406,6 +408,7 @@ export async function interpretGameAction(
         container,
       });
       for (const item of items) {
+        console.log("[interpretGameAction]", "addItem", stringify({ item }));
         addItem(game, item, {
           type: "container",
           containerName: container.name,
@@ -414,6 +417,11 @@ export async function interpretGameAction(
       game.world.openedItems.push(gameAction.container);
     }
     const items = getContainerItems(game, container.name);
+    console.log(
+      "[interpretGameAction]",
+      "getContainerItems",
+      stringify({ items }),
+    );
 
     // move items outside of container
     let itemsNewLocationDescription: string | undefined = undefined;
@@ -440,8 +448,16 @@ export async function interpretGameAction(
         `the container _${container.name}_ shouldn't be in the location \`${stringify(containerLocation)}\``,
       );
     }
+    console.log(
+      "[interpretGameAction]",
+      stringify({ itemsNewLocationDescription }),
+    );
     requireDefined(itemsNewLocationDescription);
-    return `The player opened the item ${container.name} in the following manner: ${container.container.howToOpen}. The player took out the items ${items.map((item) => `_${item.name}_`).join(", ")}. The items are now in ${itemsNewLocationDescription}.`;
+    if (items.length === 0) {
+      return `The player opened the item ${container.name} in the following manner: ${container.container.howToOpen} No items were inside.`;
+    } else {
+      return `The player opened the item ${container.name} in the following manner: ${container.container.howToOpen} The player took out the items ${items.map((item) => `_${item.name}_`).join(", ")}. The items are now in ${itemsNewLocationDescription}.`;
+    }
   } else {
     return fromNever(gameAction);
   }

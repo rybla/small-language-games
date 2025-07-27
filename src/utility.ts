@@ -205,3 +205,8 @@ export function defined<T>(x: NotUndefined<T>) {
 export function requireDefined<T>(x: NotUndefined<T>): x is NotUndefined<T> {
   return true;
 }
+
+export function index_safe<A>(i: number, xs: A[]): A | undefined {
+  if (!(0 <= i && i < xs.length)) return undefined;
+  return xs[i];
+}

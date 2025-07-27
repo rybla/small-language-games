@@ -144,7 +144,7 @@
                     "name": "Elias Thorne",
                     "description": "You are Elias Thorne, a renowned paranormal investigator who met an untimely end during a particularly volatile séance. Now, as a disembodied spirit yourself, you are drawn to places of intense psychic residue, seeking to understand the lingering echoes of the living and the dead. You possess the unique ability to perceive spiritual energy, interact with objects through telekinesis, and communicate with other entities, though your powers are limited by your own spiritual cohesion.",
                     "appearanceDescription": "You are a spectral investigator, a wispy form of translucent ectoplasm, vaguely humanoid in shape. Your 'eyes' are two points of faint, pulsing blue light, and your ethereal 'body' shimmers with residual energy, leaving a faint trail of cold mist in your wake. You can phase through solid objects, but the stronger the material, the more effort it takes, leaving you momentarily drained.",
-                    "room": "Grand Foyer"
+                    "room": "Upper Hallway"
                 },
                 "rooms": {
                     "Grand Foyer": {
@@ -166,6 +166,21 @@
                         "name": "The Ballroom",
                         "description": "This was once a place of merriment, but now it is a tomb of echoes. The silence here is profound, amplifying the sense of abandonment and the weight of the manor's tragic history. The air is heavy with a sorrow that seems to seep from the very walls.",
                         "appearanceDescription": "The ballroom is a grand but desolate space. A cracked marble floor stretches out, reflecting the faint moonlight. Tattered remnants of velvet curtains hang from tall, arched windows, and the ghostly outlines of long-vanished furniture can be seen on the floor. A decaying grand piano sits silently in one corner, its keys yellowed and broken."
+                    },
+                    "Foyer": {
+                        "name": "Foyer",
+                        "description": "The foyer serves as the main entrance to Blackwood Manor. The air here is thick with the scent of old dust and decay. Echoes of past grandeur can still be felt, but they are overshadowed by an overwhelming sense of abandonment and sorrow. The silence is profound, broken only by the creaks and groans of the ancient house.",
+                        "appearanceDescription": "The foyer is a cavernous space, dominated by a sweeping staircase that ascends into darkness. Dust sheets drape over what were once magnificent pieces of furniture, creating ghostly silhouettes. A massive, tarnished chandelier hangs precariously from the ceiling, its crystals long since lost. Moonlight filters weakly through a cracked stained-glass window, casting eerie patterns on the marble floor."
+                    },
+                    "Study": {
+                        "name": "Study",
+                        "description": "The study once belonged to the master of Blackwood Manor, a place of quiet contemplation and rigorous study. Now, it holds the lingering aura of frustration and unfinished work. Papers are strewn about as if abandoned mid-sentence, and the silence here seems to press in, heavy with unvoiced thoughts.",
+                        "appearanceDescription": "This study is a testament to a life of scholarly pursuit, now fallen into disarray. Bookshelves, many empty, line the walls, their contents scattered across the floor. A large mahogany desk sits in the center, its surface covered in a thick layer of dust, inkwells, and quill pens. A faded Persian rug lies beneath, its intricate patterns obscured by grime. The air is stale, carrying the faint scent of aged paper and something vaguely metallic."
+                    },
+                    "Chamber of Whispers": {
+                        "name": "Chamber of Whispers",
+                        "description": "This secret chamber appears to have been a place for arcane study or perhaps something more sinister. The objects here suggest a connection to forbidden knowledge and practices. The silence in this room is different; it feels watchful, as if the very objects are aware of your presence and are waiting.",
+                        "appearanceDescription": "This cramped, circular chamber is unnervingly cold. The walls are lined with shelves holding an array of peculiar objects: stoppered glass vials filled with dark liquids, dusty leather-bound tomes with unreadable script, and strange, intricately carved bone artifacts. In the center of the room, a pedestal supports a pulsating, amethyst-like crystal that emits a faint, eerie light. The air crackles with an almost imperceptible energy."
                     }
                 },
                 "items": {
@@ -242,6 +257,133 @@
                         "pickupable": {
                             "isPickup": "true"
                         }
+                    },
+                    "Weeping Willow Locket": {
+                        "appearanceDescription": "A tarnished silver locket, intricately engraved with a weeping willow tree, lies on the dusty floor. It feels unnaturally cold to the touch.",
+                        "container": {
+                            "howToOpen": "Gently pry it open.",
+                            "howToStoreItem": "Place small items within its delicate confines.",
+                            "isContainer": "true"
+                        },
+                        "description": "This locket seems to hold a deep sadness. Perhaps it belonged to one of the manor's tragic inhabitants.",
+                        "name": "Weeping Willow Locket",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    },
+                    "Withered Black Rose": {
+                        "appearanceDescription": "A single, withered black rose rests on a small, ornate side table. Its petals are brittle and dark, crumbling at the slightest disturbance.",
+                        "container": {
+                            "isContainer": "false"
+                        },
+                        "description": "The rose seems to be a symbol of lost love or a permanent farewell. Its presence here is unsettling.",
+                        "name": "Withered Black Rose",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    },
+                    "Resonant Golden Key": {
+                        "appearanceDescription": "A heavy, ornate golden key rests on a velvet cushion placed precisely in the center of the hallway. The key is strangely warm and hums with a low, resonant frequency.",
+                        "container": {
+                            "isContainer": "false"
+                        },
+                        "description": "This key feels important, imbued with a power that hints at unlocking more than just a physical door. Its golden sheen gleams unnaturally in the dim light.",
+                        "name": "Resonant Golden Key",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    },
+                    "Frozen Grandfather Clock": {
+                        "appearanceDescription": "A grandfather clock stands silent and imposing against one wall. Its face is cracked, and its pendulum is still, yet a faint, rhythmic ticking can be heard emanating from within, seemingly out of sync with time itself.",
+                        "container": {
+                            "howToOpen": "Carefully open the glass door in the front.",
+                            "howToStoreItem": "Place small items behind the still pendulum.",
+                            "isContainer": "true"
+                        },
+                        "description": "This clock seems to be frozen in a moment of despair, its ticking a ghostly echo of the past. It holds a sense of frozen time.",
+                        "name": "Frozen Grandfather Clock",
+                        "pickupable": {
+                            "isPickup": "false",
+                            "reasonWhyNotPickup": "The clock is too heavy and is firmly fixed to the wall."
+                        }
+                    },
+                    "Locket of Lingering Sorrows": {
+                        "appearanceDescription": "A single, tarnished silver locket, intricately engraved with a weeping willow tree. It feels unnaturally cold to the touch, and a faint, sorrowful melody seems to emanate from its depths.",
+                        "container": {
+                            "howToOpen": "The glass door of the grandfather clock can be opened by gently pulling on the ornate brass handle.",
+                            "howToStoreItem": "Items can be placed inside the grandfather clock by opening its glass door and carefully setting them within the main cavity.",
+                            "isContainer": "true"
+                        },
+                        "description": "This locket seems to hold the very essence of sadness. It is rumored to contain the last tear shed by Lady Eleanor before her tragic demise within these walls. Holding it might reveal forgotten memories, or perhaps amplify one's own deepest regrets.",
+                        "name": "Locket of Lingering Sorrows",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    },
+                    "Clockwork Nightingale": {
+                        "appearanceDescription": "A small, exquisitely carved wooden bird, its wings outstretched as if in mid-flight. It is made from a dark, unfamiliar wood and feels surprisingly weighty for its size. Tiny, almost imperceptible gears are visible beneath its carved feathers.",
+                        "container": {
+                            "howToOpen": "The glass door of the grandfather clock can be opened by gently pulling on the ornate brass handle.",
+                            "howToStoreItem": "Items can be placed inside the grandfather clock by opening its glass door and carefully setting them within the main cavity.",
+                            "isContainer": "true"
+                        },
+                        "description": "This automaton bird appears to be a marvel of craftsmanship from a bygone era. When wound, it is said to sing a lullaby so beautiful it can bring peace to even the most tormented soul, though its mechanism appears long dormant, frozen alongside the clock.",
+                        "name": "Clockwork Nightingale",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    },
+                    "Chronometer's Finger": {
+                        "appearanceDescription": "A single, skeletal finger bone, polished smooth as glass. It is unnaturally long and thin, and a faint, chilling mist seems to perpetually cling to its surface.",
+                        "container": {
+                            "howToOpen": "The glass door of the grandfather clock can be opened by gently pulling on the ornate brass handle.",
+                            "howToStoreItem": "Items can be placed inside the grandfather clock by opening its glass door and carefully setting them within the main cavity.",
+                            "isContainer": "true"
+                        },
+                        "description": "This bone radiates an aura of temporal displacement. Legends whisper that it belonged to a chronomancer who attempted to unravel the mysteries of time itself within Blackwood Manor, only to be consumed by his own ambition. Touching it might cause brief, disorienting glimpses of the past or future.",
+                        "name": "Chronometer's Finger",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    },
+                    "Vial of a Frozen Tear": {
+                        "appearanceDescription": "A single, dried tear, preserved within a miniature glass vial. It shimmers faintly with an inner light, and a wisp of ethereal mist curls around its stopper.",
+                        "container": {
+                            "howToOpen": "The locket opens with a gentle click when pressed on its side.",
+                            "howToStoreItem": "Items can be placed inside the locket by carefully opening it and placing them within its velvet-lined interior.",
+                            "isContainer": "true"
+                        },
+                        "description": "This vial contains what appears to be a solidified tear, radiating a faint aura of sorrow. Legend says that tears shed in true despair can sometimes retain a fragment of the emotion that created them.",
+                        "name": "Vial of a Frozen Tear",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    },
+                    "Ribbon of Whispers": {
+                        "appearanceDescription": "A faded, silk ribbon, once a vibrant emerald green, now bleached to a pale, ghostly hue. A single, perfectly preserved dewdrop, impossibly still, clings to its frayed end.",
+                        "container": {
+                            "howToOpen": "The locket opens with a gentle click when pressed on its side.",
+                            "howToStoreItem": "Items can be placed inside the locket by carefully opening it and placing them within its velvet-lined interior.",
+                            "isContainer": "true"
+                        },
+                        "description": "This ribbon carries the faint scent of honeysuckle and the lingering whisper of forgotten laughter. It is said to have been a token of affection, lost during a time of great upheaval within the manor.",
+                        "name": "Ribbon of Whispers",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    },
+                    "Key to Forgotten Sorrows": {
+                        "appearanceDescription": "A miniature, tarnished silver key, no larger than a thumbnail. Its teeth are intricately carved into the shape of tiny, weeping willow leaves.",
+                        "container": {
+                            "howToOpen": "The locket opens with a gentle click when pressed on its side.",
+                            "howToStoreItem": "Items can be placed inside the locket by carefully opening it and placing them within its velvet-lined interior.",
+                            "isContainer": "true"
+                        },
+                        "description": "This tiny key feels impossibly heavy for its size, as if burdened by the secrets it guards. It is rumored to unlock not a physical door, but a hidden passage within the heart, or perhaps a forgotten memory.",
+                        "name": "Key to Forgotten Sorrows",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
                     }
                 },
                 "itemLocations": {
@@ -268,6 +410,46 @@
                     "Carved Wooden Bird": {
                         "type": "container",
                         "containerName": "Tattered Velvet Pouch"
+                    },
+                    "Weeping Willow Locket": {
+                        "type": "room",
+                        "roomName": "Upper Hallway"
+                    },
+                    "Withered Black Rose": {
+                        "type": "room",
+                        "roomName": "Upper Hallway"
+                    },
+                    "Resonant Golden Key": {
+                        "type": "room",
+                        "roomName": "Upper Hallway"
+                    },
+                    "Frozen Grandfather Clock": {
+                        "type": "room",
+                        "roomName": "Upper Hallway"
+                    },
+                    "Locket of Lingering Sorrows": {
+                        "type": "container",
+                        "containerName": "Frozen Grandfather Clock"
+                    },
+                    "Clockwork Nightingale": {
+                        "type": "container",
+                        "containerName": "Frozen Grandfather Clock"
+                    },
+                    "Chronometer's Finger": {
+                        "type": "container",
+                        "containerName": "Frozen Grandfather Clock"
+                    },
+                    "Vial of a Frozen Tear": {
+                        "type": "container",
+                        "containerName": "Weeping Willow Locket"
+                    },
+                    "Ribbon of Whispers": {
+                        "type": "container",
+                        "containerName": "Weeping Willow Locket"
+                    },
+                    "Key to Forgotten Sorrows": {
+                        "type": "container",
+                        "containerName": "Weeping Willow Locket"
                     }
                 },
                 "roomConnections": {
@@ -293,6 +475,21 @@
                             "here": "Upper Hallway",
                             "there": "Grand Foyer",
                             "description": "You descend the creaking, unstable stairs back into the grand foyer."
+                        },
+                        {
+                            "here": "Upper Hallway",
+                            "there": "Foyer",
+                            "description": "A grand, yet decaying, staircase leads down to the foyer."
+                        },
+                        {
+                            "here": "Upper Hallway",
+                            "there": "Study",
+                            "description": "A heavy oak door, slightly ajar, leads into a study."
+                        },
+                        {
+                            "here": "Upper Hallway",
+                            "there": "Chamber of Whispers",
+                            "description": "A narrow, almost hidden doorway is concealed behind a tattered tapestry."
                         }
                     ],
                     "The Study": [
@@ -308,14 +505,38 @@
                             "there": "Grand Foyer",
                             "description": "You retreat from the desolate ballroom, pushing the double doors shut behind you and returning to the foyer."
                         }
+                    ],
+                    "Foyer": [
+                        {
+                            "here": "Foyer",
+                            "there": "Upper Hallway",
+                            "description": "The grand staircase ascends to the upper hallway."
+                        }
+                    ],
+                    "Study": [
+                        {
+                            "here": "Study",
+                            "there": "Upper Hallway",
+                            "description": "The study door opens back into the upper hallway."
+                        }
+                    ],
+                    "Chamber of Whispers": [
+                        {
+                            "here": "Chamber of Whispers",
+                            "there": "Upper Hallway",
+                            "description": "Pushing aside the heavy tapestry reveals the doorway back to the upper hallway."
+                        }
                     ]
                 },
                 "startingRoom": "Grand Foyer",
                 "visitedRooms": [
-                    "Grand Foyer"
+                    "Grand Foyer",
+                    "Upper Hallway"
                 ],
                 "openedItems": [
-                    "Tattered Velvet Pouch"
+                    "Tattered Velvet Pouch",
+                    "Frozen Grandfather Clock",
+                    "Weeping Willow Locket"
                 ]
             }
         }
@@ -649,15 +870,1422 @@
                 }
             },
             "action": {
-                "prompt": "open the pouch ",
+                "prompt": "check out the staircase",
                 "gameActions": [
                     {
-                        "container": "Tattered Velvet Pouch",
+                        "room": "Upper Hallway",
+                        "type": "PlayerInspectsConnectionToAnotherRoom"
+                    }
+                ]
+            },
+            "description": "Elias Thorne drifts towards the grand staircase, its splintered banister a testament to the manor's decay. He feels the cold, spectral energy of the wood, a silent echo of countless footsteps that once ascended into the darkness. The path upwards is shrouded in shadow, promising a glimpse into the manor's forgotten upper reaches, yet it also whispers of unseen dangers, a place where the veil between worlds might be thinner still."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Blackwood Manor stands silhouetted against a bruised, twilight sky, its once-grand facade now a ruin of decaying wood and shattered glass. Thorny vines, thick as a man's arm, strangle the stone walls, and the air around it hums with a palpable sense of dread. Inside, dust motes dance in the slivers of moonlight that pierce the gloom, illuminating cobweb-draped furniture and the spectral remnants of a tragic past. Each room whispers with the memories of its former inhabitants, their sorrow, rage, and despair clinging to the very fabric of the house like a shroud.",
+                        "player": {
+                            "name": "Elias Thorne",
+                            "description": "You are Elias Thorne, a renowned paranormal investigator who met an untimely end during a particularly volatile séance. Now, as a disembodied spirit yourself, you are drawn to places of intense psychic residue, seeking to understand the lingering echoes of the living and the dead. You possess the unique ability to perceive spiritual energy, interact with objects through telekinesis, and communicate with other entities, though your powers are limited by your own spiritual cohesion.",
+                            "appearanceDescription": "You are a spectral investigator, a wispy form of translucent ectoplasm, vaguely humanoid in shape. Your 'eyes' are two points of faint, pulsing blue light, and your ethereal 'body' shimmers with residual energy, leaving a faint trail of cold mist in your wake. You can phase through solid objects, but the stronger the material, the more effort it takes, leaving you momentarily drained.",
+                            "room": "Upper Hallway"
+                        },
+                        "rooms": {
+                            "Grand Foyer": {
+                                "name": "Grand Foyer",
+                                "description": "You are in the grand foyer of Blackwood Manor. The air is cold and heavy with the scent of dust and decay. Shadows cling to the corners of the room, and the silence is broken only by the creaking of the old house.",
+                                "appearanceDescription": "You stand in what appears to be the grand foyer of Blackwood Manor. Moonlight streams through a gaping hole in the ceiling, illuminating a thick carpet of dust and fallen plaster. A massive, cobweb-shrouded chandelier hangs precariously overhead, its crystals long since shattered. To your left, a grand staircase, its banister splintered and broken, ascends into darkness. To your right, a heavy oak door, scarred and weathered, seems to lead to a more private wing of the manor. Directly ahead, a pair of imposing, rotting double doors, their hinges rusted through, stand slightly ajar, offering a glimpse into the manor's decaying heart."
+                            },
+                            "Upper Hallway": {
+                                "name": "Upper Hallway",
+                                "description": "This is the upper floor of Blackwood Manor. The corridor is long and oppressive, and the silence here feels heavy, as if waiting for a scream. The portraits seem to watch your every move, their painted eyes filled with an unnerving sadness.",
+                                "appearanceDescription": "The upper landing is a gallery of shadows, with portraits on the walls whose eyes seem to follow you. A long, dark corridor stretches out before you, lined with closed doors. The air here is colder, and the silence is broken only by the faint scuttling of unseen things."
+                            },
+                            "The Study": {
+                                "name": "The Study",
+                                "description": "The study exudes an aura of forgotten knowledge and quiet despair. The air is thick with the smell of decaying paper and old secrets. It feels as though the former occupant might return at any moment.",
+                                "appearanceDescription": "This room is a study, frozen in time. A large mahogany desk dominates the center, littered with quill pens, dried inkwells, and yellowed, brittle papers. Bookshelves line the walls, their leather-bound volumes crumbling and moth-eaten. A single, high-backed chair sits before the desk, draped in a tattered velvet cloth."
+                            },
+                            "The Ballroom": {
+                                "name": "The Ballroom",
+                                "description": "This was once a place of merriment, but now it is a tomb of echoes. The silence here is profound, amplifying the sense of abandonment and the weight of the manor's tragic history. The air is heavy with a sorrow that seems to seep from the very walls.",
+                                "appearanceDescription": "The ballroom is a grand but desolate space. A cracked marble floor stretches out, reflecting the faint moonlight. Tattered remnants of velvet curtains hang from tall, arched windows, and the ghostly outlines of long-vanished furniture can be seen on the floor. A decaying grand piano sits silently in one corner, its keys yellowed and broken."
+                            },
+                            "Foyer": {
+                                "name": "Foyer",
+                                "description": "The foyer serves as the main entrance to Blackwood Manor. The air here is thick with the scent of old dust and decay. Echoes of past grandeur can still be felt, but they are overshadowed by an overwhelming sense of abandonment and sorrow. The silence is profound, broken only by the creaks and groans of the ancient house.",
+                                "appearanceDescription": "The foyer is a cavernous space, dominated by a sweeping staircase that ascends into darkness. Dust sheets drape over what were once magnificent pieces of furniture, creating ghostly silhouettes. A massive, tarnished chandelier hangs precariously from the ceiling, its crystals long since lost. Moonlight filters weakly through a cracked stained-glass window, casting eerie patterns on the marble floor."
+                            },
+                            "Study": {
+                                "name": "Study",
+                                "description": "The study once belonged to the master of Blackwood Manor, a place of quiet contemplation and rigorous study. Now, it holds the lingering aura of frustration and unfinished work. Papers are strewn about as if abandoned mid-sentence, and the silence here seems to press in, heavy with unvoiced thoughts.",
+                                "appearanceDescription": "This study is a testament to a life of scholarly pursuit, now fallen into disarray. Bookshelves, many empty, line the walls, their contents scattered across the floor. A large mahogany desk sits in the center, its surface covered in a thick layer of dust, inkwells, and quill pens. A faded Persian rug lies beneath, its intricate patterns obscured by grime. The air is stale, carrying the faint scent of aged paper and something vaguely metallic."
+                            },
+                            "Chamber of Whispers": {
+                                "name": "Chamber of Whispers",
+                                "description": "This secret chamber appears to have been a place for arcane study or perhaps something more sinister. The objects here suggest a connection to forbidden knowledge and practices. The silence in this room is different; it feels watchful, as if the very objects are aware of your presence and are waiting.",
+                                "appearanceDescription": "This cramped, circular chamber is unnervingly cold. The walls are lined with shelves holding an array of peculiar objects: stoppered glass vials filled with dark liquids, dusty leather-bound tomes with unreadable script, and strange, intricately carved bone artifacts. In the center of the room, a pedestal supports a pulsating, amethyst-like crystal that emits a faint, eerie light. The air crackles with an almost imperceptible energy."
+                            }
+                        },
+                        "items": {
+                            "Tarnished Locket": {
+                                "appearanceDescription": "A tarnished silver locket lies half-buried in the dust near the base of the grand staircase. It is intricately carved with a floral pattern, but its surface is scratched and dulled with age.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This locket feels cold to the touch and emanates a faint sense of melancholy. It may hold a memory or a clue to the manor's past.",
+                                "name": "Tarnished Locket",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Ornate Brass Key": {
+                                "appearanceDescription": "A heavy, ornate brass key rests on a small, crumbling marble pedestal near the main entrance. It is intricately designed and appears quite old.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This key looks like it could unlock something important, perhaps a sturdy lock on one of the manor's many doors.",
+                                "name": "Ornate Brass Key",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Tattered Velvet Pouch": {
+                                "appearanceDescription": "A tattered velvet pouch lies discarded on the floor, its drawstring loosened. It is empty.",
+                                "container": {
+                                    "howToOpen": "The pouch is already open.",
+                                    "howToStoreItem": "You can place items inside the pouch.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This pouch looks like it might have been used to carry small, valuable items. It's currently empty.",
+                                "name": "Tattered Velvet Pouch",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Tarnished Silver Locket": {
+                                "appearanceDescription": "A tarnished silver locket, intricately engraved with swirling floral patterns, lies open. Inside, a faded miniature portrait of a stern-faced woman is visible.",
+                                "container": {
+                                    "howToOpen": "The pouch is opened by gently pulling apart its frayed drawstring.",
+                                    "howToStoreItem": "Items are placed inside the pouch by carefully tucking them into its velvety depths and then securing the drawstring.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This locket seems to hold a fragment of memory, a captured moment from a life long past. The silver, though dulled by time, hints at a former opulence. It feels cool to the touch, carrying a faint scent of dried lavender.",
+                                "name": "Tarnished Silver Locket",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Raven's Feather": {
+                                "appearanceDescription": "A single, perfectly preserved raven feather rests within the pouch. Its shaft is smooth and obsidian black, while the barbs shimmer with an iridescent blue-green sheen under the moonlight.",
+                                "container": {
+                                    "howToOpen": "The pouch is opened by gently pulling apart its frayed drawstring.",
+                                    "howToStoreItem": "Items are placed inside the pouch by carefully tucking them into its velvety depths and then securing the drawstring.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This feather feels unnaturally light, yet strangely substantial. It carries an aura of the wild and untamed, a whisper from the dark woods surrounding Blackwood Manor. Holding it seems to evoke a sense of quiet watchfulness.",
+                                "name": "Raven's Feather",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Carved Wooden Bird": {
+                                "appearanceDescription": "A small, intricately carved wooden bird, no larger than a thumb, sits nestled in the pouch. Its tiny wings are spread as if in mid-flight, and its eyes are two minuscule chips of polished jet.",
+                                "container": {
+                                    "howToOpen": "The pouch is opened by gently pulling apart its frayed drawstring.",
+                                    "howToStoreItem": "Items are placed inside the pouch by carefully tucking them into its velvety depths and then securing the drawstring.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This miniature carving is a marvel of craftsmanship, depicting a bird with astonishing detail. The wood itself seems to emanate a faint warmth, and there's a subtle, almost imperceptible hum when held close to the ear, as if it retains a spark of life.",
+                                "name": "Carved Wooden Bird",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Weeping Willow Locket": {
+                                "appearanceDescription": "A tarnished silver locket, intricately engraved with a weeping willow tree, lies on the dusty floor. It feels unnaturally cold to the touch.",
+                                "container": {
+                                    "howToOpen": "Gently pry it open.",
+                                    "howToStoreItem": "Place small items within its delicate confines.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This locket seems to hold a deep sadness. Perhaps it belonged to one of the manor's tragic inhabitants.",
+                                "name": "Weeping Willow Locket",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Withered Black Rose": {
+                                "appearanceDescription": "A single, withered black rose rests on a small, ornate side table. Its petals are brittle and dark, crumbling at the slightest disturbance.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "The rose seems to be a symbol of lost love or a permanent farewell. Its presence here is unsettling.",
+                                "name": "Withered Black Rose",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Resonant Golden Key": {
+                                "appearanceDescription": "A heavy, ornate golden key rests on a velvet cushion placed precisely in the center of the hallway. The key is strangely warm and hums with a low, resonant frequency.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This key feels important, imbued with a power that hints at unlocking more than just a physical door. Its golden sheen gleams unnaturally in the dim light.",
+                                "name": "Resonant Golden Key",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Frozen Grandfather Clock": {
+                                "appearanceDescription": "A grandfather clock stands silent and imposing against one wall. Its face is cracked, and its pendulum is still, yet a faint, rhythmic ticking can be heard emanating from within, seemingly out of sync with time itself.",
+                                "container": {
+                                    "howToOpen": "Carefully open the glass door in the front.",
+                                    "howToStoreItem": "Place small items behind the still pendulum.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This clock seems to be frozen in a moment of despair, its ticking a ghostly echo of the past. It holds a sense of frozen time.",
+                                "name": "Frozen Grandfather Clock",
+                                "pickupable": {
+                                    "isPickup": "false",
+                                    "reasonWhyNotPickup": "The clock is too heavy and is firmly fixed to the wall."
+                                }
+                            }
+                        },
+                        "itemLocations": {
+                            "Tarnished Locket": {
+                                "type": "room",
+                                "roomName": "Grand Foyer"
+                            },
+                            "Ornate Brass Key": {
+                                "type": "room",
+                                "roomName": "Grand Foyer"
+                            },
+                            "Tattered Velvet Pouch": {
+                                "type": "room",
+                                "roomName": "Grand Foyer"
+                            },
+                            "Tarnished Silver Locket": {
+                                "type": "container",
+                                "containerName": "Tattered Velvet Pouch"
+                            },
+                            "Raven's Feather": {
+                                "type": "container",
+                                "containerName": "Tattered Velvet Pouch"
+                            },
+                            "Carved Wooden Bird": {
+                                "type": "container",
+                                "containerName": "Tattered Velvet Pouch"
+                            },
+                            "Weeping Willow Locket": {
+                                "type": "room",
+                                "roomName": "Upper Hallway"
+                            },
+                            "Withered Black Rose": {
+                                "type": "room",
+                                "roomName": "Upper Hallway"
+                            },
+                            "Resonant Golden Key": {
+                                "type": "room",
+                                "roomName": "Upper Hallway"
+                            },
+                            "Frozen Grandfather Clock": {
+                                "type": "room",
+                                "roomName": "Upper Hallway"
+                            }
+                        },
+                        "roomConnections": {
+                            "Grand Foyer": [
+                                {
+                                    "here": "Grand Foyer",
+                                    "there": "Upper Hallway",
+                                    "description": "A narrow, winding staircase of dark, rotting wood leads upwards from the foyer."
+                                },
+                                {
+                                    "here": "Grand Foyer",
+                                    "there": "The Study",
+                                    "description": "You push open the heavy, scarred oak door to your right, revealing a dimly lit study."
+                                },
+                                {
+                                    "here": "Grand Foyer",
+                                    "there": "The Ballroom",
+                                    "description": "You cautiously push through the slightly ajar double doors ahead, entering a vast, cavernous ballroom."
+                                }
+                            ],
+                            "Upper Hallway": [
+                                {
+                                    "here": "Upper Hallway",
+                                    "there": "Grand Foyer",
+                                    "description": "You descend the creaking, unstable stairs back into the grand foyer."
+                                },
+                                {
+                                    "here": "Upper Hallway",
+                                    "there": "Foyer",
+                                    "description": "A grand, yet decaying, staircase leads down to the foyer."
+                                },
+                                {
+                                    "here": "Upper Hallway",
+                                    "there": "Study",
+                                    "description": "A heavy oak door, slightly ajar, leads into a study."
+                                },
+                                {
+                                    "here": "Upper Hallway",
+                                    "there": "Chamber of Whispers",
+                                    "description": "A narrow, almost hidden doorway is concealed behind a tattered tapestry."
+                                }
+                            ],
+                            "The Study": [
+                                {
+                                    "here": "The Study",
+                                    "there": "Grand Foyer",
+                                    "description": "You exit the dusty study, closing the oak door behind you and returning to the foyer."
+                                }
+                            ],
+                            "The Ballroom": [
+                                {
+                                    "here": "The Ballroom",
+                                    "there": "Grand Foyer",
+                                    "description": "You retreat from the desolate ballroom, pushing the double doors shut behind you and returning to the foyer."
+                                }
+                            ],
+                            "Foyer": [
+                                {
+                                    "here": "Foyer",
+                                    "there": "Upper Hallway",
+                                    "description": "The grand staircase ascends to the upper hallway."
+                                }
+                            ],
+                            "Study": [
+                                {
+                                    "here": "Study",
+                                    "there": "Upper Hallway",
+                                    "description": "The study door opens back into the upper hallway."
+                                }
+                            ],
+                            "Chamber of Whispers": [
+                                {
+                                    "here": "Chamber of Whispers",
+                                    "there": "Upper Hallway",
+                                    "description": "Pushing aside the heavy tapestry reveals the doorway back to the upper hallway."
+                                }
+                            ]
+                        },
+                        "startingRoom": "Grand Foyer",
+                        "visitedRooms": [
+                            "Grand Foyer",
+                            "Upper Hallway"
+                        ],
+                        "openedItems": [
+                            "Tattered Velvet Pouch"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "go up the stairs",
+                "gameActions": [
+                    {
+                        "room": "Upper Hallway",
+                        "type": "PlayerGoesToRoom"
+                    }
+                ]
+            },
+            "description": "Elias Thorne, a spectral investigator in search of answers, turns his attention to the looming staircase. The dark, rotting wood groans in protest as he drifts towards it, his incorporeal form ascending the narrow, winding steps. Each step is a journey further into the manor's shadowed depths, the cold, heavy air growing even more oppressive with every footfall, or rather, every non-footfall. The upper hallway, a dark passage obscured by deeper shadows, beckons him onward."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Blackwood Manor stands silhouetted against a bruised, twilight sky, its once-grand facade now a ruin of decaying wood and shattered glass. Thorny vines, thick as a man's arm, strangle the stone walls, and the air around it hums with a palpable sense of dread. Inside, dust motes dance in the slivers of moonlight that pierce the gloom, illuminating cobweb-draped furniture and the spectral remnants of a tragic past. Each room whispers with the memories of its former inhabitants, their sorrow, rage, and despair clinging to the very fabric of the house like a shroud.",
+                        "player": {
+                            "name": "Elias Thorne",
+                            "description": "You are Elias Thorne, a renowned paranormal investigator who met an untimely end during a particularly volatile séance. Now, as a disembodied spirit yourself, you are drawn to places of intense psychic residue, seeking to understand the lingering echoes of the living and the dead. You possess the unique ability to perceive spiritual energy, interact with objects through telekinesis, and communicate with other entities, though your powers are limited by your own spiritual cohesion.",
+                            "appearanceDescription": "You are a spectral investigator, a wispy form of translucent ectoplasm, vaguely humanoid in shape. Your 'eyes' are two points of faint, pulsing blue light, and your ethereal 'body' shimmers with residual energy, leaving a faint trail of cold mist in your wake. You can phase through solid objects, but the stronger the material, the more effort it takes, leaving you momentarily drained.",
+                            "room": "Upper Hallway"
+                        },
+                        "rooms": {
+                            "Grand Foyer": {
+                                "name": "Grand Foyer",
+                                "description": "You are in the grand foyer of Blackwood Manor. The air is cold and heavy with the scent of dust and decay. Shadows cling to the corners of the room, and the silence is broken only by the creaking of the old house.",
+                                "appearanceDescription": "You stand in what appears to be the grand foyer of Blackwood Manor. Moonlight streams through a gaping hole in the ceiling, illuminating a thick carpet of dust and fallen plaster. A massive, cobweb-shrouded chandelier hangs precariously overhead, its crystals long since shattered. To your left, a grand staircase, its banister splintered and broken, ascends into darkness. To your right, a heavy oak door, scarred and weathered, seems to lead to a more private wing of the manor. Directly ahead, a pair of imposing, rotting double doors, their hinges rusted through, stand slightly ajar, offering a glimpse into the manor's decaying heart."
+                            },
+                            "Upper Hallway": {
+                                "name": "Upper Hallway",
+                                "description": "This is the upper floor of Blackwood Manor. The corridor is long and oppressive, and the silence here feels heavy, as if waiting for a scream. The portraits seem to watch your every move, their painted eyes filled with an unnerving sadness.",
+                                "appearanceDescription": "The upper landing is a gallery of shadows, with portraits on the walls whose eyes seem to follow you. A long, dark corridor stretches out before you, lined with closed doors. The air here is colder, and the silence is broken only by the faint scuttling of unseen things."
+                            },
+                            "The Study": {
+                                "name": "The Study",
+                                "description": "The study exudes an aura of forgotten knowledge and quiet despair. The air is thick with the smell of decaying paper and old secrets. It feels as though the former occupant might return at any moment.",
+                                "appearanceDescription": "This room is a study, frozen in time. A large mahogany desk dominates the center, littered with quill pens, dried inkwells, and yellowed, brittle papers. Bookshelves line the walls, their leather-bound volumes crumbling and moth-eaten. A single, high-backed chair sits before the desk, draped in a tattered velvet cloth."
+                            },
+                            "The Ballroom": {
+                                "name": "The Ballroom",
+                                "description": "This was once a place of merriment, but now it is a tomb of echoes. The silence here is profound, amplifying the sense of abandonment and the weight of the manor's tragic history. The air is heavy with a sorrow that seems to seep from the very walls.",
+                                "appearanceDescription": "The ballroom is a grand but desolate space. A cracked marble floor stretches out, reflecting the faint moonlight. Tattered remnants of velvet curtains hang from tall, arched windows, and the ghostly outlines of long-vanished furniture can be seen on the floor. A decaying grand piano sits silently in one corner, its keys yellowed and broken."
+                            },
+                            "Foyer": {
+                                "name": "Foyer",
+                                "description": "The foyer serves as the main entrance to Blackwood Manor. The air here is thick with the scent of old dust and decay. Echoes of past grandeur can still be felt, but they are overshadowed by an overwhelming sense of abandonment and sorrow. The silence is profound, broken only by the creaks and groans of the ancient house.",
+                                "appearanceDescription": "The foyer is a cavernous space, dominated by a sweeping staircase that ascends into darkness. Dust sheets drape over what were once magnificent pieces of furniture, creating ghostly silhouettes. A massive, tarnished chandelier hangs precariously from the ceiling, its crystals long since lost. Moonlight filters weakly through a cracked stained-glass window, casting eerie patterns on the marble floor."
+                            },
+                            "Study": {
+                                "name": "Study",
+                                "description": "The study once belonged to the master of Blackwood Manor, a place of quiet contemplation and rigorous study. Now, it holds the lingering aura of frustration and unfinished work. Papers are strewn about as if abandoned mid-sentence, and the silence here seems to press in, heavy with unvoiced thoughts.",
+                                "appearanceDescription": "This study is a testament to a life of scholarly pursuit, now fallen into disarray. Bookshelves, many empty, line the walls, their contents scattered across the floor. A large mahogany desk sits in the center, its surface covered in a thick layer of dust, inkwells, and quill pens. A faded Persian rug lies beneath, its intricate patterns obscured by grime. The air is stale, carrying the faint scent of aged paper and something vaguely metallic."
+                            },
+                            "Chamber of Whispers": {
+                                "name": "Chamber of Whispers",
+                                "description": "This secret chamber appears to have been a place for arcane study or perhaps something more sinister. The objects here suggest a connection to forbidden knowledge and practices. The silence in this room is different; it feels watchful, as if the very objects are aware of your presence and are waiting.",
+                                "appearanceDescription": "This cramped, circular chamber is unnervingly cold. The walls are lined with shelves holding an array of peculiar objects: stoppered glass vials filled with dark liquids, dusty leather-bound tomes with unreadable script, and strange, intricately carved bone artifacts. In the center of the room, a pedestal supports a pulsating, amethyst-like crystal that emits a faint, eerie light. The air crackles with an almost imperceptible energy."
+                            }
+                        },
+                        "items": {
+                            "Tarnished Locket": {
+                                "appearanceDescription": "A tarnished silver locket lies half-buried in the dust near the base of the grand staircase. It is intricately carved with a floral pattern, but its surface is scratched and dulled with age.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This locket feels cold to the touch and emanates a faint sense of melancholy. It may hold a memory or a clue to the manor's past.",
+                                "name": "Tarnished Locket",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Ornate Brass Key": {
+                                "appearanceDescription": "A heavy, ornate brass key rests on a small, crumbling marble pedestal near the main entrance. It is intricately designed and appears quite old.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This key looks like it could unlock something important, perhaps a sturdy lock on one of the manor's many doors.",
+                                "name": "Ornate Brass Key",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Tattered Velvet Pouch": {
+                                "appearanceDescription": "A tattered velvet pouch lies discarded on the floor, its drawstring loosened. It is empty.",
+                                "container": {
+                                    "howToOpen": "The pouch is already open.",
+                                    "howToStoreItem": "You can place items inside the pouch.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This pouch looks like it might have been used to carry small, valuable items. It's currently empty.",
+                                "name": "Tattered Velvet Pouch",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Tarnished Silver Locket": {
+                                "appearanceDescription": "A tarnished silver locket, intricately engraved with swirling floral patterns, lies open. Inside, a faded miniature portrait of a stern-faced woman is visible.",
+                                "container": {
+                                    "howToOpen": "The pouch is opened by gently pulling apart its frayed drawstring.",
+                                    "howToStoreItem": "Items are placed inside the pouch by carefully tucking them into its velvety depths and then securing the drawstring.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This locket seems to hold a fragment of memory, a captured moment from a life long past. The silver, though dulled by time, hints at a former opulence. It feels cool to the touch, carrying a faint scent of dried lavender.",
+                                "name": "Tarnished Silver Locket",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Raven's Feather": {
+                                "appearanceDescription": "A single, perfectly preserved raven feather rests within the pouch. Its shaft is smooth and obsidian black, while the barbs shimmer with an iridescent blue-green sheen under the moonlight.",
+                                "container": {
+                                    "howToOpen": "The pouch is opened by gently pulling apart its frayed drawstring.",
+                                    "howToStoreItem": "Items are placed inside the pouch by carefully tucking them into its velvety depths and then securing the drawstring.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This feather feels unnaturally light, yet strangely substantial. It carries an aura of the wild and untamed, a whisper from the dark woods surrounding Blackwood Manor. Holding it seems to evoke a sense of quiet watchfulness.",
+                                "name": "Raven's Feather",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Carved Wooden Bird": {
+                                "appearanceDescription": "A small, intricately carved wooden bird, no larger than a thumb, sits nestled in the pouch. Its tiny wings are spread as if in mid-flight, and its eyes are two minuscule chips of polished jet.",
+                                "container": {
+                                    "howToOpen": "The pouch is opened by gently pulling apart its frayed drawstring.",
+                                    "howToStoreItem": "Items are placed inside the pouch by carefully tucking them into its velvety depths and then securing the drawstring.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This miniature carving is a marvel of craftsmanship, depicting a bird with astonishing detail. The wood itself seems to emanate a faint warmth, and there's a subtle, almost imperceptible hum when held close to the ear, as if it retains a spark of life.",
+                                "name": "Carved Wooden Bird",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Weeping Willow Locket": {
+                                "appearanceDescription": "A tarnished silver locket, intricately engraved with a weeping willow tree, lies on the dusty floor. It feels unnaturally cold to the touch.",
+                                "container": {
+                                    "howToOpen": "Gently pry it open.",
+                                    "howToStoreItem": "Place small items within its delicate confines.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This locket seems to hold a deep sadness. Perhaps it belonged to one of the manor's tragic inhabitants.",
+                                "name": "Weeping Willow Locket",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Withered Black Rose": {
+                                "appearanceDescription": "A single, withered black rose rests on a small, ornate side table. Its petals are brittle and dark, crumbling at the slightest disturbance.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "The rose seems to be a symbol of lost love or a permanent farewell. Its presence here is unsettling.",
+                                "name": "Withered Black Rose",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Resonant Golden Key": {
+                                "appearanceDescription": "A heavy, ornate golden key rests on a velvet cushion placed precisely in the center of the hallway. The key is strangely warm and hums with a low, resonant frequency.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This key feels important, imbued with a power that hints at unlocking more than just a physical door. Its golden sheen gleams unnaturally in the dim light.",
+                                "name": "Resonant Golden Key",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Frozen Grandfather Clock": {
+                                "appearanceDescription": "A grandfather clock stands silent and imposing against one wall. Its face is cracked, and its pendulum is still, yet a faint, rhythmic ticking can be heard emanating from within, seemingly out of sync with time itself.",
+                                "container": {
+                                    "howToOpen": "Carefully open the glass door in the front.",
+                                    "howToStoreItem": "Place small items behind the still pendulum.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This clock seems to be frozen in a moment of despair, its ticking a ghostly echo of the past. It holds a sense of frozen time.",
+                                "name": "Frozen Grandfather Clock",
+                                "pickupable": {
+                                    "isPickup": "false",
+                                    "reasonWhyNotPickup": "The clock is too heavy and is firmly fixed to the wall."
+                                }
+                            }
+                        },
+                        "itemLocations": {
+                            "Tarnished Locket": {
+                                "type": "room",
+                                "roomName": "Grand Foyer"
+                            },
+                            "Ornate Brass Key": {
+                                "type": "room",
+                                "roomName": "Grand Foyer"
+                            },
+                            "Tattered Velvet Pouch": {
+                                "type": "room",
+                                "roomName": "Grand Foyer"
+                            },
+                            "Tarnished Silver Locket": {
+                                "type": "container",
+                                "containerName": "Tattered Velvet Pouch"
+                            },
+                            "Raven's Feather": {
+                                "type": "container",
+                                "containerName": "Tattered Velvet Pouch"
+                            },
+                            "Carved Wooden Bird": {
+                                "type": "container",
+                                "containerName": "Tattered Velvet Pouch"
+                            },
+                            "Weeping Willow Locket": {
+                                "type": "room",
+                                "roomName": "Upper Hallway"
+                            },
+                            "Withered Black Rose": {
+                                "type": "room",
+                                "roomName": "Upper Hallway"
+                            },
+                            "Resonant Golden Key": {
+                                "type": "room",
+                                "roomName": "Upper Hallway"
+                            },
+                            "Frozen Grandfather Clock": {
+                                "type": "room",
+                                "roomName": "Upper Hallway"
+                            }
+                        },
+                        "roomConnections": {
+                            "Grand Foyer": [
+                                {
+                                    "here": "Grand Foyer",
+                                    "there": "Upper Hallway",
+                                    "description": "A narrow, winding staircase of dark, rotting wood leads upwards from the foyer."
+                                },
+                                {
+                                    "here": "Grand Foyer",
+                                    "there": "The Study",
+                                    "description": "You push open the heavy, scarred oak door to your right, revealing a dimly lit study."
+                                },
+                                {
+                                    "here": "Grand Foyer",
+                                    "there": "The Ballroom",
+                                    "description": "You cautiously push through the slightly ajar double doors ahead, entering a vast, cavernous ballroom."
+                                }
+                            ],
+                            "Upper Hallway": [
+                                {
+                                    "here": "Upper Hallway",
+                                    "there": "Grand Foyer",
+                                    "description": "You descend the creaking, unstable stairs back into the grand foyer."
+                                },
+                                {
+                                    "here": "Upper Hallway",
+                                    "there": "Foyer",
+                                    "description": "A grand, yet decaying, staircase leads down to the foyer."
+                                },
+                                {
+                                    "here": "Upper Hallway",
+                                    "there": "Study",
+                                    "description": "A heavy oak door, slightly ajar, leads into a study."
+                                },
+                                {
+                                    "here": "Upper Hallway",
+                                    "there": "Chamber of Whispers",
+                                    "description": "A narrow, almost hidden doorway is concealed behind a tattered tapestry."
+                                }
+                            ],
+                            "The Study": [
+                                {
+                                    "here": "The Study",
+                                    "there": "Grand Foyer",
+                                    "description": "You exit the dusty study, closing the oak door behind you and returning to the foyer."
+                                }
+                            ],
+                            "The Ballroom": [
+                                {
+                                    "here": "The Ballroom",
+                                    "there": "Grand Foyer",
+                                    "description": "You retreat from the desolate ballroom, pushing the double doors shut behind you and returning to the foyer."
+                                }
+                            ],
+                            "Foyer": [
+                                {
+                                    "here": "Foyer",
+                                    "there": "Upper Hallway",
+                                    "description": "The grand staircase ascends to the upper hallway."
+                                }
+                            ],
+                            "Study": [
+                                {
+                                    "here": "Study",
+                                    "there": "Upper Hallway",
+                                    "description": "The study door opens back into the upper hallway."
+                                }
+                            ],
+                            "Chamber of Whispers": [
+                                {
+                                    "here": "Chamber of Whispers",
+                                    "there": "Upper Hallway",
+                                    "description": "Pushing aside the heavy tapestry reveals the doorway back to the upper hallway."
+                                }
+                            ]
+                        },
+                        "startingRoom": "Grand Foyer",
+                        "visitedRooms": [
+                            "Grand Foyer",
+                            "Upper Hallway"
+                        ],
+                        "openedItems": [
+                            "Tattered Velvet Pouch"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "look around for items",
+                "gameActions": [
+                    {
+                        "type": "PlayerInspectsCurrentRoom"
+                    }
+                ]
+            },
+            "description": "Elias Thorne, now a specter bound to the spectral plane, glides through the oppressive silence of the Upper Hallway. The painted eyes of the portraits lining the corridor seem to track his ethereal form, their mournful gazes fixed upon him. He perceives the ambient spiritual energy, a tapestry woven with threads of sorrow and regret, and his attention is drawn to several objects that hum with residual psychic force: a *Weeping Willow Locket*, radiating an aura of profound sadness; a *Withered Black Rose*, a somber symbol of eternal farewell; a *Resonant Golden Key*, its gleam unnatural and pulsing with latent energy; and a *Frozen Grandfather Clock*, its stillness a chilling testament to a moment lost in time."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Blackwood Manor stands silhouetted against a bruised, twilight sky, its once-grand facade now a ruin of decaying wood and shattered glass. Thorny vines, thick as a man's arm, strangle the stone walls, and the air around it hums with a palpable sense of dread. Inside, dust motes dance in the slivers of moonlight that pierce the gloom, illuminating cobweb-draped furniture and the spectral remnants of a tragic past. Each room whispers with the memories of its former inhabitants, their sorrow, rage, and despair clinging to the very fabric of the house like a shroud.",
+                        "player": {
+                            "name": "Elias Thorne",
+                            "description": "You are Elias Thorne, a renowned paranormal investigator who met an untimely end during a particularly volatile séance. Now, as a disembodied spirit yourself, you are drawn to places of intense psychic residue, seeking to understand the lingering echoes of the living and the dead. You possess the unique ability to perceive spiritual energy, interact with objects through telekinesis, and communicate with other entities, though your powers are limited by your own spiritual cohesion.",
+                            "appearanceDescription": "You are a spectral investigator, a wispy form of translucent ectoplasm, vaguely humanoid in shape. Your 'eyes' are two points of faint, pulsing blue light, and your ethereal 'body' shimmers with residual energy, leaving a faint trail of cold mist in your wake. You can phase through solid objects, but the stronger the material, the more effort it takes, leaving you momentarily drained.",
+                            "room": "Upper Hallway"
+                        },
+                        "rooms": {
+                            "Grand Foyer": {
+                                "name": "Grand Foyer",
+                                "description": "You are in the grand foyer of Blackwood Manor. The air is cold and heavy with the scent of dust and decay. Shadows cling to the corners of the room, and the silence is broken only by the creaking of the old house.",
+                                "appearanceDescription": "You stand in what appears to be the grand foyer of Blackwood Manor. Moonlight streams through a gaping hole in the ceiling, illuminating a thick carpet of dust and fallen plaster. A massive, cobweb-shrouded chandelier hangs precariously overhead, its crystals long since shattered. To your left, a grand staircase, its banister splintered and broken, ascends into darkness. To your right, a heavy oak door, scarred and weathered, seems to lead to a more private wing of the manor. Directly ahead, a pair of imposing, rotting double doors, their hinges rusted through, stand slightly ajar, offering a glimpse into the manor's decaying heart."
+                            },
+                            "Upper Hallway": {
+                                "name": "Upper Hallway",
+                                "description": "This is the upper floor of Blackwood Manor. The corridor is long and oppressive, and the silence here feels heavy, as if waiting for a scream. The portraits seem to watch your every move, their painted eyes filled with an unnerving sadness.",
+                                "appearanceDescription": "The upper landing is a gallery of shadows, with portraits on the walls whose eyes seem to follow you. A long, dark corridor stretches out before you, lined with closed doors. The air here is colder, and the silence is broken only by the faint scuttling of unseen things."
+                            },
+                            "The Study": {
+                                "name": "The Study",
+                                "description": "The study exudes an aura of forgotten knowledge and quiet despair. The air is thick with the smell of decaying paper and old secrets. It feels as though the former occupant might return at any moment.",
+                                "appearanceDescription": "This room is a study, frozen in time. A large mahogany desk dominates the center, littered with quill pens, dried inkwells, and yellowed, brittle papers. Bookshelves line the walls, their leather-bound volumes crumbling and moth-eaten. A single, high-backed chair sits before the desk, draped in a tattered velvet cloth."
+                            },
+                            "The Ballroom": {
+                                "name": "The Ballroom",
+                                "description": "This was once a place of merriment, but now it is a tomb of echoes. The silence here is profound, amplifying the sense of abandonment and the weight of the manor's tragic history. The air is heavy with a sorrow that seems to seep from the very walls.",
+                                "appearanceDescription": "The ballroom is a grand but desolate space. A cracked marble floor stretches out, reflecting the faint moonlight. Tattered remnants of velvet curtains hang from tall, arched windows, and the ghostly outlines of long-vanished furniture can be seen on the floor. A decaying grand piano sits silently in one corner, its keys yellowed and broken."
+                            },
+                            "Foyer": {
+                                "name": "Foyer",
+                                "description": "The foyer serves as the main entrance to Blackwood Manor. The air here is thick with the scent of old dust and decay. Echoes of past grandeur can still be felt, but they are overshadowed by an overwhelming sense of abandonment and sorrow. The silence is profound, broken only by the creaks and groans of the ancient house.",
+                                "appearanceDescription": "The foyer is a cavernous space, dominated by a sweeping staircase that ascends into darkness. Dust sheets drape over what were once magnificent pieces of furniture, creating ghostly silhouettes. A massive, tarnished chandelier hangs precariously from the ceiling, its crystals long since lost. Moonlight filters weakly through a cracked stained-glass window, casting eerie patterns on the marble floor."
+                            },
+                            "Study": {
+                                "name": "Study",
+                                "description": "The study once belonged to the master of Blackwood Manor, a place of quiet contemplation and rigorous study. Now, it holds the lingering aura of frustration and unfinished work. Papers are strewn about as if abandoned mid-sentence, and the silence here seems to press in, heavy with unvoiced thoughts.",
+                                "appearanceDescription": "This study is a testament to a life of scholarly pursuit, now fallen into disarray. Bookshelves, many empty, line the walls, their contents scattered across the floor. A large mahogany desk sits in the center, its surface covered in a thick layer of dust, inkwells, and quill pens. A faded Persian rug lies beneath, its intricate patterns obscured by grime. The air is stale, carrying the faint scent of aged paper and something vaguely metallic."
+                            },
+                            "Chamber of Whispers": {
+                                "name": "Chamber of Whispers",
+                                "description": "This secret chamber appears to have been a place for arcane study or perhaps something more sinister. The objects here suggest a connection to forbidden knowledge and practices. The silence in this room is different; it feels watchful, as if the very objects are aware of your presence and are waiting.",
+                                "appearanceDescription": "This cramped, circular chamber is unnervingly cold. The walls are lined with shelves holding an array of peculiar objects: stoppered glass vials filled with dark liquids, dusty leather-bound tomes with unreadable script, and strange, intricately carved bone artifacts. In the center of the room, a pedestal supports a pulsating, amethyst-like crystal that emits a faint, eerie light. The air crackles with an almost imperceptible energy."
+                            }
+                        },
+                        "items": {
+                            "Tarnished Locket": {
+                                "appearanceDescription": "A tarnished silver locket lies half-buried in the dust near the base of the grand staircase. It is intricately carved with a floral pattern, but its surface is scratched and dulled with age.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This locket feels cold to the touch and emanates a faint sense of melancholy. It may hold a memory or a clue to the manor's past.",
+                                "name": "Tarnished Locket",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Ornate Brass Key": {
+                                "appearanceDescription": "A heavy, ornate brass key rests on a small, crumbling marble pedestal near the main entrance. It is intricately designed and appears quite old.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This key looks like it could unlock something important, perhaps a sturdy lock on one of the manor's many doors.",
+                                "name": "Ornate Brass Key",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Tattered Velvet Pouch": {
+                                "appearanceDescription": "A tattered velvet pouch lies discarded on the floor, its drawstring loosened. It is empty.",
+                                "container": {
+                                    "howToOpen": "The pouch is already open.",
+                                    "howToStoreItem": "You can place items inside the pouch.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This pouch looks like it might have been used to carry small, valuable items. It's currently empty.",
+                                "name": "Tattered Velvet Pouch",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Tarnished Silver Locket": {
+                                "appearanceDescription": "A tarnished silver locket, intricately engraved with swirling floral patterns, lies open. Inside, a faded miniature portrait of a stern-faced woman is visible.",
+                                "container": {
+                                    "howToOpen": "The pouch is opened by gently pulling apart its frayed drawstring.",
+                                    "howToStoreItem": "Items are placed inside the pouch by carefully tucking them into its velvety depths and then securing the drawstring.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This locket seems to hold a fragment of memory, a captured moment from a life long past. The silver, though dulled by time, hints at a former opulence. It feels cool to the touch, carrying a faint scent of dried lavender.",
+                                "name": "Tarnished Silver Locket",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Raven's Feather": {
+                                "appearanceDescription": "A single, perfectly preserved raven feather rests within the pouch. Its shaft is smooth and obsidian black, while the barbs shimmer with an iridescent blue-green sheen under the moonlight.",
+                                "container": {
+                                    "howToOpen": "The pouch is opened by gently pulling apart its frayed drawstring.",
+                                    "howToStoreItem": "Items are placed inside the pouch by carefully tucking them into its velvety depths and then securing the drawstring.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This feather feels unnaturally light, yet strangely substantial. It carries an aura of the wild and untamed, a whisper from the dark woods surrounding Blackwood Manor. Holding it seems to evoke a sense of quiet watchfulness.",
+                                "name": "Raven's Feather",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Carved Wooden Bird": {
+                                "appearanceDescription": "A small, intricately carved wooden bird, no larger than a thumb, sits nestled in the pouch. Its tiny wings are spread as if in mid-flight, and its eyes are two minuscule chips of polished jet.",
+                                "container": {
+                                    "howToOpen": "The pouch is opened by gently pulling apart its frayed drawstring.",
+                                    "howToStoreItem": "Items are placed inside the pouch by carefully tucking them into its velvety depths and then securing the drawstring.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This miniature carving is a marvel of craftsmanship, depicting a bird with astonishing detail. The wood itself seems to emanate a faint warmth, and there's a subtle, almost imperceptible hum when held close to the ear, as if it retains a spark of life.",
+                                "name": "Carved Wooden Bird",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Weeping Willow Locket": {
+                                "appearanceDescription": "A tarnished silver locket, intricately engraved with a weeping willow tree, lies on the dusty floor. It feels unnaturally cold to the touch.",
+                                "container": {
+                                    "howToOpen": "Gently pry it open.",
+                                    "howToStoreItem": "Place small items within its delicate confines.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This locket seems to hold a deep sadness. Perhaps it belonged to one of the manor's tragic inhabitants.",
+                                "name": "Weeping Willow Locket",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Withered Black Rose": {
+                                "appearanceDescription": "A single, withered black rose rests on a small, ornate side table. Its petals are brittle and dark, crumbling at the slightest disturbance.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "The rose seems to be a symbol of lost love or a permanent farewell. Its presence here is unsettling.",
+                                "name": "Withered Black Rose",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Resonant Golden Key": {
+                                "appearanceDescription": "A heavy, ornate golden key rests on a velvet cushion placed precisely in the center of the hallway. The key is strangely warm and hums with a low, resonant frequency.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This key feels important, imbued with a power that hints at unlocking more than just a physical door. Its golden sheen gleams unnaturally in the dim light.",
+                                "name": "Resonant Golden Key",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Frozen Grandfather Clock": {
+                                "appearanceDescription": "A grandfather clock stands silent and imposing against one wall. Its face is cracked, and its pendulum is still, yet a faint, rhythmic ticking can be heard emanating from within, seemingly out of sync with time itself.",
+                                "container": {
+                                    "howToOpen": "Carefully open the glass door in the front.",
+                                    "howToStoreItem": "Place small items behind the still pendulum.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This clock seems to be frozen in a moment of despair, its ticking a ghostly echo of the past. It holds a sense of frozen time.",
+                                "name": "Frozen Grandfather Clock",
+                                "pickupable": {
+                                    "isPickup": "false",
+                                    "reasonWhyNotPickup": "The clock is too heavy and is firmly fixed to the wall."
+                                }
+                            },
+                            "Locket of Lingering Sorrows": {
+                                "appearanceDescription": "A single, tarnished silver locket, intricately engraved with a weeping willow tree. It feels unnaturally cold to the touch, and a faint, sorrowful melody seems to emanate from its depths.",
+                                "container": {
+                                    "howToOpen": "The glass door of the grandfather clock can be opened by gently pulling on the ornate brass handle.",
+                                    "howToStoreItem": "Items can be placed inside the grandfather clock by opening its glass door and carefully setting them within the main cavity.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This locket seems to hold the very essence of sadness. It is rumored to contain the last tear shed by Lady Eleanor before her tragic demise within these walls. Holding it might reveal forgotten memories, or perhaps amplify one's own deepest regrets.",
+                                "name": "Locket of Lingering Sorrows",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Clockwork Nightingale": {
+                                "appearanceDescription": "A small, exquisitely carved wooden bird, its wings outstretched as if in mid-flight. It is made from a dark, unfamiliar wood and feels surprisingly weighty for its size. Tiny, almost imperceptible gears are visible beneath its carved feathers.",
+                                "container": {
+                                    "howToOpen": "The glass door of the grandfather clock can be opened by gently pulling on the ornate brass handle.",
+                                    "howToStoreItem": "Items can be placed inside the grandfather clock by opening its glass door and carefully setting them within the main cavity.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This automaton bird appears to be a marvel of craftsmanship from a bygone era. When wound, it is said to sing a lullaby so beautiful it can bring peace to even the most tormented soul, though its mechanism appears long dormant, frozen alongside the clock.",
+                                "name": "Clockwork Nightingale",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Chronometer's Finger": {
+                                "appearanceDescription": "A single, skeletal finger bone, polished smooth as glass. It is unnaturally long and thin, and a faint, chilling mist seems to perpetually cling to its surface.",
+                                "container": {
+                                    "howToOpen": "The glass door of the grandfather clock can be opened by gently pulling on the ornate brass handle.",
+                                    "howToStoreItem": "Items can be placed inside the grandfather clock by opening its glass door and carefully setting them within the main cavity.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This bone radiates an aura of temporal displacement. Legends whisper that it belonged to a chronomancer who attempted to unravel the mysteries of time itself within Blackwood Manor, only to be consumed by his own ambition. Touching it might cause brief, disorienting glimpses of the past or future.",
+                                "name": "Chronometer's Finger",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            }
+                        },
+                        "itemLocations": {
+                            "Tarnished Locket": {
+                                "type": "room",
+                                "roomName": "Grand Foyer"
+                            },
+                            "Ornate Brass Key": {
+                                "type": "room",
+                                "roomName": "Grand Foyer"
+                            },
+                            "Tattered Velvet Pouch": {
+                                "type": "room",
+                                "roomName": "Grand Foyer"
+                            },
+                            "Tarnished Silver Locket": {
+                                "type": "container",
+                                "containerName": "Tattered Velvet Pouch"
+                            },
+                            "Raven's Feather": {
+                                "type": "container",
+                                "containerName": "Tattered Velvet Pouch"
+                            },
+                            "Carved Wooden Bird": {
+                                "type": "container",
+                                "containerName": "Tattered Velvet Pouch"
+                            },
+                            "Weeping Willow Locket": {
+                                "type": "room",
+                                "roomName": "Upper Hallway"
+                            },
+                            "Withered Black Rose": {
+                                "type": "room",
+                                "roomName": "Upper Hallway"
+                            },
+                            "Resonant Golden Key": {
+                                "type": "room",
+                                "roomName": "Upper Hallway"
+                            },
+                            "Frozen Grandfather Clock": {
+                                "type": "room",
+                                "roomName": "Upper Hallway"
+                            },
+                            "Locket of Lingering Sorrows": {
+                                "type": "container",
+                                "containerName": "Frozen Grandfather Clock"
+                            },
+                            "Clockwork Nightingale": {
+                                "type": "container",
+                                "containerName": "Frozen Grandfather Clock"
+                            },
+                            "Chronometer's Finger": {
+                                "type": "container",
+                                "containerName": "Frozen Grandfather Clock"
+                            }
+                        },
+                        "roomConnections": {
+                            "Grand Foyer": [
+                                {
+                                    "here": "Grand Foyer",
+                                    "there": "Upper Hallway",
+                                    "description": "A narrow, winding staircase of dark, rotting wood leads upwards from the foyer."
+                                },
+                                {
+                                    "here": "Grand Foyer",
+                                    "there": "The Study",
+                                    "description": "You push open the heavy, scarred oak door to your right, revealing a dimly lit study."
+                                },
+                                {
+                                    "here": "Grand Foyer",
+                                    "there": "The Ballroom",
+                                    "description": "You cautiously push through the slightly ajar double doors ahead, entering a vast, cavernous ballroom."
+                                }
+                            ],
+                            "Upper Hallway": [
+                                {
+                                    "here": "Upper Hallway",
+                                    "there": "Grand Foyer",
+                                    "description": "You descend the creaking, unstable stairs back into the grand foyer."
+                                },
+                                {
+                                    "here": "Upper Hallway",
+                                    "there": "Foyer",
+                                    "description": "A grand, yet decaying, staircase leads down to the foyer."
+                                },
+                                {
+                                    "here": "Upper Hallway",
+                                    "there": "Study",
+                                    "description": "A heavy oak door, slightly ajar, leads into a study."
+                                },
+                                {
+                                    "here": "Upper Hallway",
+                                    "there": "Chamber of Whispers",
+                                    "description": "A narrow, almost hidden doorway is concealed behind a tattered tapestry."
+                                }
+                            ],
+                            "The Study": [
+                                {
+                                    "here": "The Study",
+                                    "there": "Grand Foyer",
+                                    "description": "You exit the dusty study, closing the oak door behind you and returning to the foyer."
+                                }
+                            ],
+                            "The Ballroom": [
+                                {
+                                    "here": "The Ballroom",
+                                    "there": "Grand Foyer",
+                                    "description": "You retreat from the desolate ballroom, pushing the double doors shut behind you and returning to the foyer."
+                                }
+                            ],
+                            "Foyer": [
+                                {
+                                    "here": "Foyer",
+                                    "there": "Upper Hallway",
+                                    "description": "The grand staircase ascends to the upper hallway."
+                                }
+                            ],
+                            "Study": [
+                                {
+                                    "here": "Study",
+                                    "there": "Upper Hallway",
+                                    "description": "The study door opens back into the upper hallway."
+                                }
+                            ],
+                            "Chamber of Whispers": [
+                                {
+                                    "here": "Chamber of Whispers",
+                                    "there": "Upper Hallway",
+                                    "description": "Pushing aside the heavy tapestry reveals the doorway back to the upper hallway."
+                                }
+                            ]
+                        },
+                        "startingRoom": "Grand Foyer",
+                        "visitedRooms": [
+                            "Grand Foyer",
+                            "Upper Hallway"
+                        ],
+                        "openedItems": [
+                            "Tattered Velvet Pouch",
+                            "Frozen Grandfather Clock"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "open the clock",
+                "gameActions": [
+                    {
+                        "container": "Frozen Grandfather Clock",
                         "type": "PlayerOpensItem"
                     }
                 ]
             },
-            "description": "Elias Thorne, a spectral investigator adrift in the spectral echoes of Blackwood Manor, focuses his spectral gaze upon a tattered velvet pouch nestled amidst the dust of the grand foyer. With a surge of ethereal energy, he wills the fragile fabric to part, revealing its contents—or rather, its emptiness. The pouch, having served its purpose long ago, now offers only the phantom weight of what it once contained, yielding no immediate clues to the manor's sorrowful past."
+            "description": "Elias Thorne, a spirit himself, drifts towards the **Frozen Grandfather Clock**, its presence radiating a palpable chill. The oppressive silence of the Upper Hallway seems to amplify the clock's frozen state, a monument to halted time. With a spectral touch, Elias carefully opens the glass door in the front, revealing the motionless pendulum and silent gears within. A faint, almost imperceptible shimmer emanates from its depths, and two items, a **Weeping Willow Locket** and a **Withered Black Rose**, materialize from the clock's interior, settling onto the dusty floorboards of the hallway."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Blackwood Manor stands silhouetted against a bruised, twilight sky, its once-grand facade now a ruin of decaying wood and shattered glass. Thorny vines, thick as a man's arm, strangle the stone walls, and the air around it hums with a palpable sense of dread. Inside, dust motes dance in the slivers of moonlight that pierce the gloom, illuminating cobweb-draped furniture and the spectral remnants of a tragic past. Each room whispers with the memories of its former inhabitants, their sorrow, rage, and despair clinging to the very fabric of the house like a shroud.",
+                        "player": {
+                            "name": "Elias Thorne",
+                            "description": "You are Elias Thorne, a renowned paranormal investigator who met an untimely end during a particularly volatile séance. Now, as a disembodied spirit yourself, you are drawn to places of intense psychic residue, seeking to understand the lingering echoes of the living and the dead. You possess the unique ability to perceive spiritual energy, interact with objects through telekinesis, and communicate with other entities, though your powers are limited by your own spiritual cohesion.",
+                            "appearanceDescription": "You are a spectral investigator, a wispy form of translucent ectoplasm, vaguely humanoid in shape. Your 'eyes' are two points of faint, pulsing blue light, and your ethereal 'body' shimmers with residual energy, leaving a faint trail of cold mist in your wake. You can phase through solid objects, but the stronger the material, the more effort it takes, leaving you momentarily drained.",
+                            "room": "Upper Hallway"
+                        },
+                        "rooms": {
+                            "Grand Foyer": {
+                                "name": "Grand Foyer",
+                                "description": "You are in the grand foyer of Blackwood Manor. The air is cold and heavy with the scent of dust and decay. Shadows cling to the corners of the room, and the silence is broken only by the creaking of the old house.",
+                                "appearanceDescription": "You stand in what appears to be the grand foyer of Blackwood Manor. Moonlight streams through a gaping hole in the ceiling, illuminating a thick carpet of dust and fallen plaster. A massive, cobweb-shrouded chandelier hangs precariously overhead, its crystals long since shattered. To your left, a grand staircase, its banister splintered and broken, ascends into darkness. To your right, a heavy oak door, scarred and weathered, seems to lead to a more private wing of the manor. Directly ahead, a pair of imposing, rotting double doors, their hinges rusted through, stand slightly ajar, offering a glimpse into the manor's decaying heart."
+                            },
+                            "Upper Hallway": {
+                                "name": "Upper Hallway",
+                                "description": "This is the upper floor of Blackwood Manor. The corridor is long and oppressive, and the silence here feels heavy, as if waiting for a scream. The portraits seem to watch your every move, their painted eyes filled with an unnerving sadness.",
+                                "appearanceDescription": "The upper landing is a gallery of shadows, with portraits on the walls whose eyes seem to follow you. A long, dark corridor stretches out before you, lined with closed doors. The air here is colder, and the silence is broken only by the faint scuttling of unseen things."
+                            },
+                            "The Study": {
+                                "name": "The Study",
+                                "description": "The study exudes an aura of forgotten knowledge and quiet despair. The air is thick with the smell of decaying paper and old secrets. It feels as though the former occupant might return at any moment.",
+                                "appearanceDescription": "This room is a study, frozen in time. A large mahogany desk dominates the center, littered with quill pens, dried inkwells, and yellowed, brittle papers. Bookshelves line the walls, their leather-bound volumes crumbling and moth-eaten. A single, high-backed chair sits before the desk, draped in a tattered velvet cloth."
+                            },
+                            "The Ballroom": {
+                                "name": "The Ballroom",
+                                "description": "This was once a place of merriment, but now it is a tomb of echoes. The silence here is profound, amplifying the sense of abandonment and the weight of the manor's tragic history. The air is heavy with a sorrow that seems to seep from the very walls.",
+                                "appearanceDescription": "The ballroom is a grand but desolate space. A cracked marble floor stretches out, reflecting the faint moonlight. Tattered remnants of velvet curtains hang from tall, arched windows, and the ghostly outlines of long-vanished furniture can be seen on the floor. A decaying grand piano sits silently in one corner, its keys yellowed and broken."
+                            },
+                            "Foyer": {
+                                "name": "Foyer",
+                                "description": "The foyer serves as the main entrance to Blackwood Manor. The air here is thick with the scent of old dust and decay. Echoes of past grandeur can still be felt, but they are overshadowed by an overwhelming sense of abandonment and sorrow. The silence is profound, broken only by the creaks and groans of the ancient house.",
+                                "appearanceDescription": "The foyer is a cavernous space, dominated by a sweeping staircase that ascends into darkness. Dust sheets drape over what were once magnificent pieces of furniture, creating ghostly silhouettes. A massive, tarnished chandelier hangs precariously from the ceiling, its crystals long since lost. Moonlight filters weakly through a cracked stained-glass window, casting eerie patterns on the marble floor."
+                            },
+                            "Study": {
+                                "name": "Study",
+                                "description": "The study once belonged to the master of Blackwood Manor, a place of quiet contemplation and rigorous study. Now, it holds the lingering aura of frustration and unfinished work. Papers are strewn about as if abandoned mid-sentence, and the silence here seems to press in, heavy with unvoiced thoughts.",
+                                "appearanceDescription": "This study is a testament to a life of scholarly pursuit, now fallen into disarray. Bookshelves, many empty, line the walls, their contents scattered across the floor. A large mahogany desk sits in the center, its surface covered in a thick layer of dust, inkwells, and quill pens. A faded Persian rug lies beneath, its intricate patterns obscured by grime. The air is stale, carrying the faint scent of aged paper and something vaguely metallic."
+                            },
+                            "Chamber of Whispers": {
+                                "name": "Chamber of Whispers",
+                                "description": "This secret chamber appears to have been a place for arcane study or perhaps something more sinister. The objects here suggest a connection to forbidden knowledge and practices. The silence in this room is different; it feels watchful, as if the very objects are aware of your presence and are waiting.",
+                                "appearanceDescription": "This cramped, circular chamber is unnervingly cold. The walls are lined with shelves holding an array of peculiar objects: stoppered glass vials filled with dark liquids, dusty leather-bound tomes with unreadable script, and strange, intricately carved bone artifacts. In the center of the room, a pedestal supports a pulsating, amethyst-like crystal that emits a faint, eerie light. The air crackles with an almost imperceptible energy."
+                            }
+                        },
+                        "items": {
+                            "Tarnished Locket": {
+                                "appearanceDescription": "A tarnished silver locket lies half-buried in the dust near the base of the grand staircase. It is intricately carved with a floral pattern, but its surface is scratched and dulled with age.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This locket feels cold to the touch and emanates a faint sense of melancholy. It may hold a memory or a clue to the manor's past.",
+                                "name": "Tarnished Locket",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Ornate Brass Key": {
+                                "appearanceDescription": "A heavy, ornate brass key rests on a small, crumbling marble pedestal near the main entrance. It is intricately designed and appears quite old.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This key looks like it could unlock something important, perhaps a sturdy lock on one of the manor's many doors.",
+                                "name": "Ornate Brass Key",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Tattered Velvet Pouch": {
+                                "appearanceDescription": "A tattered velvet pouch lies discarded on the floor, its drawstring loosened. It is empty.",
+                                "container": {
+                                    "howToOpen": "The pouch is already open.",
+                                    "howToStoreItem": "You can place items inside the pouch.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This pouch looks like it might have been used to carry small, valuable items. It's currently empty.",
+                                "name": "Tattered Velvet Pouch",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Tarnished Silver Locket": {
+                                "appearanceDescription": "A tarnished silver locket, intricately engraved with swirling floral patterns, lies open. Inside, a faded miniature portrait of a stern-faced woman is visible.",
+                                "container": {
+                                    "howToOpen": "The pouch is opened by gently pulling apart its frayed drawstring.",
+                                    "howToStoreItem": "Items are placed inside the pouch by carefully tucking them into its velvety depths and then securing the drawstring.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This locket seems to hold a fragment of memory, a captured moment from a life long past. The silver, though dulled by time, hints at a former opulence. It feels cool to the touch, carrying a faint scent of dried lavender.",
+                                "name": "Tarnished Silver Locket",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Raven's Feather": {
+                                "appearanceDescription": "A single, perfectly preserved raven feather rests within the pouch. Its shaft is smooth and obsidian black, while the barbs shimmer with an iridescent blue-green sheen under the moonlight.",
+                                "container": {
+                                    "howToOpen": "The pouch is opened by gently pulling apart its frayed drawstring.",
+                                    "howToStoreItem": "Items are placed inside the pouch by carefully tucking them into its velvety depths and then securing the drawstring.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This feather feels unnaturally light, yet strangely substantial. It carries an aura of the wild and untamed, a whisper from the dark woods surrounding Blackwood Manor. Holding it seems to evoke a sense of quiet watchfulness.",
+                                "name": "Raven's Feather",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Carved Wooden Bird": {
+                                "appearanceDescription": "A small, intricately carved wooden bird, no larger than a thumb, sits nestled in the pouch. Its tiny wings are spread as if in mid-flight, and its eyes are two minuscule chips of polished jet.",
+                                "container": {
+                                    "howToOpen": "The pouch is opened by gently pulling apart its frayed drawstring.",
+                                    "howToStoreItem": "Items are placed inside the pouch by carefully tucking them into its velvety depths and then securing the drawstring.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This miniature carving is a marvel of craftsmanship, depicting a bird with astonishing detail. The wood itself seems to emanate a faint warmth, and there's a subtle, almost imperceptible hum when held close to the ear, as if it retains a spark of life.",
+                                "name": "Carved Wooden Bird",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Weeping Willow Locket": {
+                                "appearanceDescription": "A tarnished silver locket, intricately engraved with a weeping willow tree, lies on the dusty floor. It feels unnaturally cold to the touch.",
+                                "container": {
+                                    "howToOpen": "Gently pry it open.",
+                                    "howToStoreItem": "Place small items within its delicate confines.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This locket seems to hold a deep sadness. Perhaps it belonged to one of the manor's tragic inhabitants.",
+                                "name": "Weeping Willow Locket",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Withered Black Rose": {
+                                "appearanceDescription": "A single, withered black rose rests on a small, ornate side table. Its petals are brittle and dark, crumbling at the slightest disturbance.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "The rose seems to be a symbol of lost love or a permanent farewell. Its presence here is unsettling.",
+                                "name": "Withered Black Rose",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Resonant Golden Key": {
+                                "appearanceDescription": "A heavy, ornate golden key rests on a velvet cushion placed precisely in the center of the hallway. The key is strangely warm and hums with a low, resonant frequency.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This key feels important, imbued with a power that hints at unlocking more than just a physical door. Its golden sheen gleams unnaturally in the dim light.",
+                                "name": "Resonant Golden Key",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Frozen Grandfather Clock": {
+                                "appearanceDescription": "A grandfather clock stands silent and imposing against one wall. Its face is cracked, and its pendulum is still, yet a faint, rhythmic ticking can be heard emanating from within, seemingly out of sync with time itself.",
+                                "container": {
+                                    "howToOpen": "Carefully open the glass door in the front.",
+                                    "howToStoreItem": "Place small items behind the still pendulum.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This clock seems to be frozen in a moment of despair, its ticking a ghostly echo of the past. It holds a sense of frozen time.",
+                                "name": "Frozen Grandfather Clock",
+                                "pickupable": {
+                                    "isPickup": "false",
+                                    "reasonWhyNotPickup": "The clock is too heavy and is firmly fixed to the wall."
+                                }
+                            },
+                            "Locket of Lingering Sorrows": {
+                                "appearanceDescription": "A single, tarnished silver locket, intricately engraved with a weeping willow tree. It feels unnaturally cold to the touch, and a faint, sorrowful melody seems to emanate from its depths.",
+                                "container": {
+                                    "howToOpen": "The glass door of the grandfather clock can be opened by gently pulling on the ornate brass handle.",
+                                    "howToStoreItem": "Items can be placed inside the grandfather clock by opening its glass door and carefully setting them within the main cavity.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This locket seems to hold the very essence of sadness. It is rumored to contain the last tear shed by Lady Eleanor before her tragic demise within these walls. Holding it might reveal forgotten memories, or perhaps amplify one's own deepest regrets.",
+                                "name": "Locket of Lingering Sorrows",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Clockwork Nightingale": {
+                                "appearanceDescription": "A small, exquisitely carved wooden bird, its wings outstretched as if in mid-flight. It is made from a dark, unfamiliar wood and feels surprisingly weighty for its size. Tiny, almost imperceptible gears are visible beneath its carved feathers.",
+                                "container": {
+                                    "howToOpen": "The glass door of the grandfather clock can be opened by gently pulling on the ornate brass handle.",
+                                    "howToStoreItem": "Items can be placed inside the grandfather clock by opening its glass door and carefully setting them within the main cavity.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This automaton bird appears to be a marvel of craftsmanship from a bygone era. When wound, it is said to sing a lullaby so beautiful it can bring peace to even the most tormented soul, though its mechanism appears long dormant, frozen alongside the clock.",
+                                "name": "Clockwork Nightingale",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Chronometer's Finger": {
+                                "appearanceDescription": "A single, skeletal finger bone, polished smooth as glass. It is unnaturally long and thin, and a faint, chilling mist seems to perpetually cling to its surface.",
+                                "container": {
+                                    "howToOpen": "The glass door of the grandfather clock can be opened by gently pulling on the ornate brass handle.",
+                                    "howToStoreItem": "Items can be placed inside the grandfather clock by opening its glass door and carefully setting them within the main cavity.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This bone radiates an aura of temporal displacement. Legends whisper that it belonged to a chronomancer who attempted to unravel the mysteries of time itself within Blackwood Manor, only to be consumed by his own ambition. Touching it might cause brief, disorienting glimpses of the past or future.",
+                                "name": "Chronometer's Finger",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Vial of a Frozen Tear": {
+                                "appearanceDescription": "A single, dried tear, preserved within a miniature glass vial. It shimmers faintly with an inner light, and a wisp of ethereal mist curls around its stopper.",
+                                "container": {
+                                    "howToOpen": "The locket opens with a gentle click when pressed on its side.",
+                                    "howToStoreItem": "Items can be placed inside the locket by carefully opening it and placing them within its velvet-lined interior.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This vial contains what appears to be a solidified tear, radiating a faint aura of sorrow. Legend says that tears shed in true despair can sometimes retain a fragment of the emotion that created them.",
+                                "name": "Vial of a Frozen Tear",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Ribbon of Whispers": {
+                                "appearanceDescription": "A faded, silk ribbon, once a vibrant emerald green, now bleached to a pale, ghostly hue. A single, perfectly preserved dewdrop, impossibly still, clings to its frayed end.",
+                                "container": {
+                                    "howToOpen": "The locket opens with a gentle click when pressed on its side.",
+                                    "howToStoreItem": "Items can be placed inside the locket by carefully opening it and placing them within its velvet-lined interior.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This ribbon carries the faint scent of honeysuckle and the lingering whisper of forgotten laughter. It is said to have been a token of affection, lost during a time of great upheaval within the manor.",
+                                "name": "Ribbon of Whispers",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Key to Forgotten Sorrows": {
+                                "appearanceDescription": "A miniature, tarnished silver key, no larger than a thumbnail. Its teeth are intricately carved into the shape of tiny, weeping willow leaves.",
+                                "container": {
+                                    "howToOpen": "The locket opens with a gentle click when pressed on its side.",
+                                    "howToStoreItem": "Items can be placed inside the locket by carefully opening it and placing them within its velvet-lined interior.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This tiny key feels impossibly heavy for its size, as if burdened by the secrets it guards. It is rumored to unlock not a physical door, but a hidden passage within the heart, or perhaps a forgotten memory.",
+                                "name": "Key to Forgotten Sorrows",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            }
+                        },
+                        "itemLocations": {
+                            "Tarnished Locket": {
+                                "type": "room",
+                                "roomName": "Grand Foyer"
+                            },
+                            "Ornate Brass Key": {
+                                "type": "room",
+                                "roomName": "Grand Foyer"
+                            },
+                            "Tattered Velvet Pouch": {
+                                "type": "room",
+                                "roomName": "Grand Foyer"
+                            },
+                            "Tarnished Silver Locket": {
+                                "type": "container",
+                                "containerName": "Tattered Velvet Pouch"
+                            },
+                            "Raven's Feather": {
+                                "type": "container",
+                                "containerName": "Tattered Velvet Pouch"
+                            },
+                            "Carved Wooden Bird": {
+                                "type": "container",
+                                "containerName": "Tattered Velvet Pouch"
+                            },
+                            "Weeping Willow Locket": {
+                                "type": "room",
+                                "roomName": "Upper Hallway"
+                            },
+                            "Withered Black Rose": {
+                                "type": "room",
+                                "roomName": "Upper Hallway"
+                            },
+                            "Resonant Golden Key": {
+                                "type": "room",
+                                "roomName": "Upper Hallway"
+                            },
+                            "Frozen Grandfather Clock": {
+                                "type": "room",
+                                "roomName": "Upper Hallway"
+                            },
+                            "Locket of Lingering Sorrows": {
+                                "type": "container",
+                                "containerName": "Frozen Grandfather Clock"
+                            },
+                            "Clockwork Nightingale": {
+                                "type": "container",
+                                "containerName": "Frozen Grandfather Clock"
+                            },
+                            "Chronometer's Finger": {
+                                "type": "container",
+                                "containerName": "Frozen Grandfather Clock"
+                            },
+                            "Vial of a Frozen Tear": {
+                                "type": "container",
+                                "containerName": "Weeping Willow Locket"
+                            },
+                            "Ribbon of Whispers": {
+                                "type": "container",
+                                "containerName": "Weeping Willow Locket"
+                            },
+                            "Key to Forgotten Sorrows": {
+                                "type": "container",
+                                "containerName": "Weeping Willow Locket"
+                            }
+                        },
+                        "roomConnections": {
+                            "Grand Foyer": [
+                                {
+                                    "here": "Grand Foyer",
+                                    "there": "Upper Hallway",
+                                    "description": "A narrow, winding staircase of dark, rotting wood leads upwards from the foyer."
+                                },
+                                {
+                                    "here": "Grand Foyer",
+                                    "there": "The Study",
+                                    "description": "You push open the heavy, scarred oak door to your right, revealing a dimly lit study."
+                                },
+                                {
+                                    "here": "Grand Foyer",
+                                    "there": "The Ballroom",
+                                    "description": "You cautiously push through the slightly ajar double doors ahead, entering a vast, cavernous ballroom."
+                                }
+                            ],
+                            "Upper Hallway": [
+                                {
+                                    "here": "Upper Hallway",
+                                    "there": "Grand Foyer",
+                                    "description": "You descend the creaking, unstable stairs back into the grand foyer."
+                                },
+                                {
+                                    "here": "Upper Hallway",
+                                    "there": "Foyer",
+                                    "description": "A grand, yet decaying, staircase leads down to the foyer."
+                                },
+                                {
+                                    "here": "Upper Hallway",
+                                    "there": "Study",
+                                    "description": "A heavy oak door, slightly ajar, leads into a study."
+                                },
+                                {
+                                    "here": "Upper Hallway",
+                                    "there": "Chamber of Whispers",
+                                    "description": "A narrow, almost hidden doorway is concealed behind a tattered tapestry."
+                                }
+                            ],
+                            "The Study": [
+                                {
+                                    "here": "The Study",
+                                    "there": "Grand Foyer",
+                                    "description": "You exit the dusty study, closing the oak door behind you and returning to the foyer."
+                                }
+                            ],
+                            "The Ballroom": [
+                                {
+                                    "here": "The Ballroom",
+                                    "there": "Grand Foyer",
+                                    "description": "You retreat from the desolate ballroom, pushing the double doors shut behind you and returning to the foyer."
+                                }
+                            ],
+                            "Foyer": [
+                                {
+                                    "here": "Foyer",
+                                    "there": "Upper Hallway",
+                                    "description": "The grand staircase ascends to the upper hallway."
+                                }
+                            ],
+                            "Study": [
+                                {
+                                    "here": "Study",
+                                    "there": "Upper Hallway",
+                                    "description": "The study door opens back into the upper hallway."
+                                }
+                            ],
+                            "Chamber of Whispers": [
+                                {
+                                    "here": "Chamber of Whispers",
+                                    "there": "Upper Hallway",
+                                    "description": "Pushing aside the heavy tapestry reveals the doorway back to the upper hallway."
+                                }
+                            ]
+                        },
+                        "startingRoom": "Grand Foyer",
+                        "visitedRooms": [
+                            "Grand Foyer",
+                            "Upper Hallway"
+                        ],
+                        "openedItems": [
+                            "Tattered Velvet Pouch",
+                            "Frozen Grandfather Clock",
+                            "Weeping Willow Locket"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "open the locket",
+                "gameActions": [
+                    {
+                        "container": "Weeping Willow Locket",
+                        "type": "PlayerOpensItem"
+                    }
+                ]
+            },
+            "description": "Elias Thorne, a spectral investigator, drifts towards the Weeping Willow Locket, its palpable sadness a beacon in the oppressive silence of the upper hallway. With a delicate touch, he pries open the locket's worn casing. A faint, mournful sigh escapes as the locket springs open, revealing nothing within but a chilling emptiness that seems to absorb the very light around it. The locket, now open and inexplicably lighter, remains on the floor, its sorrowful aura now a touch more profound."
         }
     ]
 }
