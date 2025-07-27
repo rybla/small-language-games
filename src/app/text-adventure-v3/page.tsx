@@ -250,13 +250,11 @@ export default function Page() {
                                     </span>
                                   </div>
                                   <div className={styles.assets}>
-                                    <div className={styles.RoomCard}>
-                                      <RoomCard
-                                        inst={state.inst}
-                                        roomName={gameAction.room}
-                                        format="view"
-                                      />
-                                    </div>
+                                    <RoomCard
+                                      inst={state.inst}
+                                      roomName={gameAction.room}
+                                      format="chat"
+                                    />
                                   </div>
                                 </>
                               ) : gameAction.type ===
@@ -272,15 +270,13 @@ export default function Page() {
                                     </span>
                                   </div>
                                   <div className={styles.assets}>
-                                    <div className={styles.RoomCard}>
-                                      <RoomCard
-                                        inst={state.inst}
-                                        roomName={
-                                          state.inst.view.game.world.room.name
-                                        }
-                                        format="view"
-                                      />
-                                    </div>
+                                    <RoomCard
+                                      inst={state.inst}
+                                      roomName={
+                                        state.inst.view.game.world.room.name
+                                      }
+                                      format="chat"
+                                    />
                                   </div>
                                 </>
                               ) : gameAction.type === "PlayerDropsItem" ? (
@@ -295,13 +291,11 @@ export default function Page() {
                                     </span>
                                   </div>
                                   <div className={styles.assets}>
-                                    <div className={styles.ItemCard}>
-                                      <ItemCard
-                                        inst={state.inst}
-                                        itemName={gameAction.item}
-                                        format="chat"
-                                      />
-                                    </div>
+                                    <ItemCard
+                                      inst={state.inst}
+                                      itemName={gameAction.item}
+                                      format="chat"
+                                    />
                                   </div>
                                 </>
                               ) : gameAction.type === "PlayerTakesItem" ? (
@@ -316,13 +310,11 @@ export default function Page() {
                                     </span>
                                   </div>
                                   <div className={styles.assets}>
-                                    <div className={styles.ItemCard}>
-                                      <ItemCard
-                                        inst={state.inst}
-                                        itemName={gameAction.item}
-                                        format="chat"
-                                      />
-                                    </div>
+                                    <ItemCard
+                                      inst={state.inst}
+                                      itemName={gameAction.item}
+                                      format="chat"
+                                    />
                                   </div>
                                 </>
                               ) : gameAction.type === "PlayerInspectsItem" ? (
@@ -337,13 +329,11 @@ export default function Page() {
                                     </span>
                                   </div>
                                   <div className={styles.assets}>
-                                    <div className={styles.ItemCard}>
-                                      <ItemCard
-                                        inst={state.inst}
-                                        itemName={gameAction.item}
-                                        format="chat"
-                                      />
-                                    </div>
+                                    <ItemCard
+                                      inst={state.inst}
+                                      itemName={gameAction.item}
+                                      format="chat"
+                                    />
                                   </div>
                                 </>
                               ) : (
@@ -384,7 +374,7 @@ export default function Page() {
                         <RoomCard
                           inst={state.inst}
                           roomName={state.inst.view.game.world.room.name}
-                          format="chat"
+                          format="view"
                         />
                       }
                     </div>
@@ -512,8 +502,8 @@ export function RoomCard(props: {
 
   const ratioRoomImageToFrameImage = 0.85;
   const size = {
-    chat: 400,
-    view: 200,
+    chat: 300,
+    view: 400,
   }[props.format];
 
   useEffect(() => {
@@ -588,7 +578,7 @@ function ItemCard(props: {
   const [state, set_state] = useState<ItemCardState>({ type: "loading" });
 
   const size = {
-    chat: 150,
+    chat: 250,
     view: 200,
   }[props.format];
   const ratioOfItemImageToFrameImage = 0.75;
