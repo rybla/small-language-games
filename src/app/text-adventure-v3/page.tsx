@@ -422,15 +422,11 @@ export default function Page() {
                 <div className={styles.ViewPanel}>
                   <div className={styles.currentRoom}>
                     <div className={styles.title}>Current Room</div>
-                    <div className={styles.RoomCard}>
-                      {
-                        <RoomCard
-                          inst={state.inst}
-                          roomName={state.inst.view.game.world.room.name}
-                          format="view"
-                        />
-                      }
-                    </div>
+                    <RoomCard
+                      inst={state.inst}
+                      roomName={state.inst.view.game.world.room.name}
+                      format="view"
+                    />
                   </div>
                   <div className={styles.player}>
                     <div className={styles.title}>Player</div>

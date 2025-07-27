@@ -409,7 +409,7 @@
 
 .turn {
     margin-bottom: calc(var(--spacing-unit) * 3);
-    animation: retro-turn-appear 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation: retro-turn-appear 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .turnsBottom {
@@ -478,7 +478,16 @@
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-unit);
-    animation: fancy-appear 0.6s ease-out forwards;
+    animation: card-glitch-in 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    transition:
+        transform var(--transition-speed-fast) ease,
+        box-shadow var(--transition-speed-fast) ease;
+}
+
+.RoomCard:hover,
+.ItemCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 25px var(--color-glow);
 }
 
 .RoomCard .container,
@@ -676,45 +685,57 @@
     }
 }
 
-@keyframes fancy-appear {
-    from {
+@keyframes card-glitch-in {
+    0% {
         opacity: 0;
-        transform: translateY(20px) scale(0.98);
-        filter: blur(3px);
+        transform: translateY(15px) scale(0.95);
+        filter: blur(2px);
+        box-shadow: 0 0 0 var(--color-glow);
     }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
+    50% {
+        opacity: 0.7;
+        transform: translateY(0) scale(1) translateX(-10px);
         filter: blur(0);
+        box-shadow: 0 0 25px var(--color-glow);
+    }
+    52% {
+        transform: translateX(10px);
+    }
+    54% {
+        transform: translateX(-5px);
+    }
+    56% {
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 15px var(--color-glow);
     }
 }
 
 @keyframes retro-turn-appear {
     0% {
         opacity: 0;
-        transform: translateY(10px);
-        text-shadow: 0 0 20px var(--color-glow);
+        filter: blur(5px);
+        transform: skewX(-10deg) scale(1.1);
     }
-    30% {
-        opacity: 0.7;
-        text-shadow: 0 0 20px var(--color-glow);
-    }
-    32% {
-        opacity: 0.3;
-        transform: translateY(10px) translateX(-5px);
+    20% {
         color: var(--color-accent);
+        text-shadow: 0 0 10px var(--color-glow);
     }
-    34% {
-        opacity: 1;
-        transform: translateY(10px) translateX(5px);
-        text-shadow: none;
+    40% {
+        transform: skewX(10deg);
     }
-    36% {
-        transform: translateY(10px) translateX(0);
+    60% {
+        transform: skewX(-5deg);
+    }
+    80% {
+        transform: skewX(0deg) scale(1);
+        filter: blur(0);
         color: var(--color-text);
+        text-shadow: none;
     }
     100% {
         opacity: 1;
-        transform: translateY(0);
     }
 }
