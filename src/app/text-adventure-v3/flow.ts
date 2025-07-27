@@ -30,7 +30,7 @@ import {
   markdownifyGameView,
 } from "./semantics";
 
-function makeSystemPrelude_text() {
+export function makeSystemPrelude_text() {
   return `
 You are the game master for a unique and creative text adventure game. You are well-known for your unique environments, engaging narrative prose, and interesting world-building detailing. Keep the following tips in mind:
   - Be creative!
@@ -361,88 +361,6 @@ Keep the following notes in mind:
   },
 );
 
-// TODO:IDEA generate these in sequence, where you gen the action, then interpret it, then generate a new action based on the resulting state
-export const GenerateAction = ai.defineFlow(
-  {
-    name: "GenerateAction",
-    inputSchema: z.object({
-      prompt: z.string(),
-      gameView: GameView,
-      game: Game,
-    }),
-    outputSchema: z.object({
-      gameAction: GameAction(),
-    }),
-  },
-  async ({ prompt, gameView, game }) => {
-    const { action } = getValidOutput(
-      await ai.generate({
-        model: model.text_speed,
-        system: trim(`
-${makeSystemPrelude_text()}
-
-The user will provide:
-  - a markdown document describing the current game state
-  - a natural-language command for what they want to do as the player in the game
-
-Your task is to interpret their command as a structured game action (which is specified by the output schema), taking into account the current game state.
-`),
-        prompt: [
-          makeMarkdownFilePart(markdownifyGameView(gameView)),
-          makeTextPart(prompt),
-        ],
-        output: {
-          schema: z.object({ action: GameAction(game) }),
-        },
-      } satisfies GenerateOptions),
-    );
-    return { gameAction: action };
-  },
-);
-
-export const GenerateTurnDescription = ai.defineFlow(
-  {
-    name: "GenerateTurnDescription",
-    inputSchema: z.object({
-      prompt: z.string(),
-      gameView: GameView,
-      game: Game,
-      gameActions: z.array(GameAction()),
-    }),
-    outputSchema: z.object({
-      description: z.string(),
-    }),
-  },
-  async ({ prompt, gameView, game, gameActions }) => {
-    const result = await ai.generate({
-      model: model.text_speed,
-      system: trim(`
-${makeSystemPrelude_text()}
-
-The user will provide:
-- a markdown document describing the current game state (before the player's turn)
-- an informal description of what the user attempted to do this turn
-- a formal description of what the player actually did this turn
-
-Your task is to write a one-paragraph 3rd-person narration of the player's turn as it would be written in the story of a text adventure game, taking into account the current game state and the player's actions. Make it exciting to read.
-
-CRITICAL: ONLY write the narration in your response.
-`),
-      prompt: [
-        makeMarkdownFilePart(markdownifyGameView(gameView)),
-        makeTextPart(
-          trim(`
-Player's attempted actions (informal): "${prompt}"
-Player's performed actions (formal):
-${gameActions.map((action) => `  - ${markdownifyGameAction(action)}`).join("\n")}
-`),
-        ),
-      ],
-    } satisfies GenerateOptions);
-    return { description: result.text };
-  },
-);
-
 export const GenerateItemImage = ai.defineFlow(
   {
     name: "GenerateItemImage",
@@ -463,8 +381,7 @@ Style instructions:
   - orthographic perspecitve
   - slightly padded framing
   - depth using shading and highlights
-  - realistic fantasy art style
-  - painterly art style
+  - pixelated retro fantasy art style
   - borderless
   - NO TEXT
 
@@ -501,8 +418,7 @@ Style instructions:
   - orthographic perspecitve
   - slightly padded framing
   - depth using shading and highlights
-  - realistic fantasy art style
-  - painterly art style
+  - pixelated retro fantasy art style
   - borderless
   - NO TEXT
 

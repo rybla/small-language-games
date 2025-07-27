@@ -75,6 +75,7 @@
     --spacing-unit: 8px;
     --border-radius: 4px;
     --transition-speed: 0.3s;
+    --transition-speed-fast: 0.2s;
 }
 
 @keyframes fluid-gradient {
@@ -205,42 +206,81 @@
     bottom: 0;
     background-color: var(--color-shadow);
     display: flex;
+    flex-direction: column; /* Stack menubar and content vertically */
     justify-content: center;
     align-items: center;
     z-index: 100;
-    transition:
-        opacity var(--transition-speed) ease,
-        visibility var(--transition-speed) ease;
-}
 
-.NewPanel.hidden {
+    /* Animation for the overlay */
     opacity: 0;
     visibility: hidden;
+    transition:
+        opacity var(--transition-speed) ease-out,
+        visibility 0s linear var(--transition-speed);
 }
 
 .NewPanel.shown {
     opacity: 1;
     visibility: visible;
+    transition-delay: 0s;
 }
 
+/* Apply animation and shared properties to both parts of the modal */
+.NewPanel > .menubar,
 .NewPanel > .content {
+    /* Shared animation properties */
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+    filter: blur(4px);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+
+    /* Shared visual properties */
+    background: var(--color-foreground-transparent);
+    box-shadow: 0 0 25px var(--color-glow);
     width: 100%;
     max-width: 600px;
-    padding: calc(var(--spacing-unit) * 2);
-    animation: fadeInSlideUp 0.3s ease-out forwards;
+    box-sizing: border-box;
+}
+
+/* Trigger animation when shown */
+.NewPanel.shown > .menubar,
+.NewPanel.shown > .content {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    filter: blur(0);
 }
 
 .menubar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: calc(var(--spacing-unit) * 2);
+    padding: calc(var(--spacing-unit) * 2);
+
+    /* Top part of the panel's border */
+    border: 1px solid var(--color-border);
+    /* This border separates the menubar from the content */
+    /* border-bottom: 1px solid var(--color-border); */
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+
+    /* Remove original margin */
+    margin-bottom: 0;
 }
 
 .menubar .title {
     font-size: 1.5em;
     font-weight: bold;
     color: var(--color-accent);
+}
+
+/* Style the content part of the panel */
+.NewPanel > .content {
+    padding-top: calc(var(--spacing-unit) * 2);
+    /* Bottom part of the panel's border */
+    border: 1px solid var(--color-border);
+    border-top: none; /* Remove top border to join with menubar */
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
 }
 
 /* --- Logs Panel --- */
@@ -415,6 +455,11 @@
 .gameAction .assets {
     grid-column: 1 / -1;
     margin-top: var(--spacing-unit);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: calc(var(--spacing-unit) * 2);
 }
 
 .description {
@@ -492,9 +537,9 @@
     font-size: 1em;
     cursor: pointer;
     transition:
-        background-color var(--transition-speed) ease,
-        box-shadow var(--transition-speed) ease,
-        transform var(--transition-speed) ease;
+        background-color var(--transition-speed-fast) ease,
+        box-shadow var(--transition-speed-fast) ease,
+        transform var(--transition-speed-fast) ease;
     box-shadow: inset 0 0 0 0 var(--color-accent);
 }
 
@@ -561,6 +606,8 @@
     display: flex;
     flex-direction: column;
     gap: calc(var(--spacing-unit) * 2);
+    padding: calc(var(--spacing-unit) * 2);
+    padding-top: 0;
 }
 
 .PromptInitializationPanel .title {

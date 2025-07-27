@@ -1,7 +1,22 @@
-import { Codomain, fromNever, isNonEmpty, trim } from "@/utility";
-import { z } from "genkit";
-import { Game, ItemName, RoomName } from "./ontology";
+import { ai, model } from "@/backend/ai";
 import {
+  getValidOutput,
+  makeMarkdownFilePart,
+  makeTextPart,
+} from "@/backend/ai/common";
+import {
+  Codomain,
+  fromNever,
+  isNonEmpty,
+  NonEmptyArray,
+  trim,
+} from "@/utility";
+import { GenerateOptions, z } from "genkit";
+import { A } from "./constant";
+import * as flow from "./flow";
+import { Game, GameView, Item, ItemName, RoomName } from "./ontology";
+import {
+  addItem,
   doesPlayerHaveItem,
   doesRoomHaveItem,
   GameError,
@@ -10,6 +25,8 @@ import {
   getPlayerRoom,
   getPlayerRoomConnections,
   getPlayerRoomItems,
+  getRoomConnections,
+  markdownifyGameView,
   setItemLocation,
   setPlayerRoom,
 } from "./semantics";
@@ -23,16 +40,20 @@ export const GameAction = (game?: Game) =>
   z.union([
     ...PlayerGoesToRoom_GameAction(game),
     ...PlayerInspectsCurrentRoom_GameAction(game),
+    ...PlayerInspectsConnectionToAnotherRoom_GameAction(game),
     ...PlayerTakesItem_GameAction(game),
     ...PlayerDropsItem_GameAction(game),
     ...PlayerInspectsItem_GameAction(game),
+    ...PlayerCombinesItems_GameAction(game),
   ] as const as Readonly<
     [
       Codomain<typeof PlayerGoesToRoom_GameAction>[number],
       Codomain<typeof PlayerInspectsCurrentRoom_GameAction>[number],
+      Codomain<typeof PlayerInspectsConnectionToAnotherRoom_GameAction>[number],
       Codomain<typeof PlayerTakesItem_GameAction>[number],
       Codomain<typeof PlayerDropsItem_GameAction>[number],
       Codomain<typeof PlayerInspectsItem_GameAction>[number],
+      Codomain<typeof PlayerCombinesItems_GameAction>[number],
     ]
   >);
 
@@ -76,10 +97,12 @@ export const PlayerGoesToRoom_GameAction = mkGameActionSchema({
     room: castStringSchemaToEnumSchema(RoomName),
   },
   mkSchema(args) {
-    return z.object({
-      type: z.enum(["PlayerGoesToRoom"]),
-      room: args.room,
-    });
+    return z
+      .object({
+        type: z.enum(["PlayerGoesToRoom"]),
+        room: args.room,
+      })
+      .describe("the action where the player goes to a another room");
   },
 });
 
@@ -92,11 +115,43 @@ export const PlayerInspectsCurrentRoom_GameAction = mkGameActionSchema({
   },
   defaultSchemaArgs: {},
   mkSchema(args) {
-    return z.object({
-      type: z.enum(["PlayerInspectsCurrentRoom"]),
-    });
+    return z
+      .object({
+        type: z.enum(["PlayerInspectsCurrentRoom"]),
+      })
+      .describe(
+        "the action where the player inspects something about their current room",
+      );
   },
 });
+
+export type PlayerInspectsConnectionToAnotherRoom_GameAction = InferGameAction<
+  typeof PlayerInspectsConnectionToAnotherRoom_GameAction
+>;
+export const PlayerInspectsConnectionToAnotherRoom_GameAction =
+  mkGameActionSchema({
+    mkSchemaArgs(game) {
+      const connectedRooms = getRoomConnections(game, getPlayerRoom(game).name);
+      return {
+        room: z.enum(
+          connectedRooms.map((cr) => cr.there) as NonEmptyArray<string>,
+        ),
+      };
+    },
+    defaultSchemaArgs: {
+      room: castStringSchemaToEnumSchema(RoomName),
+    },
+    mkSchema(args) {
+      return z
+        .object({
+          type: z.enum(["PlayerInspectsConnectionToAnotherRoom"]),
+          room: args.room,
+        })
+        .describe(
+          "the action where the player inspects a connection to another room",
+        );
+    },
+  });
 
 export const PlayerTakesItem_GameAction = mkGameActionSchema({
   mkSchemaArgs(game) {
@@ -110,10 +165,14 @@ export const PlayerTakesItem_GameAction = mkGameActionSchema({
     item: castStringSchemaToEnumSchema(ItemName),
   },
   mkSchema(args) {
-    return z.object({
-      type: z.enum(["PlayerTakesItem"]),
-      item: args.item,
-    });
+    return z
+      .object({
+        type: z.enum(["PlayerTakesItem"]),
+        item: args.item.describe("the name of the item that the player takes"),
+      })
+      .describe(
+        "the action where the player takes an item from their current room and adds it to their inventory",
+      );
   },
 });
 
@@ -132,10 +191,14 @@ export const PlayerDropsItem_GameAction = mkGameActionSchema({
     item: castStringSchemaToEnumSchema(ItemName),
   },
   mkSchema(args) {
-    return z.object({
-      type: z.enum(["PlayerDropsItem"]),
-      item: args.item,
-    });
+    return z
+      .object({
+        type: z.enum(["PlayerDropsItem"]),
+        item: args.item.describe("the name of the item that the player drops"),
+      })
+      .describe(
+        "the action where the player drops an item from their inventory into their current room",
+      );
   },
 });
 
@@ -157,10 +220,49 @@ export const PlayerInspectsItem_GameAction = mkGameActionSchema({
     item: castStringSchemaToEnumSchema(ItemName),
   },
   mkSchema(args) {
-    return z.object({
-      type: z.enum(["PlayerInspectsItem"]),
-      item: args.item,
-    });
+    return z
+      .object({
+        type: z.enum(["PlayerInspectsItem"]),
+        item: args.item.describe(
+          "the name of the item that the player inspects",
+        ),
+      })
+      .describe(
+        "the action where the player inspects an item in their inventory or in their current room",
+      );
+  },
+});
+
+export type PlayerCombinesItems_GameAction = InferGameAction<
+  typeof PlayerCombinesItems_GameAction
+>;
+export const PlayerCombinesItems_GameAction = mkGameActionSchema({
+  mkSchemaArgs(game) {
+    const itemNames = [...getPlayerItems(game).map((i) => i.name)];
+    if (!isNonEmpty(itemNames)) return undefined;
+    return {
+      item1: z.enum(Object.freeze(itemNames)),
+      item2: z.enum(Object.freeze(itemNames)),
+    };
+  },
+  defaultSchemaArgs: {
+    item1: castStringSchemaToEnumSchema(ItemName),
+    item2: castStringSchemaToEnumSchema(ItemName),
+  },
+  mkSchema(args) {
+    return z
+      .object({
+        type: z.enum(["PlayerCombinesItems"]),
+        item1: args.item1.describe(
+          "the name of the first item that the player combines together with the second item",
+        ),
+        item2: args.item2.describe(
+          "the name of the second item that the player combines together with the first item",
+        ),
+      })
+      .describe(
+        "the action where the player combines together two items in their inventory somehow",
+      );
   },
 });
 
@@ -168,36 +270,54 @@ export const PlayerInspectsItem_GameAction = mkGameActionSchema({
 // interpretGameAction
 // -----------------------------------------------------------------------------
 
-export function interpretGameAction(game: Game, action: GameAction) {
-  if (action.type === "PlayerGoesToRoom") {
-    setPlayerRoom(game, action.room);
-  } else if (action.type === "PlayerInspectsCurrentRoom") {
+export async function interpretGameAction(
+  game: Game,
+  action: A,
+  gameAction: GameAction,
+) {
+  if (gameAction.type === "PlayerGoesToRoom") {
+    setPlayerRoom(game, gameAction.room);
+  } else if (gameAction.type === "PlayerInspectsCurrentRoom") {
     // pass
-  } else if (action.type === "PlayerDropsItem") {
+  } else if (gameAction.type === "PlayerInspectsConnectionToAnotherRoom") {
+    // pass
+  } else if (gameAction.type === "PlayerDropsItem") {
     const playerRoom = getPlayerRoom(game);
-    if (!doesPlayerHaveItem(game, action.item))
+    if (!doesPlayerHaveItem(game, gameAction.item))
       throw new GameError(
         game,
-        `The player cannot drop the item "${action.item}" because that item is not in the player's inventory`,
+        `The player cannot drop the item "${gameAction.item}" because that item is not in the player's inventory`,
       );
-    setItemLocation(game, action.item, {
+    setItemLocation(game, gameAction.item, {
       type: "room",
       roomName: playerRoom.name,
     });
-  } else if (action.type === "PlayerTakesItem") {
+  } else if (gameAction.type === "PlayerTakesItem") {
     const playerRoom = getPlayerRoom(game);
-    if (!doesRoomHaveItem(game, playerRoom.name, action.item))
+    if (!doesRoomHaveItem(game, playerRoom.name, gameAction.item))
       throw new GameError(
         game,
-        `The player cannot take the item "${action.item}" because that item is not in the player's current room, "${playerRoom.name}"`,
+        `The player cannot take the item "${gameAction.item}" because that item is not in the player's current room, "${playerRoom.name}"`,
       );
-    setItemLocation(game, action.item, {
+    setItemLocation(game, gameAction.item, {
       type: "player",
     });
-  } else if (action.type === "PlayerInspectsItem") {
+  } else if (gameAction.type === "PlayerInspectsItem") {
     // pass
+  } else if (gameAction.type === "PlayerCombinesItems") {
+    const item1 = getItem(game, gameAction.item1);
+    const item2 = getItem(game, gameAction.item2);
+    setItemLocation(game, gameAction.item1, { type: "nonexistent" });
+    setItemLocation(game, gameAction.item2, { type: "nonexistent" });
+    const { item } = await GenerateCombinationItem({
+      game,
+      prompt: action.prompt,
+      item1,
+      item2,
+    });
+    addItem(game, item, { type: "player" });
   } else {
-    fromNever(action);
+    fromNever(gameAction);
   }
 }
 
@@ -210,16 +330,154 @@ export function markdownifyGameAction(action: GameAction) {
     return `The player goes to the room _${action.room}_`;
   } else if (action.type === "PlayerInspectsCurrentRoom") {
     return `The player inspects the current room`;
+  } else if (action.type === "PlayerInspectsConnectionToAnotherRoom") {
+    return `The player inspects the connection to the room _${action.room}_`;
   } else if (action.type === "PlayerDropsItem") {
     return `The player drops the item _${action.item}_ from their inventory into their current location`;
   } else if (action.type === "PlayerTakesItem") {
     return `The player takes the item _${action.item}_ into their inventory`;
   } else if (action.type === "PlayerInspectsItem") {
     return `The player inspects the item _${action.item}_`;
+  } else if (action.type === "PlayerCombinesItems") {
+    return `The player combines the items _${action.item1}_ and _${action.item2}_ in their inventory`;
   } else {
     return fromNever(action);
   }
 }
+
+// -----------------------------------------------------------------------------
+// flows
+// -----------------------------------------------------------------------------
+
+const GenerateCombinationItem = ai.defineFlow(
+  {
+    name: "GenerateCombinationItem",
+    inputSchema: z.object({
+      game: Game,
+      prompt: z.string(),
+      item1: Item,
+      item2: Item,
+    }),
+    outputSchema: z.object({
+      item: Item,
+    }),
+  },
+  async ({ game, prompt, item1, item2 }) => {
+    const item = getValidOutput(
+      await ai.generate({
+        model: model.text_speed,
+        system: trim(`
+${flow.makeSystemPrelude_text()}
+
+The user will provide:
+- a markdown document describing the current game state
+- a natural-language command for how they want to combine two items in their inventory.
+
+Your task is to consider how the player combines these two items, and to create a structured description for the resulting combined item.
+`),
+        prompt: trim(`
+The player is combining the item "${item1.name}" with the item "${item2.name}" in the following manner: ${prompt}
+
+The following are detailed descriptions of the two items:
+
+**${item1.name}:**
+  - description: ${item1.description}
+  - appearance: ${item1.appearanceDescription}
+
+**${item2.name}:**
+  - description: ${item2.description}
+  - appearance: ${item2.appearanceDescription}
+`),
+        output: {
+          schema: Item,
+        },
+      } satisfies GenerateOptions),
+    );
+    return { item };
+  },
+);
+
+// TODO:IDEA generate these in sequence, where you gen the action, then interpret it, then generate a new action based on the resulting state
+export const GenerateAction = ai.defineFlow(
+  {
+    name: "GenerateAction",
+    inputSchema: z.object({
+      prompt: z.string(),
+      gameView: GameView,
+      game: Game,
+    }),
+    outputSchema: z.object({
+      gameAction: GameAction(),
+    }),
+  },
+  async ({ prompt, gameView, game }) => {
+    const { action } = getValidOutput(
+      await ai.generate({
+        model: model.text_speed,
+        system: trim(`
+${flow.makeSystemPrelude_text()}
+
+The user will provide:
+  - a markdown document describing the current game state
+  - a natural-language command for what they want to do as the player in the game
+
+Your task is to interpret their command as a structured game action (which is specified by the output schema), taking into account the current game state.
+`),
+        prompt: [
+          makeMarkdownFilePart(markdownifyGameView(gameView)),
+          makeTextPart(prompt),
+        ],
+        output: {
+          schema: z.object({ action: GameAction(game) }),
+        },
+      } satisfies GenerateOptions),
+    );
+    return { gameAction: action };
+  },
+);
+
+export const GenerateTurnDescription = ai.defineFlow(
+  {
+    name: "GenerateTurnDescription",
+    inputSchema: z.object({
+      prompt: z.string(),
+      gameView: GameView,
+      game: Game,
+      gameActions: z.array(GameAction()),
+    }),
+    outputSchema: z.object({
+      description: z.string(),
+    }),
+  },
+  async ({ prompt, gameView, game, gameActions }) => {
+    const result = await ai.generate({
+      model: model.text_speed,
+      system: trim(`
+${flow.makeSystemPrelude_text()}
+
+The user will provide:
+- a markdown document describing the current game state (before the player's turn)
+- an informal description of what the user attempted to do this turn
+- a formal description of what the player actually did this turn
+
+Your task is to write a one-paragraph 3rd-person narration of the player's turn as it would be written in the story of a text adventure game, taking into account the current game state and the player's actions. Make it exciting to read.
+
+CRITICAL: ONLY write the narration in your response.
+`),
+      prompt: [
+        makeMarkdownFilePart(markdownifyGameView(gameView)),
+        makeTextPart(
+          trim(`
+Player's attempted actions (informal): "${prompt}"
+Player's performed actions (formal):
+${gameActions.map((action) => `  - ${markdownifyGameAction(action)}`).join("\n")}
+`),
+        ),
+      ],
+    } satisfies GenerateOptions);
+    return { description: result.text };
+  },
+);
 
 // -----------------------------------------------------------------------------
 // utilities

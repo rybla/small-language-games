@@ -5,7 +5,11 @@ import * as server from "@/library/sva/server";
 import { err, fromDataUrlToBuffer, ok, Result } from "@/utility";
 import * as fs from "fs/promises";
 import filenamify from "filenamify";
-import { interpretGameAction } from "./action";
+import {
+  GenerateAction,
+  GenerateTurnDescription,
+  interpretGameAction,
+} from "./action";
 import * as constant from "./constant";
 import { A, N, name, P, S, V } from "./constant";
 import * as flow from "./flow";
@@ -38,13 +42,13 @@ const spec: SpecServer<N, P, S, V, A> = {
     };
   },
   async generateAction(view, params, state) {
-    const { gameAction } = await flow.GenerateAction({
+    const { gameAction } = await GenerateAction({
       prompt: params.prompt,
       gameView: view.game,
       game: state.game,
     });
     const gameActions = [gameAction];
-    const { description } = await flow.GenerateTurnDescription({
+    const { description } = await GenerateTurnDescription({
       prompt: params.prompt,
       gameView: view.game,
       game: state.game,
@@ -60,7 +64,7 @@ const spec: SpecServer<N, P, S, V, A> = {
   },
   async interpretAction(inst, state, action) {
     for (const gameAction of action.gameActions) {
-      interpretGameAction(state.game, gameAction);
+      await interpretGameAction(state.game, action, gameAction);
     }
     const room = getPlayerRoom(state.game);
     if (!isVisitedRoom(state.game, room.name)) {

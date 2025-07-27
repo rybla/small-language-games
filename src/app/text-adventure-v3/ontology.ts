@@ -102,7 +102,7 @@ export const ItemLocation = z.union([
     .describe(
       "this property specifies that the item's location is in the room of the specified name",
     ),
-  // z.object({ type: z.enum(["destroyed"]) }), // TODO:advanced
+  z.object({ type: z.enum(["nonexistent"]) }),
 ]);
 
 // -----------------------------------------------------------------------------

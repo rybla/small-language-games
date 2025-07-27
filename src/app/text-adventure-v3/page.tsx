@@ -28,6 +28,7 @@ export default function Page() {
   const [logs, set_logs] = useState<string[]>([]);
   const [isShown_NewPanel, set_isShown_NewPanel] = useState(false);
   const [state, set_state] = useState<PageState>({ type: "none" });
+  const [turnPrompt, set_turnPrompt] = useState<string | undefined>();
 
   // ---------------------------------------------------------------------------
 
@@ -85,7 +86,9 @@ export default function Page() {
 
   async function submitPromptAction(params: P["action"]) {
     set_logs((logs) => [...logs, `[submitPromptAction] ${stringify(params)}`]);
+    set_turnPrompt(params.prompt);
     await server.actInst(params);
+    set_turnPrompt(undefined);
     await updateInst();
   }
 
@@ -101,7 +104,7 @@ export default function Page() {
       behavior: "smooth",
       block: "end",
     });
-  }, [state]);
+  }, [state, turnPrompt]);
 
   useEffect(() => {
     if (logsBottom_ref.current === null) return;
@@ -123,10 +126,7 @@ export default function Page() {
       }}
     >
       <div
-        className={[
-          styles.NewPanel,
-          isShown_NewPanel ? styles.shown : styles.hidden,
-        ].join(" ")}
+        className={`${styles.NewPanel} ${isShown_NewPanel ? styles.shown : styles.hidden}`}
       >
         <div className={styles.menubar}>
           <div className={styles.title}>New</div>
@@ -336,6 +336,47 @@ export default function Page() {
                                     />
                                   </div>
                                 </>
+                              ) : gameAction.type === "PlayerCombinesItems" ? (
+                                <>
+                                  <div className={styles.label}>
+                                    <ChevronRight size={20} />
+                                  </div>
+                                  <div className={styles.content}>
+                                    combines{" "}
+                                    <span className={styles.itemName}>
+                                      {gameAction.item1}
+                                    </span>{" "}
+                                    with{" "}
+                                    <span className={styles.itemName}>
+                                      {gameAction.item2}
+                                    </span>
+                                  </div>
+                                  <div className={styles.assets}>
+                                    <ItemCard
+                                      inst={state.inst}
+                                      itemName={gameAction.item1}
+                                      format="chat"
+                                    />
+                                    <ItemCard
+                                      inst={state.inst}
+                                      itemName={gameAction.item2}
+                                      format="chat"
+                                    />
+                                  </div>
+                                </>
+                              ) : gameAction.type ===
+                                "PlayerInspectsConnectionToAnotherRoom" ? (
+                                <>
+                                  <div className={styles.label}>
+                                    <ChevronRight size={20} />
+                                  </div>
+                                  <div className={styles.content}>
+                                    inspected connection to{" "}
+                                    <span className={styles.itemName}>
+                                      {gameAction.room}
+                                    </span>
+                                  </div>
+                                </>
                               ) : (
                                 fromNever(gameAction)
                               )}
@@ -347,6 +388,18 @@ export default function Page() {
                         </div>
                       </div>
                     ))}
+                    {turnPrompt === undefined ? (
+                      <></>
+                    ) : (
+                      <div className={styles.turn}>
+                        <div className={styles.prompt}>
+                          <div className={styles.label}>
+                            <Quote size={20} />
+                          </div>
+                          <div className={styles.content}>{turnPrompt}</div>
+                        </div>
+                      </div>
+                    )}
                     <div className={styles.turnsBottom} ref={turnsBottom_ref} />
                   </div>
                   <div className={styles.prompt}>
@@ -414,9 +467,9 @@ export default function Page() {
                       )}
                     </div>
                   </div>
-                  <Markdown>
+                  {/* <Markdown>
                     {markdownifyGameView(state.inst.view.game)}
-                  </Markdown>
+                  </Markdown> */}
                 </div>
               </div>
             </div>
@@ -578,7 +631,7 @@ function ItemCard(props: {
   const [state, set_state] = useState<ItemCardState>({ type: "loading" });
 
   const size = {
-    chat: 250,
+    chat: 200,
     view: 200,
   }[props.format];
   const ratioOfItemImageToFrameImage = 0.75;
