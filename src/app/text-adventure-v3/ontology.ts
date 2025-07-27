@@ -126,7 +126,6 @@ export type PlayerView = z.infer<typeof PlayerView>;
 export const PlayerView = z.object({
   name: Player.shape.name,
   description: Player.shape.description,
-  appearanceDescription: Player.shape.appearanceDescription,
   items: z
     .array(z.lazy(() => ItemView))
     .describe("all the items in the player's inventory"),

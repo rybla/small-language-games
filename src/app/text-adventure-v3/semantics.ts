@@ -25,7 +25,6 @@ export function getGameView(game: Game): GameView {
       player: {
         name: game.world.player.name,
         description: game.world.player.description,
-        appearanceDescription: game.world.player.appearanceDescription,
         items: playerItems,
       },
       room: {
@@ -48,8 +47,6 @@ export function markdownifyGameView(view: GameView) {
 **Player name:** _${view.world.player.name}_
 
 **Player description.** ${view.world.player.description}
-
-**Player appearance.** ${view.world.player.appearanceDescription}
 
 **Items in the player's inventory:** ${
     view.world.player.items.length === 0

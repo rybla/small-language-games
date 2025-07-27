@@ -484,6 +484,25 @@
     overflow: auto;
 }
 
+.ViewPanel .currentRoom {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.ViewPanel .RoomCard {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+}
+
+.ViewPanel .inventory {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
 .ViewPanel .inventory .items {
     display: flex;
     flex-direction: row;

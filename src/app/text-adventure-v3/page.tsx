@@ -10,6 +10,7 @@ import { markdownifyGameView } from "./semantics";
 import Markdown from "react-markdown";
 import { ChevronRight, Quote } from "lucide-react";
 import ItemCard from "./component/ItemCard";
+import RoomCard from "./component/RoomCard";
 
 type InstStatus =
   | { type: "none" }
@@ -237,6 +238,43 @@ export default function Page() {
                                       {gameAction.room}
                                     </span>
                                   </div>
+                                  <div className={styles.assets}>
+                                    <div className={styles.RoomCard}>
+                                      <RoomCard
+                                        inst={instStatus.inst}
+                                        roomName={gameAction.room}
+                                        format="large"
+                                      />
+                                    </div>
+                                  </div>
+                                </>
+                              ) : gameAction.type ===
+                                "PlayerInspectsCurrentRoom" ? (
+                                <>
+                                  <div className={styles.label}>
+                                    <ChevronRight size={20} />
+                                  </div>
+                                  <div className={styles.content}>
+                                    inspect{" "}
+                                    <span className={styles.roomName}>
+                                      {
+                                        instStatus.inst.view.game.world.room
+                                          .name
+                                      }
+                                    </span>
+                                  </div>
+                                  <div className={styles.assets}>
+                                    <div className={styles.RoomCard}>
+                                      <RoomCard
+                                        inst={instStatus.inst}
+                                        roomName={
+                                          instStatus.inst.view.game.world.room
+                                            .name
+                                        }
+                                        format="large"
+                                      />
+                                    </div>
+                                  </div>
                                 </>
                               ) : gameAction.type === "PlayerDropsItem" ? (
                                 <>
@@ -249,6 +287,15 @@ export default function Page() {
                                       {gameAction.item}
                                     </span>
                                   </div>
+                                  <div className={styles.assets}>
+                                    <div className={styles.ItemCard}>
+                                      <ItemCard
+                                        inst={instStatus.inst}
+                                        itemName={gameAction.item}
+                                        format="large"
+                                      />
+                                    </div>
+                                  </div>
                                 </>
                               ) : gameAction.type === "PlayerTakesItem" ? (
                                 <>
@@ -260,6 +307,36 @@ export default function Page() {
                                     <span className={styles.itemName}>
                                       {gameAction.item}
                                     </span>
+                                  </div>
+                                  <div className={styles.assets}>
+                                    <div className={styles.ItemCard}>
+                                      <ItemCard
+                                        inst={instStatus.inst}
+                                        itemName={gameAction.item}
+                                        format="large"
+                                      />
+                                    </div>
+                                  </div>
+                                </>
+                              ) : gameAction.type === "PlayerInspectsItem" ? (
+                                <>
+                                  <div className={styles.label}>
+                                    <ChevronRight size={20} />
+                                  </div>
+                                  <div className={styles.content}>
+                                    inspect{" "}
+                                    <span className={styles.itemName}>
+                                      {gameAction.item}
+                                    </span>
+                                  </div>
+                                  <div className={styles.assets}>
+                                    <div className={styles.ItemCard}>
+                                      <ItemCard
+                                        inst={instStatus.inst}
+                                        itemName={gameAction.item}
+                                        format="large"
+                                      />
+                                    </div>
                                   </div>
                                 </>
                               ) : (
@@ -293,17 +370,49 @@ export default function Page() {
               </div>
               <div className={styles.column}>
                 <div className={styles.ViewPanel}>
+                  <div className={styles.currentRoom}>
+                    <div className={styles.title}>Current Room</div>
+                    <div className={styles.RoomCard}>
+                      {
+                        <RoomCard
+                          inst={instStatus.inst}
+                          roomName={instStatus.inst.view.game.world.room.name}
+                          format="icon"
+                        />
+                      }
+                    </div>
+                  </div>
+                  <div className={styles.player}>
+                    <div className={styles.title}>Player</div>
+                    <table className={styles.table}>
+                      <tbody>
+                        <tr>
+                          <td className={styles.label}>name</td>
+                          <td className={styles.value}>
+                            {instStatus.inst.view.game.world.player.name}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className={styles.label}>description</td>
+                          <td className={styles.value}>
+                            {instStatus.inst.view.game.world.player.description}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                   <div className={styles.inventory}>
                     <div className={styles.title}>Inventory</div>
                     <div className={styles.items}>
                       {instStatus.inst.view.game.world.player.items.map(
                         (item, i) => (
-                          <ItemCard
-                            inst={instStatus.inst}
-                            itemName={item.name}
-                            key={i}
-                            format={"icon"}
-                          />
+                          <div className={styles.ItemCard} key={i}>
+                            <ItemCard
+                              inst={instStatus.inst}
+                              itemName={item.name}
+                              format="icon"
+                            />
+                          </div>
                         ),
                       )}
                     </div>

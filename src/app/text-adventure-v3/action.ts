@@ -5,6 +5,7 @@ import {
   doesPlayerHaveItem,
   doesRoomHaveItem,
   GameError,
+  getItem,
   getPlayerItems,
   getPlayerRoom,
   getPlayerRoomConnections,
@@ -21,13 +22,17 @@ export type GameAction = z.infer<Codomain<typeof GameAction>>;
 export const GameAction = (game?: Game) =>
   z.union([
     ...PlayerGoesToRoom_GameAction(game),
+    ...PlayerInspectsCurrentRoom_GameAction(game),
     ...PlayerTakesItem_GameAction(game),
     ...PlayerDropsItem_GameAction(game),
+    ...PlayerInspectsItem_GameAction(game),
   ] as const as Readonly<
     [
       Codomain<typeof PlayerGoesToRoom_GameAction>[number],
+      Codomain<typeof PlayerInspectsCurrentRoom_GameAction>[number],
       Codomain<typeof PlayerTakesItem_GameAction>[number],
       Codomain<typeof PlayerDropsItem_GameAction>[number],
+      Codomain<typeof PlayerInspectsItem_GameAction>[number],
     ]
   >);
 
@@ -36,14 +41,15 @@ function mkGameActionSchema<A, S extends z.ZodTypeAny>({
   defaultSchemaArgs,
   mkSchema,
 }: {
-  mkSchemaArgs: (game: Game) => A[];
+  mkSchemaArgs: (game: Game) => A | undefined;
   defaultSchemaArgs: A;
   mkSchema: (args: A) => S;
-}) {
-  return (game?: Game) => {
-    return game === undefined
-      ? [mkSchema(defaultSchemaArgs)]
-      : mkSchemaArgs(game).map((args) => mkSchema(args));
+}): (game?: Game) => S[] {
+  return (game) => {
+    if (game === undefined) return [mkSchema(defaultSchemaArgs)];
+    const args = mkSchemaArgs(game);
+    if (args === undefined) return [];
+    return [mkSchema(args)];
   };
 }
 
@@ -51,18 +57,20 @@ export type InferGameAction<
   GameActionSchema extends (...args: any) => z.ZodTypeAny[],
 > = z.infer<Codomain<GameActionSchema>[number]>;
 
+// -----------------------------------------------------------------------------
+// specific GameActions
+// -----------------------------------------------------------------------------
+
 export type PlayerGoesToRoom_GameAction = InferGameAction<
   typeof PlayerGoesToRoom_GameAction
 >;
 export const PlayerGoesToRoom_GameAction = mkGameActionSchema({
   mkSchemaArgs(game) {
     const roomNames = getPlayerRoomConnections(game).map((rc) => rc.there);
-    if (!isNonEmpty(roomNames)) return [];
-    return [
-      {
-        room: z.enum(Object.freeze(roomNames)),
-      },
-    ];
+    if (!isNonEmpty(roomNames)) return undefined;
+    return {
+      room: z.enum(Object.freeze(roomNames)),
+    };
   },
   defaultSchemaArgs: {
     room: castStringSchemaToEnumSchema(RoomName),
@@ -75,15 +83,28 @@ export const PlayerGoesToRoom_GameAction = mkGameActionSchema({
   },
 });
 
+export type PlayerInspectsCurrentRoom_GameAction = InferGameAction<
+  typeof PlayerInspectsCurrentRoom_GameAction
+>;
+export const PlayerInspectsCurrentRoom_GameAction = mkGameActionSchema({
+  mkSchemaArgs(game) {
+    return {};
+  },
+  defaultSchemaArgs: {},
+  mkSchema(args) {
+    return z.object({
+      type: z.enum(["PlayerInspectsCurrentRoom"]),
+    });
+  },
+});
+
 export const PlayerTakesItem_GameAction = mkGameActionSchema({
   mkSchemaArgs(game) {
     const itemNames = getPlayerRoomItems(game).map((i) => i.name);
-    if (!isNonEmpty(itemNames)) return [];
-    return [
-      {
-        item: z.enum(Object.freeze(itemNames)),
-      },
-    ];
+    if (!isNonEmpty(itemNames)) return undefined;
+    return {
+      item: z.enum(Object.freeze(itemNames)),
+    };
   },
   defaultSchemaArgs: {
     item: castStringSchemaToEnumSchema(ItemName),
@@ -102,12 +123,10 @@ export type PlayerDropsItem_GameAction = InferGameAction<
 export const PlayerDropsItem_GameAction = mkGameActionSchema({
   mkSchemaArgs(game) {
     const itemNames = getPlayerItems(game).map((i) => i.name);
-    if (!isNonEmpty(itemNames)) return [];
-    return [
-      {
-        item: z.enum(Object.freeze(itemNames)),
-      },
-    ];
+    if (!isNonEmpty(itemNames)) return undefined;
+    return {
+      item: z.enum(Object.freeze(itemNames)),
+    };
   },
   defaultSchemaArgs: {
     item: castStringSchemaToEnumSchema(ItemName),
@@ -120,6 +139,31 @@ export const PlayerDropsItem_GameAction = mkGameActionSchema({
   },
 });
 
+export type PlayerInspectsItem_GameAction = InferGameAction<
+  typeof PlayerInspectsItem_GameAction
+>;
+export const PlayerInspectsItem_GameAction = mkGameActionSchema({
+  mkSchemaArgs(game) {
+    const itemNames = [
+      ...getPlayerItems(game).map((i) => i.name),
+      ...getPlayerRoomItems(game).map((i) => i.name),
+    ];
+    if (!isNonEmpty(itemNames)) return undefined;
+    return {
+      item: z.enum(Object.freeze(itemNames)),
+    };
+  },
+  defaultSchemaArgs: {
+    item: castStringSchemaToEnumSchema(ItemName),
+  },
+  mkSchema(args) {
+    return z.object({
+      type: z.enum(["PlayerInspectsItem"]),
+      item: args.item,
+    });
+  },
+});
+
 // -----------------------------------------------------------------------------
 // interpretGameAction
 // -----------------------------------------------------------------------------
@@ -127,6 +171,8 @@ export const PlayerDropsItem_GameAction = mkGameActionSchema({
 export function interpretGameAction(game: Game, action: GameAction) {
   if (action.type === "PlayerGoesToRoom") {
     setPlayerRoom(game, action.room);
+  } else if (action.type === "PlayerInspectsCurrentRoom") {
+    // pass
   } else if (action.type === "PlayerDropsItem") {
     const playerRoom = getPlayerRoom(game);
     if (!doesPlayerHaveItem(game, action.item))
@@ -148,6 +194,8 @@ export function interpretGameAction(game: Game, action: GameAction) {
     setItemLocation(game, action.item, {
       type: "player",
     });
+  } else if (action.type === "PlayerInspectsItem") {
+    // pass
   } else {
     fromNever(action);
   }
@@ -159,17 +207,15 @@ export function interpretGameAction(game: Game, action: GameAction) {
 
 export function markdownifyGameAction(action: GameAction) {
   if (action.type === "PlayerGoesToRoom") {
-    return trim(`
-The player goes to the room ${action.room}
-  `);
+    return `The player goes to the room _${action.room}_`;
+  } else if (action.type === "PlayerInspectsCurrentRoom") {
+    return `The player inspects the current room`;
   } else if (action.type === "PlayerDropsItem") {
-    return trim(`
-The player drops the item ${action.item} from their inventory into their current location
-  `);
+    return `The player drops the item _${action.item}_ from their inventory into their current location`;
   } else if (action.type === "PlayerTakesItem") {
-    return trim(`
-The player takes the item ${action.item} into their inventory
-  `);
+    return `The player takes the item _${action.item}_ into their inventory`;
+  } else if (action.type === "PlayerInspectsItem") {
+    return `The player inspects the item _${action.item}_`;
   } else {
     return fromNever(action);
   }

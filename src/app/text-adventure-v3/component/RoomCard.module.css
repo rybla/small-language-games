@@ -1,0 +1,29 @@
+.RoomCard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.room_container {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.room_container .frame {
+    z-index: 2;
+}
+
+.room_container .room {
+    position: absolute;
+    z-index: 1;
+}
+
+.room_container .placeholder {
+}

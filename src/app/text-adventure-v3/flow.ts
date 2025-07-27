@@ -1,4 +1,4 @@
-import { ai, model } from "@/backend/ai";
+import { ai, model, temperature } from "@/backend/ai";
 import {
   getValidMedia,
   getValidOutput,
@@ -468,12 +468,51 @@ Style instructions:
   - borderless
   - NO TEXT
 
-Image description: A game image asset that represents the item "${item.name}". ${item.appearanceDescription}
+Image description: A game image arg asset that represents the item "${item.name}". ${item.appearanceDescription}
 `),
         output: { format: "media" },
         config: {
           aspectRatio: "1:1",
           numberOfImages: 1,
+          temperature: temperature.creative,
+        },
+      } as GenerateOptions),
+    );
+    return { dataUrl: media.url };
+  },
+);
+export const GenerateRoomImage = ai.defineFlow(
+  {
+    name: "GenerateRoomImage",
+    inputSchema: z.object({
+      game: Game,
+      room: Room,
+    }),
+    outputSchema: z.object({
+      dataUrl: z.string(),
+    }),
+  },
+  async ({ game, room }) => {
+    const media = getValidMedia(
+      await ai.generate({
+        model: model.image_cheap,
+        prompt: trim(`
+Style instructions:
+  - orthographic perspecitve
+  - slightly padded framing
+  - depth using shading and highlights
+  - realistic fantasy art style
+  - painterly art style
+  - borderless
+  - NO TEXT
+
+Image description: A game image art asset that represents the room "${room.name}". ${room.appearanceDescription}
+`),
+        output: { format: "media" },
+        config: {
+          aspectRatio: "4:3",
+          numberOfImages: 1,
+          temperature: temperature.creative,
         },
       } as GenerateOptions),
     );

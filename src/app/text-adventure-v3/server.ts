@@ -9,7 +9,7 @@ import { interpretGameAction } from "./action";
 import * as constant from "./constant";
 import { A, N, name, P, S, V } from "./constant";
 import * as flow from "./flow";
-import { ItemName } from "./ontology";
+import { ItemName, RoomName } from "./ontology";
 import {
   addItem,
   addRoom,
@@ -17,6 +17,7 @@ import {
   getGameView,
   getItem,
   getPlayerRoom,
+  getRoom,
   isRoomVisited as isVisitedRoom,
   visitRoom,
 } from "./semantics";
@@ -142,6 +143,39 @@ export async function loadItemImageFilename(
     const { dataUrl } = await flow.GenerateItemImage({
       game: inst.state.game,
       item: getItem(inst.state.game, itemName),
+    });
+    await server.saveAsset(
+      spec.name,
+      inst.metadata.id,
+      filename,
+      fromDataUrlToBuffer(dataUrl),
+      "base64",
+    );
+  }
+  return filename;
+}
+
+function getRoomImageFilename(roomName: RoomName): string {
+  return `${filenamify(roomName)}.png`;
+}
+
+export async function loadRoomImageFilename(
+  roomName: RoomName,
+): Promise<string> {
+  if (inst === undefined) throw new Error("inst === undefined");
+  const filename = getRoomImageFilename(roomName);
+  if (
+    !(await exists(
+      paths.assetFilepath(
+        spec.name,
+        inst.metadata.id,
+        getRoomImageFilename(roomName),
+      ),
+    ))
+  ) {
+    const { dataUrl } = await flow.GenerateRoomImage({
+      game: inst.state.game,
+      room: getRoom(inst.state.game, roomName),
     });
     await server.saveAsset(
       spec.name,

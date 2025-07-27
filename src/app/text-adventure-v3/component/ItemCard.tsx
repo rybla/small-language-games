@@ -15,7 +15,7 @@ type Format = "icon" | "large";
 
 const formatSizes: { [K in Format]: number } = {
   icon: 200,
-  large: 512,
+  large: 400,
 };
 
 const ratio_item_to_frame = 0.75;
@@ -33,6 +33,7 @@ export default function ItemCard(props: {
 
   useEffect(() => {
     void do_(async () => {
+      set_state({ type: "loading" });
       const filename = await server.loadItemImageFilename(props.itemName);
       set_state({ type: "loaded", filename });
     });
