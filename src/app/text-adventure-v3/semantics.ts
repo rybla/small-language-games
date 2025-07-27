@@ -121,12 +121,12 @@ export function getPlayerRoomItems(game: Game): Item[] {
   return getRoomItems(game, playerRoom.name);
 }
 
-export function getContainerItems(game: Game, itemName: ItemName): Item[] {
+export function getContainerItems(game: Game, containerName: ItemName): Item[] {
   return Array.from(
     Object.entries(game.world.itemLocations).flatMap(
       ([itemName, itemLocation]) =>
         itemLocation.type === "container" &&
-        itemLocation.containerName === itemName
+        itemLocation.containerName === containerName
           ? [getItem(game, itemName)]
           : [],
     ),
@@ -138,6 +138,10 @@ export function getItem(game: Game, itemName: ItemName): Item {
   if (item === undefined)
     throw new GameError(game, `Item "${itemName}" not found`);
   return item;
+}
+
+export function hasBeenOpenedBefore(game: Game, itemName: ItemName): boolean {
+  return game.world.openedItems.includes(itemName);
 }
 
 export function getItemLocation(game: Game, itemName: ItemName) {

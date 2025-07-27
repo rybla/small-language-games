@@ -168,7 +168,7 @@ export function TODO(msg?: string): any {
 }
 
 export function fromNever(x: never): any {
-  throw new Error(`Unexpected value that has type \`never\`: ${x}`);
+  throw new Error(`Unexpected value that has type \`never\`: ${stringify(x)}`);
 }
 
 export function formatDate(date: Date): string {

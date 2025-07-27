@@ -1,0 +1,209 @@
+{
+    "specName": "text-adventure-v3",
+    "metadata": {
+        "id": "60f63aab-40e6-4422-86d0-e1d18d6ebf09",
+        "name": "statue labyrinth",
+        "creationDate": 1753645675896
+    },
+    "initialState": {
+        "game": {
+            "world": {
+                "description": "You stand at the precipice of the Colossus Labyrinth, a sprawling maze carved from obsidian and granite, where colossal statues of forgotten deities and legendary beasts loom over you like silent sentinels. The air is thick with the scent of ancient dust and ozone, and the sheer scale of the stone figures dwarfs you, their unseeing eyes seeming to follow your every move. Sunlight struggles to penetrate the depths of the labyrinth, casting long, distorted shadows that dance and writhe, playing tricks on your perception. Each pathway is a cavernous corridor flanked by these monolithic sculptures, their weathered surfaces telling stories in a language of weathered stone and enigmatic carvings.",
+                "player": {
+                    "name": "Kaelen",
+                    "description": "You are a Seeker, an individual drawn to places of forgotten power and ancient mystery. Your purpose is to navigate the unknown, decipher its secrets, and perhaps uncover the truths lost to time. You possess a keen intellect, a resilient spirit, and a natural curiosity that compels you to explore even the most daunting of places.",
+                    "appearanceDescription": "You are a small, nimble figure, clad in practical, earthy-toned leather armor that offers protection without hindering movement. A faint shimmer of arcane energy occasionally flickers around your hands, hinting at latent magical abilities.",
+                    "room": "The Obsidian Nexus"
+                },
+                "rooms": {
+                    "The Obsidian Nexus": {
+                        "name": "The Obsidian Nexus",
+                        "description": "You stand within the heart of the Colossus Labyrinth, a place of immense scale and silent power. The polished obsidian reflects your presence, making you feel small and insignificant against the backdrop of these gargantuan stone guardians. The very air seems to hum with a latent energy, a forgotten song sung by the stone itself.",
+                        "appearanceDescription": "You are in a vast, circular chamber hewn from polished black obsidian. The floor is a mosaic of shimmering, star-like fragments, and the walls are impossibly smooth, reflecting the dim light from above. Towering above you on all sides are colossal statues, their features eroded by time but still hinting at immense power and forgotten purpose. One statue, depicting a winged serpent coiled around a shattered sun, appears to have a gap in its base."
+                    },
+                    "The Crumbling Corridor": {
+                        "name": "The Crumbling Corridor",
+                        "description": "This narrow passage is unstable and partially blocked by fallen stone. The air is close and carries the scent of damp earth and something else... something primal and unsettling. It feels like the very walls are pressing in on you.",
+                        "appearanceDescription": "This is a cramped and unstable passageway. Loose rocks and ancient dust coat everything, and the air is heavy with the smell of damp earth and decay. Faint scrabbling sounds echo from deeper within, suggesting movement in the darkness."
+                    },
+                    "The Chamber of Whispers": {
+                        "name": "The Chamber of Whispers",
+                        "description": "You find yourself in a vast hall, illuminated by a soft, internal luminescence. The sheer scale of this place is breathtaking, and the silence is profound. It feels as though you have stepped into a place of ancient worship, untouched by time.",
+                        "appearanceDescription": "This chamber is significantly larger than the Nexus, its ceiling lost in shadow far above. The walls are lined with alcoves, each containing a smaller, intricately detailed statue of a humanoid figure with feathered wings. A faint, ethereal glow emanates from these statues, casting the room in a soft, otherworldly light. The air here is still and silent, carrying a sense of profound reverence."
+                    }
+                },
+                "items": {
+                    "Tarnished Bronze Key": {
+                        "appearanceDescription": "A small, tarnished bronze key lies half-buried in the dust near the base of the coiled serpent statue. It bears an intricate carving of a crescent moon on its bow.",
+                        "container": {
+                            "howToOpen": "The gap in the base of the serpent statue is just large enough to slide the key into.",
+                            "howToStoreItem": "You can carefully place small items into the hidden compartment.",
+                            "isContainer": "true"
+                        },
+                        "description": "This small bronze key seems old, but well-crafted. Its purpose is unclear, but it feels significant in this place of ancient power.",
+                        "name": "Tarnished Bronze Key",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    },
+                    "Granite Tablet": {
+                        "appearanceDescription": "A chipped granite tablet rests against the far wall, its surface covered in faded, angular script. The text appears to be a fragment of an ancient prophecy, speaking of watchful eyes and slumbering giants.",
+                        "container": {
+                            "isContainer": "false"
+                        },
+                        "description": "This tablet seems to be a historical record or a warning. The script is difficult to decipher, but the imagery it evokes is powerful.",
+                        "name": "Granite Tablet",
+                        "pickupable": {
+                            "isPickup": "false",
+                            "reasonWhyNotPickup": "The tablet is far too heavy and cumbersome to move."
+                        }
+                    }
+                },
+                "itemLocations": {
+                    "Tarnished Bronze Key": {
+                        "type": "room",
+                        "roomName": "The Obsidian Nexus"
+                    },
+                    "Granite Tablet": {
+                        "type": "room",
+                        "roomName": "The Obsidian Nexus"
+                    }
+                },
+                "roomConnections": {
+                    "The Obsidian Nexus": [
+                        {
+                            "here": "The Obsidian Nexus",
+                            "there": "The Crumbling Corridor",
+                            "description": "A dark, narrow passage choked with fallen debris leads away from the chamber to the east, towards the echoing calls of unseen creatures."
+                        },
+                        {
+                            "here": "The Obsidian Nexus",
+                            "there": "The Chamber of Whispers",
+                            "description": "To the north, a grand archway carved with reliefs of celestial beings beckons you into a wider, more open space."
+                        }
+                    ],
+                    "The Crumbling Corridor": [
+                        {
+                            "here": "The Crumbling Corridor",
+                            "there": "The Obsidian Nexus",
+                            "description": "You can return to the Obsidian Nexus by pushing through the rubble-filled passage to the west."
+                        }
+                    ],
+                    "The Chamber of Whispers": [
+                        {
+                            "here": "The Chamber of Whispers",
+                            "there": "The Obsidian Nexus",
+                            "description": "You can re-enter the Obsidian Nexus through the grand archway to the south, leaving the Chamber of Whispers behind."
+                        }
+                    ]
+                },
+                "startingRoom": "The Obsidian Nexus",
+                "visitedRooms": [
+                    "The Obsidian Nexus"
+                ],
+                "openedItems": []
+            }
+        }
+    },
+    "state": {
+        "game": {
+            "world": {
+                "description": "You stand at the precipice of the Colossus Labyrinth, a sprawling maze carved from obsidian and granite, where colossal statues of forgotten deities and legendary beasts loom over you like silent sentinels. The air is thick with the scent of ancient dust and ozone, and the sheer scale of the stone figures dwarfs you, their unseeing eyes seeming to follow your every move. Sunlight struggles to penetrate the depths of the labyrinth, casting long, distorted shadows that dance and writhe, playing tricks on your perception. Each pathway is a cavernous corridor flanked by these monolithic sculptures, their weathered surfaces telling stories in a language of weathered stone and enigmatic carvings.",
+                "player": {
+                    "name": "Kaelen",
+                    "description": "You are a Seeker, an individual drawn to places of forgotten power and ancient mystery. Your purpose is to navigate the unknown, decipher its secrets, and perhaps uncover the truths lost to time. You possess a keen intellect, a resilient spirit, and a natural curiosity that compels you to explore even the most daunting of places.",
+                    "appearanceDescription": "You are a small, nimble figure, clad in practical, earthy-toned leather armor that offers protection without hindering movement. A faint shimmer of arcane energy occasionally flickers around your hands, hinting at latent magical abilities.",
+                    "room": "The Obsidian Nexus"
+                },
+                "rooms": {
+                    "The Obsidian Nexus": {
+                        "name": "The Obsidian Nexus",
+                        "description": "You stand within the heart of the Colossus Labyrinth, a place of immense scale and silent power. The polished obsidian reflects your presence, making you feel small and insignificant against the backdrop of these gargantuan stone guardians. The very air seems to hum with a latent energy, a forgotten song sung by the stone itself.",
+                        "appearanceDescription": "You are in a vast, circular chamber hewn from polished black obsidian. The floor is a mosaic of shimmering, star-like fragments, and the walls are impossibly smooth, reflecting the dim light from above. Towering above you on all sides are colossal statues, their features eroded by time but still hinting at immense power and forgotten purpose. One statue, depicting a winged serpent coiled around a shattered sun, appears to have a gap in its base."
+                    },
+                    "The Crumbling Corridor": {
+                        "name": "The Crumbling Corridor",
+                        "description": "This narrow passage is unstable and partially blocked by fallen stone. The air is close and carries the scent of damp earth and something else... something primal and unsettling. It feels like the very walls are pressing in on you.",
+                        "appearanceDescription": "This is a cramped and unstable passageway. Loose rocks and ancient dust coat everything, and the air is heavy with the smell of damp earth and decay. Faint scrabbling sounds echo from deeper within, suggesting movement in the darkness."
+                    },
+                    "The Chamber of Whispers": {
+                        "name": "The Chamber of Whispers",
+                        "description": "You find yourself in a vast hall, illuminated by a soft, internal luminescence. The sheer scale of this place is breathtaking, and the silence is profound. It feels as though you have stepped into a place of ancient worship, untouched by time.",
+                        "appearanceDescription": "This chamber is significantly larger than the Nexus, its ceiling lost in shadow far above. The walls are lined with alcoves, each containing a smaller, intricately detailed statue of a humanoid figure with feathered wings. A faint, ethereal glow emanates from these statues, casting the room in a soft, otherworldly light. The air here is still and silent, carrying a sense of profound reverence."
+                    }
+                },
+                "items": {
+                    "Tarnished Bronze Key": {
+                        "appearanceDescription": "A small, tarnished bronze key lies half-buried in the dust near the base of the coiled serpent statue. It bears an intricate carving of a crescent moon on its bow.",
+                        "container": {
+                            "howToOpen": "The gap in the base of the serpent statue is just large enough to slide the key into.",
+                            "howToStoreItem": "You can carefully place small items into the hidden compartment.",
+                            "isContainer": "true"
+                        },
+                        "description": "This small bronze key seems old, but well-crafted. Its purpose is unclear, but it feels significant in this place of ancient power.",
+                        "name": "Tarnished Bronze Key",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    },
+                    "Granite Tablet": {
+                        "appearanceDescription": "A chipped granite tablet rests against the far wall, its surface covered in faded, angular script. The text appears to be a fragment of an ancient prophecy, speaking of watchful eyes and slumbering giants.",
+                        "container": {
+                            "isContainer": "false"
+                        },
+                        "description": "This tablet seems to be a historical record or a warning. The script is difficult to decipher, but the imagery it evokes is powerful.",
+                        "name": "Granite Tablet",
+                        "pickupable": {
+                            "isPickup": "false",
+                            "reasonWhyNotPickup": "The tablet is far too heavy and cumbersome to move."
+                        }
+                    }
+                },
+                "itemLocations": {
+                    "Tarnished Bronze Key": {
+                        "type": "room",
+                        "roomName": "The Obsidian Nexus"
+                    },
+                    "Granite Tablet": {
+                        "type": "room",
+                        "roomName": "The Obsidian Nexus"
+                    }
+                },
+                "roomConnections": {
+                    "The Obsidian Nexus": [
+                        {
+                            "here": "The Obsidian Nexus",
+                            "there": "The Crumbling Corridor",
+                            "description": "A dark, narrow passage choked with fallen debris leads away from the chamber to the east, towards the echoing calls of unseen creatures."
+                        },
+                        {
+                            "here": "The Obsidian Nexus",
+                            "there": "The Chamber of Whispers",
+                            "description": "To the north, a grand archway carved with reliefs of celestial beings beckons you into a wider, more open space."
+                        }
+                    ],
+                    "The Crumbling Corridor": [
+                        {
+                            "here": "The Crumbling Corridor",
+                            "there": "The Obsidian Nexus",
+                            "description": "You can return to the Obsidian Nexus by pushing through the rubble-filled passage to the west."
+                        }
+                    ],
+                    "The Chamber of Whispers": [
+                        {
+                            "here": "The Chamber of Whispers",
+                            "there": "The Obsidian Nexus",
+                            "description": "You can re-enter the Obsidian Nexus through the grand archway to the south, leaving the Chamber of Whispers behind."
+                        }
+                    ]
+                },
+                "startingRoom": "The Obsidian Nexus",
+                "visitedRooms": [
+                    "The Obsidian Nexus"
+                ],
+                "openedItems": []
+            }
+        }
+    },
+    "turns": []
+}

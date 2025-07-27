@@ -39,6 +39,7 @@ import {
   visitRoom,
   getItemLocation,
   getContainerItems,
+  hasBeenOpenedBefore,
 } from "./semantics";
 
 // -----------------------------------------------------------------------------
@@ -55,7 +56,8 @@ export const GameAction = (game?: Game) =>
     ...PlayerDropsItem_GameAction(game),
     ...PlayerInspectsItem_GameAction(game),
     ...PlayerCombinesItems_GameAction(game),
-    ...PlayerOpensItem_GameAction(game),
+    ...PlayerOpensContainer_GameAction(game),
+    ...PlayerPutsItemIntoContainer_GameAction(game),
   ] as const as Readonly<
     [
       Codomain<typeof PlayerGoesToRoom_GameAction>[number],
@@ -65,7 +67,8 @@ export const GameAction = (game?: Game) =>
       Codomain<typeof PlayerDropsItem_GameAction>[number],
       Codomain<typeof PlayerInspectsItem_GameAction>[number],
       Codomain<typeof PlayerCombinesItems_GameAction>[number],
-      Codomain<typeof PlayerOpensItem_GameAction>[number],
+      Codomain<typeof PlayerOpensContainer_GameAction>[number],
+      Codomain<typeof PlayerPutsItemIntoContainer_GameAction>[number],
     ]
   >);
 
@@ -190,10 +193,10 @@ export const PlayerTakesItem_GameAction = mkGameActionSchema({
   },
 });
 
-export type PlayerOpensItem_GameAction = InferGameAction<
-  typeof PlayerOpensItem_GameAction
+export type PlayerOpensContainer_GameAction = InferGameAction<
+  typeof PlayerOpensContainer_GameAction
 >;
-export const PlayerOpensItem_GameAction = mkGameActionSchema({
+export const PlayerOpensContainer_GameAction = mkGameActionSchema({
   mkSchemaArgs(game) {
     const itemNames = [
       ...getPlayerItems(game).map((i) => i.name),
@@ -210,12 +213,44 @@ export const PlayerOpensItem_GameAction = mkGameActionSchema({
   mkSchema(args) {
     return z
       .object({
-        type: z.enum(["PlayerOpensItem"]),
+        type: z.enum(["PlayerOpensContainer"]),
         container: args.item.describe(
           "the name of the item that the player opens",
         ),
       })
       .describe("the action where the player opens an item");
+  },
+});
+
+export type PlayerPutsItemIntoContainer_GameAction = InferGameAction<
+  typeof PlayerPutsItemIntoContainer_GameAction
+>;
+export const PlayerPutsItemIntoContainer_GameAction = mkGameActionSchema({
+  mkSchemaArgs(game) {
+    const itemNames = [
+      ...getPlayerItems(game).map((i) => i.name),
+      ...getPlayerRoomItems(game).map((i) => i.name),
+    ];
+    if (!isNonEmpty(itemNames)) return undefined;
+    return {
+      item: z.enum(Object.freeze(itemNames)),
+      container: z.enum(Object.freeze(itemNames)),
+    };
+  },
+  defaultSchemaArgs: {
+    item: castStringSchemaToEnumSchema(ItemName),
+    container: castStringSchemaToEnumSchema(ItemName),
+  },
+  mkSchema(args) {
+    return z
+      .object({
+        type: z.enum(["PlayerPutsItemIntoContainer"]),
+        item: args.item.describe(
+          "the name of the item to put inside the container",
+        ),
+        container: args.item.describe("the name of the container"),
+      })
+      .describe("the action where the player puts an item into a container");
   },
 });
 
@@ -396,12 +431,12 @@ export async function interpretGameAction(
     });
     addItem(game, item, { type: "player" });
     return `The player combines the items _${gameAction.item1}_ and _${gameAction.item2}_ in their inventory. The resulting combination is _${item.name}_: ${item.description}`;
-  } else if (gameAction.type === "PlayerOpensItem") {
+  } else if (gameAction.type === "PlayerOpensContainer") {
     const container = getItem(game, gameAction.container);
-    const containerLocation = getItemLocation(game, gameAction.container);
+    const containerLocation = getItemLocation(game, container.name);
     if (container.container.isContainer === "false")
-      return `The player could not open the the item _${gameAction.container}_ because it is not a container.`;
-    if (!game.world.openedItems.includes(gameAction.container)) {
+      return `The player could not open the the item _${container.name}_ because it is not a container.`;
+    if (!hasBeenOpenedBefore(game, container.name)) {
       const { items } = await flow.GenerateContainerItems({
         game,
         prompt: action.prompt,
@@ -414,7 +449,7 @@ export async function interpretGameAction(
           containerName: container.name,
         });
       }
-      game.world.openedItems.push(gameAction.container);
+      game.world.openedItems.push(container.name);
     }
     const items = getContainerItems(game, container.name);
     console.log(
@@ -458,6 +493,41 @@ export async function interpretGameAction(
     } else {
       return `The player opened the item ${container.name} in the following manner: ${container.container.howToOpen} The player took out the items ${items.map((item) => `_${item.name}_`).join(", ")}. The items are now in ${itemsNewLocationDescription}.`;
     }
+  } else if (gameAction.type === "PlayerPutsItemIntoContainer") {
+    const playerRoom = getPlayerRoom(game);
+    const container = getItem(game, gameAction.container);
+    const containerLocation = getItemLocation(game, container.name);
+    const item = getItem(game, gameAction.item);
+    const itemLocation = getItemLocation(game, item.name);
+    if (container.container.isContainer === "false") {
+      return `The player cannot put the item _${item.name}_ into the item _${container.name}_ because _${container.name}_ is not a container.`;
+    }
+    if (item.pickupable.isPickup === "false") {
+      return `The player cannot put the item _${item.name}_ into the item _${container.name}_ because _${item.name}_ is not pickupable: ${item.pickupable.reasonWhyNotPickup}`;
+    }
+    if (
+      !(
+        containerLocation.type === "player" ||
+        (containerLocation.type === "room" &&
+          containerLocation.roomName === playerRoom.name)
+      )
+    ) {
+      return `The player cannot put the item _${item.name}_ into the container _${container.name}_ because _${container.name}_ is neither in the player's inventory nor in their current room.`;
+    }
+    if (
+      !(
+        itemLocation.type === "player" ||
+        (itemLocation.type === "room" &&
+          itemLocation.roomName === playerRoom.name)
+      )
+    ) {
+      return `The player cannot put the item _${item.name}_ into the container _${container.name}_ because _${item.name}_ is not neither in the player's inventory nor in their current room.`;
+    }
+    setItemLocation(game, item.name, {
+      type: "container",
+      containerName: container.name,
+    });
+    return `The player puts the item _${item.name}_ into the container _${container.name}_ in the following manner: ${container.container.howToStoreItem}.`;
   } else {
     return fromNever(gameAction);
   }

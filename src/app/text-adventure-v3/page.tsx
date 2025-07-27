@@ -9,7 +9,7 @@ import styles from "./page.module.css";
 import * as server from "./server";
 import { markdownifyGameView } from "./semantics";
 import Markdown from "react-markdown";
-import { ChevronRight, Quote } from "lucide-react";
+import { ChevronRight, MoveRight, Quote } from "lucide-react";
 import { ItemName, RoomName } from "./ontology";
 import path from "path";
 import { paths } from "./common_client";
@@ -341,7 +341,7 @@ export default function Page() {
                                     <ChevronRight size={20} />
                                   </div>
                                   <div className={styles.content}>
-                                    combines{" "}
+                                    combine{" "}
                                     <span className={styles.itemName}>
                                       {gameAction.item1}
                                     </span>{" "}
@@ -370,22 +370,59 @@ export default function Page() {
                                     <ChevronRight size={20} />
                                   </div>
                                   <div className={styles.content}>
-                                    inspected connection to{" "}
+                                    inspect connection to{" "}
                                     <span className={styles.itemName}>
                                       {gameAction.room}
                                     </span>
                                   </div>
                                 </>
-                              ) : gameAction.type === "PlayerOpensItem" ? (
+                              ) : gameAction.type === "PlayerOpensContainer" ? (
                                 <>
                                   <div className={styles.label}>
                                     <ChevronRight size={20} />
                                   </div>
                                   <div className={styles.content}>
-                                    opened{" "}
+                                    open{" "}
                                     <span className={styles.itemName}>
                                       {gameAction.container}
                                     </span>
+                                  </div>
+                                  <div className={styles.assets}>
+                                    <ItemCard
+                                      inst={state.inst}
+                                      itemName={gameAction.container}
+                                      format="chat"
+                                    />
+                                  </div>
+                                </>
+                              ) : gameAction.type ===
+                                "PlayerPutsItemIntoContainer" ? (
+                                <>
+                                  <div className={styles.label}>
+                                    <ChevronRight size={20} />
+                                  </div>
+                                  <div className={styles.content}>
+                                    put{" "}
+                                    <span className={styles.itemName}>
+                                      {gameAction.item}
+                                    </span>{" "}
+                                    into{" "}
+                                    <span className={styles.itemName}>
+                                      {gameAction.container}
+                                    </span>
+                                  </div>
+                                  <div className={styles.assets}>
+                                    <ItemCard
+                                      inst={state.inst}
+                                      itemName={gameAction.item}
+                                      format="chat"
+                                    />
+                                    <MoveRight size={30} />
+                                    <ItemCard
+                                      inst={state.inst}
+                                      itemName={gameAction.container}
+                                      format="chat"
+                                    />
                                   </div>
                                 </>
                               ) : (
