@@ -2,7 +2,7 @@
 
 import { Inst, InstClient, SpecServer } from "@/library/sva/ontology";
 import * as server from "@/library/sva/server";
-import { err, fromDataUrlToBuffer, ok, Result } from "@/utility";
+import { err, fromDataUrlToBuffer, ok, Result, stringify } from "@/utility";
 import * as fs from "fs/promises";
 import filenamify from "filenamify";
 import {
@@ -65,6 +65,8 @@ const spec: SpecServer<N, P, S, V, A> = {
       );
       gameActionDescriptions.push(description);
     }
+
+    console.log("[interpretAction]", stringify({ gameActionDescriptions }));
 
     const { description } = await GenerateTurnDescription({
       game: inst.state.game,

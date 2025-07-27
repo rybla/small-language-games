@@ -5,10 +5,14 @@ import {
   makeTextPart,
 } from "@/backend/ai/common";
 import {
+  requireDefined,
   Codomain,
+  defined,
+  do_,
   fromNever,
   isNonEmpty,
   NonEmptyArray,
+  stringify,
   trim,
 } from "@/utility";
 import { GenerateOptions, z } from "genkit";
@@ -33,6 +37,8 @@ import {
   addRoom,
   addRoomConnection,
   visitRoom,
+  getItemLocation,
+  getContainerItems,
 } from "./semantics";
 
 // -----------------------------------------------------------------------------
@@ -49,6 +55,7 @@ export const GameAction = (game?: Game) =>
     ...PlayerDropsItem_GameAction(game),
     ...PlayerInspectsItem_GameAction(game),
     ...PlayerCombinesItems_GameAction(game),
+    ...PlayerOpensItem_GameAction(game),
   ] as const as Readonly<
     [
       Codomain<typeof PlayerGoesToRoom_GameAction>[number],
@@ -58,6 +65,7 @@ export const GameAction = (game?: Game) =>
       Codomain<typeof PlayerDropsItem_GameAction>[number],
       Codomain<typeof PlayerInspectsItem_GameAction>[number],
       Codomain<typeof PlayerCombinesItems_GameAction>[number],
+      Codomain<typeof PlayerOpensItem_GameAction>[number],
     ]
   >);
 
@@ -177,6 +185,35 @@ export const PlayerTakesItem_GameAction = mkGameActionSchema({
       .describe(
         "the action where the player takes an item from their current room and adds it to their inventory",
       );
+  },
+});
+
+export type PlayerOpensItem_GameAction = InferGameAction<
+  typeof PlayerOpensItem_GameAction
+>;
+export const PlayerOpensItem_GameAction = mkGameActionSchema({
+  mkSchemaArgs(game) {
+    const itemNames = [
+      ...getPlayerItems(game).map((i) => i.name),
+      ...getPlayerRoomItems(game).map((i) => i.name),
+    ];
+    if (!isNonEmpty(itemNames)) return undefined;
+    return {
+      item: z.enum(Object.freeze(itemNames)),
+    };
+  },
+  defaultSchemaArgs: {
+    item: castStringSchemaToEnumSchema(ItemName),
+  },
+  mkSchema(args) {
+    return z
+      .object({
+        type: z.enum(["PlayerOpensItem"]),
+        container: args.item.describe(
+          "the name of the item that the player opens",
+        ),
+      })
+      .describe("the action where the player opens an item");
   },
 });
 
@@ -335,7 +372,7 @@ export async function interpretGameAction(
         `The player cannot take the item _${gameAction.item}_ because that item is not in the player's current room, "${playerRoom.name}"`,
       );
     const item = getItem(game, gameAction.item);
-    if (!item.pickupable.isPickup) {
+    if (item.pickupable.isPickup === "false") {
       return `The player cannot take the item _${gameAction.item}_ because: ${item.pickupable.reasonWhyNotPickup}`;
     }
     setItemLocation(game, gameAction.item, {
@@ -357,6 +394,54 @@ export async function interpretGameAction(
     });
     addItem(game, item, { type: "player" });
     return `The player combines the items _${gameAction.item1}_ and _${gameAction.item2}_ in their inventory. The resulting combination is _${item.name}_: ${item.description}`;
+  } else if (gameAction.type === "PlayerOpensItem") {
+    const container = getItem(game, gameAction.container);
+    const containerLocation = getItemLocation(game, gameAction.container);
+    if (container.container.isContainer === "false")
+      return `The player could not open the the item _${gameAction.container}_ because it is not a container.`;
+    if (!game.world.openedItems.includes(gameAction.container)) {
+      const { items } = await flow.GenerateContainerItems({
+        game,
+        prompt: action.prompt,
+        container,
+      });
+      for (const item of items) {
+        addItem(game, item, {
+          type: "container",
+          containerName: container.name,
+        });
+      }
+      game.world.openedItems.push(gameAction.container);
+    }
+    const items = getContainerItems(game, container.name);
+
+    // move items outside of container
+    let itemsNewLocationDescription: string | undefined = undefined;
+    if (containerLocation.type === "player") {
+      const playerRoom = getPlayerRoom(game);
+      for (const item of items) {
+        setItemLocation(game, item.name, {
+          type: "room",
+          roomName: playerRoom.name,
+        });
+      }
+      itemsNewLocationDescription = "the player's inventory";
+    } else if (containerLocation.type === "room") {
+      for (const item of items) {
+        setItemLocation(game, item.name, {
+          type: "room",
+          roomName: containerLocation.roomName,
+        });
+      }
+      itemsNewLocationDescription = `the room _${containerLocation.roomName}_`;
+    } else {
+      throw new GameError(
+        game,
+        `the container _${container.name}_ shouldn't be in the location \`${stringify(containerLocation)}\``,
+      );
+    }
+    requireDefined(itemsNewLocationDescription);
+    return `The player opened the item ${container.name} in the following manner: ${container.container.howToOpen}. The player took out the items ${items.map((item) => `_${item.name}_`).join(", ")}. The items are now in ${itemsNewLocationDescription}.`;
   } else {
     return fromNever(gameAction);
   }

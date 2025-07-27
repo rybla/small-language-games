@@ -47,6 +47,9 @@ export const World = z.object({
   visitedRooms: z
     .array(z.lazy(() => RoomName))
     .describe("the names of all the rooms that the player has visited so far"),
+  openedItems: z
+    .array(z.lazy(() => ItemName))
+    .describe("the names of all the items that the player has opened so far"),
 });
 
 export type Player = z.infer<typeof Player>;
@@ -96,16 +99,16 @@ export type ItemContainer = z.infer<typeof ItemContainer>;
 export const ItemContainer = z.union([
   z.object({
     isContainer: z
-      .literal(true)
+      .enum(["true"])
       .describe("whether this item is a container that can hold other items"),
-    howToOpen: ShortDescription("way to open this container"),
+    howToOpen: ShortDescription("way to open this container (if it is closed)"),
     howToStoreItem: ShortDescription(
       "way to store an item inside this container",
     ),
   }),
   z.object({
     isContainer: z
-      .literal(false)
+      .enum(["false"])
       .describe("whether this item is a container that can hold other items"),
   }),
 ]);
@@ -114,12 +117,12 @@ export type ItemPickupable = z.infer<typeof ItemPickupable>;
 export const ItemPickupable = z.union([
   z.object({
     isPickup: z
-      .literal(true)
+      .enum(["true"])
       .describe("whether this item can be picked up by the player"),
   }),
   z.object({
     isPickup: z
-      .literal(false)
+      .enum(["false"])
       .describe("whether this item can be picked up by the player"),
     reasonWhyNotPickup: ShortDescription(
       "main reason why this item cannot be picked up",
@@ -140,6 +143,7 @@ export const ItemLocation = z.union([
       "this property specifies that the item's location is in the room of the specified name",
     ),
   z.object({ type: z.enum(["nonexistent"]) }),
+  z.object({ type: z.enum(["container"]), containerName: ItemName }),
 ]);
 
 // -----------------------------------------------------------------------------
@@ -155,8 +159,9 @@ export type WorldView = z.infer<typeof WorldView>;
 export const WorldView = z.object({
   player: z.lazy(() => PlayerView),
   room: z.lazy(() => RoomView),
-  visitedRooms: World.shape.visitedRooms,
   startingRoom: World.shape.startingRoom,
+  visitedRooms: World.shape.visitedRooms,
+  openedItems: World.shape.openedItems,
 });
 
 export type PlayerView = z.infer<typeof PlayerView>;

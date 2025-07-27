@@ -364,6 +364,18 @@ export default function Page() {
                                     </span>
                                   </div>
                                 </>
+                              ) : gameAction.type === "PlayerOpensItem" ? (
+                                <>
+                                  <div className={styles.label}>
+                                    <ChevronRight size={20} />
+                                  </div>
+                                  <div className={styles.content}>
+                                    opened{" "}
+                                    <span className={styles.itemName}>
+                                      {gameAction.container}
+                                    </span>
+                                  </div>
+                                </>
                               ) : (
                                 fromNever(gameAction)
                               )}
@@ -449,9 +461,9 @@ export default function Page() {
                       )}
                     </div>
                   </div>
-                  {/* <Markdown>
+                  <Markdown>
                     {markdownifyGameView(state.inst.view.game)}
-                  </Markdown> */}
+                  </Markdown>
                 </div>
               </div>
             </div>

@@ -36,6 +36,7 @@ export function getGameView(game: Game): GameView {
       },
       startingRoom: game.world.startingRoom,
       visitedRooms: game.world.visitedRooms,
+      openedItems: game.world.openedItems,
     },
   };
 }
@@ -120,11 +121,30 @@ export function getPlayerRoomItems(game: Game): Item[] {
   return getRoomItems(game, playerRoom.name);
 }
 
+export function getContainerItems(game: Game, itemName: ItemName): Item[] {
+  return Array.from(
+    Object.entries(game.world.itemLocations).flatMap(
+      ([itemName, itemLocation]) =>
+        itemLocation.type === "container" &&
+        itemLocation.containerName === itemName
+          ? [getItem(game, itemName)]
+          : [],
+    ),
+  );
+}
+
 export function getItem(game: Game, itemName: ItemName): Item {
   const item = game.world.items[itemName];
   if (item === undefined)
     throw new GameError(game, `Item "${itemName}" not found`);
   return item;
+}
+
+export function getItemLocation(game: Game, itemName: ItemName) {
+  const itemLocation = game.world.itemLocations[itemName];
+  if (itemLocation === undefined)
+    throw new GameError(game, `Item "${itemName}" not found`);
+  return itemLocation;
 }
 
 export function getRoom(game: Game, roomName: RoomName): Room {

@@ -195,3 +195,13 @@ export function randomIntInRange([min, max]: [number, number]): number {
 export function randomFloatInRange([min, max]: [number, number]): number {
   return Math.random() * (max - min) + min;
 }
+
+type NotUndefined<T> = T extends undefined ? never : T;
+
+export function defined<T>(x: NotUndefined<T>) {
+  return x;
+}
+
+export function requireDefined<T>(x: NotUndefined<T>): x is NotUndefined<T> {
+  return true;
+}

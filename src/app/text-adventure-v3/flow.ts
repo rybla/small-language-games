@@ -99,6 +99,7 @@ ${prompt}
         },
         startingRoom: room.name,
         visitedRooms: [room.name],
+        openedItems: [],
       },
     };
 
@@ -227,6 +228,56 @@ ${worldDescription}
   },
 );
 
+export const GenerateContainerItems = ai.defineFlow(
+  {
+    name: "GenerateContainerItems",
+    inputSchema: z.object({
+      game: Game,
+      prompt: z.string(),
+      container: Item,
+    }),
+    outputSchema: z.object({
+      items: z.array(Item),
+    }),
+  },
+  async ({ game, prompt, container }) => {
+    const { items } = getValidOutput(
+      await ai.generate({
+        model: model.text_speed,
+        system: trim(`
+${makeSystemPrelude_text()}
+
+Game world description: ${game.world.description}
+
+Your task is to create the items that are inside a particular container.
+`),
+        prompt: trim(`
+For this task, you will creating the items that are inside the container _${container.name}_.
+
+Description of _${container.name}_: ${container.description}
+Appearance of _${container.name}_: ${container.appearanceDescription}
+
+Keep the following notes in mind:
+- Make sure you items you create make sense to be located inside the container _${container.name}_.
+- Make sure all of the details you create are thematically coherent with the game world and the container's descriptions.
+- Be creative! Include some normal items as some exciting, unique creations that a player would only ever see in your inventive game world.
+`),
+        output: {
+          schema: z.object({
+            items: z
+              .array(Item)
+              .min(1)
+              .describe(
+                `All the items to be placed in the container _${container.name}_.`,
+              ),
+          }),
+        },
+      } satisfies GenerateOptions),
+    );
+    return { items };
+  },
+);
+
 export const GenerateNewRoom = ai.defineFlow(
   {
     name: "GenerateNewRoom",
@@ -264,13 +315,13 @@ Game world description: ${game.world.description}
 Your task is to follow the user's instructions to describe a new room in the game.
 `),
         prompt: trim(`
-For this task, you will working with a new room in the game called "${room.name}".
+For this task, you will working with a new room in the game called _${room.name}_.
 
 Room description: ${room.description}
 
 Room appearance: ${room.appearanceDescription}
 
-For this room, "${room.name}", create some items and connections to some other new rooms.
+For this room, _${room.name}_, create some items and connections to some other new rooms.
 Keep the following notes in mind:
 - Make sure you choose items that make sense to be located in this room.
 - Make sure you choose connections to other new rooms that make sense to be connected to this room.
@@ -283,7 +334,7 @@ Keep the following notes in mind:
               .array(Item)
               .min(1)
               .describe(
-                `All the items to be placed in the room "${roomName}".`,
+                `All the items to be placed in the room _${roomName}_.`,
               ),
             connectedRooms: z
               .array(
@@ -292,15 +343,15 @@ Keep the following notes in mind:
                   roomDescription: Room.shape.description,
                   roomAppearanceDescription: Room.shape.appearanceDescription,
                   descriptionOfPathFromHereToThere: ShortDescription(
-                    `path from ${room.name} to this room`,
+                    `path from _${room.name}_ to this room`,
                   ),
                   descriptionOfPathFromThereToHere: ShortDescription(
-                    `path from this room to ${room.name}`,
+                    `path from this room to _${room.name}_`,
                   ),
                 }),
               )
               .min(1)
-              .describe(`All the rooms connected to the room "${roomName}"`),
+              .describe(`All the rooms connected to the room _${roomName}_`),
           }),
         },
       } satisfies GenerateOptions),
@@ -358,7 +409,7 @@ Style instructions:
   - borderless
   - NO TEXT
 
-Image description: A game image arg asset that represents the item "${item.name}". ${item.appearanceDescription}
+Image description: A game image arg asset that represents the item _${item.name}_. ${item.appearanceDescription}
 `),
         output: { format: "media" },
         config: {
@@ -394,7 +445,7 @@ Style instructions:
   - borderless
   - NO TEXT
 
-Image description: A game image art asset that represents the room "${room.name}". ${room.appearanceDescription}
+Image description: A game image art asset that represents the room _${room.name}_. ${room.appearanceDescription}
 `),
         output: { format: "media" },
         config: {
