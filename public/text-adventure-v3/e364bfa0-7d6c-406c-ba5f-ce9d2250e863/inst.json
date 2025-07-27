@@ -89,7 +89,7 @@
                     "name": "Glitch",
                     "description": "You are known only as 'Glitch' in the underbelly of the digital world. A phantom in the machine, you navigate the sprawling, rain-slicked metropolis of Neo-Kyoto, a city that bleeds light and information. Once a promising corporate netrunner, a botched data heist branded you a renegade, forcing you into the shadows. Now, you operate from a cramped, anonymous hab-unit, taking on risky jobs that skirt the edges of legality, always one step ahead of the omnipresent corporate security forces and the digital ghosts that haunt the datastreams.",
                     "appearanceDescription": "You are a silhouette against the neon glow of Neo-Kyoto, clad in a worn, oil-stained synth-leather jacket. A neural interface port glints subtly at your temple, partially obscured by a shock of brightly dyed, unruly hair. Your eyes, sharp and perpetually scanning, are hidden behind mirrored AR goggles that display a constant stream of data, flickering with schematics and network traffic.",
-                    "room": "Sector 7 Transit Hub"
+                    "room": "Lucky Dragon Noodles"
                 },
                 "rooms": {
                     "Hab-Unit 4B": {
@@ -111,6 +111,16 @@
                         "name": "Central Power Conduit",
                         "description": "The Central Power Conduit is the pulsating heart of Sector 7's energy grid, a dangerous but vital engine room. Gigantic conduits, thick as ancient trees, snake across the ceiling and walls, channeling raw power to the arcologies above. Maintenance drones, sparks trailing from their chassis, flit through the smog-choked air.",
                         "appearanceDescription": "This is a vast, cavernous space filled with the ceaseless, thunderous roar of colossal gears and pistons. Sparks fly like angry fireflies from grinding metal as automated arms perform complex, repetitive tasks. The air shimmers with heat, and the floor vibrates with the raw power coursing through the massive machinery."
+                    },
+                    "The Data-Graveyard": {
+                        "name": "The Data-Graveyard",
+                        "description": "This is a forgotten service corridor, rarely frequented by anyone but vermin and those seeking to disappear. The walls are layered with graffiti, a chaotic tapestry of corporate logos defaced with revolutionary symbols and desperate pleas. The ground is uneven, littered with discarded data chips and the occasional glint of something metallic and potentially valuable.",
+                        "appearanceDescription": "This narrow passage is choked with refuse and the skeletal remains of abandoned cybernetics. Dripping pipes overhead create a constant, unsettling patter, and the air is thick with the smell of ozone and decay. Dim emergency lights flicker erratically, casting long, distorted shadows that seem to writhe with a life of their own."
+                    },
+                    "The Conduit Nexus": {
+                        "name": "The Conduit Nexus",
+                        "description": "This is a critical junction in the Undercity's archaic infrastructure, a place where vital fluids and energy are channeled through a network of aging arteries. It's a dangerous place, prone to sudden pressure changes and electrical surges, but it also serves as a hidden thoroughfare for those who know its secrets. The constant thrum of the city's underbelly resonates here, a powerful, primal beat.",
+                        "appearanceDescription": "This chamber is a disorienting maze of interconnected pipes and conduits, all slick with a dark, viscous fluid. The air is humid and heavy, carrying the faint scent of synthetic chemicals and something vaguely organic. Small, bioluminescent fungi cling to the pipes, casting an eerie, pulsing green light that barely pierces the gloom. The oppressive sound of machinery hums from unseen depths."
                     }
                 },
                 "items": {
@@ -143,6 +153,21 @@
                         "name": "Chrono-Thread",
                         "description": "This is a 'Chrono-Thread', a rare and enigmatic artifact rumored to be a byproduct of temporal distortions within Neo-Kyoto's advanced technological matrix. Touching it might offer glimpses of the past or future, or simply unravel reality.",
                         "appearanceDescription": "A shimmering, almost invisible thread hangs suspended in the air near the ceiling. It seems to be woven from pure light, pulsating with a soft, internal glow."
+                    },
+                    "Bowl of Lucky Dragon Noodles": {
+                        "name": "Bowl of Lucky Dragon Noodles",
+                        "description": "This is a standard bowl of 'Lucky Dragon Noodles,' a staple for the budget-conscious denizens of Neo-Kyoto. While not gourmet, it's guaranteed to fill your stomach and provide a modicum of energy for your travels.",
+                        "appearanceDescription": "A chipped ceramic bowl, still warm, holds a steaming portion of nutrient paste. It has a vaguely savory aroma, with hints of processed kelp and synthetic spice. A single, unnaturally bright red noodle floats on the surface."
+                    },
+                    "Tarnished Dragon Charm": {
+                        "name": "Tarnished Dragon Charm",
+                        "description": "This charm is said to bring good fortune to those who carry it, a small token of hope in the grim reality of the Undercity. Its origins are lost to time, but the belief in its power persists.",
+                        "appearanceDescription": "A small, tarnished silver charm shaped like a dragon, its scales worn smooth by countless touches. A thin, braided wire is attached, likely for securing it to clothing or a wrist."
+                    },
+                    "Flask of Undercity Firewater": {
+                        "name": "Flask of Undercity Firewater",
+                        "description": "This flask contains a potent, homemade spirit distilled from fermented fungi and cheap synth-alcohol. It's known for its harsh kick and its ability to temporarily numb the anxieties of life in Neo-Kyoto.",
+                        "appearanceDescription": "A dented, metal flask with a crude, hand-painted dragon logo. It's surprisingly heavy and sealed tightly with a screw-top cap."
                     }
                 },
                 "itemLocations": {
@@ -167,6 +192,17 @@
                     "Chrono-Thread": {
                         "type": "room",
                         "roomName": "Sector 7 Transit Hub"
+                    },
+                    "Bowl of Lucky Dragon Noodles": {
+                        "type": "room",
+                        "roomName": "Lucky Dragon Noodles"
+                    },
+                    "Tarnished Dragon Charm": {
+                        "type": "room",
+                        "roomName": "Lucky Dragon Noodles"
+                    },
+                    "Flask of Undercity Firewater": {
+                        "type": "player"
                     }
                 },
                 "roomConnections": {
@@ -199,6 +235,16 @@
                             "here": "Lucky Dragon Noodles",
                             "there": "Sector 7 Transit Hub",
                             "description": "A grimy, ascending staircase leads back to the echoing vastness of the transit hub, the murmur of crowds a welcome if overwhelming sound."
+                        },
+                        {
+                            "here": "Lucky Dragon Noodles",
+                            "there": "The Data-Graveyard",
+                            "description": "A narrow, grime-streaked alleyway leads away from the noodle stand, disappearing into the perpetual twilight of the Undercity."
+                        },
+                        {
+                            "here": "Lucky Dragon Noodles",
+                            "there": "The Conduit Nexus",
+                            "description": "A heavy, rusted metal door, scarred with countless impacts, is set into the side of the shipping container, offering a path into the deeper levels of the Undercity."
                         }
                     ],
                     "Central Power Conduit": [
@@ -207,12 +253,27 @@
                             "there": "Sector 7 Transit Hub",
                             "description": "Emerging from the oppressive hum of machinery, the relative quiet of the transit hub feels like a balm to the senses."
                         }
+                    ],
+                    "The Data-Graveyard": [
+                        {
+                            "here": "The Data-Graveyard",
+                            "there": "Lucky Dragon Noodles",
+                            "description": "The alleyway opens back up to the flickering neon glow of the Lucky Dragon Noodles stand."
+                        }
+                    ],
+                    "The Conduit Nexus": [
+                        {
+                            "here": "The Conduit Nexus",
+                            "there": "Lucky Dragon Noodles",
+                            "description": "The rusted metal door creaks open, revealing the steamy confines of the Lucky Dragon Noodles stand."
+                        }
                     ]
                 },
                 "startingRoom": "Hab-Unit 4B",
                 "visitedRooms": [
                     "Hab-Unit 4B",
-                    "Sector 7 Transit Hub"
+                    "Sector 7 Transit Hub",
+                    "Lucky Dragon Noodles"
                 ]
             }
         }
@@ -712,6 +773,1052 @@
                 ]
             },
             "description": "Glitch, ever the phantom of Neo-Kyoto, pulls the collar of their synth-leather jacket tighter, the familiar material a small comfort against the oppressive dampness of Hab-Unit 4B. With a final glance at the flickering fluorescent light and the distorted cityscape beyond the narrow viewport, they turn their back on the meager refuge. The grime-etched metallic walls of their living space seem to press in, a silent testament to the life lived in the shadows. Glitch strides purposefully towards the only exit, a rusted, shuddering elevator shaft, its descent into the murky depths of the Undercity a call to the next job, the next risk, the next flicker in the neon-drenched night."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Neo-Kyoto is a colossal monument to human ambition and technological excess. Towering arcologies pierce the perpetually smog-choked sky, their surfaces plastered with holographic advertisements that paint the rain-swept streets in a kaleidoscope of garish colors. Below the gleaming chrome and pulsating neon of the upper sectors lies the Undercity, a labyrinth of grimy alleys, overcrowded markets, and forgotten infrastructure where the dispossessed and defiant carve out a precarious existence. The air crackles with electromagnetic interference, and the omnipresent hum of cybernetic augmentation is the city's constant heartbeat. Corporations rule this domain with an iron fist, their influence extending from the data-rich sky-scrapers down to the bio-luminescent fungi that grow in the deepest sewers.",
+                        "player": {
+                            "name": "Glitch",
+                            "description": "You are known only as 'Glitch' in the underbelly of the digital world. A phantom in the machine, you navigate the sprawling, rain-slicked metropolis of Neo-Kyoto, a city that bleeds light and information. Once a promising corporate netrunner, a botched data heist branded you a renegade, forcing you into the shadows. Now, you operate from a cramped, anonymous hab-unit, taking on risky jobs that skirt the edges of legality, always one step ahead of the omnipresent corporate security forces and the digital ghosts that haunt the datastreams.",
+                            "appearanceDescription": "You are a silhouette against the neon glow of Neo-Kyoto, clad in a worn, oil-stained synth-leather jacket. A neural interface port glints subtly at your temple, partially obscured by a shock of brightly dyed, unruly hair. Your eyes, sharp and perpetually scanning, are hidden behind mirrored AR goggles that display a constant stream of data, flickering with schematics and network traffic.",
+                            "room": "Lucky Dragon Noodles"
+                        },
+                        "rooms": {
+                            "Hab-Unit 4B": {
+                                "name": "Hab-Unit 4B",
+                                "description": "This is your private space, a meager refuge from the relentless press of Neo-Kyoto's Undercity. It's a testament to functional minimalism, designed for survival rather than comfort. Every inch of space is utilized, and the lingering scent of recycled air does little to mask the ever-present dampness.",
+                                "appearanceDescription": "You find yourself in a cramped, dimly lit hab-unit, the metallic walls slick with condensation and etched with the grime of countless occupants. A single, flickering fluorescent tube casts long, distorted shadows across the sparse furnishings. The air is thick with the smell of stale synth-noodles and ozone. A narrow viewport offers a distorted glimpse of the neon-drenched, rain-lashed cityscape far above, a stark reminder of the world outside this cramped existence."
+                            },
+                            "Sector 7 Transit Hub": {
+                                "name": "Sector 7 Transit Hub",
+                                "description": "This is the central transit hub of the lower sectors, a chaotic nexus where life grinds on in the perpetual twilight of Neo-Kyoto's Undercity. Clanking machinery, the cacophony of hawkers, and the murmur of a thousand hushed conversations create a constant din. It's a place of fleeting connections and dangerous anonymity.",
+                                "appearanceDescription": "The elevator car is a cage of corroded metal, sparks occasionally showering from exposed wiring. The floor is a sticky, indeterminate substance, and the air is heavy with the metallic tang of decay and desperation. Scrawled graffiti in a dozen dialects adorns every surface, telling tales of struggle and survival."
+                            },
+                            "Lucky Dragon Noodles": {
+                                "name": "Lucky Dragon Noodles",
+                                "description": "The 'Lucky Dragon Noodles' stand is a haven for the weary traveler, a place to refuel on cheap, piping-hot sustenance. The proprietor, a wizened old man with cybernetic eyes that dart around constantly, serves up bowls of nutrient paste flavored to resemble traditional ramen, albeit with a distinct Neo-Kyoto funk.",
+                                "appearanceDescription": "This cramped noodle stand is crammed into a repurposed shipping container, its metal walls slick with condensation. A single, sputtering heat lamp casts a sickly yellow glow over a few worn stools and a counter laden with dubious condiments. Steam billows from a bubbling vat, obscuring the face of the perpetually hunched proprietor."
+                            },
+                            "Central Power Conduit": {
+                                "name": "Central Power Conduit",
+                                "description": "The Central Power Conduit is the pulsating heart of Sector 7's energy grid, a dangerous but vital engine room. Gigantic conduits, thick as ancient trees, snake across the ceiling and walls, channeling raw power to the arcologies above. Maintenance drones, sparks trailing from their chassis, flit through the smog-choked air.",
+                                "appearanceDescription": "This is a vast, cavernous space filled with the ceaseless, thunderous roar of colossal gears and pistons. Sparks fly like angry fireflies from grinding metal as automated arms perform complex, repetitive tasks. The air shimmers with heat, and the floor vibrates with the raw power coursing through the massive machinery."
+                            },
+                            "The Data-Graveyard": {
+                                "name": "The Data-Graveyard",
+                                "description": "This is a forgotten service corridor, rarely frequented by anyone but vermin and those seeking to disappear. The walls are layered with graffiti, a chaotic tapestry of corporate logos defaced with revolutionary symbols and desperate pleas. The ground is uneven, littered with discarded data chips and the occasional glint of something metallic and potentially valuable.",
+                                "appearanceDescription": "This narrow passage is choked with refuse and the skeletal remains of abandoned cybernetics. Dripping pipes overhead create a constant, unsettling patter, and the air is thick with the smell of ozone and decay. Dim emergency lights flicker erratically, casting long, distorted shadows that seem to writhe with a life of their own."
+                            },
+                            "The Conduit Nexus": {
+                                "name": "The Conduit Nexus",
+                                "description": "This is a critical junction in the Undercity's archaic infrastructure, a place where vital fluids and energy are channeled through a network of aging arteries. It's a dangerous place, prone to sudden pressure changes and electrical surges, but it also serves as a hidden thoroughfare for those who know its secrets. The constant thrum of the city's underbelly resonates here, a powerful, primal beat.",
+                                "appearanceDescription": "This chamber is a disorienting maze of interconnected pipes and conduits, all slick with a dark, viscous fluid. The air is humid and heavy, carrying the faint scent of synthetic chemicals and something vaguely organic. Small, bioluminescent fungi cling to the pipes, casting an eerie, pulsing green light that barely pierces the gloom. The oppressive sound of machinery hums from unseen depths."
+                            }
+                        },
+                        "items": {
+                            "Synth-Leather Jacket": {
+                                "name": "Synth-Leather Jacket",
+                                "description": "This jacket offers minimal protection from the elements but is a familiar comfort. It might have a few hidden pockets useful for carrying small items.",
+                                "appearanceDescription": "A worn, synth-leather jacket, patched in several places with mismatched materials. It smells faintly of rain and something vaguely metallic."
+                            },
+                            "Cracked Data-Slate": {
+                                "name": "Cracked Data-Slate",
+                                "description": "This data-slate appears to be an outdated navigational tool for the lower sectors. Its current functionality is questionable, but it might contain valuable information if repaired or deciphered.",
+                                "appearanceDescription": "A cracked data-slate, its screen displaying a flickering, corrupted schematic of the Undercity's ventilation systems. The casing is scuffed and shows signs of having been dropped multiple times."
+                            },
+                            "Chipped Mug": {
+                                "name": "Chipped Mug",
+                                "description": "A simple drinking vessel. It's empty, but perhaps it could be filled with something from elsewhere in the city.",
+                                "appearanceDescription": "A chipped ceramic mug, stained with the residue of various beverages. It rests on a small, foldable metal table bolted to the wall."
+                            },
+                            "Damaged Datapad": {
+                                "name": "Damaged Datapad",
+                                "description": "This old datapad might hold valuable information or simply be a useless piece of junk. Its screen is cracked, and the battery is nearly dead, but perhaps a skilled individual could coax some life out of it.",
+                                "appearanceDescription": "A dented, chrome-plated datapad lies discarded near a grimy bench. Its screen flickers erratically, displaying fragments of encrypted messages and transit schedules for lines long since decommissioned."
+                            },
+                            "Discarded Backpack": {
+                                "name": "Discarded Backpack",
+                                "description": "This backpack looks like it belonged to someone who was in a hurry. It's surprisingly heavy, suggesting it might contain something of interest, or perhaps just a collection of scrap metal.",
+                                "appearanceDescription": "A worn, synth-leather backpack lies slumped against a pillar. It appears to have been recently discarded, its straps undone and a few loose, metallic components spilling onto the grimy floor."
+                            },
+                            "Chrono-Thread": {
+                                "name": "Chrono-Thread",
+                                "description": "This is a 'Chrono-Thread', a rare and enigmatic artifact rumored to be a byproduct of temporal distortions within Neo-Kyoto's advanced technological matrix. Touching it might offer glimpses of the past or future, or simply unravel reality.",
+                                "appearanceDescription": "A shimmering, almost invisible thread hangs suspended in the air near the ceiling. It seems to be woven from pure light, pulsating with a soft, internal glow."
+                            },
+                            "Bowl of Lucky Dragon Noodles": {
+                                "name": "Bowl of Lucky Dragon Noodles",
+                                "description": "This is a standard bowl of 'Lucky Dragon Noodles,' a staple for the budget-conscious denizens of Neo-Kyoto. While not gourmet, it's guaranteed to fill your stomach and provide a modicum of energy for your travels.",
+                                "appearanceDescription": "A chipped ceramic bowl, still warm, holds a steaming portion of nutrient paste. It has a vaguely savory aroma, with hints of processed kelp and synthetic spice. A single, unnaturally bright red noodle floats on the surface."
+                            },
+                            "Tarnished Dragon Charm": {
+                                "name": "Tarnished Dragon Charm",
+                                "description": "This charm is said to bring good fortune to those who carry it, a small token of hope in the grim reality of the Undercity. Its origins are lost to time, but the belief in its power persists.",
+                                "appearanceDescription": "A small, tarnished silver charm shaped like a dragon, its scales worn smooth by countless touches. A thin, braided wire is attached, likely for securing it to clothing or a wrist."
+                            },
+                            "Flask of Undercity Firewater": {
+                                "name": "Flask of Undercity Firewater",
+                                "description": "This flask contains a potent, homemade spirit distilled from fermented fungi and cheap synth-alcohol. It's known for its harsh kick and its ability to temporarily numb the anxieties of life in Neo-Kyoto.",
+                                "appearanceDescription": "A dented, metal flask with a crude, hand-painted dragon logo. It's surprisingly heavy and sealed tightly with a screw-top cap."
+                            }
+                        },
+                        "itemLocations": {
+                            "Synth-Leather Jacket": {
+                                "type": "player"
+                            },
+                            "Cracked Data-Slate": {
+                                "type": "player"
+                            },
+                            "Chipped Mug": {
+                                "type": "room",
+                                "roomName": "Hab-Unit 4B"
+                            },
+                            "Damaged Datapad": {
+                                "type": "room",
+                                "roomName": "Sector 7 Transit Hub"
+                            },
+                            "Discarded Backpack": {
+                                "type": "room",
+                                "roomName": "Sector 7 Transit Hub"
+                            },
+                            "Chrono-Thread": {
+                                "type": "room",
+                                "roomName": "Sector 7 Transit Hub"
+                            },
+                            "Bowl of Lucky Dragon Noodles": {
+                                "type": "room",
+                                "roomName": "Lucky Dragon Noodles"
+                            },
+                            "Tarnished Dragon Charm": {
+                                "type": "room",
+                                "roomName": "Lucky Dragon Noodles"
+                            },
+                            "Flask of Undercity Firewater": {
+                                "type": "room",
+                                "roomName": "Lucky Dragon Noodles"
+                            }
+                        },
+                        "roomConnections": {
+                            "Hab-Unit 4B": [
+                                {
+                                    "here": "Hab-Unit 4B",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "A rusted, shuddering elevator shaft descends into the murky depths of the Undercity."
+                                }
+                            ],
+                            "Sector 7 Transit Hub": [
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Hab-Unit 4B",
+                                    "description": "The same rattling elevator groans its way back up to your hab-unit."
+                                },
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Lucky Dragon Noodles",
+                                    "description": "A flickering neon sign points down a narrow, descending staircase, the air growing thicker with the scent of ozone and synthetic noodles."
+                                },
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Central Power Conduit",
+                                    "description": "A gaping maw in the wall, patched with scavenged plating, leads into a dimly lit corridor where the rhythmic clang of machinery can be heard."
+                                }
+                            ],
+                            "Lucky Dragon Noodles": [
+                                {
+                                    "here": "Lucky Dragon Noodles",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "A grimy, ascending staircase leads back to the echoing vastness of the transit hub, the murmur of crowds a welcome if overwhelming sound."
+                                },
+                                {
+                                    "here": "Lucky Dragon Noodles",
+                                    "there": "The Data-Graveyard",
+                                    "description": "A narrow, grime-streaked alleyway leads away from the noodle stand, disappearing into the perpetual twilight of the Undercity."
+                                },
+                                {
+                                    "here": "Lucky Dragon Noodles",
+                                    "there": "The Conduit Nexus",
+                                    "description": "A heavy, rusted metal door, scarred with countless impacts, is set into the side of the shipping container, offering a path into the deeper levels of the Undercity."
+                                }
+                            ],
+                            "Central Power Conduit": [
+                                {
+                                    "here": "Central Power Conduit",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "Emerging from the oppressive hum of machinery, the relative quiet of the transit hub feels like a balm to the senses."
+                                }
+                            ],
+                            "The Data-Graveyard": [
+                                {
+                                    "here": "The Data-Graveyard",
+                                    "there": "Lucky Dragon Noodles",
+                                    "description": "The alleyway opens back up to the flickering neon glow of the Lucky Dragon Noodles stand."
+                                }
+                            ],
+                            "The Conduit Nexus": [
+                                {
+                                    "here": "The Conduit Nexus",
+                                    "there": "Lucky Dragon Noodles",
+                                    "description": "The rusted metal door creaks open, revealing the steamy confines of the Lucky Dragon Noodles stand."
+                                }
+                            ]
+                        },
+                        "startingRoom": "Hab-Unit 4B",
+                        "visitedRooms": [
+                            "Hab-Unit 4B",
+                            "Sector 7 Transit Hub",
+                            "Lucky Dragon Noodles"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "go into the undercut ",
+                "gameActions": [
+                    {
+                        "room": "Lucky Dragon Noodles",
+                        "type": "PlayerGoesToRoom"
+                    }
+                ]
+            },
+            "description": "Glitch, ever the pragmatist, turns away from the grimy elevator and the tantalizing, albeit suspect, backpack. A flicker of neon, a promise of sustenance or perhaps something more, draws their attention downwards. The chipped holographic sign of \"Lucky Dragon Noodles\" beckons, a garish beacon in the perpetual gloom of Sector 7. With a determined stride, Glitch descends the narrow, winding staircase, the air growing thick and heavy with the mingled scents of burnt circuitry and artificially flavored broth, a tell-tale sign of the Undercity's culinary offerings."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Neo-Kyoto is a colossal monument to human ambition and technological excess. Towering arcologies pierce the perpetually smog-choked sky, their surfaces plastered with holographic advertisements that paint the rain-swept streets in a kaleidoscope of garish colors. Below the gleaming chrome and pulsating neon of the upper sectors lies the Undercity, a labyrinth of grimy alleys, overcrowded markets, and forgotten infrastructure where the dispossessed and defiant carve out a precarious existence. The air crackles with electromagnetic interference, and the omnipresent hum of cybernetic augmentation is the city's constant heartbeat. Corporations rule this domain with an iron fist, their influence extending from the data-rich sky-scrapers down to the bio-luminescent fungi that grow in the deepest sewers.",
+                        "player": {
+                            "name": "Glitch",
+                            "description": "You are known only as 'Glitch' in the underbelly of the digital world. A phantom in the machine, you navigate the sprawling, rain-slicked metropolis of Neo-Kyoto, a city that bleeds light and information. Once a promising corporate netrunner, a botched data heist branded you a renegade, forcing you into the shadows. Now, you operate from a cramped, anonymous hab-unit, taking on risky jobs that skirt the edges of legality, always one step ahead of the omnipresent corporate security forces and the digital ghosts that haunt the datastreams.",
+                            "appearanceDescription": "You are a silhouette against the neon glow of Neo-Kyoto, clad in a worn, oil-stained synth-leather jacket. A neural interface port glints subtly at your temple, partially obscured by a shock of brightly dyed, unruly hair. Your eyes, sharp and perpetually scanning, are hidden behind mirrored AR goggles that display a constant stream of data, flickering with schematics and network traffic.",
+                            "room": "Lucky Dragon Noodles"
+                        },
+                        "rooms": {
+                            "Hab-Unit 4B": {
+                                "name": "Hab-Unit 4B",
+                                "description": "This is your private space, a meager refuge from the relentless press of Neo-Kyoto's Undercity. It's a testament to functional minimalism, designed for survival rather than comfort. Every inch of space is utilized, and the lingering scent of recycled air does little to mask the ever-present dampness.",
+                                "appearanceDescription": "You find yourself in a cramped, dimly lit hab-unit, the metallic walls slick with condensation and etched with the grime of countless occupants. A single, flickering fluorescent tube casts long, distorted shadows across the sparse furnishings. The air is thick with the smell of stale synth-noodles and ozone. A narrow viewport offers a distorted glimpse of the neon-drenched, rain-lashed cityscape far above, a stark reminder of the world outside this cramped existence."
+                            },
+                            "Sector 7 Transit Hub": {
+                                "name": "Sector 7 Transit Hub",
+                                "description": "This is the central transit hub of the lower sectors, a chaotic nexus where life grinds on in the perpetual twilight of Neo-Kyoto's Undercity. Clanking machinery, the cacophony of hawkers, and the murmur of a thousand hushed conversations create a constant din. It's a place of fleeting connections and dangerous anonymity.",
+                                "appearanceDescription": "The elevator car is a cage of corroded metal, sparks occasionally showering from exposed wiring. The floor is a sticky, indeterminate substance, and the air is heavy with the metallic tang of decay and desperation. Scrawled graffiti in a dozen dialects adorns every surface, telling tales of struggle and survival."
+                            },
+                            "Lucky Dragon Noodles": {
+                                "name": "Lucky Dragon Noodles",
+                                "description": "The 'Lucky Dragon Noodles' stand is a haven for the weary traveler, a place to refuel on cheap, piping-hot sustenance. The proprietor, a wizened old man with cybernetic eyes that dart around constantly, serves up bowls of nutrient paste flavored to resemble traditional ramen, albeit with a distinct Neo-Kyoto funk.",
+                                "appearanceDescription": "This cramped noodle stand is crammed into a repurposed shipping container, its metal walls slick with condensation. A single, sputtering heat lamp casts a sickly yellow glow over a few worn stools and a counter laden with dubious condiments. Steam billows from a bubbling vat, obscuring the face of the perpetually hunched proprietor."
+                            },
+                            "Central Power Conduit": {
+                                "name": "Central Power Conduit",
+                                "description": "The Central Power Conduit is the pulsating heart of Sector 7's energy grid, a dangerous but vital engine room. Gigantic conduits, thick as ancient trees, snake across the ceiling and walls, channeling raw power to the arcologies above. Maintenance drones, sparks trailing from their chassis, flit through the smog-choked air.",
+                                "appearanceDescription": "This is a vast, cavernous space filled with the ceaseless, thunderous roar of colossal gears and pistons. Sparks fly like angry fireflies from grinding metal as automated arms perform complex, repetitive tasks. The air shimmers with heat, and the floor vibrates with the raw power coursing through the massive machinery."
+                            },
+                            "The Data-Graveyard": {
+                                "name": "The Data-Graveyard",
+                                "description": "This is a forgotten service corridor, rarely frequented by anyone but vermin and those seeking to disappear. The walls are layered with graffiti, a chaotic tapestry of corporate logos defaced with revolutionary symbols and desperate pleas. The ground is uneven, littered with discarded data chips and the occasional glint of something metallic and potentially valuable.",
+                                "appearanceDescription": "This narrow passage is choked with refuse and the skeletal remains of abandoned cybernetics. Dripping pipes overhead create a constant, unsettling patter, and the air is thick with the smell of ozone and decay. Dim emergency lights flicker erratically, casting long, distorted shadows that seem to writhe with a life of their own."
+                            },
+                            "The Conduit Nexus": {
+                                "name": "The Conduit Nexus",
+                                "description": "This is a critical junction in the Undercity's archaic infrastructure, a place where vital fluids and energy are channeled through a network of aging arteries. It's a dangerous place, prone to sudden pressure changes and electrical surges, but it also serves as a hidden thoroughfare for those who know its secrets. The constant thrum of the city's underbelly resonates here, a powerful, primal beat.",
+                                "appearanceDescription": "This chamber is a disorienting maze of interconnected pipes and conduits, all slick with a dark, viscous fluid. The air is humid and heavy, carrying the faint scent of synthetic chemicals and something vaguely organic. Small, bioluminescent fungi cling to the pipes, casting an eerie, pulsing green light that barely pierces the gloom. The oppressive sound of machinery hums from unseen depths."
+                            }
+                        },
+                        "items": {
+                            "Synth-Leather Jacket": {
+                                "name": "Synth-Leather Jacket",
+                                "description": "This jacket offers minimal protection from the elements but is a familiar comfort. It might have a few hidden pockets useful for carrying small items.",
+                                "appearanceDescription": "A worn, synth-leather jacket, patched in several places with mismatched materials. It smells faintly of rain and something vaguely metallic."
+                            },
+                            "Cracked Data-Slate": {
+                                "name": "Cracked Data-Slate",
+                                "description": "This data-slate appears to be an outdated navigational tool for the lower sectors. Its current functionality is questionable, but it might contain valuable information if repaired or deciphered.",
+                                "appearanceDescription": "A cracked data-slate, its screen displaying a flickering, corrupted schematic of the Undercity's ventilation systems. The casing is scuffed and shows signs of having been dropped multiple times."
+                            },
+                            "Chipped Mug": {
+                                "name": "Chipped Mug",
+                                "description": "A simple drinking vessel. It's empty, but perhaps it could be filled with something from elsewhere in the city.",
+                                "appearanceDescription": "A chipped ceramic mug, stained with the residue of various beverages. It rests on a small, foldable metal table bolted to the wall."
+                            },
+                            "Damaged Datapad": {
+                                "name": "Damaged Datapad",
+                                "description": "This old datapad might hold valuable information or simply be a useless piece of junk. Its screen is cracked, and the battery is nearly dead, but perhaps a skilled individual could coax some life out of it.",
+                                "appearanceDescription": "A dented, chrome-plated datapad lies discarded near a grimy bench. Its screen flickers erratically, displaying fragments of encrypted messages and transit schedules for lines long since decommissioned."
+                            },
+                            "Discarded Backpack": {
+                                "name": "Discarded Backpack",
+                                "description": "This backpack looks like it belonged to someone who was in a hurry. It's surprisingly heavy, suggesting it might contain something of interest, or perhaps just a collection of scrap metal.",
+                                "appearanceDescription": "A worn, synth-leather backpack lies slumped against a pillar. It appears to have been recently discarded, its straps undone and a few loose, metallic components spilling onto the grimy floor."
+                            },
+                            "Chrono-Thread": {
+                                "name": "Chrono-Thread",
+                                "description": "This is a 'Chrono-Thread', a rare and enigmatic artifact rumored to be a byproduct of temporal distortions within Neo-Kyoto's advanced technological matrix. Touching it might offer glimpses of the past or future, or simply unravel reality.",
+                                "appearanceDescription": "A shimmering, almost invisible thread hangs suspended in the air near the ceiling. It seems to be woven from pure light, pulsating with a soft, internal glow."
+                            },
+                            "Bowl of Lucky Dragon Noodles": {
+                                "name": "Bowl of Lucky Dragon Noodles",
+                                "description": "This is a standard bowl of 'Lucky Dragon Noodles,' a staple for the budget-conscious denizens of Neo-Kyoto. While not gourmet, it's guaranteed to fill your stomach and provide a modicum of energy for your travels.",
+                                "appearanceDescription": "A chipped ceramic bowl, still warm, holds a steaming portion of nutrient paste. It has a vaguely savory aroma, with hints of processed kelp and synthetic spice. A single, unnaturally bright red noodle floats on the surface."
+                            },
+                            "Tarnished Dragon Charm": {
+                                "name": "Tarnished Dragon Charm",
+                                "description": "This charm is said to bring good fortune to those who carry it, a small token of hope in the grim reality of the Undercity. Its origins are lost to time, but the belief in its power persists.",
+                                "appearanceDescription": "A small, tarnished silver charm shaped like a dragon, its scales worn smooth by countless touches. A thin, braided wire is attached, likely for securing it to clothing or a wrist."
+                            },
+                            "Flask of Undercity Firewater": {
+                                "name": "Flask of Undercity Firewater",
+                                "description": "This flask contains a potent, homemade spirit distilled from fermented fungi and cheap synth-alcohol. It's known for its harsh kick and its ability to temporarily numb the anxieties of life in Neo-Kyoto.",
+                                "appearanceDescription": "A dented, metal flask with a crude, hand-painted dragon logo. It's surprisingly heavy and sealed tightly with a screw-top cap."
+                            }
+                        },
+                        "itemLocations": {
+                            "Synth-Leather Jacket": {
+                                "type": "player"
+                            },
+                            "Cracked Data-Slate": {
+                                "type": "player"
+                            },
+                            "Chipped Mug": {
+                                "type": "room",
+                                "roomName": "Hab-Unit 4B"
+                            },
+                            "Damaged Datapad": {
+                                "type": "room",
+                                "roomName": "Sector 7 Transit Hub"
+                            },
+                            "Discarded Backpack": {
+                                "type": "room",
+                                "roomName": "Sector 7 Transit Hub"
+                            },
+                            "Chrono-Thread": {
+                                "type": "room",
+                                "roomName": "Sector 7 Transit Hub"
+                            },
+                            "Bowl of Lucky Dragon Noodles": {
+                                "type": "room",
+                                "roomName": "Lucky Dragon Noodles"
+                            },
+                            "Tarnished Dragon Charm": {
+                                "type": "room",
+                                "roomName": "Lucky Dragon Noodles"
+                            },
+                            "Flask of Undercity Firewater": {
+                                "type": "room",
+                                "roomName": "Lucky Dragon Noodles"
+                            }
+                        },
+                        "roomConnections": {
+                            "Hab-Unit 4B": [
+                                {
+                                    "here": "Hab-Unit 4B",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "A rusted, shuddering elevator shaft descends into the murky depths of the Undercity."
+                                }
+                            ],
+                            "Sector 7 Transit Hub": [
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Hab-Unit 4B",
+                                    "description": "The same rattling elevator groans its way back up to your hab-unit."
+                                },
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Lucky Dragon Noodles",
+                                    "description": "A flickering neon sign points down a narrow, descending staircase, the air growing thicker with the scent of ozone and synthetic noodles."
+                                },
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Central Power Conduit",
+                                    "description": "A gaping maw in the wall, patched with scavenged plating, leads into a dimly lit corridor where the rhythmic clang of machinery can be heard."
+                                }
+                            ],
+                            "Lucky Dragon Noodles": [
+                                {
+                                    "here": "Lucky Dragon Noodles",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "A grimy, ascending staircase leads back to the echoing vastness of the transit hub, the murmur of crowds a welcome if overwhelming sound."
+                                },
+                                {
+                                    "here": "Lucky Dragon Noodles",
+                                    "there": "The Data-Graveyard",
+                                    "description": "A narrow, grime-streaked alleyway leads away from the noodle stand, disappearing into the perpetual twilight of the Undercity."
+                                },
+                                {
+                                    "here": "Lucky Dragon Noodles",
+                                    "there": "The Conduit Nexus",
+                                    "description": "A heavy, rusted metal door, scarred with countless impacts, is set into the side of the shipping container, offering a path into the deeper levels of the Undercity."
+                                }
+                            ],
+                            "Central Power Conduit": [
+                                {
+                                    "here": "Central Power Conduit",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "Emerging from the oppressive hum of machinery, the relative quiet of the transit hub feels like a balm to the senses."
+                                }
+                            ],
+                            "The Data-Graveyard": [
+                                {
+                                    "here": "The Data-Graveyard",
+                                    "there": "Lucky Dragon Noodles",
+                                    "description": "The alleyway opens back up to the flickering neon glow of the Lucky Dragon Noodles stand."
+                                }
+                            ],
+                            "The Conduit Nexus": [
+                                {
+                                    "here": "The Conduit Nexus",
+                                    "there": "Lucky Dragon Noodles",
+                                    "description": "The rusted metal door creaks open, revealing the steamy confines of the Lucky Dragon Noodles stand."
+                                }
+                            ]
+                        },
+                        "startingRoom": "Hab-Unit 4B",
+                        "visitedRooms": [
+                            "Hab-Unit 4B",
+                            "Sector 7 Transit Hub",
+                            "Lucky Dragon Noodles"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "look for something good to eat",
+                "gameActions": [
+                    {
+                        "type": "PlayerInspectsCurrentRoom"
+                    }
+                ]
+            },
+            "description": "Glitch, feeling the gnawing emptiness in their stomach, surveys the cramped confines of the Lucky Dragon Noodles. The steam rising from the proprietor's bubbling vat obscures much of the stand, but a single, flickering heat lamp illuminates a counter laden with an array of questionable condiments. A bowl of the titular noodles sits steaming, promising sustenance, while a tarnished dragon charm and a flask of potent Undercity Firewater rest nearby, each offering a different kind of solace from the harsh realities of Neo-Kyoto."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Neo-Kyoto is a colossal monument to human ambition and technological excess. Towering arcologies pierce the perpetually smog-choked sky, their surfaces plastered with holographic advertisements that paint the rain-swept streets in a kaleidoscope of garish colors. Below the gleaming chrome and pulsating neon of the upper sectors lies the Undercity, a labyrinth of grimy alleys, overcrowded markets, and forgotten infrastructure where the dispossessed and defiant carve out a precarious existence. The air crackles with electromagnetic interference, and the omnipresent hum of cybernetic augmentation is the city's constant heartbeat. Corporations rule this domain with an iron fist, their influence extending from the data-rich sky-scrapers down to the bio-luminescent fungi that grow in the deepest sewers.",
+                        "player": {
+                            "name": "Glitch",
+                            "description": "You are known only as 'Glitch' in the underbelly of the digital world. A phantom in the machine, you navigate the sprawling, rain-slicked metropolis of Neo-Kyoto, a city that bleeds light and information. Once a promising corporate netrunner, a botched data heist branded you a renegade, forcing you into the shadows. Now, you operate from a cramped, anonymous hab-unit, taking on risky jobs that skirt the edges of legality, always one step ahead of the omnipresent corporate security forces and the digital ghosts that haunt the datastreams.",
+                            "appearanceDescription": "You are a silhouette against the neon glow of Neo-Kyoto, clad in a worn, oil-stained synth-leather jacket. A neural interface port glints subtly at your temple, partially obscured by a shock of brightly dyed, unruly hair. Your eyes, sharp and perpetually scanning, are hidden behind mirrored AR goggles that display a constant stream of data, flickering with schematics and network traffic.",
+                            "room": "Lucky Dragon Noodles"
+                        },
+                        "rooms": {
+                            "Hab-Unit 4B": {
+                                "name": "Hab-Unit 4B",
+                                "description": "This is your private space, a meager refuge from the relentless press of Neo-Kyoto's Undercity. It's a testament to functional minimalism, designed for survival rather than comfort. Every inch of space is utilized, and the lingering scent of recycled air does little to mask the ever-present dampness.",
+                                "appearanceDescription": "You find yourself in a cramped, dimly lit hab-unit, the metallic walls slick with condensation and etched with the grime of countless occupants. A single, flickering fluorescent tube casts long, distorted shadows across the sparse furnishings. The air is thick with the smell of stale synth-noodles and ozone. A narrow viewport offers a distorted glimpse of the neon-drenched, rain-lashed cityscape far above, a stark reminder of the world outside this cramped existence."
+                            },
+                            "Sector 7 Transit Hub": {
+                                "name": "Sector 7 Transit Hub",
+                                "description": "This is the central transit hub of the lower sectors, a chaotic nexus where life grinds on in the perpetual twilight of Neo-Kyoto's Undercity. Clanking machinery, the cacophony of hawkers, and the murmur of a thousand hushed conversations create a constant din. It's a place of fleeting connections and dangerous anonymity.",
+                                "appearanceDescription": "The elevator car is a cage of corroded metal, sparks occasionally showering from exposed wiring. The floor is a sticky, indeterminate substance, and the air is heavy with the metallic tang of decay and desperation. Scrawled graffiti in a dozen dialects adorns every surface, telling tales of struggle and survival."
+                            },
+                            "Lucky Dragon Noodles": {
+                                "name": "Lucky Dragon Noodles",
+                                "description": "The 'Lucky Dragon Noodles' stand is a haven for the weary traveler, a place to refuel on cheap, piping-hot sustenance. The proprietor, a wizened old man with cybernetic eyes that dart around constantly, serves up bowls of nutrient paste flavored to resemble traditional ramen, albeit with a distinct Neo-Kyoto funk.",
+                                "appearanceDescription": "This cramped noodle stand is crammed into a repurposed shipping container, its metal walls slick with condensation. A single, sputtering heat lamp casts a sickly yellow glow over a few worn stools and a counter laden with dubious condiments. Steam billows from a bubbling vat, obscuring the face of the perpetually hunched proprietor."
+                            },
+                            "Central Power Conduit": {
+                                "name": "Central Power Conduit",
+                                "description": "The Central Power Conduit is the pulsating heart of Sector 7's energy grid, a dangerous but vital engine room. Gigantic conduits, thick as ancient trees, snake across the ceiling and walls, channeling raw power to the arcologies above. Maintenance drones, sparks trailing from their chassis, flit through the smog-choked air.",
+                                "appearanceDescription": "This is a vast, cavernous space filled with the ceaseless, thunderous roar of colossal gears and pistons. Sparks fly like angry fireflies from grinding metal as automated arms perform complex, repetitive tasks. The air shimmers with heat, and the floor vibrates with the raw power coursing through the massive machinery."
+                            },
+                            "The Data-Graveyard": {
+                                "name": "The Data-Graveyard",
+                                "description": "This is a forgotten service corridor, rarely frequented by anyone but vermin and those seeking to disappear. The walls are layered with graffiti, a chaotic tapestry of corporate logos defaced with revolutionary symbols and desperate pleas. The ground is uneven, littered with discarded data chips and the occasional glint of something metallic and potentially valuable.",
+                                "appearanceDescription": "This narrow passage is choked with refuse and the skeletal remains of abandoned cybernetics. Dripping pipes overhead create a constant, unsettling patter, and the air is thick with the smell of ozone and decay. Dim emergency lights flicker erratically, casting long, distorted shadows that seem to writhe with a life of their own."
+                            },
+                            "The Conduit Nexus": {
+                                "name": "The Conduit Nexus",
+                                "description": "This is a critical junction in the Undercity's archaic infrastructure, a place where vital fluids and energy are channeled through a network of aging arteries. It's a dangerous place, prone to sudden pressure changes and electrical surges, but it also serves as a hidden thoroughfare for those who know its secrets. The constant thrum of the city's underbelly resonates here, a powerful, primal beat.",
+                                "appearanceDescription": "This chamber is a disorienting maze of interconnected pipes and conduits, all slick with a dark, viscous fluid. The air is humid and heavy, carrying the faint scent of synthetic chemicals and something vaguely organic. Small, bioluminescent fungi cling to the pipes, casting an eerie, pulsing green light that barely pierces the gloom. The oppressive sound of machinery hums from unseen depths."
+                            }
+                        },
+                        "items": {
+                            "Synth-Leather Jacket": {
+                                "name": "Synth-Leather Jacket",
+                                "description": "This jacket offers minimal protection from the elements but is a familiar comfort. It might have a few hidden pockets useful for carrying small items.",
+                                "appearanceDescription": "A worn, synth-leather jacket, patched in several places with mismatched materials. It smells faintly of rain and something vaguely metallic."
+                            },
+                            "Cracked Data-Slate": {
+                                "name": "Cracked Data-Slate",
+                                "description": "This data-slate appears to be an outdated navigational tool for the lower sectors. Its current functionality is questionable, but it might contain valuable information if repaired or deciphered.",
+                                "appearanceDescription": "A cracked data-slate, its screen displaying a flickering, corrupted schematic of the Undercity's ventilation systems. The casing is scuffed and shows signs of having been dropped multiple times."
+                            },
+                            "Chipped Mug": {
+                                "name": "Chipped Mug",
+                                "description": "A simple drinking vessel. It's empty, but perhaps it could be filled with something from elsewhere in the city.",
+                                "appearanceDescription": "A chipped ceramic mug, stained with the residue of various beverages. It rests on a small, foldable metal table bolted to the wall."
+                            },
+                            "Damaged Datapad": {
+                                "name": "Damaged Datapad",
+                                "description": "This old datapad might hold valuable information or simply be a useless piece of junk. Its screen is cracked, and the battery is nearly dead, but perhaps a skilled individual could coax some life out of it.",
+                                "appearanceDescription": "A dented, chrome-plated datapad lies discarded near a grimy bench. Its screen flickers erratically, displaying fragments of encrypted messages and transit schedules for lines long since decommissioned."
+                            },
+                            "Discarded Backpack": {
+                                "name": "Discarded Backpack",
+                                "description": "This backpack looks like it belonged to someone who was in a hurry. It's surprisingly heavy, suggesting it might contain something of interest, or perhaps just a collection of scrap metal.",
+                                "appearanceDescription": "A worn, synth-leather backpack lies slumped against a pillar. It appears to have been recently discarded, its straps undone and a few loose, metallic components spilling onto the grimy floor."
+                            },
+                            "Chrono-Thread": {
+                                "name": "Chrono-Thread",
+                                "description": "This is a 'Chrono-Thread', a rare and enigmatic artifact rumored to be a byproduct of temporal distortions within Neo-Kyoto's advanced technological matrix. Touching it might offer glimpses of the past or future, or simply unravel reality.",
+                                "appearanceDescription": "A shimmering, almost invisible thread hangs suspended in the air near the ceiling. It seems to be woven from pure light, pulsating with a soft, internal glow."
+                            },
+                            "Bowl of Lucky Dragon Noodles": {
+                                "name": "Bowl of Lucky Dragon Noodles",
+                                "description": "This is a standard bowl of 'Lucky Dragon Noodles,' a staple for the budget-conscious denizens of Neo-Kyoto. While not gourmet, it's guaranteed to fill your stomach and provide a modicum of energy for your travels.",
+                                "appearanceDescription": "A chipped ceramic bowl, still warm, holds a steaming portion of nutrient paste. It has a vaguely savory aroma, with hints of processed kelp and synthetic spice. A single, unnaturally bright red noodle floats on the surface."
+                            },
+                            "Tarnished Dragon Charm": {
+                                "name": "Tarnished Dragon Charm",
+                                "description": "This charm is said to bring good fortune to those who carry it, a small token of hope in the grim reality of the Undercity. Its origins are lost to time, but the belief in its power persists.",
+                                "appearanceDescription": "A small, tarnished silver charm shaped like a dragon, its scales worn smooth by countless touches. A thin, braided wire is attached, likely for securing it to clothing or a wrist."
+                            },
+                            "Flask of Undercity Firewater": {
+                                "name": "Flask of Undercity Firewater",
+                                "description": "This flask contains a potent, homemade spirit distilled from fermented fungi and cheap synth-alcohol. It's known for its harsh kick and its ability to temporarily numb the anxieties of life in Neo-Kyoto.",
+                                "appearanceDescription": "A dented, metal flask with a crude, hand-painted dragon logo. It's surprisingly heavy and sealed tightly with a screw-top cap."
+                            }
+                        },
+                        "itemLocations": {
+                            "Synth-Leather Jacket": {
+                                "type": "player"
+                            },
+                            "Cracked Data-Slate": {
+                                "type": "player"
+                            },
+                            "Chipped Mug": {
+                                "type": "room",
+                                "roomName": "Hab-Unit 4B"
+                            },
+                            "Damaged Datapad": {
+                                "type": "room",
+                                "roomName": "Sector 7 Transit Hub"
+                            },
+                            "Discarded Backpack": {
+                                "type": "room",
+                                "roomName": "Sector 7 Transit Hub"
+                            },
+                            "Chrono-Thread": {
+                                "type": "room",
+                                "roomName": "Sector 7 Transit Hub"
+                            },
+                            "Bowl of Lucky Dragon Noodles": {
+                                "type": "room",
+                                "roomName": "Lucky Dragon Noodles"
+                            },
+                            "Tarnished Dragon Charm": {
+                                "type": "room",
+                                "roomName": "Lucky Dragon Noodles"
+                            },
+                            "Flask of Undercity Firewater": {
+                                "type": "player"
+                            }
+                        },
+                        "roomConnections": {
+                            "Hab-Unit 4B": [
+                                {
+                                    "here": "Hab-Unit 4B",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "A rusted, shuddering elevator shaft descends into the murky depths of the Undercity."
+                                }
+                            ],
+                            "Sector 7 Transit Hub": [
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Hab-Unit 4B",
+                                    "description": "The same rattling elevator groans its way back up to your hab-unit."
+                                },
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Lucky Dragon Noodles",
+                                    "description": "A flickering neon sign points down a narrow, descending staircase, the air growing thicker with the scent of ozone and synthetic noodles."
+                                },
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Central Power Conduit",
+                                    "description": "A gaping maw in the wall, patched with scavenged plating, leads into a dimly lit corridor where the rhythmic clang of machinery can be heard."
+                                }
+                            ],
+                            "Lucky Dragon Noodles": [
+                                {
+                                    "here": "Lucky Dragon Noodles",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "A grimy, ascending staircase leads back to the echoing vastness of the transit hub, the murmur of crowds a welcome if overwhelming sound."
+                                },
+                                {
+                                    "here": "Lucky Dragon Noodles",
+                                    "there": "The Data-Graveyard",
+                                    "description": "A narrow, grime-streaked alleyway leads away from the noodle stand, disappearing into the perpetual twilight of the Undercity."
+                                },
+                                {
+                                    "here": "Lucky Dragon Noodles",
+                                    "there": "The Conduit Nexus",
+                                    "description": "A heavy, rusted metal door, scarred with countless impacts, is set into the side of the shipping container, offering a path into the deeper levels of the Undercity."
+                                }
+                            ],
+                            "Central Power Conduit": [
+                                {
+                                    "here": "Central Power Conduit",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "Emerging from the oppressive hum of machinery, the relative quiet of the transit hub feels like a balm to the senses."
+                                }
+                            ],
+                            "The Data-Graveyard": [
+                                {
+                                    "here": "The Data-Graveyard",
+                                    "there": "Lucky Dragon Noodles",
+                                    "description": "The alleyway opens back up to the flickering neon glow of the Lucky Dragon Noodles stand."
+                                }
+                            ],
+                            "The Conduit Nexus": [
+                                {
+                                    "here": "The Conduit Nexus",
+                                    "there": "Lucky Dragon Noodles",
+                                    "description": "The rusted metal door creaks open, revealing the steamy confines of the Lucky Dragon Noodles stand."
+                                }
+                            ]
+                        },
+                        "startingRoom": "Hab-Unit 4B",
+                        "visitedRooms": [
+                            "Hab-Unit 4B",
+                            "Sector 7 Transit Hub",
+                            "Lucky Dragon Noodles"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "grab the firewater",
+                "gameActions": [
+                    {
+                        "item": "Flask of Undercity Firewater",
+                        "type": "PlayerTakesItem"
+                    }
+                ]
+            },
+            "description": "Glitch, ever the pragmatist, sidles up to the counter. The wizened proprietor, his cybernetic eyes whirring with unnerving speed, barely registers Glitch's presence. With a practiced, economical movement, Glitch snatches the _Flask of Undercity Firewater_ from the cluttered counter, the cheap glass cool against their gloved hand. The potent aroma of fermented fungi and synthetic alcohol immediately assaults their senses, a familiar perfume of the Undercity."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Neo-Kyoto is a colossal monument to human ambition and technological excess. Towering arcologies pierce the perpetually smog-choked sky, their surfaces plastered with holographic advertisements that paint the rain-swept streets in a kaleidoscope of garish colors. Below the gleaming chrome and pulsating neon of the upper sectors lies the Undercity, a labyrinth of grimy alleys, overcrowded markets, and forgotten infrastructure where the dispossessed and defiant carve out a precarious existence. The air crackles with electromagnetic interference, and the omnipresent hum of cybernetic augmentation is the city's constant heartbeat. Corporations rule this domain with an iron fist, their influence extending from the data-rich sky-scrapers down to the bio-luminescent fungi that grow in the deepest sewers.",
+                        "player": {
+                            "name": "Glitch",
+                            "description": "You are known only as 'Glitch' in the underbelly of the digital world. A phantom in the machine, you navigate the sprawling, rain-slicked metropolis of Neo-Kyoto, a city that bleeds light and information. Once a promising corporate netrunner, a botched data heist branded you a renegade, forcing you into the shadows. Now, you operate from a cramped, anonymous hab-unit, taking on risky jobs that skirt the edges of legality, always one step ahead of the omnipresent corporate security forces and the digital ghosts that haunt the datastreams.",
+                            "appearanceDescription": "You are a silhouette against the neon glow of Neo-Kyoto, clad in a worn, oil-stained synth-leather jacket. A neural interface port glints subtly at your temple, partially obscured by a shock of brightly dyed, unruly hair. Your eyes, sharp and perpetually scanning, are hidden behind mirrored AR goggles that display a constant stream of data, flickering with schematics and network traffic.",
+                            "room": "Lucky Dragon Noodles"
+                        },
+                        "rooms": {
+                            "Hab-Unit 4B": {
+                                "name": "Hab-Unit 4B",
+                                "description": "This is your private space, a meager refuge from the relentless press of Neo-Kyoto's Undercity. It's a testament to functional minimalism, designed for survival rather than comfort. Every inch of space is utilized, and the lingering scent of recycled air does little to mask the ever-present dampness.",
+                                "appearanceDescription": "You find yourself in a cramped, dimly lit hab-unit, the metallic walls slick with condensation and etched with the grime of countless occupants. A single, flickering fluorescent tube casts long, distorted shadows across the sparse furnishings. The air is thick with the smell of stale synth-noodles and ozone. A narrow viewport offers a distorted glimpse of the neon-drenched, rain-lashed cityscape far above, a stark reminder of the world outside this cramped existence."
+                            },
+                            "Sector 7 Transit Hub": {
+                                "name": "Sector 7 Transit Hub",
+                                "description": "This is the central transit hub of the lower sectors, a chaotic nexus where life grinds on in the perpetual twilight of Neo-Kyoto's Undercity. Clanking machinery, the cacophony of hawkers, and the murmur of a thousand hushed conversations create a constant din. It's a place of fleeting connections and dangerous anonymity.",
+                                "appearanceDescription": "The elevator car is a cage of corroded metal, sparks occasionally showering from exposed wiring. The floor is a sticky, indeterminate substance, and the air is heavy with the metallic tang of decay and desperation. Scrawled graffiti in a dozen dialects adorns every surface, telling tales of struggle and survival."
+                            },
+                            "Lucky Dragon Noodles": {
+                                "name": "Lucky Dragon Noodles",
+                                "description": "The 'Lucky Dragon Noodles' stand is a haven for the weary traveler, a place to refuel on cheap, piping-hot sustenance. The proprietor, a wizened old man with cybernetic eyes that dart around constantly, serves up bowls of nutrient paste flavored to resemble traditional ramen, albeit with a distinct Neo-Kyoto funk.",
+                                "appearanceDescription": "This cramped noodle stand is crammed into a repurposed shipping container, its metal walls slick with condensation. A single, sputtering heat lamp casts a sickly yellow glow over a few worn stools and a counter laden with dubious condiments. Steam billows from a bubbling vat, obscuring the face of the perpetually hunched proprietor."
+                            },
+                            "Central Power Conduit": {
+                                "name": "Central Power Conduit",
+                                "description": "The Central Power Conduit is the pulsating heart of Sector 7's energy grid, a dangerous but vital engine room. Gigantic conduits, thick as ancient trees, snake across the ceiling and walls, channeling raw power to the arcologies above. Maintenance drones, sparks trailing from their chassis, flit through the smog-choked air.",
+                                "appearanceDescription": "This is a vast, cavernous space filled with the ceaseless, thunderous roar of colossal gears and pistons. Sparks fly like angry fireflies from grinding metal as automated arms perform complex, repetitive tasks. The air shimmers with heat, and the floor vibrates with the raw power coursing through the massive machinery."
+                            },
+                            "The Data-Graveyard": {
+                                "name": "The Data-Graveyard",
+                                "description": "This is a forgotten service corridor, rarely frequented by anyone but vermin and those seeking to disappear. The walls are layered with graffiti, a chaotic tapestry of corporate logos defaced with revolutionary symbols and desperate pleas. The ground is uneven, littered with discarded data chips and the occasional glint of something metallic and potentially valuable.",
+                                "appearanceDescription": "This narrow passage is choked with refuse and the skeletal remains of abandoned cybernetics. Dripping pipes overhead create a constant, unsettling patter, and the air is thick with the smell of ozone and decay. Dim emergency lights flicker erratically, casting long, distorted shadows that seem to writhe with a life of their own."
+                            },
+                            "The Conduit Nexus": {
+                                "name": "The Conduit Nexus",
+                                "description": "This is a critical junction in the Undercity's archaic infrastructure, a place where vital fluids and energy are channeled through a network of aging arteries. It's a dangerous place, prone to sudden pressure changes and electrical surges, but it also serves as a hidden thoroughfare for those who know its secrets. The constant thrum of the city's underbelly resonates here, a powerful, primal beat.",
+                                "appearanceDescription": "This chamber is a disorienting maze of interconnected pipes and conduits, all slick with a dark, viscous fluid. The air is humid and heavy, carrying the faint scent of synthetic chemicals and something vaguely organic. Small, bioluminescent fungi cling to the pipes, casting an eerie, pulsing green light that barely pierces the gloom. The oppressive sound of machinery hums from unseen depths."
+                            }
+                        },
+                        "items": {
+                            "Synth-Leather Jacket": {
+                                "name": "Synth-Leather Jacket",
+                                "description": "This jacket offers minimal protection from the elements but is a familiar comfort. It might have a few hidden pockets useful for carrying small items.",
+                                "appearanceDescription": "A worn, synth-leather jacket, patched in several places with mismatched materials. It smells faintly of rain and something vaguely metallic."
+                            },
+                            "Cracked Data-Slate": {
+                                "name": "Cracked Data-Slate",
+                                "description": "This data-slate appears to be an outdated navigational tool for the lower sectors. Its current functionality is questionable, but it might contain valuable information if repaired or deciphered.",
+                                "appearanceDescription": "A cracked data-slate, its screen displaying a flickering, corrupted schematic of the Undercity's ventilation systems. The casing is scuffed and shows signs of having been dropped multiple times."
+                            },
+                            "Chipped Mug": {
+                                "name": "Chipped Mug",
+                                "description": "A simple drinking vessel. It's empty, but perhaps it could be filled with something from elsewhere in the city.",
+                                "appearanceDescription": "A chipped ceramic mug, stained with the residue of various beverages. It rests on a small, foldable metal table bolted to the wall."
+                            },
+                            "Damaged Datapad": {
+                                "name": "Damaged Datapad",
+                                "description": "This old datapad might hold valuable information or simply be a useless piece of junk. Its screen is cracked, and the battery is nearly dead, but perhaps a skilled individual could coax some life out of it.",
+                                "appearanceDescription": "A dented, chrome-plated datapad lies discarded near a grimy bench. Its screen flickers erratically, displaying fragments of encrypted messages and transit schedules for lines long since decommissioned."
+                            },
+                            "Discarded Backpack": {
+                                "name": "Discarded Backpack",
+                                "description": "This backpack looks like it belonged to someone who was in a hurry. It's surprisingly heavy, suggesting it might contain something of interest, or perhaps just a collection of scrap metal.",
+                                "appearanceDescription": "A worn, synth-leather backpack lies slumped against a pillar. It appears to have been recently discarded, its straps undone and a few loose, metallic components spilling onto the grimy floor."
+                            },
+                            "Chrono-Thread": {
+                                "name": "Chrono-Thread",
+                                "description": "This is a 'Chrono-Thread', a rare and enigmatic artifact rumored to be a byproduct of temporal distortions within Neo-Kyoto's advanced technological matrix. Touching it might offer glimpses of the past or future, or simply unravel reality.",
+                                "appearanceDescription": "A shimmering, almost invisible thread hangs suspended in the air near the ceiling. It seems to be woven from pure light, pulsating with a soft, internal glow."
+                            },
+                            "Bowl of Lucky Dragon Noodles": {
+                                "name": "Bowl of Lucky Dragon Noodles",
+                                "description": "This is a standard bowl of 'Lucky Dragon Noodles,' a staple for the budget-conscious denizens of Neo-Kyoto. While not gourmet, it's guaranteed to fill your stomach and provide a modicum of energy for your travels.",
+                                "appearanceDescription": "A chipped ceramic bowl, still warm, holds a steaming portion of nutrient paste. It has a vaguely savory aroma, with hints of processed kelp and synthetic spice. A single, unnaturally bright red noodle floats on the surface."
+                            },
+                            "Tarnished Dragon Charm": {
+                                "name": "Tarnished Dragon Charm",
+                                "description": "This charm is said to bring good fortune to those who carry it, a small token of hope in the grim reality of the Undercity. Its origins are lost to time, but the belief in its power persists.",
+                                "appearanceDescription": "A small, tarnished silver charm shaped like a dragon, its scales worn smooth by countless touches. A thin, braided wire is attached, likely for securing it to clothing or a wrist."
+                            },
+                            "Flask of Undercity Firewater": {
+                                "name": "Flask of Undercity Firewater",
+                                "description": "This flask contains a potent, homemade spirit distilled from fermented fungi and cheap synth-alcohol. It's known for its harsh kick and its ability to temporarily numb the anxieties of life in Neo-Kyoto.",
+                                "appearanceDescription": "A dented, metal flask with a crude, hand-painted dragon logo. It's surprisingly heavy and sealed tightly with a screw-top cap."
+                            }
+                        },
+                        "itemLocations": {
+                            "Synth-Leather Jacket": {
+                                "type": "player"
+                            },
+                            "Cracked Data-Slate": {
+                                "type": "player"
+                            },
+                            "Chipped Mug": {
+                                "type": "room",
+                                "roomName": "Hab-Unit 4B"
+                            },
+                            "Damaged Datapad": {
+                                "type": "room",
+                                "roomName": "Sector 7 Transit Hub"
+                            },
+                            "Discarded Backpack": {
+                                "type": "room",
+                                "roomName": "Sector 7 Transit Hub"
+                            },
+                            "Chrono-Thread": {
+                                "type": "room",
+                                "roomName": "Sector 7 Transit Hub"
+                            },
+                            "Bowl of Lucky Dragon Noodles": {
+                                "type": "room",
+                                "roomName": "Lucky Dragon Noodles"
+                            },
+                            "Tarnished Dragon Charm": {
+                                "type": "room",
+                                "roomName": "Lucky Dragon Noodles"
+                            },
+                            "Flask of Undercity Firewater": {
+                                "type": "player"
+                            }
+                        },
+                        "roomConnections": {
+                            "Hab-Unit 4B": [
+                                {
+                                    "here": "Hab-Unit 4B",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "A rusted, shuddering elevator shaft descends into the murky depths of the Undercity."
+                                }
+                            ],
+                            "Sector 7 Transit Hub": [
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Hab-Unit 4B",
+                                    "description": "The same rattling elevator groans its way back up to your hab-unit."
+                                },
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Lucky Dragon Noodles",
+                                    "description": "A flickering neon sign points down a narrow, descending staircase, the air growing thicker with the scent of ozone and synthetic noodles."
+                                },
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Central Power Conduit",
+                                    "description": "A gaping maw in the wall, patched with scavenged plating, leads into a dimly lit corridor where the rhythmic clang of machinery can be heard."
+                                }
+                            ],
+                            "Lucky Dragon Noodles": [
+                                {
+                                    "here": "Lucky Dragon Noodles",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "A grimy, ascending staircase leads back to the echoing vastness of the transit hub, the murmur of crowds a welcome if overwhelming sound."
+                                },
+                                {
+                                    "here": "Lucky Dragon Noodles",
+                                    "there": "The Data-Graveyard",
+                                    "description": "A narrow, grime-streaked alleyway leads away from the noodle stand, disappearing into the perpetual twilight of the Undercity."
+                                },
+                                {
+                                    "here": "Lucky Dragon Noodles",
+                                    "there": "The Conduit Nexus",
+                                    "description": "A heavy, rusted metal door, scarred with countless impacts, is set into the side of the shipping container, offering a path into the deeper levels of the Undercity."
+                                }
+                            ],
+                            "Central Power Conduit": [
+                                {
+                                    "here": "Central Power Conduit",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "Emerging from the oppressive hum of machinery, the relative quiet of the transit hub feels like a balm to the senses."
+                                }
+                            ],
+                            "The Data-Graveyard": [
+                                {
+                                    "here": "The Data-Graveyard",
+                                    "there": "Lucky Dragon Noodles",
+                                    "description": "The alleyway opens back up to the flickering neon glow of the Lucky Dragon Noodles stand."
+                                }
+                            ],
+                            "The Conduit Nexus": [
+                                {
+                                    "here": "The Conduit Nexus",
+                                    "there": "Lucky Dragon Noodles",
+                                    "description": "The rusted metal door creaks open, revealing the steamy confines of the Lucky Dragon Noodles stand."
+                                }
+                            ]
+                        },
+                        "startingRoom": "Hab-Unit 4B",
+                        "visitedRooms": [
+                            "Hab-Unit 4B",
+                            "Sector 7 Transit Hub",
+                            "Lucky Dragon Noodles"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "take a closer look are the firewater",
+                "gameActions": [
+                    {
+                        "item": "Flask of Undercity Firewater",
+                        "type": "PlayerInspectsItem"
+                    }
+                ]
+            },
+            "description": "Glitch reaches into the hidden pocket of their synth-leather jacket, fingers brushing against the cool glass of the flask. The Undercity Firewater, a potent, homemade spirit, feels familiar and slightly sticky in their grasp. As they bring it closer, the cheap synth-alcohol and fermented fungi scent intensifies, a harsh perfume that does little to mask the ever-present smell of damp concrete and ozone. The liquid within sloshes, a murky amber caught in the dim glow of the noodle stand's sputtering heat lamp, promising a temporary reprieve from the city's relentless anxieties."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "Neo-Kyoto is a colossal monument to human ambition and technological excess. Towering arcologies pierce the perpetually smog-choked sky, their surfaces plastered with holographic advertisements that paint the rain-swept streets in a kaleidoscope of garish colors. Below the gleaming chrome and pulsating neon of the upper sectors lies the Undercity, a labyrinth of grimy alleys, overcrowded markets, and forgotten infrastructure where the dispossessed and defiant carve out a precarious existence. The air crackles with electromagnetic interference, and the omnipresent hum of cybernetic augmentation is the city's constant heartbeat. Corporations rule this domain with an iron fist, their influence extending from the data-rich sky-scrapers down to the bio-luminescent fungi that grow in the deepest sewers.",
+                        "player": {
+                            "name": "Glitch",
+                            "description": "You are known only as 'Glitch' in the underbelly of the digital world. A phantom in the machine, you navigate the sprawling, rain-slicked metropolis of Neo-Kyoto, a city that bleeds light and information. Once a promising corporate netrunner, a botched data heist branded you a renegade, forcing you into the shadows. Now, you operate from a cramped, anonymous hab-unit, taking on risky jobs that skirt the edges of legality, always one step ahead of the omnipresent corporate security forces and the digital ghosts that haunt the datastreams.",
+                            "appearanceDescription": "You are a silhouette against the neon glow of Neo-Kyoto, clad in a worn, oil-stained synth-leather jacket. A neural interface port glints subtly at your temple, partially obscured by a shock of brightly dyed, unruly hair. Your eyes, sharp and perpetually scanning, are hidden behind mirrored AR goggles that display a constant stream of data, flickering with schematics and network traffic.",
+                            "room": "Lucky Dragon Noodles"
+                        },
+                        "rooms": {
+                            "Hab-Unit 4B": {
+                                "name": "Hab-Unit 4B",
+                                "description": "This is your private space, a meager refuge from the relentless press of Neo-Kyoto's Undercity. It's a testament to functional minimalism, designed for survival rather than comfort. Every inch of space is utilized, and the lingering scent of recycled air does little to mask the ever-present dampness.",
+                                "appearanceDescription": "You find yourself in a cramped, dimly lit hab-unit, the metallic walls slick with condensation and etched with the grime of countless occupants. A single, flickering fluorescent tube casts long, distorted shadows across the sparse furnishings. The air is thick with the smell of stale synth-noodles and ozone. A narrow viewport offers a distorted glimpse of the neon-drenched, rain-lashed cityscape far above, a stark reminder of the world outside this cramped existence."
+                            },
+                            "Sector 7 Transit Hub": {
+                                "name": "Sector 7 Transit Hub",
+                                "description": "This is the central transit hub of the lower sectors, a chaotic nexus where life grinds on in the perpetual twilight of Neo-Kyoto's Undercity. Clanking machinery, the cacophony of hawkers, and the murmur of a thousand hushed conversations create a constant din. It's a place of fleeting connections and dangerous anonymity.",
+                                "appearanceDescription": "The elevator car is a cage of corroded metal, sparks occasionally showering from exposed wiring. The floor is a sticky, indeterminate substance, and the air is heavy with the metallic tang of decay and desperation. Scrawled graffiti in a dozen dialects adorns every surface, telling tales of struggle and survival."
+                            },
+                            "Lucky Dragon Noodles": {
+                                "name": "Lucky Dragon Noodles",
+                                "description": "The 'Lucky Dragon Noodles' stand is a haven for the weary traveler, a place to refuel on cheap, piping-hot sustenance. The proprietor, a wizened old man with cybernetic eyes that dart around constantly, serves up bowls of nutrient paste flavored to resemble traditional ramen, albeit with a distinct Neo-Kyoto funk.",
+                                "appearanceDescription": "This cramped noodle stand is crammed into a repurposed shipping container, its metal walls slick with condensation. A single, sputtering heat lamp casts a sickly yellow glow over a few worn stools and a counter laden with dubious condiments. Steam billows from a bubbling vat, obscuring the face of the perpetually hunched proprietor."
+                            },
+                            "Central Power Conduit": {
+                                "name": "Central Power Conduit",
+                                "description": "The Central Power Conduit is the pulsating heart of Sector 7's energy grid, a dangerous but vital engine room. Gigantic conduits, thick as ancient trees, snake across the ceiling and walls, channeling raw power to the arcologies above. Maintenance drones, sparks trailing from their chassis, flit through the smog-choked air.",
+                                "appearanceDescription": "This is a vast, cavernous space filled with the ceaseless, thunderous roar of colossal gears and pistons. Sparks fly like angry fireflies from grinding metal as automated arms perform complex, repetitive tasks. The air shimmers with heat, and the floor vibrates with the raw power coursing through the massive machinery."
+                            },
+                            "The Data-Graveyard": {
+                                "name": "The Data-Graveyard",
+                                "description": "This is a forgotten service corridor, rarely frequented by anyone but vermin and those seeking to disappear. The walls are layered with graffiti, a chaotic tapestry of corporate logos defaced with revolutionary symbols and desperate pleas. The ground is uneven, littered with discarded data chips and the occasional glint of something metallic and potentially valuable.",
+                                "appearanceDescription": "This narrow passage is choked with refuse and the skeletal remains of abandoned cybernetics. Dripping pipes overhead create a constant, unsettling patter, and the air is thick with the smell of ozone and decay. Dim emergency lights flicker erratically, casting long, distorted shadows that seem to writhe with a life of their own."
+                            },
+                            "The Conduit Nexus": {
+                                "name": "The Conduit Nexus",
+                                "description": "This is a critical junction in the Undercity's archaic infrastructure, a place where vital fluids and energy are channeled through a network of aging arteries. It's a dangerous place, prone to sudden pressure changes and electrical surges, but it also serves as a hidden thoroughfare for those who know its secrets. The constant thrum of the city's underbelly resonates here, a powerful, primal beat.",
+                                "appearanceDescription": "This chamber is a disorienting maze of interconnected pipes and conduits, all slick with a dark, viscous fluid. The air is humid and heavy, carrying the faint scent of synthetic chemicals and something vaguely organic. Small, bioluminescent fungi cling to the pipes, casting an eerie, pulsing green light that barely pierces the gloom. The oppressive sound of machinery hums from unseen depths."
+                            }
+                        },
+                        "items": {
+                            "Synth-Leather Jacket": {
+                                "name": "Synth-Leather Jacket",
+                                "description": "This jacket offers minimal protection from the elements but is a familiar comfort. It might have a few hidden pockets useful for carrying small items.",
+                                "appearanceDescription": "A worn, synth-leather jacket, patched in several places with mismatched materials. It smells faintly of rain and something vaguely metallic."
+                            },
+                            "Cracked Data-Slate": {
+                                "name": "Cracked Data-Slate",
+                                "description": "This data-slate appears to be an outdated navigational tool for the lower sectors. Its current functionality is questionable, but it might contain valuable information if repaired or deciphered.",
+                                "appearanceDescription": "A cracked data-slate, its screen displaying a flickering, corrupted schematic of the Undercity's ventilation systems. The casing is scuffed and shows signs of having been dropped multiple times."
+                            },
+                            "Chipped Mug": {
+                                "name": "Chipped Mug",
+                                "description": "A simple drinking vessel. It's empty, but perhaps it could be filled with something from elsewhere in the city.",
+                                "appearanceDescription": "A chipped ceramic mug, stained with the residue of various beverages. It rests on a small, foldable metal table bolted to the wall."
+                            },
+                            "Damaged Datapad": {
+                                "name": "Damaged Datapad",
+                                "description": "This old datapad might hold valuable information or simply be a useless piece of junk. Its screen is cracked, and the battery is nearly dead, but perhaps a skilled individual could coax some life out of it.",
+                                "appearanceDescription": "A dented, chrome-plated datapad lies discarded near a grimy bench. Its screen flickers erratically, displaying fragments of encrypted messages and transit schedules for lines long since decommissioned."
+                            },
+                            "Discarded Backpack": {
+                                "name": "Discarded Backpack",
+                                "description": "This backpack looks like it belonged to someone who was in a hurry. It's surprisingly heavy, suggesting it might contain something of interest, or perhaps just a collection of scrap metal.",
+                                "appearanceDescription": "A worn, synth-leather backpack lies slumped against a pillar. It appears to have been recently discarded, its straps undone and a few loose, metallic components spilling onto the grimy floor."
+                            },
+                            "Chrono-Thread": {
+                                "name": "Chrono-Thread",
+                                "description": "This is a 'Chrono-Thread', a rare and enigmatic artifact rumored to be a byproduct of temporal distortions within Neo-Kyoto's advanced technological matrix. Touching it might offer glimpses of the past or future, or simply unravel reality.",
+                                "appearanceDescription": "A shimmering, almost invisible thread hangs suspended in the air near the ceiling. It seems to be woven from pure light, pulsating with a soft, internal glow."
+                            },
+                            "Bowl of Lucky Dragon Noodles": {
+                                "name": "Bowl of Lucky Dragon Noodles",
+                                "description": "This is a standard bowl of 'Lucky Dragon Noodles,' a staple for the budget-conscious denizens of Neo-Kyoto. While not gourmet, it's guaranteed to fill your stomach and provide a modicum of energy for your travels.",
+                                "appearanceDescription": "A chipped ceramic bowl, still warm, holds a steaming portion of nutrient paste. It has a vaguely savory aroma, with hints of processed kelp and synthetic spice. A single, unnaturally bright red noodle floats on the surface."
+                            },
+                            "Tarnished Dragon Charm": {
+                                "name": "Tarnished Dragon Charm",
+                                "description": "This charm is said to bring good fortune to those who carry it, a small token of hope in the grim reality of the Undercity. Its origins are lost to time, but the belief in its power persists.",
+                                "appearanceDescription": "A small, tarnished silver charm shaped like a dragon, its scales worn smooth by countless touches. A thin, braided wire is attached, likely for securing it to clothing or a wrist."
+                            },
+                            "Flask of Undercity Firewater": {
+                                "name": "Flask of Undercity Firewater",
+                                "description": "This flask contains a potent, homemade spirit distilled from fermented fungi and cheap synth-alcohol. It's known for its harsh kick and its ability to temporarily numb the anxieties of life in Neo-Kyoto.",
+                                "appearanceDescription": "A dented, metal flask with a crude, hand-painted dragon logo. It's surprisingly heavy and sealed tightly with a screw-top cap."
+                            }
+                        },
+                        "itemLocations": {
+                            "Synth-Leather Jacket": {
+                                "type": "player"
+                            },
+                            "Cracked Data-Slate": {
+                                "type": "player"
+                            },
+                            "Chipped Mug": {
+                                "type": "room",
+                                "roomName": "Hab-Unit 4B"
+                            },
+                            "Damaged Datapad": {
+                                "type": "room",
+                                "roomName": "Sector 7 Transit Hub"
+                            },
+                            "Discarded Backpack": {
+                                "type": "room",
+                                "roomName": "Sector 7 Transit Hub"
+                            },
+                            "Chrono-Thread": {
+                                "type": "room",
+                                "roomName": "Sector 7 Transit Hub"
+                            },
+                            "Bowl of Lucky Dragon Noodles": {
+                                "type": "room",
+                                "roomName": "Lucky Dragon Noodles"
+                            },
+                            "Tarnished Dragon Charm": {
+                                "type": "room",
+                                "roomName": "Lucky Dragon Noodles"
+                            },
+                            "Flask of Undercity Firewater": {
+                                "type": "player"
+                            }
+                        },
+                        "roomConnections": {
+                            "Hab-Unit 4B": [
+                                {
+                                    "here": "Hab-Unit 4B",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "A rusted, shuddering elevator shaft descends into the murky depths of the Undercity."
+                                }
+                            ],
+                            "Sector 7 Transit Hub": [
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Hab-Unit 4B",
+                                    "description": "The same rattling elevator groans its way back up to your hab-unit."
+                                },
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Lucky Dragon Noodles",
+                                    "description": "A flickering neon sign points down a narrow, descending staircase, the air growing thicker with the scent of ozone and synthetic noodles."
+                                },
+                                {
+                                    "here": "Sector 7 Transit Hub",
+                                    "there": "Central Power Conduit",
+                                    "description": "A gaping maw in the wall, patched with scavenged plating, leads into a dimly lit corridor where the rhythmic clang of machinery can be heard."
+                                }
+                            ],
+                            "Lucky Dragon Noodles": [
+                                {
+                                    "here": "Lucky Dragon Noodles",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "A grimy, ascending staircase leads back to the echoing vastness of the transit hub, the murmur of crowds a welcome if overwhelming sound."
+                                },
+                                {
+                                    "here": "Lucky Dragon Noodles",
+                                    "there": "The Data-Graveyard",
+                                    "description": "A narrow, grime-streaked alleyway leads away from the noodle stand, disappearing into the perpetual twilight of the Undercity."
+                                },
+                                {
+                                    "here": "Lucky Dragon Noodles",
+                                    "there": "The Conduit Nexus",
+                                    "description": "A heavy, rusted metal door, scarred with countless impacts, is set into the side of the shipping container, offering a path into the deeper levels of the Undercity."
+                                }
+                            ],
+                            "Central Power Conduit": [
+                                {
+                                    "here": "Central Power Conduit",
+                                    "there": "Sector 7 Transit Hub",
+                                    "description": "Emerging from the oppressive hum of machinery, the relative quiet of the transit hub feels like a balm to the senses."
+                                }
+                            ],
+                            "The Data-Graveyard": [
+                                {
+                                    "here": "The Data-Graveyard",
+                                    "there": "Lucky Dragon Noodles",
+                                    "description": "The alleyway opens back up to the flickering neon glow of the Lucky Dragon Noodles stand."
+                                }
+                            ],
+                            "The Conduit Nexus": [
+                                {
+                                    "here": "The Conduit Nexus",
+                                    "there": "Lucky Dragon Noodles",
+                                    "description": "The rusted metal door creaks open, revealing the steamy confines of the Lucky Dragon Noodles stand."
+                                }
+                            ]
+                        },
+                        "startingRoom": "Hab-Unit 4B",
+                        "visitedRooms": [
+                            "Hab-Unit 4B",
+                            "Sector 7 Transit Hub",
+                            "Lucky Dragon Noodles"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "use my data-slate to look up what the ingredients of firewater are",
+                "gameActions": [
+                    {
+                        "item": "Flask of Undercity Firewater",
+                        "type": "PlayerInspectsItem"
+                    }
+                ]
+            },
+            "description": "Glitch pulls the cracked data-slate from the depths of their synth-leather jacket, its dim screen flickering to life with a series of fragmented glyphs. They then turn their attention to the flask of Undercity Firewater, unscrewing the cap and tilting it slightly, as if the potent liquid itself might reveal its secrets to the uncooperative device. The cheap spirit sloshes within, its acrid fumes momentarily overpowering the savory steam of the noodles, but the data-slate remains stubbornly unhelpful, its corrupted memory offering no insight into the brew's questionable origins."
         }
     ]
 }

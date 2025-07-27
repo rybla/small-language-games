@@ -187,7 +187,9 @@ ${worldDescription}
                 }),
               )
               .min(1)
-              .describe("All the items in the starting room"),
+              .describe(
+                "All the items in the starting room. These should by the sorts of items that the player could pick up.",
+              ),
             connectedRooms: z
               .array(
                 z.object({
@@ -307,7 +309,9 @@ Keep the following notes in mind:
                 }),
               )
               .min(1)
-              .describe(`All the items to be placed in the room "${roomName}"`),
+              .describe(
+                `All the items to be placed in the room "${roomName}". These should by the sorts of items that the player could pick up.`,
+              ),
             connectedRooms: z
               .array(
                 z.object({

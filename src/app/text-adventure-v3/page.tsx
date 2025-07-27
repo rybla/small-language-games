@@ -69,7 +69,10 @@ export default function Page() {
   }
 
   async function saveInst(name?: string): Promise<void> {
-    set_logs((logs) => [...logs, `[saveInst] name=${name ?? "undefined"}`]);
+    set_logs((logs) => [
+      ...logs,
+      `[saveInst] ${stringify({ name: name ?? "undefined" })}`,
+    ]);
     await server.saveInst(name);
     await refresh_saveds();
   }
@@ -368,7 +371,7 @@ export default function Page() {
                           ))}
                         </div>
                         <div className={styles.description}>
-                          {turn.description}
+                          <Markdown>{turn.description}</Markdown>
                         </div>
                       </div>
                     ))}

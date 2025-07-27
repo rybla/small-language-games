@@ -410,7 +410,8 @@
 
 .turn {
     margin-bottom: calc(var(--spacing-unit) * 3);
-    animation: retro-turn-appear 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation: scan-and-glitch-appear 1.2s cubic-bezier(0.25, 1, 0.5, 1)
+        forwards;
 }
 
 .turnsBottom {
@@ -472,22 +473,44 @@
 }
 
 /* --- Cards (Room & Item) --- */
-.RoomCard,
+.RoomCard {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-unit);
+    padding: var(--spacing-unit);
+    margin: var(--spacing-unit);
+    border-radius: var(--border-radius);
+    background: #00000033;
+    border: 1px solid var(--color-border-dim);
+    animation: card-glitch-in 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    transition:
+        transform var(--transition-speed) ease,
+        box-shadow var(--transition-speed) ease,
+        border-color var(--transition-speed) ease;
+}
+
 .ItemCard {
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-unit);
-
-    /* Add padding and margin for the glow effect */
     padding: var(--spacing-unit);
     margin: var(--spacing-unit);
     border-radius: var(--border-radius);
-    background: #00000033; /* Give it a subtle background */
+    background: #00000033;
     border: 1px solid var(--color-border-dim);
 
-    animation: card-glitch-in 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    /* Multiple animations: one for appearing, one for passive bobbing */
+    animation-name: card-glitch-in, item-bob;
+    animation-duration: 0.8s, 4s;
+    animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1), ease-in-out;
+    animation-fill-mode: forwards, none;
+    animation-iteration-count: 1, infinite;
+    animation-delay: 0s, 0.9s; /* Delay bobbing until after appearing */
+
     transition:
         transform var(--transition-speed) ease,
         box-shadow var(--transition-speed) ease,
@@ -496,6 +519,8 @@
 
 .RoomCard:hover,
 .ItemCard:hover {
+    /* On hover, stop the bobbing and lift the card */
+    animation-play-state: paused, paused;
     transform: translateY(-5px) scale(1.03);
     box-shadow: 0 8px 30px var(--color-glow);
     border-color: var(--color-border);
@@ -726,45 +751,65 @@
     }
 }
 
-@keyframes retro-turn-appear {
+@keyframes scan-and-glitch-appear {
     0% {
         opacity: 0;
-        transform: scaleY(0.01) translateY(100px);
+        transform: scaleY(0.01) translateY(50px);
         transform-origin: bottom;
+        filter: blur(2px);
     }
-    10% {
-        opacity: 0.7;
-        transform: scaleY(0.01) translateY(0);
-        transform-origin: bottom;
-        text-shadow: 0 0 10px var(--color-glow);
-    }
-    11% {
-        color: var(--color-accent);
-    }
-    12% {
-        color: var(--color-text);
-        text-shadow: none;
-    }
-    40% {
+    /* Scanline wipe */
+    20% {
         opacity: 1;
         transform: scaleY(1) translateY(0);
         transform-origin: bottom;
+        filter: blur(2px);
+        text-shadow: 0 0 15px var(--color-glow);
     }
-    /* Glitch effect after text has appeared */
-    80% {
-        transform: scaleY(1) skewX(0);
+    /* Flicker */
+    22% {
+        color: var(--color-accent);
     }
-    82% {
-        transform: scaleY(1) skewX(-3deg);
+    24% {
+        color: var(--color-text);
     }
-    85% {
-        transform: scaleY(1) skewX(3deg);
+    26% {
+        color: var(--color-accent);
+        text-shadow: 0 0 20px var(--color-glow);
     }
-    88% {
-        transform: scaleY(1) skewX(0);
+    28% {
+        color: var(--color-text);
+        text-shadow: none;
+    }
+    /* Settle and final glitch */
+    60% {
+        opacity: 1;
+        transform: scale(1) skewX(0);
+        filter: blur(0);
+    }
+    62% {
+        transform: skewX(-2deg);
+    }
+    64% {
+        transform: skewX(2deg);
+    }
+    66% {
+        transform: skewX(0);
     }
     100% {
         opacity: 1;
-        transform: scaleY(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes item-bob {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+    100% {
+        transform: translateY(0px);
     }
 }
