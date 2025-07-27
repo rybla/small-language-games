@@ -264,6 +264,13 @@ export default function Page() {
                                       {gameAction.room}
                                     </span>
                                   </div>
+                                  <div className={styles.assets}>
+                                    <RoomCard
+                                      inst={state.inst}
+                                      roomName={gameAction.room}
+                                      format="chat"
+                                    />
+                                  </div>
                                 </>
                               ) : gameAction.type ===
                                 "PlayerInspectsCurrentRoom" ? (
