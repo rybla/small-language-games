@@ -403,7 +403,6 @@ Style instructions:
   - depth using shading and highlights
   - pixelated retro fantasy art style
   - the art should take up the ENTIRE image
-  - NO TEXT
   - centrally focused on the subject item
 `),
         output: { format: "media" },
