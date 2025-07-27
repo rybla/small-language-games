@@ -420,7 +420,23 @@ export async function interpretGameAction(
     return `The player inspects the item _${gameAction.item}_.`;
   } else if (gameAction.type === "PlayerCombinesItems") {
     const item1 = getItem(game, gameAction.item1);
+    const itemLocation1 = getItemLocation(game, item1.name);
     const item2 = getItem(game, gameAction.item2);
+    const itemLocation2 = getItemLocation(game, item2.name);
+
+    if (
+      !(itemLocation1.type === "player") &&
+      !(itemLocation2.type === "player")
+    ) {
+      return `The player cannot combine the items _${gameAction.item1}_ and _${gameAction.item2}_ because _${gameAction.item1}_ and _${gameAction.item2}_ are not in the player's inventory. Both items need to be in the player's inventory in order to combine them.`;
+    }
+    if (!(itemLocation1.type === "player")) {
+      return `The player cannot combine the items _${gameAction.item1}_ and _${gameAction.item2}_ because _${gameAction.item1}_ is not in the player's inventory. Both items need to be in the player's inventory. Both items need to be in the player's inventory in order to combine them.`;
+    }
+    if (!(itemLocation2.type === "player")) {
+      return `The player cannot combine the items _${gameAction.item1}_ and _${gameAction.item2}_ because _${gameAction.item1}_ is not in the player's inventory. Both items need to be in the player's inventory. Both items need to be in the player's inventory in order to combine them.`;
+    }
+
     setItemLocation(game, gameAction.item1, { type: "nonexistent" });
     setItemLocation(game, gameAction.item2, { type: "nonexistent" });
     const { item } = await GenerateCombinationItem({
@@ -463,10 +479,7 @@ export async function interpretGameAction(
     if (containerLocation.type === "player") {
       const playerRoom = getPlayerRoom(game);
       for (const item of items) {
-        setItemLocation(game, item.name, {
-          type: "room",
-          roomName: playerRoom.name,
-        });
+        setItemLocation(game, item.name, { type: "player" });
       }
       itemsNewLocationDescription = "the player's inventory";
     } else if (containerLocation.type === "room") {
