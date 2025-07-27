@@ -65,6 +65,7 @@
     --color-foreground-transparent: #1a1a1ae6;
 
     --color-border: #00ff7f;
+    --color-border-dim: #00ff7f44;
     --color-text: #e0e0e0;
     --color-text-dim: #a0a0a0;
     --color-accent: #00ff7f;
@@ -386,7 +387,7 @@
 .inventory .items {
     display: flex;
     flex-wrap: wrap;
-    gap: calc(2 * var(--spacing-unit));
+    gap: var(--spacing-unit); /* Reduced gap to account for card margin */
     align-items: center;
     justify-content: center;
 }
@@ -409,7 +410,7 @@
 
 .turn {
     margin-bottom: calc(var(--spacing-unit) * 3);
-    animation: retro-turn-appear 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation: retro-turn-appear 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .turnsBottom {
@@ -478,16 +479,26 @@
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-unit);
+
+    /* Add padding and margin for the glow effect */
+    padding: var(--spacing-unit);
+    margin: var(--spacing-unit);
+    border-radius: var(--border-radius);
+    background: #00000033; /* Give it a subtle background */
+    border: 1px solid var(--color-border-dim);
+
     animation: card-glitch-in 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
     transition:
-        transform var(--transition-speed-fast) ease,
-        box-shadow var(--transition-speed-fast) ease;
+        transform var(--transition-speed) ease,
+        box-shadow var(--transition-speed) ease,
+        border-color var(--transition-speed) ease;
 }
 
 .RoomCard:hover,
 .ItemCard:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 25px var(--color-glow);
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 8px 30px var(--color-glow);
+    border-color: var(--color-border);
 }
 
 .RoomCard .container,
@@ -688,54 +699,72 @@
 @keyframes card-glitch-in {
     0% {
         opacity: 0;
-        transform: translateY(15px) scale(0.95);
-        filter: blur(2px);
-        box-shadow: 0 0 0 var(--color-glow);
+        transform: translateY(20px);
+        filter: blur(5px);
     }
-    50% {
-        opacity: 0.7;
-        transform: translateY(0) scale(1) translateX(-10px);
+    /* A few glitch frames */
+    30% {
+        opacity: 0.5;
+        transform: translateY(10px) translateX(-10px) skewX(-5deg);
+        color: var(--color-accent);
+    }
+    32% {
+        transform: translateY(10px) translateX(10px) skewX(5deg);
+    }
+    34% {
+        transform: translateY(10px) translateX(0) skewX(0);
+        color: var(--color-text);
+    }
+    /* Settle in */
+    60% {
+        opacity: 1;
+        transform: translateY(0);
         filter: blur(0);
-        box-shadow: 0 0 25px var(--color-glow);
-    }
-    52% {
-        transform: translateX(10px);
-    }
-    54% {
-        transform: translateX(-5px);
-    }
-    56% {
-        transform: translateX(0);
     }
     100% {
         opacity: 1;
-        box-shadow: 0 0 15px var(--color-glow);
     }
 }
 
 @keyframes retro-turn-appear {
     0% {
         opacity: 0;
-        filter: blur(5px);
-        transform: skewX(-10deg) scale(1.1);
+        transform: scaleY(0.01) translateY(100px);
+        transform-origin: bottom;
     }
-    20% {
-        color: var(--color-accent);
+    10% {
+        opacity: 0.7;
+        transform: scaleY(0.01) translateY(0);
+        transform-origin: bottom;
         text-shadow: 0 0 10px var(--color-glow);
     }
-    40% {
-        transform: skewX(10deg);
+    11% {
+        color: var(--color-accent);
     }
-    60% {
-        transform: skewX(-5deg);
-    }
-    80% {
-        transform: skewX(0deg) scale(1);
-        filter: blur(0);
+    12% {
         color: var(--color-text);
         text-shadow: none;
     }
+    40% {
+        opacity: 1;
+        transform: scaleY(1) translateY(0);
+        transform-origin: bottom;
+    }
+    /* Glitch effect after text has appeared */
+    80% {
+        transform: scaleY(1) skewX(0);
+    }
+    82% {
+        transform: scaleY(1) skewX(-3deg);
+    }
+    85% {
+        transform: scaleY(1) skewX(3deg);
+    }
+    88% {
+        transform: scaleY(1) skewX(0);
+    }
     100% {
         opacity: 1;
+        transform: scaleY(1);
     }
 }

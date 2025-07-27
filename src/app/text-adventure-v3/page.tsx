@@ -249,13 +249,6 @@ export default function Page() {
                                       {gameAction.room}
                                     </span>
                                   </div>
-                                  <div className={styles.assets}>
-                                    <RoomCard
-                                      inst={state.inst}
-                                      roomName={gameAction.room}
-                                      format="chat"
-                                    />
-                                  </div>
                                 </>
                               ) : gameAction.type ===
                                 "PlayerInspectsCurrentRoom" ? (
@@ -268,15 +261,6 @@ export default function Page() {
                                     <span className={styles.roomName}>
                                       {state.inst.view.game.world.room.name}
                                     </span>
-                                  </div>
-                                  <div className={styles.assets}>
-                                    <RoomCard
-                                      inst={state.inst}
-                                      roomName={
-                                        state.inst.view.game.world.room.name
-                                      }
-                                      format="chat"
-                                    />
                                   </div>
                                 </>
                               ) : gameAction.type === "PlayerDropsItem" ? (
@@ -452,13 +436,12 @@ export default function Page() {
                     <div className={styles.items}>
                       {state.inst.view.game.world.player.items.map(
                         (item, i) => (
-                          <div className={styles.ItemCard} key={i}>
-                            <ItemCard
-                              inst={state.inst}
-                              itemName={item.name}
-                              format="view"
-                            />
-                          </div>
+                          <ItemCard
+                            inst={state.inst}
+                            itemName={item.name}
+                            format="view"
+                            key={i}
+                          />
                         ),
                       )}
                     </div>
