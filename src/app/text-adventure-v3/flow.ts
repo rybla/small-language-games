@@ -1,6 +1,6 @@
 import { ai, model, temperature } from "@/backend/ai";
 import { getValidMedia, getValidOutput } from "@/backend/ai/common";
-import { trim } from "@/utility";
+import { TODO, trim } from "@/utility";
 import { GenerateOptions, z } from "genkit";
 import {
   Game,
@@ -258,7 +258,7 @@ Appearance of _${container.name}_: ${container.appearanceDescription}
 Keep the following notes in mind:
 - Make sure you items you create make sense to be located inside the container _${container.name}_.
 - Make sure all of the details you create are thematically coherent with the game world and the container's descriptions.
-- Be creative! Include some normal items as some exciting, unique creations that a player would only ever see in your inventive game world.
+- Include some normal items as some exciting, unique creations that a player would only ever see in your inventive game world.
 `),
         output: {
           schema: z.object({
@@ -323,7 +323,7 @@ Keep the following notes in mind:
 - Make sure you choose items that make sense to be located in this room.
 - Make sure you choose connections to other new rooms that make sense to be connected to this room.
 - Make sure all of the details you create are thematically coherent with the game world and this room's description.
-- Be creative! Include some normal items and new rooms as well as some exciting, unique creations that a player would only ever see in your inventive game world.
+- Include some normal items and new rooms as well as some exciting, unique creations that a player would only ever see in your inventive game world.
 `),
         output: {
           schema: z.object({
@@ -396,15 +396,15 @@ export const GenerateItemImage = ai.defineFlow(
       await ai.generate({
         model: model.image_cheap,
         prompt: trim(`
+Image description: A game image art asset for the item _${item.name}_. ${item.appearanceDescription}
+
 Style instructions:
-  - isometric perspecitve
   - slightly padded framing
   - depth using shading and highlights
   - pixelated retro fantasy art style
-  - borderless
+  - the art should take up the ENTIRE image
   - NO TEXT
-
-Image description: A game image arg asset that represents the item _${item.name}_. ${item.appearanceDescription}
+  - centrally focused on the subject item
 `),
         output: { format: "media" },
         config: {
@@ -437,7 +437,7 @@ Style instructions:
   - slightly padded framing
   - depth using shading and highlights
   - pixelated retro fantasy art style
-  - borderless
+  - the art should take up the ENTIRE image
   - NO TEXT
 
 Image description: A game image art asset that represents the room _${room.name}_. ${room.appearanceDescription}
@@ -451,5 +451,42 @@ Image description: A game image art asset that represents the room _${room.name}
       } as GenerateOptions),
     );
     return { dataUrl: media.url };
+  },
+);
+
+export const GenerateGameName = ai.defineFlow(
+  {
+    name: "GenerateGameName",
+    inputSchema: z.object({
+      game: Game,
+    }),
+    outputSchema: z.object({
+      name: z.string(),
+    }),
+  },
+  async ({ game }) => {
+    const { title } = await getValidOutput(
+      await ai.generate({
+        model: model.text_speed,
+        system: trim(`
+${makeSystemPrelude_text()}
+
+Your current task is to come up with an epic title for a new text adventure game. The user will provide the details of the world that the adventure takes place in and a description of the player character.
+
+You should respond with JUST the title you come up with for the game.
+`),
+        prompt: trim(`
+World description: ${game.world.description}
+
+Player description: ${game.world.player.description}
+`),
+        output: {
+          schema: z.object({
+            title: z.string().describe("The new game's title"),
+          }),
+        },
+      } as GenerateOptions),
+    );
+    return { name: title };
   },
 );

@@ -9,7 +9,7 @@ import styles from "./page.module.css";
 import * as server from "./server";
 import { markdownifyGameView } from "./semantics";
 import Markdown from "react-markdown";
-import { ChevronRight, MoveRight, Quote } from "lucide-react";
+import { ChevronRight, MoveHorizontal, MoveRight, Quote } from "lucide-react";
 import { ItemName, RoomName } from "./ontology";
 import path from "path";
 import { paths } from "./common_client";
@@ -73,8 +73,15 @@ export default function Page() {
       ...logs,
       `[saveInst] ${stringify({ name: name ?? "undefined" })}`,
     ]);
+    if (name !== undefined && name_ref.current !== null)
+      name_ref.current.value = name;
     await server.saveInst(name);
     await refresh_saveds();
+  }
+
+  async function autoNameInst(): Promise<void> {
+    const name = await server.generateInstName();
+    await saveInst(name);
   }
 
   async function submitPromptInitialization(params: P["initialization"]) {
@@ -227,6 +234,11 @@ export default function Page() {
                             spellCheck={false}
                           />
                         </td>
+                        <td>
+                          <SmallButton onClick={() => autoNameInst()}>
+                            auto
+                          </SmallButton>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -363,6 +375,7 @@ export default function Page() {
                                       itemName={gameAction.item1}
                                       format="chat"
                                     />
+                                    <MoveHorizontal />
                                     <ItemCard
                                       inst={state.inst}
                                       itemName={gameAction.item2}

@@ -9,6 +9,7 @@ import {
   ok,
   Result,
   stringify,
+  TODO,
 } from "@/utility";
 import * as fs from "fs/promises";
 import filenamify from "filenamify";
@@ -125,6 +126,11 @@ export async function resetInstToRightBeforeTurn(i: number) {
   if (turn === undefined) throw new Error("Invalid turn index");
   inst.turns = inst.turns.slice(0, i);
   inst.state = turn.state;
+}
+
+export async function generateInstName(): Promise<string> {
+  if (inst === undefined) throw new Error("inst === undefined");
+  return (await flow.GenerateGameName({ game: inst.state.game })).name;
 }
 
 export async function getInstMetadatas() {
