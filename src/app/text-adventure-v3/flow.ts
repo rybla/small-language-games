@@ -382,7 +382,7 @@ export const GenerateItemImage = ai.defineFlow(
         model: model.image_cheap,
         prompt: trim(`
 Style instructions:
-  - orthographic perspecitve
+  - isometric perspecitve
   - slightly padded framing
   - depth using shading and highlights
   - pixelated retro fantasy art style
@@ -419,7 +419,6 @@ export const GenerateRoomImage = ai.defineFlow(
         model: model.image_cheap,
         prompt: trim(`
 Style instructions:
-  - orthographic perspecitve
   - slightly padded framing
   - depth using shading and highlights
   - pixelated retro fantasy art style
