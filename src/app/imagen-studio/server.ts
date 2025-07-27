@@ -16,7 +16,7 @@ var inst: Inst<N, S, A> | undefined;
 
 const spec: SpecServer<N, P, S, V, A> = {
   ...common.spec,
-  async initializeState(params) {
+  async initializeState(instMeta, params) {
     return {
       model: params.model,
       temperature: params.temperature,
@@ -32,7 +32,7 @@ const spec: SpecServer<N, P, S, V, A> = {
       description: `prompt: "${prompt.prompt}"`,
     });
   },
-  async interpretAction(inst, state, action) {
+  async interpretAction(inst, state, view, action) {
     const { dataUrl } = await flow.GenerateImage({
       model: state.model,
       temperature: state.temperature,
@@ -48,6 +48,7 @@ const spec: SpecServer<N, P, S, V, A> = {
       "base64",
     );
     state.imageIds.push(imageId);
+    return `generated image "${imageFilename}"`;
   },
   view(state) {
     return state;

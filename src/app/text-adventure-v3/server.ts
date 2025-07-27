@@ -22,7 +22,6 @@ import {
   getItem,
   getPlayerRoom,
   getRoom,
-  isRoomVisited as isVisitedRoom,
   visitRoom,
 } from "./semantics";
 import { exists } from "@/utility_fs";
@@ -48,43 +47,32 @@ const spec: SpecServer<N, P, S, V, A> = {
       game: state.game,
     });
     const gameActions = [gameAction];
-    const { description } = await GenerateTurnDescription({
-      prompt: params.prompt,
-      gameView: view.game,
-      game: state.game,
-      gameActions,
-    });
     return ok({
       action: {
         prompt: params.prompt,
         gameActions,
       },
-      description,
     });
   },
-  async interpretAction(inst, state, action) {
+  async interpretAction(inst, state, view, action) {
+    const gameActionDescriptions: string[] = [];
+
     for (const gameAction of action.gameActions) {
-      await interpretGameAction(state.game, action, gameAction);
+      const description = await interpretGameAction(
+        state.game,
+        action,
+        gameAction,
+      );
+      gameActionDescriptions.push(description);
     }
-    const room = getPlayerRoom(state.game);
-    if (!isVisitedRoom(state.game, room.name)) {
-      const { locatedItems, connectedRooms } = await flow.GenerateNewRoom({
-        game: state.game,
-        roomName: room.name,
-      });
-      for (const { item, itemLocation } of locatedItems) {
-        addItem(state.game, item, itemLocation);
-      }
-      for (const {
-        room,
-        roomConnection_to,
-        roomConnection_from,
-      } of connectedRooms) {
-        addRoom(state.game, room);
-        addRoomConnection(state.game, roomConnection_to, roomConnection_from);
-      }
-      visitRoom(state.game, room.name);
-    }
+
+    const { description } = await GenerateTurnDescription({
+      game: inst.state.game,
+      gameView: view.game,
+      prompt: action.prompt,
+      gameActionDescriptions,
+    });
+    return description;
   },
   view(state) {
     return {

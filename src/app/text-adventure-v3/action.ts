@@ -29,6 +29,10 @@ import {
   markdownifyGameView,
   setItemLocation,
   setPlayerRoom,
+  isRoomVisited,
+  addRoom,
+  addRoomConnection,
+  visitRoom,
 } from "./semantics";
 
 // -----------------------------------------------------------------------------
@@ -274,36 +278,72 @@ export async function interpretGameAction(
   game: Game,
   action: A,
   gameAction: GameAction,
-) {
+): Promise<string> {
   if (gameAction.type === "PlayerGoesToRoom") {
+    const currentRoom = getPlayerRoom(game);
+    const roomConnection = getRoomConnections(game, currentRoom.name).find(
+      (rc) => rc.there === gameAction.room,
+    );
+    if (roomConnection === undefined)
+      throw new GameError(
+        game,
+        `The player cannot go to the room _${gameAction.room}_ because it is not connected to their current room.`,
+      );
     setPlayerRoom(game, gameAction.room);
+    if (!isRoomVisited(game, gameAction.room)) {
+      const { locatedItems, connectedRooms } = await flow.GenerateNewRoom({
+        game: game,
+        roomName: gameAction.room,
+      });
+      for (const { item, itemLocation } of locatedItems) {
+        addItem(game, item, itemLocation);
+      }
+      for (const {
+        room,
+        roomConnection_to,
+        roomConnection_from,
+      } of connectedRooms) {
+        addRoom(game, room);
+        addRoomConnection(game, roomConnection_to, roomConnection_from);
+      }
+      visitRoom(game, gameAction.room);
+      return `The player goes to the room _${gameAction.room}_: ${roomConnection.description} This is the first time the player has visited this room.`;
+    }
+    return `The player goes to the room _${gameAction.room}_: ${roomConnection.description}`;
   } else if (gameAction.type === "PlayerInspectsCurrentRoom") {
-    // pass
+    return `The player inspects the current room.`;
   } else if (gameAction.type === "PlayerInspectsConnectionToAnotherRoom") {
-    // pass
+    // TODO: how to properly include reference to the roomConnection.description here without making it seem like the player is actually going there
+    return `The player inspects the connection to the room _${gameAction.room}_.`;
   } else if (gameAction.type === "PlayerDropsItem") {
     const playerRoom = getPlayerRoom(game);
     if (!doesPlayerHaveItem(game, gameAction.item))
       throw new GameError(
         game,
-        `The player cannot drop the item "${gameAction.item}" because that item is not in the player's inventory`,
+        `The player cannot drop the item _${gameAction.item}_ because that item is not in the player's inventory`,
       );
     setItemLocation(game, gameAction.item, {
       type: "room",
       roomName: playerRoom.name,
     });
+    return `The player drops the item _${gameAction.item}_ from their inventory into their current location.`;
   } else if (gameAction.type === "PlayerTakesItem") {
     const playerRoom = getPlayerRoom(game);
     if (!doesRoomHaveItem(game, playerRoom.name, gameAction.item))
       throw new GameError(
         game,
-        `The player cannot take the item "${gameAction.item}" because that item is not in the player's current room, "${playerRoom.name}"`,
+        `The player cannot take the item _${gameAction.item}_ because that item is not in the player's current room, "${playerRoom.name}"`,
       );
+    const item = getItem(game, gameAction.item);
+    if (!item.pickupable.isPickup) {
+      return `The player cannot take the item _${gameAction.item}_ because: ${item.pickupable.reasonWhyNotPickup}`;
+    }
     setItemLocation(game, gameAction.item, {
       type: "player",
     });
+    return `The player takes the item _${gameAction.item}_. The item is now in the player's inventory.`;
   } else if (gameAction.type === "PlayerInspectsItem") {
-    // pass
+    return `The player inspects the item _${gameAction.item}_.`;
   } else if (gameAction.type === "PlayerCombinesItems") {
     const item1 = getItem(game, gameAction.item1);
     const item2 = getItem(game, gameAction.item2);
@@ -316,32 +356,9 @@ export async function interpretGameAction(
       item2,
     });
     addItem(game, item, { type: "player" });
+    return `The player combines the items _${gameAction.item1}_ and _${gameAction.item2}_ in their inventory. The resulting combination is _${item.name}_: ${item.description}`;
   } else {
-    fromNever(gameAction);
-  }
-}
-
-// -----------------------------------------------------------------------------
-// render
-// -----------------------------------------------------------------------------
-
-export function markdownifyGameAction(action: GameAction) {
-  if (action.type === "PlayerGoesToRoom") {
-    return `The player goes to the room _${action.room}_`;
-  } else if (action.type === "PlayerInspectsCurrentRoom") {
-    return `The player inspects the current room`;
-  } else if (action.type === "PlayerInspectsConnectionToAnotherRoom") {
-    return `The player inspects the connection to the room _${action.room}_`;
-  } else if (action.type === "PlayerDropsItem") {
-    return `The player drops the item _${action.item}_ from their inventory into their current location`;
-  } else if (action.type === "PlayerTakesItem") {
-    return `The player takes the item _${action.item}_ into their inventory`;
-  } else if (action.type === "PlayerInspectsItem") {
-    return `The player inspects the item _${action.item}_`;
-  } else if (action.type === "PlayerCombinesItems") {
-    return `The player combines the items _${action.item1}_ and _${action.item2}_ in their inventory`;
-  } else {
-    return fromNever(action);
+    return fromNever(gameAction);
   }
 }
 
@@ -443,13 +460,13 @@ export const GenerateTurnDescription = ai.defineFlow(
       prompt: z.string(),
       gameView: GameView,
       game: Game,
-      gameActions: z.array(GameAction()),
+      gameActionDescriptions: z.array(z.string()),
     }),
     outputSchema: z.object({
       description: z.string(),
     }),
   },
-  async ({ prompt, gameView, game, gameActions }) => {
+  async ({ prompt, gameView, game, gameActionDescriptions }) => {
     const result = await ai.generate({
       model: model.text_speed,
       system: trim(`
@@ -468,9 +485,9 @@ CRITICAL: ONLY write the narration in your response.
         makeMarkdownFilePart(markdownifyGameView(gameView)),
         makeTextPart(
           trim(`
-Player's attempted actions (informal): "${prompt}"
-Player's performed actions (formal):
-${gameActions.map((action) => `  - ${markdownifyGameAction(action)}`).join("\n")}
+Player's informal instructions for the actions they intended to perform: "${prompt}"
+Player's actually performed actions (formal):
+${gameActionDescriptions.map((gad) => `  - ${gad}`).join("\n")}
 `),
         ),
       ],

@@ -1,19 +1,11 @@
 import { ai, model, temperature } from "@/backend/ai";
-import {
-  getValidMedia,
-  getValidOutput,
-  makeMarkdownFilePart,
-  makeTextPart,
-} from "@/backend/ai/common";
-import { randomIntInRange, TODO, trim } from "@/utility";
+import { getValidMedia, getValidOutput } from "@/backend/ai/common";
+import { trim } from "@/utility";
 import { GenerateOptions, z } from "genkit";
-import { GameAction, markdownifyGameAction } from "./action";
 import {
   Game,
-  GameView,
   Item,
   ItemLocation,
-  ItemName,
   Player,
   Room,
   RoomConnection,
@@ -27,7 +19,6 @@ import {
   addRoomConnection,
   getRoom,
   getRoomConnections,
-  markdownifyGameView,
 } from "./semantics";
 
 export function makeSystemPrelude_text() {
@@ -179,17 +170,9 @@ ${worldDescription}
             description: Room.shape.description,
             appearanceDescription: Room.shape.appearanceDescription,
             items: z
-              .array(
-                z.object({
-                  name: Item.shape.name,
-                  description: Item.shape.description,
-                  appearanceDescription: Item.shape.appearanceDescription,
-                }),
-              )
+              .array(Item)
               .min(1)
-              .describe(
-                "All the items in the starting room. These should by the sorts of items that the player could pick up.",
-              ),
+              .describe("All the items in the starting room."),
             connectedRooms: z
               .array(
                 z.object({
@@ -216,12 +199,8 @@ ${worldDescription}
         description,
         appearanceDescription,
       },
-      locatedItems: items.map((x) => ({
-        item: {
-          name: x.name,
-          description: x.description,
-          appearanceDescription: x.appearanceDescription,
-        },
+      locatedItems: items.map((item) => ({
+        item,
         itemLocation: {
           type: "room" as const,
           roomName: roomName,
@@ -301,16 +280,10 @@ Keep the following notes in mind:
         output: {
           schema: z.object({
             items: z
-              .array(
-                z.object({
-                  name: Item.shape.name,
-                  description: Item.shape.description,
-                  appearanceDescription: Item.shape.appearanceDescription,
-                }),
-              )
+              .array(Item)
               .min(1)
               .describe(
-                `All the items to be placed in the room "${roomName}". These should by the sorts of items that the player could pick up.`,
+                `All the items to be placed in the room "${roomName}".`,
               ),
             connectedRooms: z
               .array(
@@ -333,12 +306,8 @@ Keep the following notes in mind:
       } satisfies GenerateOptions),
     );
     return {
-      locatedItems: items.map((x) => ({
-        item: {
-          name: x.name,
-          description: x.description,
-          appearanceDescription: x.appearanceDescription,
-        },
+      locatedItems: items.map((item) => ({
+        item,
         itemLocation: {
           type: "room" as const,
           roomName: roomName,

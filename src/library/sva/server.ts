@@ -60,9 +60,9 @@ export async function runPrompt<
       message: `while generating action: ${result.message}`,
     });
   }
-  const { action, description } = result;
+  const { action } = result;
   const state = deepcopy(inst.state);
-  await spec.interpretAction(inst, state, action);
+  const description = await spec.interpretAction(inst, state, view, action);
   const turn: Turn<S, A> = { state, action, description };
   inst.turns.push(turn);
   inst.state = state;

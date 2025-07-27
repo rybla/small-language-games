@@ -88,7 +88,44 @@ export const Item = z.object({
   name: ItemName,
   description: OverviewDescription("item"),
   appearanceDescription: AppearanceDescription("item"),
+  container: z.lazy(() => ItemContainer),
+  pickupable: z.lazy(() => ItemPickupable),
 });
+
+export type ItemContainer = z.infer<typeof ItemContainer>;
+export const ItemContainer = z.union([
+  z.object({
+    isContainer: z
+      .literal(true)
+      .describe("whether this item is a container that can hold other items"),
+    howToOpen: ShortDescription("way to open this container"),
+    howToStoreItem: ShortDescription(
+      "way to store an item inside this container",
+    ),
+  }),
+  z.object({
+    isContainer: z
+      .literal(false)
+      .describe("whether this item is a container that can hold other items"),
+  }),
+]);
+
+export type ItemPickupable = z.infer<typeof ItemPickupable>;
+export const ItemPickupable = z.union([
+  z.object({
+    isPickup: z
+      .literal(true)
+      .describe("whether this item can be picked up by the player"),
+  }),
+  z.object({
+    isPickup: z
+      .literal(false)
+      .describe("whether this item can be picked up by the player"),
+    reasonWhyNotPickup: ShortDescription(
+      "main reason why this item cannot be picked up",
+    ),
+  }),
+]);
 
 export type ItemLocation = z.infer<typeof ItemLocation>;
 export const ItemLocation = z.union([

@@ -25,9 +25,14 @@ export type SpecServer<N extends string, P extends SpecParams, S, V, A> = {
     view: V,
     params: P["action"],
     state: S,
-  ) => Promise<Result<{ message: string }, { action: A; description: string }>>;
+  ) => Promise<Result<{ message: string }, { action: A }>>;
   // TODO: probably shouldn't have access to `inst`, since that also has the state in it (the additional `state` arg is a deepcopied version)
-  interpretAction: (inst: Inst<N, S, A>, state: S, action: A) => Promise<void>;
+  interpretAction: (
+    inst: Inst<N, S, A>,
+    state: S,
+    view: V,
+    action: A,
+  ) => Promise<string>;
 } & SpecCommon<N>;
 
 export type SpecClient<N extends string, P extends SpecParams, S, V, A> = {

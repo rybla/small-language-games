@@ -30,16 +30,16 @@ const spec: SpecServer<N, P, S, V, A> = {
       description: stringify(prompt),
     };
   },
-  async interpretAction(inst, state, action) {
+  async interpretAction(inst, state, view, action) {
     switch (action.type) {
       case "increment counter": {
         state[action.counter] += 1;
-        break;
+        return `increment counter ${action.counter}`;
       }
       case "set counter": {
         console.log("set counter", action.counter);
         state.counter = action.counter;
-        break;
+        return `set counter to ${action.counter}`;
       }
     }
   },
