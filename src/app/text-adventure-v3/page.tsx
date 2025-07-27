@@ -1,18 +1,24 @@
 "use client";
 
+import Image from "next/image";
 import type { InstClient, InstMetadata } from "@/library/sva/ontology";
-import { formatDate, fromNever, stringify } from "@/utility";
+import { do_, formatDate, fromNever, stringify } from "@/utility";
 import { useEffect, useRef, useState } from "react";
-import { A, P, V } from "./constant";
+import { A, P, spec, V } from "./constant";
 import styles from "./page.module.css";
 import * as server from "./server";
 import { markdownifyGameView } from "./semantics";
 import Markdown from "react-markdown";
 import { ChevronRight, Quote } from "lucide-react";
-import ItemCard from "./component/ItemCard";
-import RoomCard from "./component/RoomCard";
+import { ItemName, RoomName } from "./ontology";
+import path from "path";
+import { paths } from "./common_client";
 
-type InstStatus =
+// -----------------------------------------------------------------------------
+// Page
+// -----------------------------------------------------------------------------
+
+type PageState =
   | { type: "none" }
   | { type: "initializing"; params: P["initialization"] }
   | { type: "loaded"; inst: InstClient<V, A> };
@@ -21,7 +27,7 @@ export default function Page() {
   const [saveds, set_saveds] = useState<InstMetadata[]>([]);
   const [logs, set_logs] = useState<string[]>([]);
   const [isShown_NewPanel, set_isShown_NewPanel] = useState(false);
-  const [instStatus, set_instStatus] = useState<InstStatus>({ type: "none" });
+  const [state, set_state] = useState<PageState>({ type: "none" });
 
   // ---------------------------------------------------------------------------
 
@@ -47,11 +53,11 @@ export default function Page() {
     await server.saveInst();
     const inst = await server.getInst();
     if (inst === undefined) {
-      set_instStatus({ type: "none" });
+      set_state({ type: "none" });
       set_logs((logs) => [...logs, `[updateInst] inst is undefined`]);
       return;
     }
-    set_instStatus({ type: "loaded", inst });
+    set_state({ type: "loaded", inst });
     if (name_ref.current !== null) name_ref.current.value = inst.metadata.name;
   }
 
@@ -95,7 +101,7 @@ export default function Page() {
       behavior: "smooth",
       block: "end",
     });
-  }, [instStatus]);
+  }, [state]);
 
   useEffect(() => {
     if (logsBottom_ref.current === null) return;
@@ -108,7 +114,14 @@ export default function Page() {
   // ---------------------------------------------------------------------------
 
   return (
-    <div className={styles.page}>
+    <div
+      className={styles.page}
+      style={{
+        flex: "1 1 0",
+        minHeight: "0",
+        width: "100%",
+      }}
+    >
       <div
         className={[
           styles.NewPanel,
@@ -158,9 +171,9 @@ export default function Page() {
         </div>
       </div>
       <div className={styles.content}>
-        {instStatus.type === "none" ? (
+        {state.type === "none" ? (
           <></>
-        ) : instStatus.type === "initializing" ? (
+        ) : state.type === "initializing" ? (
           <>
             <div className={styles.InitializingPanel}>
               <div className={styles.LoadingPanel}>
@@ -174,16 +187,14 @@ export default function Page() {
                   <tbody>
                     <tr>
                       <td className={styles.label}>Prompt</td>
-                      <td className={styles.value}>
-                        {instStatus.params.prompt}
-                      </td>
+                      <td className={styles.value}>{state.params.prompt}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </>
-        ) : instStatus.type === "loaded" ? (
+        ) : state.type === "loaded" ? (
           <>
             <div className={styles.InstPanel}>
               <div className={styles.column}>
@@ -197,7 +208,7 @@ export default function Page() {
                             className={styles.input}
                             ref={name_ref}
                             type="text"
-                            defaultValue={instStatus.inst.metadata.name}
+                            defaultValue={state.inst.metadata.name}
                             onKeyDown={(event) => {
                               if (event.key === "Enter") {
                                 event.preventDefault();
@@ -214,7 +225,7 @@ export default function Page() {
                 </div>
                 <div className={styles.ChatPanel}>
                   <div className={styles.turns}>
-                    {instStatus.inst.turns.map((turn, i) => (
+                    {state.inst.turns.map((turn, i) => (
                       <div className={styles.turn} key={i}>
                         <div className={styles.prompt}>
                           <div className={styles.label}>
@@ -241,9 +252,9 @@ export default function Page() {
                                   <div className={styles.assets}>
                                     <div className={styles.RoomCard}>
                                       <RoomCard
-                                        inst={instStatus.inst}
+                                        inst={state.inst}
                                         roomName={gameAction.room}
-                                        format="large"
+                                        format="view"
                                       />
                                     </div>
                                   </div>
@@ -257,21 +268,17 @@ export default function Page() {
                                   <div className={styles.content}>
                                     inspect{" "}
                                     <span className={styles.roomName}>
-                                      {
-                                        instStatus.inst.view.game.world.room
-                                          .name
-                                      }
+                                      {state.inst.view.game.world.room.name}
                                     </span>
                                   </div>
                                   <div className={styles.assets}>
                                     <div className={styles.RoomCard}>
                                       <RoomCard
-                                        inst={instStatus.inst}
+                                        inst={state.inst}
                                         roomName={
-                                          instStatus.inst.view.game.world.room
-                                            .name
+                                          state.inst.view.game.world.room.name
                                         }
-                                        format="large"
+                                        format="view"
                                       />
                                     </div>
                                   </div>
@@ -290,7 +297,7 @@ export default function Page() {
                                   <div className={styles.assets}>
                                     <div className={styles.ItemCard}>
                                       <ItemCard
-                                        inst={instStatus.inst}
+                                        inst={state.inst}
                                         itemName={gameAction.item}
                                         format="large"
                                       />
@@ -311,7 +318,7 @@ export default function Page() {
                                   <div className={styles.assets}>
                                     <div className={styles.ItemCard}>
                                       <ItemCard
-                                        inst={instStatus.inst}
+                                        inst={state.inst}
                                         itemName={gameAction.item}
                                         format="large"
                                       />
@@ -332,7 +339,7 @@ export default function Page() {
                                   <div className={styles.assets}>
                                     <div className={styles.ItemCard}>
                                       <ItemCard
-                                        inst={instStatus.inst}
+                                        inst={state.inst}
                                         itemName={gameAction.item}
                                         format="large"
                                       />
@@ -375,9 +382,9 @@ export default function Page() {
                     <div className={styles.RoomCard}>
                       {
                         <RoomCard
-                          inst={instStatus.inst}
-                          roomName={instStatus.inst.view.game.world.room.name}
-                          format="icon"
+                          inst={state.inst}
+                          roomName={state.inst.view.game.world.room.name}
+                          format="chat"
                         />
                       }
                     </div>
@@ -389,13 +396,13 @@ export default function Page() {
                         <tr>
                           <td className={styles.label}>name</td>
                           <td className={styles.value}>
-                            {instStatus.inst.view.game.world.player.name}
+                            {state.inst.view.game.world.player.name}
                           </td>
                         </tr>
                         <tr>
                           <td className={styles.label}>description</td>
                           <td className={styles.value}>
-                            {instStatus.inst.view.game.world.player.description}
+                            {state.inst.view.game.world.player.description}
                           </td>
                         </tr>
                       </tbody>
@@ -404,13 +411,13 @@ export default function Page() {
                   <div className={styles.inventory}>
                     <div className={styles.title}>Inventory</div>
                     <div className={styles.items}>
-                      {instStatus.inst.view.game.world.player.items.map(
+                      {state.inst.view.game.world.player.items.map(
                         (item, i) => (
                           <div className={styles.ItemCard} key={i}>
                             <ItemCard
-                              inst={instStatus.inst}
+                              inst={state.inst}
                               itemName={item.name}
-                              format="icon"
+                              format="chat"
                             />
                           </div>
                         ),
@@ -418,14 +425,14 @@ export default function Page() {
                     </div>
                   </div>
                   <Markdown>
-                    {markdownifyGameView(instStatus.inst.view.game)}
+                    {markdownifyGameView(state.inst.view.game)}
                   </Markdown>
                 </div>
               </div>
             </div>
           </>
         ) : (
-          fromNever(instStatus)
+          fromNever(state)
         )}
       </div>
       <div className={styles.LogsPanel}>
@@ -442,6 +449,10 @@ export default function Page() {
     </div>
   );
 }
+
+// -----------------------------------------------------------------------------
+// PromptInitializationPanel
+// -----------------------------------------------------------------------------
 
 function PromptInitializationPanel(props: {
   submit: (params: P["initialization"]) => Promise<void>;
@@ -483,6 +494,164 @@ function PromptInitializationPanel(props: {
     </div>
   );
 }
+
+// -----------------------------------------------------------------------------
+// RoomCard
+// -----------------------------------------------------------------------------
+
+type RoomCardFormat = "chat" | "view";
+
+type RoomCardState = { type: "loading" } | { type: "loaded"; filename: string };
+
+export function RoomCard(props: {
+  inst: InstClient<V, A>;
+  roomName: RoomName;
+  format: RoomCardFormat;
+}) {
+  const [state, set_state] = useState<RoomCardState>({ type: "loading" });
+
+  const ratioRoomImageToFrameImage = 0.85;
+  const size = {
+    chat: 400,
+    view: 200,
+  }[props.format];
+
+  useEffect(() => {
+    void do_(async () => {
+      set_state({ type: "loading" });
+      const filename = await server.loadRoomImageFilename(props.roomName);
+      set_state({ type: "loaded", filename });
+    });
+  }, [props.roomName]);
+
+  // the `.frame` has a transparent cutout and is layered on top of the `.item` such that they are both centered around the same center point
+  return (
+    <div className={styles.RoomCard}>
+      <div className={styles.container}>
+        {state.type === "loading" ? (
+          <video
+            className={[styles.room, styles.placeholder].join(" ")}
+            src={path.join(
+              paths.rootDirpath(spec.name),
+              "placeholder_room.mp4",
+            )}
+            width={Math.floor(size * (4 / 3) * ratioRoomImageToFrameImage)}
+            height={Math.floor(size * ratioRoomImageToFrameImage)}
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            Your browser does not support the video tag.
+          </video>
+        ) : state.type === "loaded" ? (
+          <Image
+            className={[styles.room].join(" ")}
+            alt={props.roomName}
+            src={paths.assetFilepath(
+              spec.name,
+              props.inst.metadata.id,
+              state.filename,
+            )}
+            width={Math.floor(size * (4 / 3) * ratioRoomImageToFrameImage)}
+            height={Math.floor(size * ratioRoomImageToFrameImage)}
+          />
+        ) : (
+          fromNever(state)
+        )}
+        <Image
+          className={styles.frame}
+          alt={""}
+          src={path.join(paths.rootDirpath(spec.name), "frame_room.png")}
+          width={Math.floor(size * (4 / 3))}
+          height={Math.floor(size)}
+        />
+      </div>
+      <div className={styles.roomName}>{props.roomName}</div>
+    </div>
+  );
+}
+
+// -----------------------------------------------------------------------------
+// ItemCard
+// -----------------------------------------------------------------------------
+
+type ItemCardFormat = "chat" | "large";
+
+type ItemCardState = { type: "loading" } | { type: "loaded"; filename: string };
+
+function ItemCard(props: {
+  inst: InstClient<V, A>;
+  itemName: ItemName;
+  format: ItemCardFormat;
+}) {
+  const [state, set_state] = useState<ItemCardState>({ type: "loading" });
+
+  const size = {
+    chat: 150,
+    large: 200,
+  }[props.format];
+  const ratioOfItemImageToFrameImage = 0.75;
+
+  useEffect(() => {
+    void do_(async () => {
+      set_state({ type: "loading" });
+      const filename = await server.loadItemImageFilename(props.itemName);
+      set_state({ type: "loaded", filename });
+    });
+  }, [props.itemName]);
+
+  // the `.frame` has a transparent cutout and is layered on top of the `.item` such that they are both centered around the same center point
+  return (
+    <div className={styles.ItemCard}>
+      <div className={styles.container}>
+        {state.type === "loading" ? (
+          <video
+            className={[styles.item, styles.placeholder].join(" ")}
+            src={path.join(
+              paths.rootDirpath(spec.name),
+              "placeholder_item.mp4",
+            )}
+            width={size * ratioOfItemImageToFrameImage}
+            height={size * ratioOfItemImageToFrameImage}
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            Your browser does not support the video tag.
+          </video>
+        ) : state.type === "loaded" ? (
+          <Image
+            className={[styles.item].join(" ")}
+            alt={props.itemName}
+            src={paths.assetFilepath(
+              spec.name,
+              props.inst.metadata.id,
+              state.filename,
+            )}
+            width={size * ratioOfItemImageToFrameImage}
+            height={size * ratioOfItemImageToFrameImage}
+          />
+        ) : (
+          fromNever(state)
+        )}
+        <Image
+          className={styles.frame}
+          alt={""}
+          src={path.join(paths.rootDirpath(spec.name), "frame_item.png")}
+          width={size}
+          height={size}
+        />
+      </div>
+      <div className={styles.itemName}>{props.itemName}</div>
+    </div>
+  );
+}
+
+// -----------------------------------------------------------------------------
+// Button
+// -----------------------------------------------------------------------------
 
 function Button(props: {
   onClick: () => Promise<void>;

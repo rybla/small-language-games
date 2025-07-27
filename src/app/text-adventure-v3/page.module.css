@@ -1,158 +1,83 @@
 /*
-================================================================================
-|                                                                              |
-|                      RETRO FLUID - TERMINAL THEME BLUEPRINT                    |
-|                                                                              |
-================================================================================
-|
-|--- FILE ORGANIZATION --------------------------------------------------------|
-|
-| This CSS file establishes a "Retro Fluid Terminal" theme. It is organized
-| into the following sections:
-|
-| 1. :root Variables: Defines the entire color palette, typography settings,
-|    sizing, and animation speeds for the theme. This is the central
-|    configuration hub.
-|
-| 2. Global & Page Styles: Sets up the base page layout, including the fluid
-|    gradient background and the animated scanline overlay that are key to
-|    the retro CRT monitor aesthetic.
-|
-| 3. Custom Scrollbar Styles: This section provides custom styling for
-|    scrollbars across the application to match the theme. It makes the
-|    scrollbar a thin line, using the primary accent color by default and
-|    the secondary accent color on hover. A repeating-gradient is used to
-|    give the scrollbar a "grainy" or textured appearance, consistent with
-|    the retro vibe.
-|
-| 4. Keyframe Animations: Contains all @keyframes rules for animations used
-|    throughout the theme, such as the background gradient movement, scanlines,
-|    and element flicker-in effects.
-|
-| 5. Layout Containers: Styles for major layout blocks like `.sidebar` and
-|    `.content`.
-|
-| 6. Component Styles: The remainder of the file contains specific styling
-|    for individual components, such as sections, headings, buttons, panels,
-|    tables, inputs, and the chat/log views. Each component is styled to
-|    reinforce the terminal look and feel.
-|
-|--- SCROLLBAR IMPLEMENTATION -------------------------------------------------|
-|
-| To achieve the custom scrollbar styling, this file uses the `::-webkit-scrollbar`
-| pseudo-elements, which work in modern WebKit-based browsers (Chrome, Safari,
-| Edge, etc.).
-| - `::-webkit-scrollbar` sets the width of the scrollbar.
-| - `::-webkit-scrollbar-track` styles the background trough, which is made
-|   transparent here.
-| - `::-webkit-scrollbar-thumb` styles the draggable handle. It is styled
-|   with the primary accent color and a repeating-linear-gradient to create
-|   a grainy texture.
-| - `::-webkit-scrollbar-thumb:hover` changes the handle's color to the
-|   secondary accent color when the mouse is over it.
-|
-================================================================================
-*/
+ * ===================================================================
+ * Blueprint: Retro Fluid - Text Adventure Edition
+ * ===================================================================
+ *
+ * ## Core Concept
+ * A fusion of 80s/90s terminal and text-adventure aesthetics with
+ * modern fluidity and interactivity. The design evokes the feeling
+ * of an old CRT monitor displaying a fantasy world, but with the
+ * smooth animations and clean layout of a contemporary web app.
+ *
+ * ## Visual Themes
+ * 1.  **Living Background:** The entire page sits on a dark, subtly
+ * animated gradient that mimics the glow of a CRT screen or a
+ * slowly shifting nebula. This provides a dynamic, immersive
+ * backdrop.
+ * 2.  **Blocky, Terminal-like Foreground:** Content containers are
+ * sharp-edged, with distinct borders and a slight glow, as if
+ * they are separate windows on a terminal screen.
+ * 3.  **Monospace & Pixel-Perfect Typography:** Monospace fonts are
+ * used exclusively to reinforce the retro, computer-terminal
+ * feel. Text is crisp and highly readable.
+ * 4.  **Interactive Glow:** Interactive elements like buttons and
+ * links don't just change color; they glow, pulse, and react
+ * to user input, providing satisfying tactile feedback.
+ *
+ * ## Color Palette (Dark Mode Focus)
+ * - **Background:** A deep, dark space-blue/purple gradient.
+ * - **Foreground/Cards:** Very dark charcoal (#1a1a1a) with a subtle
+ * transparency to let the background glow through.
+ * - **Borders & Accents:** A vibrant, electric green (#00ff7f),
+ * reminiscent of classic monochrome monitors.
+ * - **Text:** A slightly off-white, soft white (#e0e0e0) for body
+ * text, with the accent green used for highlights and titles.
+ * - **Shadows/Glows:** The accent green is used for `box-shadow` to
+ * create a "glow" effect rather than a traditional shadow.
+ *
+ * ## Typography
+ * - **Font:** A single, clean, monospace font (e.g., 'Fira Code',
+ * 'Source Code Pro', or a system monospace font).
+ * - **Titles/Headings:** Bold, uppercase, with generous letter-spacing.
+ * - **Body/Links:** Regular weight, clear and legible.
+ *
+ * ## Animation & Interactivity
+ * - **Passive Animation:** The background gradient slowly shifts.
+ * Loading indicators pulse with the accent color.
+ * - **Entrance Animation:** Elements fade in and slide up slightly.
+ * - **Hover Animations:** Buttons and interactive elements intensify
+ * their glow.
+ * - **Active/Click Animations:** Buttons have a "press down" effect.
+ * - **State Changes:** Panels and modals fade in and out smoothly.
+ *
+ * ===================================================================
+ */
 
+/* --- Variables --- */
 :root {
-    --x-color-orange: #ff9933;
-    --x-color-yellow: yellow;
-    --x-color-blue: #42cef5;
-    --x-color-accent-secondary: var(--x-color-blue);
+    --font-family-mono: "Fira Code", "Source Code Pro", monospace;
 
-    --color-bg: #02040a;
-    --color-bg-gradient-start: #0d0d1a;
-    --color-bg-gradient-end: #050510;
-    --color-text: #00ff7f;
-    --color-text-dim: #00a854;
-    --color-accent-primary: #39ff14;
-    --color-accent-secondary: var(--x-color-accent-secondary);
+    --color-background-start: #0d0221;
+    --color-background-mid: #0c164f;
+    --color-background-end: #202040;
+
+    --color-foreground: #1a1a1aff;
+    --color-foreground-transparent: #1a1a1ae6;
+
     --color-border: #00ff7f;
-    --color-border-transparent: #00ff7f33;
-    --color-shadow-primary: #00ff7f;
-    --color-shadow-secondary: var(--x-color-accent-secondary);
-
-    --font-family-mono: "Fira Code", "Courier New", monospace;
+    --color-text: #e0e0e0;
+    --color-text-dim: #a0a0a0;
+    --color-accent: #00ff7f;
+    --color-accent-dark: #00aa55;
+    --color-glow: #00ff7f66;
+    --color-shadow: #00000088;
 
     --spacing-unit: 8px;
-    /* --border-radius: 4px; */
-    --border-radius: 0;
-    --border-width: 1px;
-
-    --transition-speed-fast: 0.2s;
-    --transition-speed-med: 0.4s;
-    --transition-speed-slow: 0.8s;
-
-    --scrollbar-width: 4px;
-    --scrollbar-height: 4px;
+    --border-radius: 4px;
+    --transition-speed: 0.3s;
 }
 
-.page {
-    flex: 1 1 0;
-    min-height: 0;
-    width: 100%;
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    font-family: var(--font-family-mono);
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    grid-template-rows: 1fr;
-    background: linear-gradient(
-        135deg,
-        var(--color-bg-gradient-start),
-        var(--color-bg-gradient-end)
-    );
-    animation: fluidGradient 15s ease infinite;
-    position: relative;
-    overflow: hidden;
-}
-
-.page::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0) 0,
-        rgba(0, 0, 0, 0) 2px,
-        rgba(255, 255, 255, 0.03) 3px,
-        rgba(255, 255, 255, 0.03) 4px
-    );
-    animation: scanline 10s linear infinite;
-    pointer-events: none;
-    opacity: 0.5;
-}
-
-::-webkit-scrollbar {
-    width: var(--scrollbar-width);
-    height: var(--scrollbar-height);
-}
-
-::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: var(--color-accent-primary);
-    border-radius: var(--border-radius);
-    background-image: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 1px,
-        rgba(0, 0, 0, 0.25) 1px,
-        rgba(0, 0, 0, 0.25) 2px
-    );
-    transition: background-color var(--transition-speed-fast) ease;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-accent-secondary);
-}
-
-@keyframes fluidGradient {
+@keyframes fluid-gradient {
     0% {
         background-position: 0% 50%;
     }
@@ -164,61 +89,79 @@
     }
 }
 
-@keyframes scanline {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(100px);
-    }
+/* --- Layout --- */
+.page {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+
+    gap: calc(var(--spacing-unit) * 2);
+    padding: calc(var(--spacing-unit) * 2);
+    overflow: hidden;
+
+    font-family: var(--font-family-mono);
+    color: var(--color-text);
+    background-color: var(--color-background-start);
 }
 
-@keyframes flickerIn {
-    0% {
-        opacity: 0;
-        text-shadow: none;
-    }
-    50% {
-        opacity: 0.5;
-        text-shadow: 0 0 5px var(--color-accent-primary);
-    }
-    100% {
-        opacity: 1;
-        text-shadow: none;
-    }
+.page::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg,
+        var(--color-background-start),
+        var(--color-background-mid),
+        var(--color-background-end)
+    );
+    background-size: 400% 400%;
+    animation: fluid-gradient 20s ease infinite;
+    z-index: -1;
 }
 
 .sidebar {
-    grid-column: 1 / 2;
-    border-right: var(--border-width) solid var(--color-border);
-    padding: calc(var(--spacing-unit) * 2);
-    display: flex;
-    flex-direction: column;
-    gap: calc(var(--spacing-unit) * 4);
+    background: var(--color-foreground-transparent);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 0 15px var(--color-glow);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-unit);
     overflow-y: auto;
-}
-
-.content {
-    padding: calc(var(--spacing-unit) * 2);
     display: flex;
     flex-direction: column;
+    gap: calc(var(--spacing-unit) * 3);
+    animation: fadeInSlideUp 0.5s ease-out forwards;
 }
 
+.page > .content {
+    background: var(--color-foreground-transparent);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 0 15px var(--color-glow);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: fadeInSlideUp 0.7s ease-out forwards;
+}
+
+/* --- Sidebar Sections --- */
 .section {
-    animation: flickerIn 0.5s ease-out forwards;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-unit);
 }
 
 .heading {
     font-weight: bold;
+    color: var(--color-accent);
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: var(--spacing-unit);
-    color: var(--color-accent-secondary);
-    text-shadow: 0 0 5px var(--color-shadow-secondary);
+    padding-bottom: var(--spacing-unit);
+    border-bottom: 1px solid var(--color-border);
 }
 
-.item {
-    margin-bottom: var(--spacing-unit);
+.sidebar .item {
     display: flex;
     flex-direction: column;
     gap: calc(var(--spacing-unit) / 2);
@@ -229,108 +172,332 @@
     color: var(--color-text-dim);
 }
 
-.load {
-    display: flex;
-}
-
-.button {
-    background-color: transparent;
-    border: var(--border-width) solid var(--color-border);
-    color: var(--color-text);
-    padding: var(--spacing-unit) calc(var(--spacing-unit) * 2);
-    font-family: var(--font-family-mono);
-    cursor: pointer;
-    transition: all var(--transition-speed-fast) ease;
-    text-align: left;
+.load .button {
     width: 100%;
+    text-align: left;
 }
 
-.button:hover {
-    background-color: var(--color-border-transparent);
-    color: var(--color-accent-primary);
-    box-shadow: 0 0 10px var(--color-shadow-primary);
-}
-
-.button:active {
-    transform: scale(0.98);
-    background-color: var(--color-border);
-    color: var(--color-bg);
-}
-
+/* --- New Panel (Modal) --- */
 .NewPanel {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.95);
-    width: 90%;
-    max-width: 600px;
-    background-color: var(--color-bg);
-    border: var(--border-width) solid var(--color-accent-secondary);
-    box-shadow: 0 0 25px var(--color-shadow-secondary);
-    transition:
-        opacity var(--transition-speed-med) ease,
-        transform var(--transition-speed-med) ease;
-    z-index: 100;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-shadow);
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition:
+        opacity var(--transition-speed) ease,
+        visibility var(--transition-speed) ease;
 }
 
 .NewPanel.hidden {
     opacity: 0;
-    pointer-events: none;
-    transform: translate(-50%, -50%) scale(0.9);
+    visibility: hidden;
 }
 
 .NewPanel.shown {
     opacity: 1;
-    pointer-events: auto;
-    transform: translate(-50%, -50%) scale(1);
+    visibility: visible;
 }
 
-.NewPanel .menubar {
+.NewPanel > .content {
+    width: 100%;
+    max-width: 600px;
+    padding: calc(var(--spacing-unit) * 2);
+    animation: fadeInSlideUp 0.3s ease-out forwards;
+}
+
+.menubar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-unit);
-    border-bottom: var(--border-width) solid var(--color-accent-secondary);
+    margin-bottom: calc(var(--spacing-unit) * 2);
 }
 
-.NewPanel .menubar .title {
+.menubar .title {
+    font-size: 1.5em;
     font-weight: bold;
-    color: var(--color-accent-secondary);
+    color: var(--color-accent);
+}
+
+/* --- Logs Panel --- */
+.LogsPanel {
+    position: fixed;
+    bottom: calc(var(--spacing-unit) * 2);
+    right: calc(var(--spacing-unit) * 2);
+    width: 400px;
+    height: 300px;
+    background: var(--color-foreground-transparent);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 20px var(--color-glow);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-unit);
+    transition: all var(--transition-speed) ease;
+    animation: fadeInSlideUp 0.9s ease-out forwards;
+}
+
+.LogsPanel .title {
+    color: var(--color-accent);
+    padding-bottom: var(--spacing-unit);
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: var(--spacing-unit);
     text-transform: uppercase;
 }
 
-.NewPanel .menubar .item {
-    margin: 0;
-}
-
-.NewPanel .content {
-    padding: calc(var(--spacing-unit) * 2);
+.logs {
+    flex-grow: 1;
     overflow-y: auto;
+    font-size: 0.8em;
+    padding-right: var(--spacing-unit); /* for scrollbar */
 }
 
-.PromptInitializationPanel {
+.log {
+    padding: 2px 0;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: var(--color-text-dim);
+}
+
+.logsBottom {
+    height: 1px;
+}
+
+/* --- Inst Panel & Main Content --- */
+.InstPanel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(var(--spacing-unit) * 2);
+    padding: calc(var(--spacing-unit) * 2);
+    height: 100%;
+    overflow: hidden;
+}
+
+.InstPanel .column {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 2);
+    overflow: hidden;
+}
+
+/* --- Metadata & View Panels --- */
+.MetadataPanel,
+.ViewPanel {
+    background: #00000033;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: calc(var(--spacing-unit) * 2);
     display: flex;
     flex-direction: column;
     gap: calc(var(--spacing-unit) * 2);
 }
 
-.PromptInitializationPanel .title {
+.ViewPanel {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.ViewPanel .title {
     font-weight: bold;
-    color: var(--color-accent-secondary);
+    color: var(--color-accent);
     text-transform: uppercase;
+    letter-spacing: 1px;
     margin-bottom: var(--spacing-unit);
 }
 
-.InitializingPanel,
-.InstPanel,
-.MetadataPanel,
-.ChatPanel,
-.ViewPanel {
-    border: var(--border-width) solid var(--color-border-transparent);
+.currentRoom,
+.player,
+.inventory {
+    margin-bottom: var(--spacing-unit);
+}
+
+.inventory .items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-unit);
+}
+
+/* --- Chat Panel --- */
+.ChatPanel {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+}
+
+.turns {
+    flex-grow: 1;
+    overflow-y: auto;
     padding: calc(var(--spacing-unit) * 2);
-    animation: flickerIn 0.5s ease-out forwards;
+}
+
+.turn {
+    margin-bottom: calc(var(--spacing-unit) * 3);
+    animation: fadeIn 0.5s ease;
+}
+
+.turnsBottom {
+    height: 1px;
+}
+
+.ChatPanel .prompt {
+    display: flex;
+    gap: var(--spacing-unit);
+    align-items: flex-start;
+    padding: var(--spacing-unit);
+    border-top: 1px solid var(--color-border);
+}
+
+.turn .prompt {
+    border: none;
+    padding: 0;
+    margin-bottom: var(--spacing-unit);
+}
+
+.turn .prompt .label {
+    color: var(--color-accent);
+}
+
+.gameActions {
+    padding-left: calc(var(--spacing-unit) * 3);
+    margin-bottom: var(--spacing-unit);
+    border-left: 1px solid #ffffff33;
+}
+
+.gameAction {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: var(--spacing-unit);
+    padding: var(--spacing-unit) 0;
+}
+
+.gameAction .label {
+    color: var(--color-text-dim);
+}
+
+.gameAction .assets {
+    grid-column: 1 / -1;
+    margin-top: var(--spacing-unit);
+}
+
+.description {
+    line-height: 1.6;
+    white-space: pre-wrap;
+    padding: var(--spacing-unit);
+    background: #00000033;
+    border-radius: var(--border-radius);
+}
+
+/* --- Cards (Room & Item) --- */
+.RoomCard,
+.ItemCard {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-unit);
+}
+
+.RoomCard .container,
+.ItemCard .container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.RoomCard .room,
+.ItemCard .item {
+    position: absolute;
+    z-index: 1;
+    border-radius: var(--border-radius);
+    background-color: #000;
+}
+
+.RoomCard .frame,
+.ItemCard .frame {
+    z-index: 2;
+    pointer-events: none;
+}
+
+.placeholder {
+    filter: grayscale(1) contrast(1.5) brightness(0.8);
+    opacity: 0.7;
+}
+
+.roomName,
+.itemName {
+    color: var(--color-accent);
+    font-weight: bold;
+}
+
+/* Highlighting spans inside text */
+.roomName,
+.itemName {
+    text-shadow: 0 0 5px var(--color-glow);
+}
+
+/* --- Atomic & Interactive Elements --- */
+.button {
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-accent);
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 2);
+    font-family: var(--font-family-mono);
+    font-size: 1em;
+    cursor: pointer;
+    transition:
+        background-color var(--transition-speed) ease,
+        box-shadow var(--transition-speed) ease,
+        transform var(--transition-speed) ease;
+    box-shadow: inset 0 0 0 0 var(--color-accent);
+}
+
+.button:hover {
+    background-color: var(--color-accent);
+    color: var(--color-background-start);
+    box-shadow: 0 0 10px var(--color-glow);
+}
+
+.button:active {
+    transform: scale(0.97);
+    background-color: var(--color-accent-dark);
+}
+
+.input,
+.textarea {
+    width: 100%;
+    background-color: #00000088;
+    border: 1px solid var(--color-text-dim);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-unit);
+    color: var(--color-text);
+    font-family: var(--font-family-mono);
+    font-size: 1em;
+    transition:
+        border-color var(--transition-speed) ease,
+        box-shadow var(--transition-speed) ease;
+}
+
+.textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.input:focus,
+.textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 10px var(--color-glow);
 }
 
 .table {
@@ -338,27 +505,51 @@
     border-collapse: collapse;
 }
 
-.table .label {
-    width: 100px;
-    font-weight: bold;
-    color: var(--color-text-dim);
-    padding-right: var(--spacing-unit);
+.table td {
+    padding: var(--spacing-unit);
     vertical-align: top;
+}
+
+.table .label {
+    color: var(--color-text-dim);
+    width: 120px;
+    white-space: nowrap;
 }
 
 .table .value {
     color: var(--color-text);
-    width: 100%;
+}
+
+/* --- Panels --- */
+.PromptInitializationPanel {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 2);
+}
+
+.PromptInitializationPanel .title {
+    font-size: 1.2em;
+    color: var(--color-accent);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-unit);
+}
+
+.InitializingPanel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: calc(var(--spacing-unit) * 2);
 }
 
 .LoadingPanel {
-    display: flex;
-    align-items: center;
-    font-size: 1.2em;
+    font-size: 1.5em;
+    color: var(--color-accent);
 }
 
 .LoadingPanel .dot {
-    animation: dotPulse 1.4s infinite;
+    animation: blink 1.4s infinite both;
 }
 
 .LoadingPanel .dot:nth-child(2) {
@@ -369,238 +560,44 @@
     animation-delay: 0.4s;
 }
 
-@keyframes dotPulse {
-    0%,
-    80%,
-    100% {
-        opacity: 0;
+@keyframes blink {
+    0% {
+        opacity: 0.2;
     }
-    40% {
+    20% {
         opacity: 1;
     }
+    100% {
+        opacity: 0.2;
+    }
 }
 
-.InstPanel {
-    flex: 1 1 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: calc(var(--spacing-unit) * 2);
-}
-
-.InstPanel .column {
-    display: flex;
-    flex-direction: column;
-    gap: calc(var(--spacing-unit) * 2);
-}
-
-.input,
-.textarea {
-    background-color: color-mix(in hsl, transparent, white 5%);
-    border: none;
-    border-bottom: var(--border-width) solid var(--color-border);
-    color: var(--color-text);
-    font-family: var(--font-family-mono);
+.InitializationParamsPanel {
     width: 100%;
+    max-width: 80%;
+    background: #00000033;
     padding: var(--spacing-unit);
-    transition:
-        border-color var(--transition-speed-fast) ease,
-        box-shadow var(--transition-speed-fast) ease;
+    border: 1px solid var(--color-text-dim);
+    border-radius: var(--border-radius);
 }
 
-.input:focus,
-.textarea:focus {
-    outline: none;
-    color: var(--color-accent-secondary);
-    border-bottom-color: var(--color-accent-secondary);
-}
-
-.input:hover,
-.textarea:hover {
-    outline: none;
-    color: var(--color-accent-secondary);
-    border-bottom-color: var(--color-accent-secondary);
-}
-
-.textarea {
-    resize: none;
-    min-height: 100px;
-    height: 100%;
-}
-
-.ChatPanel {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    min-height: 0;
-}
-
-.turns {
-    flex: 1 1 0;
-    min-height: 0;
-    overflow-y: auto;
-    padding-right: var(--spacing-unit);
-}
-
-.turn {
-    padding: var(--spacing-unit);
-    margin-bottom: var(--spacing-unit);
-    border: 1px solid var(--color-border-transparent);
-    border-top: var(--border-width) solid var(--color-border);
-    animation: flickerIn 0.3s ease-out forwards;
-
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-unit);
-}
-
-.turnsBottom {
-    height: 1px;
-}
-
-.prompt {
-    padding-top: var(--spacing-unit);
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    font-size: 0.9rem;
-}
-
-.turn .prompt .label {
-    flex: 0 0 auto;
-    padding: calc(var(--spacing-unit));
-}
-
-.turn .prompt .content {
-    flex: 1 1 0;
-    padding: calc(var(--spacing-unit));
-}
-
-.ViewPanel {
-    margin-bottom: 4em;
-    flex: 1 1 0;
-    min-height: 0;
-    overflow: auto;
-}
-
-.ViewPanel .currentRoom {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-}
-
-.ViewPanel .RoomCard {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    align-items: center;
-}
-
-.ViewPanel .inventory {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-}
-
-.ViewPanel .inventory .items {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1em;
-    justify-content: center;
-}
-
-.json {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    font-size: 0.9em;
-}
-
-.LogsPanel {
-    position: fixed;
-    bottom: var(--spacing-unit);
-    right: var(--spacing-unit);
-    width: 550px;
-    max-width: 90vw;
-    border: var(--border-width) solid var(--color-border);
-    background-color: rgba(2, 4, 10, 0.8);
-    backdrop-filter: blur(5px);
-    z-index: 200;
-    transition: max-height var(--transition-speed-med) ease-in-out;
-    max-height: 80px;
-    display: flex;
-    flex-direction: column;
-}
-
-.LogsPanel:hover {
-    max-height: 400px;
-}
-
-.LogsPanel .title {
-    font-weight: bold;
-    padding: var(--spacing-unit);
-    border-bottom: var(--border-width) solid var(--color-border-transparent);
-    cursor: default;
-    color: var(--color-accent-secondary);
-}
-
-.logs {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: var(--spacing-unit);
-    font-size: 0.8em;
-}
-
-@keyframes newLog {
+/* --- Animation Helpers --- */
+@keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateX(-10px);
     }
     to {
         opacity: 1;
-        transform: translateX(0);
     }
 }
 
-.log {
-    margin-bottom: calc(var(--spacing-unit) / 2);
-    animation: newLog 0.3s ease-out;
-    white-space: pre-wrap;
-}
-
-.logsBottom {
-    height: 1px;
-}
-
-.turn .prompt {
-    padding: 0.5em;
-    background-color: color-mix(in hsl, transparent, white 5%);
-}
-
-.turn .gameActions {
-    padding: 0.5em;
-    background-color: color-mix(in hsl, transparent, white 5%);
-}
-
-.turn .gameActions .gameAction {
-    padding: var(--spacing-unit);
-    display: flex;
-    flex-direction: row;
-    gap: var(--spacing-unit);
-}
-
-.turn .gameActions .gameAction .label {
-    padding: 0;
-}
-
-.turn .gameActions .gameAction .content {
-    padding: 0;
-    display: block;
-}
-
-.roomName {
-}
-
-.itemName {
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
