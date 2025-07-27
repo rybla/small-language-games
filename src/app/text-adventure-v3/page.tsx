@@ -239,7 +239,7 @@ export default function Page() {
                           <SmallButton
                             onClick={() => resetInstToRightBeforeTurn(i)}
                           >
-                            Reset
+                            Undo
                           </SmallButton>
                         </div>
                         <div className={styles.prompt}>
