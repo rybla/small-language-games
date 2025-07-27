@@ -346,7 +346,9 @@
 .inventory .items {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-unit);
+    gap: calc(2 * var(--spacing-unit));
+    align-items: center;
+    justify-content: center;
 }
 
 /* --- Chat Panel --- */
@@ -453,6 +455,13 @@
 .ItemCard .frame {
     z-index: 2;
     pointer-events: none;
+}
+
+.RoomCard .roomName,
+.ItemCard .itemName {
+    width: 100%;
+    text-wrap: wrap;
+    word-wrap: break-word;
 }
 
 .placeholder {
