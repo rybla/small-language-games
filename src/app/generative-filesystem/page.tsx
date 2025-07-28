@@ -13,7 +13,12 @@ import type {
   XTurn,
 } from "./ontology";
 import styles from "./page.module.css";
-import { getFocus, getImageContentFilepath, getXFile } from "./semantics";
+import {
+  getFocus,
+  getImageContentFilepath,
+  getKidIds,
+  getXFile,
+} from "./semantics";
 import * as server from "./server";
 import * as icon from "lucide-react";
 
@@ -116,7 +121,10 @@ function XSystemPanel(props: { state: XState }) {
 function XTurnViewer({ state, turn }: { state: XState; turn: XTurn }) {
   return (
     <div className={styles.XTurnViewer}>
-      <div className={styles.prompt}>{turn.prompt}</div>
+      <div className={styles.prompt}>
+        <icon.Quote className={styles.UIIcon} />
+        <div className={styles.text}>{turn.prompt}</div>
+      </div>
       <div className={styles.actions}>
         {turn.actions.map((action, i) => (
           <XActionViewer key={i} state={state} action={action} />
@@ -134,48 +142,29 @@ function XTurnViewer({ state, turn }: { state: XState; turn: XTurn }) {
 function XActionViewer({ state, action }: { state: XState; action: XAction }) {
   return (
     <div className={styles.XActionViewer}>
-      {action.type === "CreateChildDirectory" ? (
-        <span className={styles.message}>
-          create child directory{" "}
-          <XFileLabel
-            state={state}
-            file={getXFile(state.system, TODO())}
-          />{" "}
-        </span>
+      <icon.ChevronRight className={styles.UIIcon} />
+      {action.type === "CreateDirectory" ? (
+        <div className={styles.message}>
+          create directory <div className={styles.XFileName}>{action.name}</div>
+        </div>
       ) : action.type === "CreateTextFile" ? (
-        <span className={styles.message}>
-          create child directory{" "}
-          <XFileLabel
-            state={state}
-            file={getXFile(state.system, TODO())}
-          />{" "}
-        </span>
+        <div className={styles.message}>
+          create text file <div className={styles.XFileName}>{action.name}</div>
+        </div>
       ) : action.type === "DeleteFile" ? (
-        <span className={styles.message}>
-          create child directory{" "}
-          <XFileLabel
-            state={state}
-            file={getXFile(state.system, TODO())}
-          />{" "}
-        </span>
+        <div className={styles.message}>
+          delete file{" "}
+          <XFileLabel state={state} file={getXFile(state, action.id)} />
+        </div>
       ) : action.type === "OpenFile" ? (
-        <span className={styles.message}>
-          create child directory{" "}
-          <XFileLabel
-            state={state}
-            file={getXFile(state.system, TODO())}
-          />{" "}
-        </span>
-      ) : action.type === "ShowHelpFileXAction" ? (
-        <span className={styles.message}>
-          create child directory{" "}
-          <XFileLabel
-            state={state}
-            file={getXFile(state.system, TODO())}
-          />{" "}
-        </span>
+        <div className={styles.message}>
+          open file{" "}
+          <XFileLabel state={state} file={getXFile(state, action.id)} />
+        </div>
+      ) : action.type === "ShowHelp" ? (
+        <div className={styles.message}>show help</div>
       ) : action.type === "OpenParentDirectory" ? (
-        <span className={styles.message}>open parent directory</span>
+        <div className={styles.message}>open parent directory</div>
       ) : (
         fromNever(action)
       )}
@@ -221,13 +210,10 @@ function XFileViewer({ state, file }: { state: XState; file: XFile }) {
         <>
           <XFileLabel state={state} file={file} />
           <div className={styles.kids}>
-            {file.kidIds.map((kidId) => {
+            {getKidIds(state, file.id).map((kidId) => {
               return (
                 <div className={styles.kid} key={kidId}>
-                  <XFileLabel
-                    state={state}
-                    file={getXFile(state.system, kidId)}
-                  />
+                  <XFileLabel state={state} file={getXFile(state, kidId)} />
                 </div>
               );
             })}

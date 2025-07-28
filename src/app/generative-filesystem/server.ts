@@ -1,33 +1,38 @@
 "use server";
 
-import { do_, sleep, stringify } from "@/utility";
+import { do_, isErr, sleep, stringify } from "@/utility";
 import { exists } from "@/utility_fs";
 import * as fs from "fs/promises";
 import path from "path";
-import { runXActions } from "./action";
 import { name } from "./common";
 import * as flow from "./flow";
-import { XFileId, XFileName, XState } from "./ontology";
+import { XFile, XFileId, XFileName, XState } from "./ontology";
 import { getTextContentFilepath } from "./semantics";
+import { interpretXPreAction } from "./action";
 
 // -----------------------------------------------------------------------------
 
-let state: XState = {
-  system: {
-    name: "xsystem",
-    root: {
-      name: XFileName.parse("home"),
-      id: XFileId.parse("home"),
-      type: "directory",
-      kidIds: [],
+let state: XState = do_(() => {
+  const root: XFile = {
+    name: XFileName.parse("root"),
+    id: XFileId.parse("root"),
+    type: "directory",
+  };
+  return {
+    system: {
+      name: "xsystem",
+      root,
+      files: {
+        [root.id]: root,
+      },
+      parents: {},
     },
-    files: {},
-  },
-  client: {
-    turns: [],
-    path: [],
-  },
-};
+    client: {
+      turns: [],
+      focus: root.id,
+    },
+  };
+});
 
 export async function getXState(): Promise<XState> {
   return state;
@@ -38,11 +43,12 @@ export async function getXState(): Promise<XState> {
 // -----------------------------------------------------------------------------
 
 export async function submit(prompt: string): Promise<void> {
-  const { actions } = await flow.GenerateXActions({
+  const { preaction } = await flow.GenerateXPreAction({
     state,
     prompt,
   });
-  await runXActions(state, actions);
+  const { actions, effects } = await interpretXPreAction(state, preaction);
+  state.client.turns.push({ prompt, actions, effects });
   await save();
 }
 
@@ -62,13 +68,11 @@ export async function load(): Promise<void> {
         await save();
       }
       const json = JSON.parse(await fs.readFile(system_filepath, "utf8"));
-      // console.dir({ json }, { depth: 100 });
       const result = XState.safeParse(json);
       // if the old state doesn't parse, then just reset it
       if (!result.success) {
         await save();
         return;
-        // throw new Error(`Invalid state: ${result.error.toString()}`);
       }
       state = result.data;
     }),

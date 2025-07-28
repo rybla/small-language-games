@@ -18,7 +18,6 @@ const DirectoryXFile = z.object({
   name: XFileName,
   id: XFileId,
   type: z.enum(["directory"]),
-  kidIds: z.array(XFileId),
 });
 
 export type TextXFile = z.infer<typeof TextXFile>;
@@ -41,66 +40,85 @@ export const XFile = z.union([DirectoryXFile, TextXFile, ImageXFile]);
 export type XPath = z.infer<typeof XPath>;
 export const XPath = z.array(XFileName);
 
-export const ShowHelpFileXAction = z
-  .object({
-    type: z.enum(["ShowHelpFileXAction"]),
-    name: XFileName,
-  })
-  .describe(
-    "show a helpful information to the user about how to use this system",
-  );
+// -----------------------------------------------------------------------------
+// XPreAction
+// -----------------------------------------------------------------------------
 
-export const OpenFileXAction = z
-  .object({
-    type: z.enum(["OpenFile"]),
-    name: XFileName,
-  })
-  .describe(
-    "open a file that is a child of the working directory, which makes it the new focused file",
-  );
+// TODO/BONUS make the action schemas constrained by current state
+export type XPreAction = z.infer<typeof XPreAction>;
+export const XPreAction = z.union([
+  z
+    .object({
+      type: z.enum(["ShowHelp"]),
+    })
+    .describe(
+      "show helpful information to the user about how to use this system",
+    ),
+  z
+    .object({
+      type: z.enum(["OpenFile"]),
+      name: XFileName,
+    })
+    .describe("open a file as the new active file"),
+  z
+    .object({
+      type: z.enum(["DeleteFile"]),
+      name: XFileName,
+    })
+    .describe("delete a file that is a child of the working directory"),
+  z
+    .object({
+      type: z.enum(["CreateDirectory"]),
+      name: XFileName,
+    })
+    .describe("create a new directory as a child of the working directory"),
+  z
+    .object({
+      type: z.enum(["CreateTextFile"]),
+      name: XFileName,
+      prompt: z.string(),
+    })
+    .describe(
+      "create a new text file in the working directory, and write some content into it based on the `prompt`",
+    ),
+  z
+    .object({
+      type: z.enum(["OpenParentDirectory"]),
+    })
+    .describe("open the parent directory as the new working directory"),
+]);
 
-export const DeleteFileXAction = z
-  .object({
-    type: z.enum(["DeleteFile"]),
-    name: XFileName,
-  })
-  .describe("delete a file that is a child of the working directory");
-
-export const CreateChildDirectoryXAction = z
-  .object({
-    type: z.enum(["CreateChildDirectory"]),
-    name: XFileName,
-  })
-  .describe("create a new directory as a child of the working directory");
-
-export const CreateTextFile = z
-  .object({
-    type: z.enum(["CreateTextFile"]),
-    name: XFileName,
-    prompt: z.string(),
-  })
-  .describe(
-    "create a new text file in the working directory, and write some content into it based on the `prompt`",
-  );
-
-export const OpenParentDirectoryXAction = z
-  .object({
-    type: z.enum(["OpenParentDirectory"]),
-  })
-  .describe("open the parent directory as the new working directory");
-
-const XActions = [
-  ShowHelpFileXAction,
-  OpenFileXAction,
-  OpenParentDirectoryXAction,
-  CreateChildDirectoryXAction,
-  DeleteFileXAction,
-  CreateTextFile,
-] as const;
+// -----------------------------------------------------------------------------
+// XAction
+// -----------------------------------------------------------------------------
 
 // TODO/BONUS make the action schemas constrained by current state
 export type XAction = z.infer<typeof XAction>;
-export const XAction = z.union(XActions);
+export const XAction = z.union([
+  z.object({
+    type: z.enum(["ShowHelp"]),
+  }),
+  z.object({
+    type: z.enum(["OpenFile"]),
+    id: XFileId,
+  }),
+  z.object({
+    type: z.enum(["DeleteFile"]),
+    id: XFileId,
+  }),
+  z.object({
+    type: z.enum(["CreateDirectory"]),
+    name: XFileName,
+  }),
+  z.object({
+    type: z.enum(["CreateTextFile"]),
+    name: XFileName,
+    prompt: z.string(),
+  }),
+  z.object({
+    type: z.enum(["OpenParentDirectory"]),
+  }),
+]);
 
 export const ErrorXEffect = z.object({
   type: z.enum(["Error"]),
@@ -122,12 +140,13 @@ export const XSystem = z.object({
   name: z.string(),
   root: DirectoryXFile,
   files: z.record(XFileId, XFile),
+  parents: z.record(XFileId, XFileId),
 });
 
 export type XClient = z.infer<typeof XClient>;
 export const XClient = z.object({
   turns: z.array(XTurn),
-  path: z.array(XFileName),
+  focus: XFileId,
 });
 
 export type XState = z.infer<typeof XState>;

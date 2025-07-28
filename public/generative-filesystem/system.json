@@ -4,23 +4,419 @@
         "root": {
             "name": "home",
             "id": "home",
-            "type": "directory",
-            "kidIds": [
-                "393de7ee-1a99-46ff-b726-e3575fbf3b98"
-            ]
+            "type": "directory"
         },
         "files": {
-            "393de7ee-1a99-46ff-b726-e3575fbf3b98": {
+            "home": {
+                "name": "home",
+                "id": "home",
+                "type": "directory"
+            },
+            "3e0daf5b-daf5-444e-88a4-7a78f8fae665": {
                 "name": "dolphin ideas",
-                "id": "393de7ee-1a99-46ff-b726-e3575fbf3b98",
+                "id": "3e0daf5b-daf5-444e-88a4-7a78f8fae665",
+                "type": "text"
+            },
+            "dfbfbb86-aa77-4499-8e41-23484e205112": {
+                "name": "shark ideas.txt",
+                "id": "dfbfbb86-aa77-4499-8e41-23484e205112",
                 "type": "text"
             }
+        },
+        "parents": {
+            "3e0daf5b-daf5-444e-88a4-7a78f8fae665": "home",
+            "dfbfbb86-aa77-4499-8e41-23484e205112": "home"
         }
     },
     "client": {
-        "turns": [],
-        "path": [
-            "dolphin ideas"
-        ]
+        "turns": [
+            {
+                "prompt": "create a directory called \"short stories\"",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "help",
+                "actions": [
+                    {
+                        "type": "ShowHelp"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "make a new directory called \"short stories\"",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "create a new directory as a child of the working directory. give it the name \"short stories\"",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "make a new text file about dolphin ideas\n",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "make a NEW directory",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "make a new text file about dolphin ideas",
+                "actions": [
+                    {
+                        "type": "ShowHelp"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "make a new text file about dolphin ideas",
+                "actions": [
+                    {
+                        "type": "CreateTextFile",
+                        "name": "dolphin ideas",
+                        "prompt": "dolphin ideas"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "open the dolphin ideas file",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "open the file called \"dolphin ideas\"",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "open the file called \"dolphin ideas\"\n",
+                "actions": [
+                    {
+                        "type": "ShowHelp"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "open the file called \"dolphin ideas\"",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "open the file called \"dolphin ideas\"",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "open the dolphin ideas file",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "open the dolphin ideas file",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "open the dolphin ideas file",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "open the dolphin ideas file",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "open the dolphin ideas file",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "help",
+                "actions": [
+                    {
+                        "type": "ShowHelp"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "make a new text file called \"hello world\"",
+                "actions": [
+                    {
+                        "type": "ShowHelp"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "open the dolphin ideas file",
+                "actions": [
+                    {
+                        "type": "ShowHelp"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "open the dolphin ideas file",
+                "actions": [
+                    {
+                        "type": "ShowHelp"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "open the dolphin ideas file",
+                "actions": [
+                    {
+                        "type": "ShowHelp"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "open the dolphin ideas file",
+                "actions": [
+                    {
+                        "type": "ShowHelp"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "open the dolphin ideas file",
+                "actions": [
+                    {
+                        "type": "ShowHelp"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "open the dolphin ideas file",
+                "actions": [
+                    {
+                        "type": "ShowHelp"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "open the dolphin ideas file",
+                "actions": [
+                    {
+                        "type": "OpenFile",
+                        "id": "3e0daf5b-daf5-444e-88a4-7a78f8fae665"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "open parent directory \n",
+                "actions": [
+                    {
+                        "type": "OpenParentDirectory"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "open parent directory",
+                "actions": [
+                    {
+                        "type": "OpenParentDirectory"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "open parent directory \n",
+                "actions": [
+                    {
+                        "type": "OpenParentDirectory"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "open \"dolphin ideas\"",
+                "actions": [
+                    {
+                        "type": "OpenFile",
+                        "id": "3e0daf5b-daf5-444e-88a4-7a78f8fae665"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "open the parent directory",
+                "actions": [
+                    {
+                        "type": "OpenParentDirectory"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "make another text file with ideas about sharks ",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "make another text file with ideas about sharks",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "make another text file with ideas about sharks",
+                "actions": [
+                    {
+                        "type": "ShowHelp"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "make another text file with ideas about sharks",
+                "actions": [
+                    {
+                        "type": "CreateTextFile",
+                        "name": "shark ideas.txt",
+                        "prompt": "ideas about sharks"
+                    }
+                ],
+                "effects": []
+            },
+            {
+                "prompt": "open \"shark ideas\"",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "open the shark ideas file",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "open the shark ideas file",
+                "actions": [],
+                "effects": [
+                    {
+                        "type": "Error",
+                        "message": "You cannot open the parent directory of `home` because it has no parent directory"
+                    }
+                ]
+            },
+            {
+                "prompt": "open the shark ideas file",
+                "actions": [
+                    {
+                        "type": "OpenFile",
+                        "id": "dfbfbb86-aa77-4499-8e41-23484e205112"
+                    }
+                ],
+                "effects": []
+            }
+        ],
+        "focus": "dfbfbb86-aa77-4499-8e41-23484e205112"
     }
 }

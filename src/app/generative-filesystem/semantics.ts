@@ -1,7 +1,14 @@
-import { bullets, findMap, fromNever, indent, trim } from "@/utility";
+import { bullets, findMap, fromNever, indent, ticks, trim } from "@/utility";
 import path from "path";
 import { name } from "./common";
-import type { XFile, XFileId, XPath, XState, XSystem } from "./ontology";
+import type {
+  XFile,
+  XFileId,
+  XFileName,
+  XPath,
+  XState,
+  XSystem,
+} from "./ontology";
 import { randomUUID } from "crypto";
 
 // -----------------------------------------------------------------------------
@@ -17,76 +24,76 @@ export class XError {
 // -----------------------------------------------------------------------------
 
 export function getFocus(state: XState): XFile {
-  return getXFileAt(state.system, state.client.path);
+  return getXFile(state, state.client.focus);
 }
 
 export function showXPath(path: XPath) {
   return path.join("/");
 }
 
-export function showXFile(system: XSystem, file: XFile) {
+export function showXDirectory(
+  state: XState,
+  dir: XFile & { type: "directory" },
+) {
+  const kidIds = getKidIds(state, dir.id);
+  return trim(`
+directory ${ticks(dir.name)}:
+  - children: ${kidIds.length === 0 ? "empty" : "\n" + indent(bullets(kidIds.map((kidId) => ticks(getXFile(state, kidId).name))))}
+`);
+}
+
+export function showXFile(state: XState, file: XFile) {
   if (file.type === "directory") {
+    const kidIds = getKidIds(state, file.id);
     return trim(`
-file \`${file.name}\`:
-  - type: ${file.type}
-  - children: ${file.kidIds.length === 0 ? "empty" : "\n" + indent(bullets(file.kidIds.map((kidId) => getXFile(system, kidId).name)))}
+file ${ticks(file.name)}:
+  - type: "${file.type}"
+  - children: ${kidIds.length === 0 ? "empty" : "\n" + indent(bullets(kidIds.map((kidId) => ticks(getXFile(state, kidId).name))))}
 `);
   } else if (file.type === "text") {
     return trim(`
-file \`${file.name}\`:
-  - type: ${file.type}
+file ${ticks(file.name)}:
+  - type: "${file.type}"
 `);
   } else if (file.type === "image") {
     return trim(`
-file \`${file.name}\`:
-  - type: ${file.type}
+file ${ticks(file.name)}:
+  - type: "${file.type}"
 `);
   } else {
     fromNever(file);
   }
 }
 
-export function getXFile(system: XSystem, id: XFileId): XFile {
-  const file = system.files[id];
+export function getXFile(state: XState, id: XFileId): XFile {
+  const file = state.system.files[id];
   if (file === undefined) throw new XError(`XFile not found: ${id}`);
   return file;
 }
 
-export function getXFileAt(system: XSystem, path: XPath): XFile {
-  let curr: XFile = system.root;
-  const pathCurr: XPath = [];
-  for (const step of path) {
-    if (!(curr.type === "directory"))
-      throw new XError(
-        `When looking for XFile at path \`${showXPath(path)}\`: XFile at \`${showXPath(pathCurr)}\` is not an XDirectory`,
-      );
-    pathCurr.push(step);
-
-    const kid: XFile | undefined = findMap(curr.kidIds, (kidId) => {
-      const kid = getXFile(system, kidId);
-      if (kid.name === step) return kid;
-      return undefined;
-    });
-    if (kid === undefined)
-      throw new XError(
-        `When looking for XFile at path \`${showXPath(path)}\`: XDirectory not found: \`${showXPath([step])}\``,
-      );
-    curr = kid;
-  }
-  return curr;
+export function addXFile(state: XState, file: XFile, parentId: XFileId) {
+  state.system.files[file.id] = file;
+  state.system.parents[file.id] = parentId;
 }
 
-export function addXFile(
-  system: XSystem,
-  file: XFile,
-  parent?: XFile & { type: "directory" },
-) {
-  system.files[file.id] = file;
-  parent?.kidIds.push(file.id);
+export function deleteXFile(state: XState, id: XFileId) {
+  delete state.system.parents[id];
 }
 
 export function freshXFileId() {
   return randomUUID() as XFileId;
+}
+
+export function getKidIds(state: XState, id: XFileId): XFileId[] {
+  return Array.from(
+    Object.entries(state.system.parents).flatMap(([kidId, parentId]) =>
+      parentId === id ? [kidId as XFileId] : [],
+    ),
+  );
+}
+
+export function getParentId(state: XState, id: XFileId): XFileId | undefined {
+  return state.system.parents[id];
 }
 
 // -----------------------------------------------------------------------------

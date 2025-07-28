@@ -2,62 +2,55 @@ import { ai, model } from "@/backend/ai";
 import { getValidOutput } from "@/backend/ai/common";
 import { trim } from "@/utility";
 import { GenerateOptions, z } from "genkit";
-import { XAction, XState } from "./ontology";
-import { getXFileAt, showXFile } from "./semantics";
+import { XAction, XPreAction, XState } from "./ontology";
+import { getFocus, showXDirectory, showXFile } from "./semantics";
 
-export const GenerateXActions = ai.defineFlow(
+export const GenerateXPreAction = ai.defineFlow(
   {
-    name: "GenerateXActions",
+    name: "GenerateXPreAction",
     inputSchema: z.object({
       state: XState,
       prompt: z.string(),
     }),
     outputSchema: z.object({
-      actions: z.array(XAction),
+      preaction: XPreAction,
     }),
   },
   async ({ state, prompt }) => {
-    const focus = getXFileAt(state.system, state.client.path);
-    const { actions } = getValidOutput(
+    const focus = getFocus(state);
+    const { action } = getValidOutput(
       await ai.generate({
         model: model.text_speed,
         system: trim(`
 You are an assistant who helps the user by translating their informal instructions into structured actions for interacting with the specialized filesystem.
 
-The user will provide their current context in the filesystem and informal instructions for how they want to interact with the filesystem.
-Your task is to write a sequence of actions (in the format specified by the output schema) that most closely correspond to accomplishing what the user intended by their instructions.
-`),
-        prompt: trim(`
-# Filesystem Interaction Instructions
+The following is the user's context in the filesystem:
 
-## Context
-
+\`\`\`
 ${
   focus.type === "directory"
     ? trim(`
-**Working directory:**
-${showXFile(state.system, focus)}
+working directory: ${showXDirectory(state, focus)}
 `)
     : trim(`
-**Focused file:**
-${showXFile(state.system, focus)}
+active file: ${showXFile(state, focus)}
 `)
 }
+\`\`\`
 
-
-
-## Informal Instructions
-
-${prompt}
+Your task is to interpret the user's informal command as a structured action (whcih is specified by the output schema).
+`),
+        prompt: trim(`
+Instructions: ${prompt}
 `),
         output: {
           schema: z.object({
-            actions: z.array(XAction),
+            action: XPreAction,
           }),
         },
       } satisfies GenerateOptions),
     );
-    return { actions };
+    return { preaction: action };
   },
 );
 

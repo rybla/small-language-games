@@ -1,114 +1,156 @@
 import { fromNever, ticks } from "@/utility";
-import * as flow from "./flow";
-import { XAction, XEffect, XFile, XState } from "./ontology";
 import * as fs from "fs/promises";
+import path from "path";
+import * as flow from "./flow";
+import { XAction, XEffect, XFile, XPreAction, XState } from "./ontology";
 import {
   addXFile,
+  deleteXFile,
   freshXFileId,
+  getFocus,
+  getKidIds,
+  getParentId,
   getTextContentFilepath,
   getXFile,
-  getXFileAt,
 } from "./semantics";
-import path from "path";
 
-export async function runXActions(
+export async function interpretXPreAction(
   state: XState,
-  actions: XAction[],
-): Promise<XEffect[]> {
-  const effects: XEffect[] = [];
-  for (const action of actions) {
-    const focus = getXFileAt(state.system, state.client.path);
-    if (action.type === "OpenFile") {
-      if (!(focus.type === "directory")) {
-        effects.push({
-          type: "Error",
-          message: `You cannot focus on a child file ${ticks(action.name)} when the focus ${ticks(focus.name)} is a non-directory file.`,
-        });
-        continue;
-      }
-      if (
-        focus.kidIds.find(
-          (kidId) => getXFile(state.system, kidId).name === action.name,
-        ) === undefined
-      ) {
-        effects.push({
-          type: "Error",
-          message: `You cannot open a file of the name ${ticks(action.name)} because a file of that name is not in the working directory ${ticks(focus.name)}`,
-        });
-      }
-      state.client.path.push(action.name);
-    } else if (action.type === "CreateChildDirectory") {
-      if (!(focus.type === "directory")) {
-        effects.push({
-          type: "Error",
-          message: `You cannot create a child directory ${ticks(action.name)} when the focus ${ticks(focus.name)} is a non-directory file.`,
-        });
-        continue;
-      }
-      const file: XFile = {
-        name: action.name,
-        id: freshXFileId(),
-        type: "directory",
-        kidIds: [],
+  preaction: XPreAction,
+): Promise<{ actions: XAction[]; effects: XEffect[] }> {
+  const focus = getFocus(state);
+  if (preaction.type === "CreateDirectory") {
+    if (!(focus.type === "directory"))
+      return {
+        actions: [],
+        effects: [
+          {
+            type: "Error",
+            message: `You cannot create a directory ${ticks(preaction.name)} when the focus ${ticks(focus.name)} is a non-directory file.`,
+          },
+        ],
       };
-      addXFile(state.system, file, focus);
-    } else if (action.type === "CreateTextFile") {
-      if (!(focus.type === "directory")) {
-        effects.push({
-          type: "Error",
-          message: `You cannot create a text file ${ticks(action.name)} when the focus ${ticks(focus.name)} is a non-directory file.`,
-        });
-        continue;
-      }
-      const { content } = await flow.GenerateTextContent({
-        prompt: action.prompt,
-      });
-      const file: XFile = {
-        name: action.name,
-        id: freshXFileId(),
-        type: "text",
+    const file: XFile = {
+      name: preaction.name,
+      id: freshXFileId(),
+      type: "directory",
+    };
+    addXFile(state, file, focus.id);
+    return {
+      actions: [
+        {
+          type: "CreateDirectory",
+          name: preaction.name,
+        },
+      ],
+      effects: [],
+    };
+  } else if (preaction.type === "CreateTextFile") {
+    if (!(focus.type === "directory"))
+      return {
+        actions: [],
+        effects: [
+          {
+            type: "Error",
+            message: `You cannot create a text file ${ticks(preaction.name)} when the focus ${ticks(focus.name)} is a non-directory file.`,
+          },
+        ],
       };
-      addXFile(state.system, file, focus);
-      const filepath = getTextContentFilepath("public", file.id);
-      await fs.mkdir(path.dirname(filepath), { recursive: true });
-      await fs.writeFile(filepath, content);
-    } else if (action.type === "DeleteFile") {
-      if (!(focus.type === "directory")) {
-        effects.push({
-          type: "Error",
-          message: `You cannot delete a file ${ticks(action.name)} when the focus ${ticks(focus.name)} is a non-directory file.`,
-        });
-        continue;
-      }
-      const kidIndex = focus.kidIds.findIndex(
-        (kidId) => getXFile(state.system, kidId).name === action.name,
-      );
-      if (kidIndex === -1) {
-        effects.push({
-          type: "Error",
-          message: `You cannot delete the file ${ticks(action.name)} because a file of that name is not in the working directory ${ticks(focus.name)}`,
-        });
-      }
-      focus.kidIds.splice(kidIndex, 1);
-    } else if (action.type === "ShowHelpFileXAction") {
-      if (true) {
-        effects.push({
-          type: "Error",
-          message: `action ${action.type} is unimplemented`,
-        });
-        continue;
-      }
-    } else if (action.type === "OpenParentDirectory") {
-      if (state.client.path.length === 0) {
-        effects.push({
-          type: "Error",
-          message: `You cannot open the parent directory when the working directory is the root directory.`,
-        });
-      }
-      state.client.path.pop();
-    } else {
-      fromNever(action);
+    const { content } = await flow.GenerateTextContent({
+      prompt: preaction.prompt,
+    });
+    const file: XFile = {
+      name: preaction.name,
+      id: freshXFileId(),
+      type: "text",
+    };
+    addXFile(state, file, focus.id);
+    const filepath = getTextContentFilepath("public", file.id);
+    await fs.mkdir(path.dirname(filepath), { recursive: true });
+    await fs.writeFile(filepath, content);
+    return {
+      actions: [
+        {
+          type: "CreateTextFile",
+          name: preaction.name,
+          prompt: preaction.prompt,
+        },
+      ],
+      effects: [],
+    };
+  } else if (preaction.type === "DeleteFile") {
+    if (!(focus.type === "directory"))
+      return {
+        actions: [],
+        effects: [
+          {
+            type: "Error",
+            message: `You cannot delete a file ${ticks(preaction.name)} when the focus ${ticks(focus.name)} is a non-directory file.`,
+          },
+        ],
+      };
+    const kidIds = getKidIds(state, focus.id);
+    const kidId = kidIds.find(
+      (kidId) => getXFile(state, kidId).name === preaction.name,
+    );
+    if (kidId === undefined)
+      return {
+        actions: [],
+        effects: [
+          {
+            type: "Error",
+            message: `You cannot delete a file ${ticks(preaction.name)} because a file of that name is not in the working directory`,
+          },
+        ],
+      };
+    deleteXFile(state, kidId);
+    return { actions: [{ type: "DeleteFile", id: kidId }], effects: [] };
+  } else if (preaction.type === "OpenFile") {
+    if (!(focus.type === "directory")) {
+      return {
+        actions: [],
+        effects: [
+          {
+            type: "Error",
+            message: `You cannot open a child file ${ticks(preaction.name)} when the focus ${ticks(focus.name)} is a non-directory file.`,
+          },
+        ],
+      };
     }
+    const kidIds = getKidIds(state, focus.id);
+    const kidId = kidIds.find(
+      (kidId) => getXFile(state, kidId).name === preaction.name,
+    );
+    if (kidId === undefined) {
+      return {
+        actions: [],
+        effects: [
+          {
+            type: "Error",
+            message: `You cannot open a file of the name ${ticks(preaction.name)} because a file of that name is not in the working directory ${ticks(focus.name)}`,
+          },
+        ],
+      };
+    }
+    state.client.focus = kidId;
+    return { actions: [{ type: "OpenFile", id: kidId }], effects: [] };
+  } else if (preaction.type === "OpenParentDirectory") {
+    const parentId = getParentId(state, focus.id);
+    if (parentId === undefined)
+      return {
+        actions: [],
+        effects: [
+          {
+            type: "Error",
+            message: `You cannot open the parent directory of ${ticks(focus.name)} because it has no parent directory`,
+          },
+        ],
+      };
+    state.client.focus = parentId;
+    return { actions: [{ type: "OpenParentDirectory" }], effects: [] };
+  } else if (preaction.type === "ShowHelp") {
+    return { actions: [{ type: "ShowHelp" }], effects: [] };
+  } else {
+    return fromNever(preaction);
   }
-  return effects;
 }
