@@ -1,0 +1,481 @@
+/*
+==========================================================================================
+// BLUEPRINT: RETRO-FLUID TERMINAL AESTHETIC
+==========================================================================================
+//
+// ## Core Concept:
+// A fusion of 90s CRT monitor aesthetics with modern fluidity. The design evokes the
+// feeling of using a vintage command-line interface, but with the smooth animations
+// and responsiveness of the modern web. It's nostalgic yet functional, prioritizing
+// textual information and keyboard-based interaction.
+//
+// ## Visual Themes:
+//
+// 1.  **CRT Screen Simulation:**
+//     - The background is a deep, dark color, not quite black, to mimic a powered-on
+//       monitor in a dark room.
+//     - A subtle, animated scan-line overlay will be present to enhance the CRT effect.
+//     - A faint, radial gradient will emanate from the center, giving the illusion of
+//       screen curvature and glow.
+//
+// 2.  **Glowing, Monochromatic Text:**
+//     - All text will be a vibrant, neon color (e.g., green, amber, or cyan) against
+//       the dark background.
+//     - Text will have a subtle `text-shadow` to create a "glow" or "halation" effect,
+//       mimicking the light bleed on old monitors.
+//
+// 3.  **Defined, Blocky Layouts:**
+//     - The UI is structured into clear, rectangular panels separated by sharp, glowing
+//       borders, similar to windowed applications in early GUIs.
+//     - There are no rounded corners; all elements are sharp and angular.
+//
+// 4.  **Interactive Feedback & Animation:**
+//     - A blinking block cursor is essential for text input areas.
+//     - Text appears as if it's being typed out character by character.
+//     - Panels and elements "boot up" on load with a flicker or fade-in animation.
+//     - Hovering over interactive elements causes them to brighten or their borders to glow
+//       more intensely.
+//
+// ## Color Palette (Dark Mode Dominant):
+//
+// -   **Background:** Very dark desaturated blue/charcoal (`#0a0c10`).
+// -   **Foreground Panels:** Slightly lighter charcoal (`#1a1c20`).
+// -   **Primary Text/Accent:** Bright neon green (`#33ff33`).
+// -   **Secondary Accent:** Electric blue for highlights or secondary info (`#00ccff`).
+// -   **Warning/Error:** Neon red/orange (`#ff3333`).
+// -   **Borders:** Glowing version of the primary accent color.
+//
+// ## Typography:
+//
+// -   **Primary Font:** Monospace font (e.g., 'Fira Code', 'Source Code Pro', 'Courier New').
+//     This is non-negotiable for the terminal aesthetic.
+// -   **Style:** Regular weight. Bold might be used for titles, but sparingly.
+//
+// ## Animation & Interactivity:
+//
+// -   **Passive Animation:**
+//     - The background has constantly moving, subtle scan lines.
+//     - A gentle "hum" or flicker effect on the entire screen glow.
+// -   **Entrance Animation:**
+//     - Elements fade in with a slight vertical "scan" effect.
+// -   **Hover Animations:**
+//     - Links and buttons get a brighter text glow.
+//     - Borders on panels might pulse or brighten.
+// -   **Active/Click Animations:**
+//     - A "press down" effect is simulated by a quick, sharp shadow or color flash.
+// -   **State Change Animation:**
+//     - New content (like logs or turns) should "type" or fade into view sequentially.
+//
+==========================================================================================
+*/
+
+/*------------------------------------*
+ * VARIABLES & SETUP
+ *------------------------------------*/
+:root {
+    --font-mono: "Fira Code", "Source Code Pro", monospace;
+
+    --color-bg: #05080a;
+    --color-panel-bg: #0a0f14;
+    --color-text: #00ff6a;
+    --color-text-dim: #00a846;
+    --color-accent: #00ccff;
+    --color-border: #00ff6a44;
+    --color-border-focus: #00ff6a;
+    --color-shadow: #00ff6a;
+
+    --glow-intensity:
+        0 0 5px var(--color-shadow), 0 0 10px var(--color-shadow),
+        0 0 15px var(--color-shadow);
+    --text-glow: 0 0 3px var(--color-text);
+
+    --spacing-unit: 8px;
+    --border-width: 1px;
+    --transition-speed: 0.3s;
+}
+
+/*------------------------------------*
+ * BASE & PAGE STYLES
+ *------------------------------------*/
+.page {
+    flex: 1 1 0;
+    min-height: 0;
+
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    width: 100%;
+    padding: calc(var(--spacing-unit) * 2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* CRT Scanline Effect */
+.page::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(18, 16, 16, 0) 50%,
+            rgba(0, 0, 0, 0.25) 50%
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 0, 0, 0.06),
+            rgba(0, 255, 0, 0.02),
+            rgba(0, 0, 255, 0.06)
+        );
+    z-index: 1;
+    background-size:
+        100% 2px,
+        3px 100%;
+    pointer-events: none;
+    animation: scanline 10s linear infinite;
+}
+
+@keyframes scanline {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 0 -100vh;
+    }
+}
+
+/*------------------------------------*
+ * LAYOUT PANELS
+ *------------------------------------*/
+.XSystemViewer {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: minmax(0, 2fr) minmax(0, 1fr);
+    gap: calc(var(--spacing-unit) * 2);
+    z-index: 2;
+    animation: fadeIn 1s ease-out;
+    min-height: 0;
+}
+
+/* UPDATED: MainPanel is now a grid container for console and focus */
+.MainPanel {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Places children side-by-side */
+    grid-template-rows: minmax(
+        0,
+        1fr
+    ); /* Allows children to fill height correctly */
+    gap: calc(var(--spacing-unit) * 2);
+    overflow: hidden;
+}
+
+/* UPDATED: Added .console to the panel group for consistent styling */
+.DebugPanel,
+.LogsPanel,
+.focus,
+.console {
+    border: var(--border-width) solid var(--color-border);
+    padding: var(--spacing-unit);
+    background-color: var(--color-panel-bg);
+    overflow: auto;
+    box-shadow: inset 0 0 10px #00000088;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* Ensures proper sizing within flex/grid containers */
+}
+
+.DebugPanel {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
+.LogsPanel {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+/*------------------------------------*
+ * CONSOLE & INPUT
+ *------------------------------------*/
+/* NOTE: .console is now styled as a panel in the group above */
+.turns {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: var(--spacing-unit);
+}
+
+.turn {
+    padding: var(--spacing-unit) 0;
+    border-bottom: var(--border-width) dashed var(--color-border);
+    animation: typeIn 0.5s forwards;
+}
+
+.input {
+    padding: var(--spacing-unit);
+    border-top: var(--border-width) solid var(--color-border-focus);
+}
+
+.prompt {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: 1em;
+    resize: none;
+    outline: none;
+    caret-color: var(--color-text);
+    padding-left: calc(var(--spacing-unit) * 2);
+    position: relative;
+}
+
+/* Blinking cursor effect */
+.prompt:focus {
+    --cursor-color: var(--color-text);
+}
+
+.prompt::before {
+    content: ">";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--color-accent);
+}
+
+.prompt:focus::after {
+    content: "▋";
+    animation: blink 1s step-end infinite;
+    color: var(--color-text);
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/*------------------------------------*
+ * FILE VIEWER
+ *------------------------------------*/
+.XFileViewer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-unit);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.XFileLabel {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-unit);
+    font-size: 1.2em;
+    color: var(--color-accent);
+    padding-bottom: var(--spacing-unit);
+    border-bottom: var(--border-width) solid var(--color-border);
+    flex-shrink: 0; /* Prevent label from shrinking */
+}
+
+.XFileIcon {
+    width: 1.2em;
+    height: 1.2em;
+    color: var(--color-accent);
+}
+
+.XFileName {
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.kids {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-unit);
+    padding-left: calc(var(--spacing-unit) * 2);
+}
+
+.kid {
+    border: var(--border-width) solid transparent;
+    padding: var(--spacing-unit);
+    transition: all var(--transition-speed) ease;
+    cursor: pointer;
+}
+
+.kid:hover {
+    background-color: #ffffff11;
+    border-color: var(--color-border);
+    box-shadow: var(--glow-intensity);
+}
+
+.kid .XFileLabel {
+    font-size: 1em;
+    border: none;
+    padding: 0;
+    color: var(--color-text);
+}
+
+.kid:hover .XFileLabel {
+    color: var(--color-accent);
+}
+
+.content {
+    flex-grow: 1;
+    padding: var(--spacing-unit);
+    overflow-y: auto;
+    min-height: 0;
+}
+
+/*------------------------------------*
+ * CONTENT TYPES
+ *------------------------------------*/
+.TextContent {
+    white-space: pre-wrap;
+    line-height: 1.6;
+}
+
+.ImageContent {
+    max-width: 100%;
+    height: auto;
+    border: var(--border-width) solid var(--color-border);
+    box-shadow: var(--glow-intensity);
+}
+
+/*------------------------------------*
+ * LOGS PANEL
+ *------------------------------------*/
+.LogsPanel .title {
+    font-size: 1.2em;
+    color: var(--color-accent);
+    border-bottom: var(--border-width) solid var(--color-border);
+    padding-bottom: var(--spacing-unit);
+    margin-bottom: var(--spacing-unit);
+}
+
+.logs {
+    flex-grow: 1;
+    overflow-y: auto;
+    font-size: 0.9em;
+    color: var(--color-text-dim);
+}
+
+.log {
+    padding: calc(var(--spacing-unit) / 4) 0;
+    white-space: pre-wrap;
+    word-break: break-all;
+    animation: typeIn 0.3s forwards;
+}
+
+.logsBottom,
+.turnsBottom {
+    height: 1px;
+}
+
+/*------------------------------------*
+ * LOADING INDICATOR
+ *------------------------------------*/
+.Loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-unit);
+    width: 100%;
+    height: 100%;
+    color: var(--color-accent);
+}
+
+.Loading .message::after {
+    content: "...";
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    animation: loading-dots 1.5s step-end infinite;
+    width: 0px;
+}
+
+@keyframes loading-dots {
+    25% {
+        width: 0.5em;
+    }
+    50% {
+        width: 1em;
+    }
+    75% {
+        width: 1.5em;
+    }
+}
+
+.Loading .animation {
+    width: 80%;
+    height: 4px;
+    background: linear-gradient(var(--color-accent) 0 0) 0 0 / 0 100% no-repeat
+        var(--color-border);
+    animation: loading-bar 2s linear infinite;
+}
+
+@keyframes loading-bar {
+    to {
+        background-size: 100% 100%;
+    }
+}
+
+/*------------------------------------*
+ * ANIMATIONS
+ *------------------------------------*/
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes typeIn {
+    from {
+        opacity: 0;
+        clip-path: inset(0 100% 0 0);
+    }
+    to {
+        opacity: 1;
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+/*------------------------------------*
+ * SCROLLBARS
+ *------------------------------------*/
+::-webkit-scrollbar {
+    width: var(--spacing-unit);
+    height: var(--spacing-unit);
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-panel-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-border-focus);
+    border: var(--border-width) solid var(--color-panel-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}

@@ -1,0 +1,18 @@
+{
+    "state": {
+        "system": {
+            "name": "xsystem",
+            "root": {
+                "name": "home",
+                "id": "home",
+                "type": "directory",
+                "kidIds": []
+            },
+            "files": {}
+        },
+        "client": {
+            "turns": [],
+            "path": []
+        }
+    }
+}

@@ -76,6 +76,14 @@ export function commas(...xs: string[]): string {
   return xs.join(", ");
 }
 
+export function bullets(xs: string[]): string {
+  return xs.map((x) => `  - ${x}`).join("\n");
+}
+
+export function indents(xs: string[]): string[] {
+  return xs.map((x) => `  ${x}`);
+}
+
 export function intercalate<A>(sep: A, ...xs: A[]): A[] {
   const ys: A[] = [];
   for (let i = 0; i < xs.length - 1; i++) ys.push(xs[i], sep);
@@ -209,4 +217,8 @@ export function requireDefined<T>(x: NotUndefined<T>): x is NotUndefined<T> {
 export function index_safe<A>(i: number, xs: A[]): A | undefined {
   if (!(0 <= i && i < xs.length)) return undefined;
   return xs[i];
+}
+
+export function ticks(s: string) {
+  return `\`${s}\``;
 }
