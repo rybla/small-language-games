@@ -1034,6 +1034,201 @@
                 ]
             },
             "description": "The Seeker, ever eager to uncover the island's mysteries, first takes a moment to survey the serene beauty of the secluded cove, the rhythmic ebb and flow of the tide a constant, soothing presence. The air is alive with the scent of salt and blossoms, and the sight of the turquoise water against the white sand is a feast for the eyes. With a renewed sense of purpose, The Seeker then turns their attention inward, to the treasures already in their possession. Fingers deftly work the tarnished silver locket, its cool metal a familiar comfort, before the Seeker carefully presses the luminous ocean pearl into its open embrace. A soft, ethereal glow emanates from the locket as the pearl settles within, revitalizing the silver and imbuing it with an otherworldly radiance. The combined artifact, now the Luminous Pearl Locket, feels warm to the touch, a whisper of ancient magic and the sea’s deepest secrets now held securely within the Seeker's grasp."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "The air in Honolulu is thick with the scent of plumeria and salt spray, a heady perfume that hangs over the bustling streets and pristine beaches. Towering volcanic mountains, cloaked in emerald jungle, form a dramatic backdrop to the modern city's sprawl. Ancient legends are woven into the fabric of this island paradise, tales of forgotten kings, sacred sites, and, most intriguingly, a fabled treasure said to be hidden somewhere within its lush valleys and along its sun-drenched shores. The vibrant culture, the echoes of history, and the promise of untold riches create an irresistible allure.",
+                        "player": {
+                            "name": "The Seeker",
+                            "description": "You are a renowned treasure hunter, drawn to the Pacific by whispers of a legendary artifact lost somewhere on the vibrant island of Oahu. Your reputation precedes you, a testament to your keen eye for detail, your resilience in the face of adversity, and your uncanny ability to decipher ancient clues. Honolulu, with its bustling energy and hidden histories, calls to you.",
+                            "appearanceDescription": "The player is a seasoned adventurer, clad in practical, earth-toned khakis and a sturdy, wide-brimmed hat that casts a shadow over their weathered face. Their boots are scuffed from countless journeys, and a well-worn leather satchel hangs comfortably at their hip, hinting at a life spent in pursuit of the unknown.",
+                            "room": "Secluded Cove"
+                        },
+                        "rooms": {
+                            "Secluded Cove": {
+                                "name": "Secluded Cove",
+                                "description": "You find yourself on a tranquil beach, the gentle rhythm of the waves a soothing balm. The sun warms your skin, and the sweet scent of flowers drifts from the nearby jungle. This seems like a perfect starting point for any adventure.",
+                                "appearanceDescription": "You stand on a secluded cove, the turquoise water lapping gently at the pristine white sand. Towering palm trees sway in the warm breeze, their fronds rustling like secrets whispered on the wind. Jagged volcanic rocks, softened by the relentless sea, frame the entrance to a narrow jungle path."
+                            },
+                            "Whispering Jungle": {
+                                "name": "Whispering Jungle",
+                                "description": "You are deep within the heart of the island's jungle. The sounds of unseen creatures echo around you, and the air is alive with the hum of insects. A sense of ancient history pervades this place, hinting at forgotten rituals and lost civilizations.",
+                                "appearanceDescription": "The air here is heavy with the scent of damp earth and exotic blossoms. Sunlight filters through the thick canopy, casting dappled patterns on the moss-covered ground. Ancient banyan trees, their roots like gnarled fingers, twist around weathered stone ruins."
+                            }
+                        },
+                        "items": {
+                            "Weathered Chest": {
+                                "appearanceDescription": "A weathered wooden chest, bound with tarnished brass, rests half-buried in the sand. It looks like it has weathered many storms.",
+                                "container": {
+                                    "howToOpen": "The chest is secured with a sturdy, yet rusted, padlock.",
+                                    "howToStoreItem": "Items can be placed inside the chest once the padlock is opened.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This old sea chest may hold valuable items or clues to the island's hidden treasures.",
+                                "name": "Weathered Chest",
+                                "pickupable": {
+                                    "isPickup": "false",
+                                    "reasonWhyNotPickup": "The chest is too heavy to move."
+                                }
+                            },
+                            "Etched Stone": {
+                                "appearanceDescription": "A smooth, grey stone, worn by the sea, lies near the water's edge. It has an unusual symbol etched into its surface.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This stone feels strangely warm to the touch and bears an intricate marking that hints at ancient significance.",
+                                "name": "Etched Stone",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Tarnished Silver Locket": {
+                                "appearanceDescription": "A tarnished silver locket, intricately engraved with swirling patterns reminiscent of ocean waves, lies open to reveal a miniature, faded portrait of a stern-faced woman.",
+                                "container": {
+                                    "howToOpen": "The locket has a small clasp that can be gently pried open.",
+                                    "howToStoreItem": "Items can be carefully placed within the locket's two shallow compartments.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This locket feels cool to the touch and carries a faint scent of salt. It seems to be a personal memento, possibly belonging to someone connected to the sea or the island's past.",
+                                "name": "Tarnished Silver Locket",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Ancient Parchment Map": {
+                                "appearanceDescription": "A rolled-up piece of parchment, its edges frayed and yellowed with age, is tied with a brittle piece of twine. Faint, spidery script is visible beneath a dark, waxy seal.",
+                                "container": {
+                                    "howToOpen": "The twine can be carefully untied, and the wax seal broken.",
+                                    "howToStoreItem": "The parchment can be re-rolled and placed back inside.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This parchment appears to be a map or a document of significant historical value. The ink has faded, but the markings hint at ancient routes and forgotten landmarks on the island.",
+                                "name": "Ancient Parchment Map",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Luminous Ocean Pearl": {
+                                "appearanceDescription": "A single, large pearl, roughly the size of a pigeon's egg, glows with an inner luminescence. Its surface is smooth and iridescent, shifting through hues of cream, pink, and pale blue.",
+                                "container": {
+                                    "howToOpen": "The chest's lid can be lifted to reveal its contents.",
+                                    "howToStoreItem": "The pearl can be nestled amongst the other items within the chest.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This pearl is unlike any found in modern times. It emanates a subtle warmth and is said to possess mystical properties, perhaps tied to the ocean's deepest secrets.",
+                                "name": "Luminous Ocean Pearl",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Carved Sea Turtle Charm": {
+                                "appearanceDescription": "A small, intricately carved wooden figurine of a sea turtle, its shell detailed with tiny, swirling patterns that mimic the ocean currents. It feels surprisingly heavy for its size.",
+                                "container": {
+                                    "howToOpen": "The chest can be opened by unlatching the corroded brass clasps.",
+                                    "howToStoreItem": "The figurine can be placed within the chest.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This carving is crafted from a dark, unfamiliar wood, polished smooth by time and handling. It is believed to be a protective charm, warding off ill fortune at sea.",
+                                "name": "Carved Sea Turtle Charm",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Enchanted Rune Stones": {
+                                "appearanceDescription": "A cluster of smooth, sea-worn stones, each etched with a different, unidentifiable symbol. They are cool to the touch and arranged in a deliberate pattern.",
+                                "container": {
+                                    "howToOpen": "The chest's lid can be lifted by pressing down on the front edge.",
+                                    "howToStoreItem": "The stones can be placed back into the chest.",
+                                    "isContainer": "true"
+                                },
+                                "description": "These stones seem to hum with a faint, resonant energy. Ancient islanders might have used them for divination or as markers for sacred places.",
+                                "name": "Enchanted Rune Stones",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Luminous Pearl Locket": {
+                                "appearanceDescription": "The tarnished silver locket now cradles the luminous ocean pearl within its heart. The pearl's gentle glow illuminates the faded portrait of the stern-faced woman, giving her an almost ethereal quality. The silver of the locket, once dull, now seems to catch and reflect the pearl's light, highlighting the intricate wave engravings.",
+                                "container": {
+                                    "howToOpen": "The locket is already open, presenting the pearl.",
+                                    "howToStoreItem": "The pearl rests securely within the locket's embrace.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This is a cherished locket, transformed by the addition of the luminous ocean pearl. The pearl's inner light seems to have revitalized the silver, making the locket gleam with an otherworldly radiance. It feels warm in the hand, carrying a faint scent of salt and a hint of the ocean's ancient magic, as if the woman in the portrait now watches over the sea's deepest secrets.",
+                                "name": "Luminous Pearl Locket",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            }
+                        },
+                        "itemLocations": {
+                            "Weathered Chest": {
+                                "type": "room",
+                                "roomName": "Secluded Cove"
+                            },
+                            "Etched Stone": {
+                                "type": "room",
+                                "roomName": "Secluded Cove"
+                            },
+                            "Tarnished Silver Locket": {
+                                "type": "nonexistent"
+                            },
+                            "Ancient Parchment Map": {
+                                "type": "player"
+                            },
+                            "Luminous Ocean Pearl": {
+                                "type": "nonexistent"
+                            },
+                            "Carved Sea Turtle Charm": {
+                                "type": "room",
+                                "roomName": "Secluded Cove"
+                            },
+                            "Enchanted Rune Stones": {
+                                "type": "room",
+                                "roomName": "Secluded Cove"
+                            },
+                            "Luminous Pearl Locket": {
+                                "type": "player"
+                            }
+                        },
+                        "roomConnections": {
+                            "Secluded Cove": [
+                                {
+                                    "here": "Secluded Cove",
+                                    "there": "Whispering Jungle",
+                                    "description": "A winding path leads inland, disappearing into the dense jungle."
+                                }
+                            ],
+                            "Whispering Jungle": [
+                                {
+                                    "here": "Whispering Jungle",
+                                    "there": "Secluded Cove",
+                                    "description": "The cove is visible from the jungle path, a bright opening in the verdant canopy."
+                                }
+                            ]
+                        },
+                        "startingRoom": "Secluded Cove",
+                        "visitedRooms": [
+                            "Secluded Cove"
+                        ],
+                        "openedItems": [
+                            "Weathered Chest"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "pick up the chest",
+                "gameActions": [
+                    {
+                        "item": "Weathered Chest",
+                        "type": "PlayerTakesItem"
+                    }
+                ]
+            },
+            "description": "The Seeker surveys the secluded cove, the gentle lapping of waves against the pristine white sand a calming prelude to the adventure that awaits. Drawn by the allure of the weathered chest, the Seeker approaches, their hands reaching out to grasp its stout handles. However, the chest proves to be far too heavy, its immobility a silent testament to its age and the treasures, or perhaps burdens, it may contain."
         }
     ]
 }

@@ -1,18 +1,26 @@
 {
-    "state": {
-        "system": {
-            "name": "xsystem",
-            "root": {
-                "name": "home",
-                "id": "home",
-                "type": "directory",
-                "kidIds": []
-            },
-            "files": {}
+    "system": {
+        "name": "xsystem",
+        "root": {
+            "name": "home",
+            "id": "home",
+            "type": "directory",
+            "kidIds": [
+                "393de7ee-1a99-46ff-b726-e3575fbf3b98"
+            ]
         },
-        "client": {
-            "turns": [],
-            "path": []
+        "files": {
+            "393de7ee-1a99-46ff-b726-e3575fbf3b98": {
+                "name": "dolphin ideas",
+                "id": "393de7ee-1a99-46ff-b726-e3575fbf3b98",
+                "type": "text"
+            }
         }
+    },
+    "client": {
+        "turns": [],
+        "path": [
+            "dolphin ideas"
+        ]
     }
 }

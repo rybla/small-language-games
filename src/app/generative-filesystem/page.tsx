@@ -115,7 +115,7 @@ function XSystemPanel(props: { state: XState }) {
 
 function XTurnViewer({ state, turn }: { state: XState; turn: XTurn }) {
   return (
-    <div className={styles.XTurn}>
+    <div className={styles.XTurnViewer}>
       <div className={styles.prompt}>{turn.prompt}</div>
       <div className={styles.actions}>
         {turn.actions.map((action, i) => (
@@ -135,15 +135,47 @@ function XActionViewer({ state, action }: { state: XState; action: XAction }) {
   return (
     <div className={styles.XActionViewer}>
       {action.type === "CreateChildDirectory" ? (
-        <></>
+        <span className={styles.message}>
+          create child directory{" "}
+          <XFileLabel
+            state={state}
+            file={getXFile(state.system, TODO())}
+          />{" "}
+        </span>
       ) : action.type === "CreateTextFile" ? (
-        <></>
-      ) : action.type === "DeleteChildFile" ? (
-        <></>
-      ) : action.type === "FocusChildFile" ? (
-        <></>
+        <span className={styles.message}>
+          create child directory{" "}
+          <XFileLabel
+            state={state}
+            file={getXFile(state.system, TODO())}
+          />{" "}
+        </span>
+      ) : action.type === "DeleteFile" ? (
+        <span className={styles.message}>
+          create child directory{" "}
+          <XFileLabel
+            state={state}
+            file={getXFile(state.system, TODO())}
+          />{" "}
+        </span>
+      ) : action.type === "OpenFile" ? (
+        <span className={styles.message}>
+          create child directory{" "}
+          <XFileLabel
+            state={state}
+            file={getXFile(state.system, TODO())}
+          />{" "}
+        </span>
       ) : action.type === "ShowHelpFileXAction" ? (
-        <></>
+        <span className={styles.message}>
+          create child directory{" "}
+          <XFileLabel
+            state={state}
+            file={getXFile(state.system, TODO())}
+          />{" "}
+        </span>
+      ) : action.type === "OpenParentDirectory" ? (
+        <span className={styles.message}>open parent directory</span>
       ) : (
         fromNever(action)
       )}
@@ -156,11 +188,7 @@ function XEffectViewer({ state, effect }: { state: XState; effect: XEffect }) {
     <div className={styles.XEffectViewer}>
       {effect.type === "Error" ? (
         <span className={styles.message}>
-          create child directory{" "}
-          <XFileLabel
-            state={state}
-            file={getXFile(state.system, TODO())}
-          />{" "}
+          <Markdown>{effect.message}</Markdown>
         </span>
       ) : (
         fromNever(effect.type)

@@ -41,37 +41,60 @@ export const XFile = z.union([DirectoryXFile, TextXFile, ImageXFile]);
 export type XPath = z.infer<typeof XPath>;
 export const XPath = z.array(XFileName);
 
-export const ShowHelpFileXAction = z.object({
-  type: z.enum(["ShowHelpFileXAction"]),
-  name: XFileName,
-});
+export const ShowHelpFileXAction = z
+  .object({
+    type: z.enum(["ShowHelpFileXAction"]),
+    name: XFileName,
+  })
+  .describe(
+    "show a helpful information to the user about how to use this system",
+  );
 
-export const FocusChildFileXAction = z.object({
-  type: z.enum(["FocusChildFile"]),
-  name: XFileName,
-});
+export const OpenFileXAction = z
+  .object({
+    type: z.enum(["OpenFile"]),
+    name: XFileName,
+  })
+  .describe(
+    "open a file that is a child of the working directory, which makes it the new focused file",
+  );
 
-export const DeleteChildFileXAction = z.object({
-  type: z.enum(["DeleteChildFile"]),
-  name: XFileName,
-});
+export const DeleteFileXAction = z
+  .object({
+    type: z.enum(["DeleteFile"]),
+    name: XFileName,
+  })
+  .describe("delete a file that is a child of the working directory");
 
-export const CreateChildDirectoryXAction = z.object({
-  type: z.enum(["CreateChildDirectory"]),
-  name: XFileName,
-});
+export const CreateChildDirectoryXAction = z
+  .object({
+    type: z.enum(["CreateChildDirectory"]),
+    name: XFileName,
+  })
+  .describe("create a new directory as a child of the working directory");
 
-export const CreateTextFile = z.object({
-  type: z.enum(["CreateTextFile"]),
-  name: XFileName,
-  prompt: z.string(),
-});
+export const CreateTextFile = z
+  .object({
+    type: z.enum(["CreateTextFile"]),
+    name: XFileName,
+    prompt: z.string(),
+  })
+  .describe(
+    "create a new text file in the working directory, and write some content into it based on the `prompt`",
+  );
+
+export const OpenParentDirectoryXAction = z
+  .object({
+    type: z.enum(["OpenParentDirectory"]),
+  })
+  .describe("open the parent directory as the new working directory");
 
 const XActions = [
   ShowHelpFileXAction,
-  FocusChildFileXAction,
+  OpenFileXAction,
+  OpenParentDirectoryXAction,
   CreateChildDirectoryXAction,
-  DeleteChildFileXAction,
+  DeleteFileXAction,
   CreateTextFile,
 ] as const;
 

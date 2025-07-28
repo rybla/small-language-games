@@ -18,7 +18,7 @@ export async function runXActions(
   const effects: XEffect[] = [];
   for (const action of actions) {
     const focus = getXFileAt(state.system, state.client.path);
-    if (action.type === "FocusChildFile") {
+    if (action.type === "OpenFile") {
       if (!(focus.type === "directory")) {
         effects.push({
           type: "Error",
@@ -33,7 +33,7 @@ export async function runXActions(
       ) {
         effects.push({
           type: "Error",
-          message: `A file with the name ${ticks(action.name)} is not in the focused directon ${ticks(focus.name)}`,
+          message: `You cannot open a file of the name ${ticks(action.name)} because a file of that name is not in the working directory ${ticks(focus.name)}`,
         });
       }
       state.client.path.push(action.name);
@@ -72,14 +72,24 @@ export async function runXActions(
       const filepath = getTextContentFilepath("public", file.id);
       await fs.mkdir(path.dirname(filepath), { recursive: true });
       await fs.writeFile(filepath, content);
-    } else if (action.type === "DeleteChildFile") {
-      if (true) {
+    } else if (action.type === "DeleteFile") {
+      if (!(focus.type === "directory")) {
         effects.push({
           type: "Error",
-          message: `action ${action.type} is unimplemented`,
+          message: `You cannot delete a file ${ticks(action.name)} when the focus ${ticks(focus.name)} is a non-directory file.`,
         });
         continue;
       }
+      const kidIndex = focus.kidIds.findIndex(
+        (kidId) => getXFile(state.system, kidId).name === action.name,
+      );
+      if (kidIndex === -1) {
+        effects.push({
+          type: "Error",
+          message: `You cannot delete the file ${ticks(action.name)} because a file of that name is not in the working directory ${ticks(focus.name)}`,
+        });
+      }
+      focus.kidIds.splice(kidIndex, 1);
     } else if (action.type === "ShowHelpFileXAction") {
       if (true) {
         effects.push({
@@ -88,6 +98,14 @@ export async function runXActions(
         });
         continue;
       }
+    } else if (action.type === "OpenParentDirectory") {
+      if (state.client.path.length === 0) {
+        effects.push({
+          type: "Error",
+          message: `You cannot open the parent directory when the working directory is the root directory.`,
+        });
+      }
+      state.client.path.pop();
     } else {
       fromNever(action);
     }

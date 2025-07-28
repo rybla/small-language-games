@@ -32,8 +32,19 @@ Your task is to write a sequence of actions (in the format specified by the outp
 
 ## Context
 
-**Focus:**
+${
+  focus.type === "directory"
+    ? trim(`
+**Working directory:**
 ${showXFile(state.system, focus)}
+`)
+    : trim(`
+**Focused file:**
+${showXFile(state.system, focus)}
+`)
+}
+
+
 
 ## Informal Instructions
 

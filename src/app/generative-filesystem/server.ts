@@ -61,22 +61,23 @@ export async function load(): Promise<void> {
       if (!(await exists(system_filepath))) {
         await save();
       }
-      const { success, data } = XState.safeParse(
-        JSON.parse(await fs.readFile(system_filepath, "utf8")),
-      );
+      const json = JSON.parse(await fs.readFile(system_filepath, "utf8"));
+      // console.dir({ json }, { depth: 100 });
+      const result = XState.safeParse(json);
       // if the old state doesn't parse, then just reset it
-      if (!success) {
+      if (!result.success) {
         await save();
         return;
+        // throw new Error(`Invalid state: ${result.error.toString()}`);
       }
-      state = data;
+      state = result.data;
     }),
   ]);
 }
 
 export async function save(): Promise<void> {
   await fs.mkdir(path.dirname(system_filepath), { recursive: true });
-  await fs.writeFile(system_filepath, stringify({ state }), "utf8");
+  await fs.writeFile(system_filepath, stringify(state), "utf8");
 }
 
 // -----------------------------------------------------------------------------
