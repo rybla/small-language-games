@@ -97,7 +97,7 @@
                     "name": "Kaelen",
                     "description": "You are an explorer, drawn by whispers of forgotten knowledge and hidden treasures. Your reputation precedes you as one who delves into the unknown, seeking answers where others fear to tread. The Whispering Vaults, a place spoken of only in hushed tones, calls to you, promising secrets that could change the world.",
                     "appearanceDescription": "You are a lone wanderer, clad in worn leather armor that bears the marks of countless journeys. A sturdy backpack is slung over your shoulders, and a flickering lantern in your hand casts dancing shadows on the cavernous walls. Your face is etched with determination, though a hint of apprehension flickers in your eyes as you gaze into the oppressive darkness.",
-                    "room": "Entrance Hall"
+                    "room": "The Dusty Aisle"
                 },
                 "rooms": {
                     "Entrance Hall": {
@@ -109,6 +109,16 @@
                         "name": "The Dusty Aisle",
                         "description": "This section of the Whispering Vaults feels like a forgotten artery of the colossal structure. The sheer volume of boxes pressing in from all sides is overwhelming. You can almost feel the weight of the forgotten histories contained within each sealed container.",
                         "appearanceDescription": "This aisle is a narrow corridor flanked by impossibly tall shelves, their contents hidden in shadow. The floor is carpeted with a thick layer of dust, disturbed only by your footprints. The air here is even more still, amplifying the oppressive silence."
+                    },
+                    "The Circular Archive": {
+                        "name": "The Circular Archive",
+                        "description": "The Circular Archive seems to be a nexus of some sort, or perhaps a place of importance. The glowing pedestal draws the eye, hinting at a purpose beyond mere storage. The humming in the air suggests a latent energy, waiting to be understood or perhaps disturbed.",
+                        "appearanceDescription": "This chamber is surprisingly circular, with shelves arranged in a rough ring. In the center, a single, ornate wooden pedestal stands, bathed in a faint, internal glow. The air here hums with a low, resonant frequency, a stark contrast to the silence outside."
+                    },
+                    "The Whispering Ledge": {
+                        "name": "The Whispering Ledge",
+                        "description": "The Whispering Ledge feels like the edge of the known world within the Vaults. The immense drop into the chasm is unnerving, and the wind's eerie song speaks of immense, unseen mechanisms deep within the structure. It is a place that tests one's courage and balance.",
+                        "appearanceDescription": "This is a narrow, windswept ledge overlooking a vast, black chasm. The wind here carries the faint, mournful sound of distant machinery. Crude, hand-carved notches in the rock face serve as precarious handholds and footholds, leading further into the darkness."
                     }
                 },
                 "items": {
@@ -139,13 +149,13 @@
                         }
                     },
                     "Tarnished Locket": {
-                        "appearanceDescription": "A tarnished brass locket, intricately engraved with swirling patterns that seem to shift and reform under the dim light. It hangs from a delicate, rusted chain, suggesting it was once a cherished possession.",
+                        "appearanceDescription": "A small, tarnished silver locket lies half-buried in the dust. Its surface is intricately engraved with swirling patterns that seem to shift subtly in the weak light.",
                         "container": {
-                            "howToOpen": "The locket can be opened by gently prying apart its two halves.",
-                            "howToStoreItem": "Items can be stored within the locket's small, velvet-lined compartments.",
+                            "howToOpen": "The locket can be gently pried open with a fingernail or a thin object.",
+                            "howToStoreItem": "A small item can be carefully placed inside the locket and then the two halves can be pressed together.",
                             "isContainer": "true"
                         },
-                        "description": "This locket, when opened, reveals two miniature, faded portraits. One depicts a stern-faced individual in archaic attire, while the other shows a serene landscape that seems eerily familiar, yet impossible to place. The metallic tang in the air intensifies slightly when the locket is held.",
+                        "description": "This locket feels cold to the touch and carries a faint scent of lavender. It seems to be a personal item, lost long ago amidst the countless boxes.",
                         "name": "Tarnished Locket",
                         "pickupable": {
                             "isPickup": "true"
@@ -176,6 +186,44 @@
                         "pickupable": {
                             "isPickup": "true"
                         }
+                    },
+                    "Feather of Lumina": {
+                        "appearanceDescription": "A single, perfectly preserved feather, impossibly blue, rests atop a stack of unassuming brown boxes. It seems to emit a faint, ethereal light, pulsating softly.",
+                        "container": {
+                            "isContainer": "false"
+                        },
+                        "description": "This feather is unlike any known avian plumage. Its color is too vibrant, its light too unnatural. It feels lighter than air and hums with a barely perceptible energy.",
+                        "name": "Feather of Lumina",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    },
+                    "Box of Stasis": {
+                        "appearanceDescription": "A large, imposing cardboard box stands slightly askew, its tape brittle and yellowed. The symbols on its surface are stark and angular, radiating a sense of ancient warning.",
+                        "container": {
+                            "howToOpen": "The tape can be carefully peeled away, but it may crumble with too much force.",
+                            "howToStoreItem": "Any item placed within this box will be sealed by its own unusual properties, preventing its removal.",
+                            "isContainer": "true"
+                        },
+                        "description": "This particular box feels heavier than it looks, and a strange aura emanates from it. The symbols are clearly meant to convey a message, though its meaning is lost to time.",
+                        "name": "Box of Stasis",
+                        "pickupable": {
+                            "isPickup": "false",
+                            "reasonWhyNotPickup": "The box is far too heavy and firmly lodged between the shelves to be moved."
+                        }
+                    },
+                    "Locket of Whispering Light": {
+                        "appearanceDescription": "A delicate silver locket, now gleaming with an inner luminescence, is adorned with a single, impossibly blue feather. The feather's ethereal light emanates from within the locket, casting soft, pulsating patterns on nearby surfaces.",
+                        "container": {
+                            "howToOpen": "The locket springs open with a soft click.",
+                            "howToStoreItem": "The feather nestles perfectly into the locket's embrace.",
+                            "isContainer": "true"
+                        },
+                        "description": "This is no longer just a tarnished locket, but a beacon of faint, ethereal light. The Feather of Lumina, when placed within, imbues the locket with a gentle, pulsating glow and a warmth that chases away the perpetual chill. The scent of lavender is now subtly mingled with a faint, ozone-like fragrance, hinting at the magical energies now contained within.",
+                        "name": "Locket of Whispering Light",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
                     }
                 },
                 "itemLocations": {
@@ -188,8 +236,7 @@
                         "roomName": "Entrance Hall"
                     },
                     "Tarnished Locket": {
-                        "type": "container",
-                        "containerName": "Partially Open Box"
+                        "type": "nonexistent"
                     },
                     "Stones of the Void": {
                         "type": "room",
@@ -198,6 +245,16 @@
                     "Echo Bloom Sprig": {
                         "type": "room",
                         "roomName": "Entrance Hall"
+                    },
+                    "Feather of Lumina": {
+                        "type": "nonexistent"
+                    },
+                    "Box of Stasis": {
+                        "type": "room",
+                        "roomName": "The Dusty Aisle"
+                    },
+                    "Locket of Whispering Light": {
+                        "type": "player"
                     }
                 },
                 "roomConnections": {
@@ -213,12 +270,37 @@
                             "here": "The Dusty Aisle",
                             "there": "Entrance Hall",
                             "description": "Retracing your steps down the dusty aisle brings you back to the entrance."
+                        },
+                        {
+                            "here": "The Dusty Aisle",
+                            "there": "The Circular Archive",
+                            "description": "A narrow gap between two towering shelves, choked with cobwebs, leads into a dimly lit chamber."
+                        },
+                        {
+                            "here": "The Dusty Aisle",
+                            "there": "The Whispering Ledge",
+                            "description": "A precarious stack of boxes near the far end of the aisle seems to offer passage to a precarious-looking ledge."
+                        }
+                    ],
+                    "The Circular Archive": [
+                        {
+                            "here": "The Circular Archive",
+                            "there": "The Dusty Aisle",
+                            "description": "You squeeze back through the narrow gap, the cobwebs clinging to your clothes as you emerge into the dusty aisle."
+                        }
+                    ],
+                    "The Whispering Ledge": [
+                        {
+                            "here": "The Whispering Ledge",
+                            "there": "The Dusty Aisle",
+                            "description": "You carefully descend from the precarious ledge, balancing on the shifting boxes as you return to the relative stability of the aisle."
                         }
                     ]
                 },
                 "startingRoom": "Entrance Hall",
                 "visitedRooms": [
-                    "Entrance Hall"
+                    "Entrance Hall",
+                    "The Dusty Aisle"
                 ],
                 "openedItems": [
                     "Partially Open Box"
@@ -525,6 +607,677 @@
                 ]
             },
             "description": "Kaelen carefully places the Tarnished Brass Key into the Partially Open Box, its teeth catching slightly on the cardboard lip before settling within. With a gentle push, the flap is nudged closed, securing the key once more within its cardboard confines. The act is simple, yet it feels like a small ritual, a reaffirmation of the unknown within this colossal repository of secrets."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "The Whispering Vaults is a place of impossible scale, a labyrinthine warehouse where silence reigns supreme. Colossal shelves, disappearing into an inky blackness far above, are packed with an immeasurable collection of cardboard boxes. Each is sealed with brittle, faded tape, bearing enigmatic symbols that defy immediate understanding. The air is heavy with the scent of decaying paper, ancient ink, and a strange, metallic tang that prickles the senses, hinting at the extraordinary nature of the items stored within. Grimy skylights, far overhead, cast weak, ethereal beams of light, illuminating dusty, narrow aisles and fostering an atmosphere steeped in both untold potential and profound mystery.",
+                        "player": {
+                            "name": "Kaelen",
+                            "description": "You are an explorer, drawn by whispers of forgotten knowledge and hidden treasures. Your reputation precedes you as one who delves into the unknown, seeking answers where others fear to tread. The Whispering Vaults, a place spoken of only in hushed tones, calls to you, promising secrets that could change the world.",
+                            "appearanceDescription": "You are a lone wanderer, clad in worn leather armor that bears the marks of countless journeys. A sturdy backpack is slung over your shoulders, and a flickering lantern in your hand casts dancing shadows on the cavernous walls. Your face is etched with determination, though a hint of apprehension flickers in your eyes as you gaze into the oppressive darkness.",
+                            "room": "The Dusty Aisle"
+                        },
+                        "rooms": {
+                            "Entrance Hall": {
+                                "name": "Entrance Hall",
+                                "description": "You are at the threshold of the Whispering Vaults, a place where silence is a palpable entity and the sheer scale of stored potential is staggering. The air itself seems to hum with forgotten knowledge, emanating from the countless sealed boxes that line the towering shelves. A single path beckons you into the deeper recesses of this immense repository.",
+                                "appearanceDescription": "You stand at the entrance of a cavernous hall, the air thick with the scent of aged paper and a faint, metallic tang. Towering shelves, lost in the gloom above, are crammed with countless sealed cardboard boxes. Ethereal shafts of light pierce the darkness from unseen skylights, illuminating narrow, dusty aisles."
+                            },
+                            "The Dusty Aisle": {
+                                "name": "The Dusty Aisle",
+                                "description": "This section of the Whispering Vaults feels like a forgotten artery of the colossal structure. The sheer volume of boxes pressing in from all sides is overwhelming. You can almost feel the weight of the forgotten histories contained within each sealed container.",
+                                "appearanceDescription": "This aisle is a narrow corridor flanked by impossibly tall shelves, their contents hidden in shadow. The floor is carpeted with a thick layer of dust, disturbed only by your footprints. The air here is even more still, amplifying the oppressive silence."
+                            },
+                            "The Circular Archive": {
+                                "name": "The Circular Archive",
+                                "description": "The Circular Archive seems to be a nexus of some sort, or perhaps a place of importance. The glowing pedestal draws the eye, hinting at a purpose beyond mere storage. The humming in the air suggests a latent energy, waiting to be understood or perhaps disturbed.",
+                                "appearanceDescription": "This chamber is surprisingly circular, with shelves arranged in a rough ring. In the center, a single, ornate wooden pedestal stands, bathed in a faint, internal glow. The air here hums with a low, resonant frequency, a stark contrast to the silence outside."
+                            },
+                            "The Whispering Ledge": {
+                                "name": "The Whispering Ledge",
+                                "description": "The Whispering Ledge feels like the edge of the known world within the Vaults. The immense drop into the chasm is unnerving, and the wind's eerie song speaks of immense, unseen mechanisms deep within the structure. It is a place that tests one's courage and balance.",
+                                "appearanceDescription": "This is a narrow, windswept ledge overlooking a vast, black chasm. The wind here carries the faint, mournful sound of distant machinery. Crude, hand-carved notches in the rock face serve as precarious handholds and footholds, leading further into the darkness."
+                            }
+                        },
+                        "items": {
+                            "Tarnished Brass Key": {
+                                "appearanceDescription": "A small, tarnished brass key rests on a dusty wooden crate near the entrance. Its teeth are intricately carved, suggesting it might unlock something significant.",
+                                "container": {
+                                    "howToOpen": "The crate is unsealed.",
+                                    "howToStoreItem": "The crate has a relatively open top, suitable for placing items inside.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This appears to be a key, likely for accessing one of the many sealed containers within the Whispering Vaults. Its aged appearance suggests it has been here for a considerable time.",
+                                "name": "Tarnished Brass Key",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Partially Open Box": {
+                                "appearanceDescription": "A single, unmarked cardboard box sits precariously on a low shelf, slightly ajar. Faded tape seals its opening, but a corner has peeled away, offering a glimpse of what might be inside.",
+                                "container": {
+                                    "howToOpen": "The box is partially open, its tape having separated slightly.",
+                                    "howToStoreItem": "Items can be placed back into the box and the flap pushed down.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This is a standard-issue cardboard box, typical of those found throughout the Whispering Vaults. Its contents are unknown, but the partial opening suggests a potential clue or item.",
+                                "name": "Partially Open Box",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Tarnished Locket": {
+                                "appearanceDescription": "A small, tarnished silver locket lies half-buried in the dust. Its surface is intricately engraved with swirling patterns that seem to shift subtly in the weak light.",
+                                "container": {
+                                    "howToOpen": "The locket can be gently pried open with a fingernail or a thin object.",
+                                    "howToStoreItem": "A small item can be carefully placed inside the locket and then the two halves can be pressed together.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This locket feels cold to the touch and carries a faint scent of lavender. It seems to be a personal item, lost long ago amidst the countless boxes.",
+                                "name": "Tarnished Locket",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Stones of the Void": {
+                                "appearanceDescription": "A collection of smooth, obsidian-like pebbles, each emanating a faint, cool luminescence. They are arranged in a precise, geometric pattern within a small, velvet pouch.",
+                                "container": {
+                                    "howToOpen": "The velvet pouch can be opened by untying the silken drawstring.",
+                                    "howToStoreItem": "The pebbles are best stored within the pouch to maintain their arrangement and luminescence.",
+                                    "isContainer": "true"
+                                },
+                                "description": "These stones hum with a subtle, resonant energy. When held, they impart fleeting visions of vast, star-dusted voids and silent, drifting celestial bodies. The ambient silence of the Vaults seems to deepen when they are disturbed.",
+                                "name": "Stones of the Void",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Echo Bloom Sprig": {
+                                "appearanceDescription": "A single, dried sprig of an unknown herb, its leaves brittle and a deep, unusual shade of indigo. A faint, sweet aroma, tinged with something sharp and metallic, emanates from it.",
+                                "container": {
+                                    "howToOpen": "The herb is loose within the box and can be taken directly.",
+                                    "howToStoreItem": "This herb should be stored in a dry, sealed container to preserve its potency.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This herb, known colloquially as 'Echo Bloom,' is said to capture and amplify faint whispers and residual emotions from its surroundings. Holding it close to one's ear might reveal faint, disjointed murmurs of past events within the Vaults.",
+                                "name": "Echo Bloom Sprig",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Feather of Lumina": {
+                                "appearanceDescription": "A single, perfectly preserved feather, impossibly blue, rests atop a stack of unassuming brown boxes. It seems to emit a faint, ethereal light, pulsating softly.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This feather is unlike any known avian plumage. Its color is too vibrant, its light too unnatural. It feels lighter than air and hums with a barely perceptible energy.",
+                                "name": "Feather of Lumina",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Box of Stasis": {
+                                "appearanceDescription": "A large, imposing cardboard box stands slightly askew, its tape brittle and yellowed. The symbols on its surface are stark and angular, radiating a sense of ancient warning.",
+                                "container": {
+                                    "howToOpen": "The tape can be carefully peeled away, but it may crumble with too much force.",
+                                    "howToStoreItem": "Any item placed within this box will be sealed by its own unusual properties, preventing its removal.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This particular box feels heavier than it looks, and a strange aura emanates from it. The symbols are clearly meant to convey a message, though its meaning is lost to time.",
+                                "name": "Box of Stasis",
+                                "pickupable": {
+                                    "isPickup": "false",
+                                    "reasonWhyNotPickup": "The box is far too heavy and firmly lodged between the shelves to be moved."
+                                }
+                            }
+                        },
+                        "itemLocations": {
+                            "Tarnished Brass Key": {
+                                "type": "container",
+                                "containerName": "Partially Open Box"
+                            },
+                            "Partially Open Box": {
+                                "type": "room",
+                                "roomName": "Entrance Hall"
+                            },
+                            "Tarnished Locket": {
+                                "type": "room",
+                                "roomName": "The Dusty Aisle"
+                            },
+                            "Stones of the Void": {
+                                "type": "room",
+                                "roomName": "Entrance Hall"
+                            },
+                            "Echo Bloom Sprig": {
+                                "type": "room",
+                                "roomName": "Entrance Hall"
+                            },
+                            "Feather of Lumina": {
+                                "type": "room",
+                                "roomName": "The Dusty Aisle"
+                            },
+                            "Box of Stasis": {
+                                "type": "room",
+                                "roomName": "The Dusty Aisle"
+                            }
+                        },
+                        "roomConnections": {
+                            "Entrance Hall": [
+                                {
+                                    "here": "Entrance Hall",
+                                    "there": "The Dusty Aisle",
+                                    "description": "A narrow aisle, choked with dust motes dancing in the dim light, leads deeper into the vault."
+                                }
+                            ],
+                            "The Dusty Aisle": [
+                                {
+                                    "here": "The Dusty Aisle",
+                                    "there": "Entrance Hall",
+                                    "description": "Retracing your steps down the dusty aisle brings you back to the entrance."
+                                },
+                                {
+                                    "here": "The Dusty Aisle",
+                                    "there": "The Circular Archive",
+                                    "description": "A narrow gap between two towering shelves, choked with cobwebs, leads into a dimly lit chamber."
+                                },
+                                {
+                                    "here": "The Dusty Aisle",
+                                    "there": "The Whispering Ledge",
+                                    "description": "A precarious stack of boxes near the far end of the aisle seems to offer passage to a precarious-looking ledge."
+                                }
+                            ],
+                            "The Circular Archive": [
+                                {
+                                    "here": "The Circular Archive",
+                                    "there": "The Dusty Aisle",
+                                    "description": "You squeeze back through the narrow gap, the cobwebs clinging to your clothes as you emerge into the dusty aisle."
+                                }
+                            ],
+                            "The Whispering Ledge": [
+                                {
+                                    "here": "The Whispering Ledge",
+                                    "there": "The Dusty Aisle",
+                                    "description": "You carefully descend from the precarious ledge, balancing on the shifting boxes as you return to the relative stability of the aisle."
+                                }
+                            ]
+                        },
+                        "startingRoom": "Entrance Hall",
+                        "visitedRooms": [
+                            "Entrance Hall",
+                            "The Dusty Aisle"
+                        ],
+                        "openedItems": [
+                            "Partially Open Box"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "go down the aisle",
+                "gameActions": [
+                    {
+                        "room": "The Dusty Aisle",
+                        "type": "PlayerGoesToRoom"
+                    }
+                ]
+            },
+            "description": "Kaelen steps forward, the silence of the Entrance Hall clinging to them like a shroud. The path leading deeper into the Whispering Vaults, a narrow aisle choked with dust motes dancing in the dim light, beckons. With each step, the air grows heavier, charged with the weight of unspoken histories, and the scent of aged paper intensifies, hinting at the secrets waiting to be unearthed in the dusty depths ahead."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "The Whispering Vaults is a place of impossible scale, a labyrinthine warehouse where silence reigns supreme. Colossal shelves, disappearing into an inky blackness far above, are packed with an immeasurable collection of cardboard boxes. Each is sealed with brittle, faded tape, bearing enigmatic symbols that defy immediate understanding. The air is heavy with the scent of decaying paper, ancient ink, and a strange, metallic tang that prickles the senses, hinting at the extraordinary nature of the items stored within. Grimy skylights, far overhead, cast weak, ethereal beams of light, illuminating dusty, narrow aisles and fostering an atmosphere steeped in both untold potential and profound mystery.",
+                        "player": {
+                            "name": "Kaelen",
+                            "description": "You are an explorer, drawn by whispers of forgotten knowledge and hidden treasures. Your reputation precedes you as one who delves into the unknown, seeking answers where others fear to tread. The Whispering Vaults, a place spoken of only in hushed tones, calls to you, promising secrets that could change the world.",
+                            "appearanceDescription": "You are a lone wanderer, clad in worn leather armor that bears the marks of countless journeys. A sturdy backpack is slung over your shoulders, and a flickering lantern in your hand casts dancing shadows on the cavernous walls. Your face is etched with determination, though a hint of apprehension flickers in your eyes as you gaze into the oppressive darkness.",
+                            "room": "The Dusty Aisle"
+                        },
+                        "rooms": {
+                            "Entrance Hall": {
+                                "name": "Entrance Hall",
+                                "description": "You are at the threshold of the Whispering Vaults, a place where silence is a palpable entity and the sheer scale of stored potential is staggering. The air itself seems to hum with forgotten knowledge, emanating from the countless sealed boxes that line the towering shelves. A single path beckons you into the deeper recesses of this immense repository.",
+                                "appearanceDescription": "You stand at the entrance of a cavernous hall, the air thick with the scent of aged paper and a faint, metallic tang. Towering shelves, lost in the gloom above, are crammed with countless sealed cardboard boxes. Ethereal shafts of light pierce the darkness from unseen skylights, illuminating narrow, dusty aisles."
+                            },
+                            "The Dusty Aisle": {
+                                "name": "The Dusty Aisle",
+                                "description": "This section of the Whispering Vaults feels like a forgotten artery of the colossal structure. The sheer volume of boxes pressing in from all sides is overwhelming. You can almost feel the weight of the forgotten histories contained within each sealed container.",
+                                "appearanceDescription": "This aisle is a narrow corridor flanked by impossibly tall shelves, their contents hidden in shadow. The floor is carpeted with a thick layer of dust, disturbed only by your footprints. The air here is even more still, amplifying the oppressive silence."
+                            },
+                            "The Circular Archive": {
+                                "name": "The Circular Archive",
+                                "description": "The Circular Archive seems to be a nexus of some sort, or perhaps a place of importance. The glowing pedestal draws the eye, hinting at a purpose beyond mere storage. The humming in the air suggests a latent energy, waiting to be understood or perhaps disturbed.",
+                                "appearanceDescription": "This chamber is surprisingly circular, with shelves arranged in a rough ring. In the center, a single, ornate wooden pedestal stands, bathed in a faint, internal glow. The air here hums with a low, resonant frequency, a stark contrast to the silence outside."
+                            },
+                            "The Whispering Ledge": {
+                                "name": "The Whispering Ledge",
+                                "description": "The Whispering Ledge feels like the edge of the known world within the Vaults. The immense drop into the chasm is unnerving, and the wind's eerie song speaks of immense, unseen mechanisms deep within the structure. It is a place that tests one's courage and balance.",
+                                "appearanceDescription": "This is a narrow, windswept ledge overlooking a vast, black chasm. The wind here carries the faint, mournful sound of distant machinery. Crude, hand-carved notches in the rock face serve as precarious handholds and footholds, leading further into the darkness."
+                            }
+                        },
+                        "items": {
+                            "Tarnished Brass Key": {
+                                "appearanceDescription": "A small, tarnished brass key rests on a dusty wooden crate near the entrance. Its teeth are intricately carved, suggesting it might unlock something significant.",
+                                "container": {
+                                    "howToOpen": "The crate is unsealed.",
+                                    "howToStoreItem": "The crate has a relatively open top, suitable for placing items inside.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This appears to be a key, likely for accessing one of the many sealed containers within the Whispering Vaults. Its aged appearance suggests it has been here for a considerable time.",
+                                "name": "Tarnished Brass Key",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Partially Open Box": {
+                                "appearanceDescription": "A single, unmarked cardboard box sits precariously on a low shelf, slightly ajar. Faded tape seals its opening, but a corner has peeled away, offering a glimpse of what might be inside.",
+                                "container": {
+                                    "howToOpen": "The box is partially open, its tape having separated slightly.",
+                                    "howToStoreItem": "Items can be placed back into the box and the flap pushed down.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This is a standard-issue cardboard box, typical of those found throughout the Whispering Vaults. Its contents are unknown, but the partial opening suggests a potential clue or item.",
+                                "name": "Partially Open Box",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Tarnished Locket": {
+                                "appearanceDescription": "A small, tarnished silver locket lies half-buried in the dust. Its surface is intricately engraved with swirling patterns that seem to shift subtly in the weak light.",
+                                "container": {
+                                    "howToOpen": "The locket can be gently pried open with a fingernail or a thin object.",
+                                    "howToStoreItem": "A small item can be carefully placed inside the locket and then the two halves can be pressed together.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This locket feels cold to the touch and carries a faint scent of lavender. It seems to be a personal item, lost long ago amidst the countless boxes.",
+                                "name": "Tarnished Locket",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Stones of the Void": {
+                                "appearanceDescription": "A collection of smooth, obsidian-like pebbles, each emanating a faint, cool luminescence. They are arranged in a precise, geometric pattern within a small, velvet pouch.",
+                                "container": {
+                                    "howToOpen": "The velvet pouch can be opened by untying the silken drawstring.",
+                                    "howToStoreItem": "The pebbles are best stored within the pouch to maintain their arrangement and luminescence.",
+                                    "isContainer": "true"
+                                },
+                                "description": "These stones hum with a subtle, resonant energy. When held, they impart fleeting visions of vast, star-dusted voids and silent, drifting celestial bodies. The ambient silence of the Vaults seems to deepen when they are disturbed.",
+                                "name": "Stones of the Void",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Echo Bloom Sprig": {
+                                "appearanceDescription": "A single, dried sprig of an unknown herb, its leaves brittle and a deep, unusual shade of indigo. A faint, sweet aroma, tinged with something sharp and metallic, emanates from it.",
+                                "container": {
+                                    "howToOpen": "The herb is loose within the box and can be taken directly.",
+                                    "howToStoreItem": "This herb should be stored in a dry, sealed container to preserve its potency.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This herb, known colloquially as 'Echo Bloom,' is said to capture and amplify faint whispers and residual emotions from its surroundings. Holding it close to one's ear might reveal faint, disjointed murmurs of past events within the Vaults.",
+                                "name": "Echo Bloom Sprig",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Feather of Lumina": {
+                                "appearanceDescription": "A single, perfectly preserved feather, impossibly blue, rests atop a stack of unassuming brown boxes. It seems to emit a faint, ethereal light, pulsating softly.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This feather is unlike any known avian plumage. Its color is too vibrant, its light too unnatural. It feels lighter than air and hums with a barely perceptible energy.",
+                                "name": "Feather of Lumina",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Box of Stasis": {
+                                "appearanceDescription": "A large, imposing cardboard box stands slightly askew, its tape brittle and yellowed. The symbols on its surface are stark and angular, radiating a sense of ancient warning.",
+                                "container": {
+                                    "howToOpen": "The tape can be carefully peeled away, but it may crumble with too much force.",
+                                    "howToStoreItem": "Any item placed within this box will be sealed by its own unusual properties, preventing its removal.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This particular box feels heavier than it looks, and a strange aura emanates from it. The symbols are clearly meant to convey a message, though its meaning is lost to time.",
+                                "name": "Box of Stasis",
+                                "pickupable": {
+                                    "isPickup": "false",
+                                    "reasonWhyNotPickup": "The box is far too heavy and firmly lodged between the shelves to be moved."
+                                }
+                            }
+                        },
+                        "itemLocations": {
+                            "Tarnished Brass Key": {
+                                "type": "container",
+                                "containerName": "Partially Open Box"
+                            },
+                            "Partially Open Box": {
+                                "type": "room",
+                                "roomName": "Entrance Hall"
+                            },
+                            "Tarnished Locket": {
+                                "type": "player"
+                            },
+                            "Stones of the Void": {
+                                "type": "room",
+                                "roomName": "Entrance Hall"
+                            },
+                            "Echo Bloom Sprig": {
+                                "type": "room",
+                                "roomName": "Entrance Hall"
+                            },
+                            "Feather of Lumina": {
+                                "type": "player"
+                            },
+                            "Box of Stasis": {
+                                "type": "room",
+                                "roomName": "The Dusty Aisle"
+                            }
+                        },
+                        "roomConnections": {
+                            "Entrance Hall": [
+                                {
+                                    "here": "Entrance Hall",
+                                    "there": "The Dusty Aisle",
+                                    "description": "A narrow aisle, choked with dust motes dancing in the dim light, leads deeper into the vault."
+                                }
+                            ],
+                            "The Dusty Aisle": [
+                                {
+                                    "here": "The Dusty Aisle",
+                                    "there": "Entrance Hall",
+                                    "description": "Retracing your steps down the dusty aisle brings you back to the entrance."
+                                },
+                                {
+                                    "here": "The Dusty Aisle",
+                                    "there": "The Circular Archive",
+                                    "description": "A narrow gap between two towering shelves, choked with cobwebs, leads into a dimly lit chamber."
+                                },
+                                {
+                                    "here": "The Dusty Aisle",
+                                    "there": "The Whispering Ledge",
+                                    "description": "A precarious stack of boxes near the far end of the aisle seems to offer passage to a precarious-looking ledge."
+                                }
+                            ],
+                            "The Circular Archive": [
+                                {
+                                    "here": "The Circular Archive",
+                                    "there": "The Dusty Aisle",
+                                    "description": "You squeeze back through the narrow gap, the cobwebs clinging to your clothes as you emerge into the dusty aisle."
+                                }
+                            ],
+                            "The Whispering Ledge": [
+                                {
+                                    "here": "The Whispering Ledge",
+                                    "there": "The Dusty Aisle",
+                                    "description": "You carefully descend from the precarious ledge, balancing on the shifting boxes as you return to the relative stability of the aisle."
+                                }
+                            ]
+                        },
+                        "startingRoom": "Entrance Hall",
+                        "visitedRooms": [
+                            "Entrance Hall",
+                            "The Dusty Aisle"
+                        ],
+                        "openedItems": [
+                            "Partially Open Box"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "take the locket and the lumina ",
+                "gameActions": [
+                    {
+                        "type": "PlayerInspectsCurrentRoom"
+                    },
+                    {
+                        "item": "Tarnished Locket",
+                        "type": "PlayerTakesItem"
+                    },
+                    {
+                        "item": "Feather of Lumina",
+                        "type": "PlayerTakesItem"
+                    }
+                ]
+            },
+            "description": "Kaelen, ever the observant explorer, takes a moment to survey the oppressive grandeur of the Dusty Aisle. The air, thick with the scent of aged paper and forgotten lives, seems to hum with latent potential. With a practiced grace, Kaelen reaches out, fingers brushing away the thick layer of dust from a tarnished locket, its cool metal a stark contrast to the ambient air. The faint scent of lavender clings to it, a ghost of a past memory. Immediately after, Kaelen's attention is drawn to a shimmering object nestled amongst the discarded detritus. With a gentle grasp, the explorer plucks the Feather of Lumina from its resting place; its unnatural vibrancy seems to pulse with a life of its own, a whisper of the strange energies that permeate these Vaults."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "The Whispering Vaults is a place of impossible scale, a labyrinthine warehouse where silence reigns supreme. Colossal shelves, disappearing into an inky blackness far above, are packed with an immeasurable collection of cardboard boxes. Each is sealed with brittle, faded tape, bearing enigmatic symbols that defy immediate understanding. The air is heavy with the scent of decaying paper, ancient ink, and a strange, metallic tang that prickles the senses, hinting at the extraordinary nature of the items stored within. Grimy skylights, far overhead, cast weak, ethereal beams of light, illuminating dusty, narrow aisles and fostering an atmosphere steeped in both untold potential and profound mystery.",
+                        "player": {
+                            "name": "Kaelen",
+                            "description": "You are an explorer, drawn by whispers of forgotten knowledge and hidden treasures. Your reputation precedes you as one who delves into the unknown, seeking answers where others fear to tread. The Whispering Vaults, a place spoken of only in hushed tones, calls to you, promising secrets that could change the world.",
+                            "appearanceDescription": "You are a lone wanderer, clad in worn leather armor that bears the marks of countless journeys. A sturdy backpack is slung over your shoulders, and a flickering lantern in your hand casts dancing shadows on the cavernous walls. Your face is etched with determination, though a hint of apprehension flickers in your eyes as you gaze into the oppressive darkness.",
+                            "room": "The Dusty Aisle"
+                        },
+                        "rooms": {
+                            "Entrance Hall": {
+                                "name": "Entrance Hall",
+                                "description": "You are at the threshold of the Whispering Vaults, a place where silence is a palpable entity and the sheer scale of stored potential is staggering. The air itself seems to hum with forgotten knowledge, emanating from the countless sealed boxes that line the towering shelves. A single path beckons you into the deeper recesses of this immense repository.",
+                                "appearanceDescription": "You stand at the entrance of a cavernous hall, the air thick with the scent of aged paper and a faint, metallic tang. Towering shelves, lost in the gloom above, are crammed with countless sealed cardboard boxes. Ethereal shafts of light pierce the darkness from unseen skylights, illuminating narrow, dusty aisles."
+                            },
+                            "The Dusty Aisle": {
+                                "name": "The Dusty Aisle",
+                                "description": "This section of the Whispering Vaults feels like a forgotten artery of the colossal structure. The sheer volume of boxes pressing in from all sides is overwhelming. You can almost feel the weight of the forgotten histories contained within each sealed container.",
+                                "appearanceDescription": "This aisle is a narrow corridor flanked by impossibly tall shelves, their contents hidden in shadow. The floor is carpeted with a thick layer of dust, disturbed only by your footprints. The air here is even more still, amplifying the oppressive silence."
+                            },
+                            "The Circular Archive": {
+                                "name": "The Circular Archive",
+                                "description": "The Circular Archive seems to be a nexus of some sort, or perhaps a place of importance. The glowing pedestal draws the eye, hinting at a purpose beyond mere storage. The humming in the air suggests a latent energy, waiting to be understood or perhaps disturbed.",
+                                "appearanceDescription": "This chamber is surprisingly circular, with shelves arranged in a rough ring. In the center, a single, ornate wooden pedestal stands, bathed in a faint, internal glow. The air here hums with a low, resonant frequency, a stark contrast to the silence outside."
+                            },
+                            "The Whispering Ledge": {
+                                "name": "The Whispering Ledge",
+                                "description": "The Whispering Ledge feels like the edge of the known world within the Vaults. The immense drop into the chasm is unnerving, and the wind's eerie song speaks of immense, unseen mechanisms deep within the structure. It is a place that tests one's courage and balance.",
+                                "appearanceDescription": "This is a narrow, windswept ledge overlooking a vast, black chasm. The wind here carries the faint, mournful sound of distant machinery. Crude, hand-carved notches in the rock face serve as precarious handholds and footholds, leading further into the darkness."
+                            }
+                        },
+                        "items": {
+                            "Tarnished Brass Key": {
+                                "appearanceDescription": "A small, tarnished brass key rests on a dusty wooden crate near the entrance. Its teeth are intricately carved, suggesting it might unlock something significant.",
+                                "container": {
+                                    "howToOpen": "The crate is unsealed.",
+                                    "howToStoreItem": "The crate has a relatively open top, suitable for placing items inside.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This appears to be a key, likely for accessing one of the many sealed containers within the Whispering Vaults. Its aged appearance suggests it has been here for a considerable time.",
+                                "name": "Tarnished Brass Key",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Partially Open Box": {
+                                "appearanceDescription": "A single, unmarked cardboard box sits precariously on a low shelf, slightly ajar. Faded tape seals its opening, but a corner has peeled away, offering a glimpse of what might be inside.",
+                                "container": {
+                                    "howToOpen": "The box is partially open, its tape having separated slightly.",
+                                    "howToStoreItem": "Items can be placed back into the box and the flap pushed down.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This is a standard-issue cardboard box, typical of those found throughout the Whispering Vaults. Its contents are unknown, but the partial opening suggests a potential clue or item.",
+                                "name": "Partially Open Box",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Tarnished Locket": {
+                                "appearanceDescription": "A small, tarnished silver locket lies half-buried in the dust. Its surface is intricately engraved with swirling patterns that seem to shift subtly in the weak light.",
+                                "container": {
+                                    "howToOpen": "The locket can be gently pried open with a fingernail or a thin object.",
+                                    "howToStoreItem": "A small item can be carefully placed inside the locket and then the two halves can be pressed together.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This locket feels cold to the touch and carries a faint scent of lavender. It seems to be a personal item, lost long ago amidst the countless boxes.",
+                                "name": "Tarnished Locket",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Stones of the Void": {
+                                "appearanceDescription": "A collection of smooth, obsidian-like pebbles, each emanating a faint, cool luminescence. They are arranged in a precise, geometric pattern within a small, velvet pouch.",
+                                "container": {
+                                    "howToOpen": "The velvet pouch can be opened by untying the silken drawstring.",
+                                    "howToStoreItem": "The pebbles are best stored within the pouch to maintain their arrangement and luminescence.",
+                                    "isContainer": "true"
+                                },
+                                "description": "These stones hum with a subtle, resonant energy. When held, they impart fleeting visions of vast, star-dusted voids and silent, drifting celestial bodies. The ambient silence of the Vaults seems to deepen when they are disturbed.",
+                                "name": "Stones of the Void",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Echo Bloom Sprig": {
+                                "appearanceDescription": "A single, dried sprig of an unknown herb, its leaves brittle and a deep, unusual shade of indigo. A faint, sweet aroma, tinged with something sharp and metallic, emanates from it.",
+                                "container": {
+                                    "howToOpen": "The herb is loose within the box and can be taken directly.",
+                                    "howToStoreItem": "This herb should be stored in a dry, sealed container to preserve its potency.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This herb, known colloquially as 'Echo Bloom,' is said to capture and amplify faint whispers and residual emotions from its surroundings. Holding it close to one's ear might reveal faint, disjointed murmurs of past events within the Vaults.",
+                                "name": "Echo Bloom Sprig",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Feather of Lumina": {
+                                "appearanceDescription": "A single, perfectly preserved feather, impossibly blue, rests atop a stack of unassuming brown boxes. It seems to emit a faint, ethereal light, pulsating softly.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This feather is unlike any known avian plumage. Its color is too vibrant, its light too unnatural. It feels lighter than air and hums with a barely perceptible energy.",
+                                "name": "Feather of Lumina",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Box of Stasis": {
+                                "appearanceDescription": "A large, imposing cardboard box stands slightly askew, its tape brittle and yellowed. The symbols on its surface are stark and angular, radiating a sense of ancient warning.",
+                                "container": {
+                                    "howToOpen": "The tape can be carefully peeled away, but it may crumble with too much force.",
+                                    "howToStoreItem": "Any item placed within this box will be sealed by its own unusual properties, preventing its removal.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This particular box feels heavier than it looks, and a strange aura emanates from it. The symbols are clearly meant to convey a message, though its meaning is lost to time.",
+                                "name": "Box of Stasis",
+                                "pickupable": {
+                                    "isPickup": "false",
+                                    "reasonWhyNotPickup": "The box is far too heavy and firmly lodged between the shelves to be moved."
+                                }
+                            },
+                            "Locket of Whispering Light": {
+                                "appearanceDescription": "A delicate silver locket, now gleaming with an inner luminescence, is adorned with a single, impossibly blue feather. The feather's ethereal light emanates from within the locket, casting soft, pulsating patterns on nearby surfaces.",
+                                "container": {
+                                    "howToOpen": "The locket springs open with a soft click.",
+                                    "howToStoreItem": "The feather nestles perfectly into the locket's embrace.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This is no longer just a tarnished locket, but a beacon of faint, ethereal light. The Feather of Lumina, when placed within, imbues the locket with a gentle, pulsating glow and a warmth that chases away the perpetual chill. The scent of lavender is now subtly mingled with a faint, ozone-like fragrance, hinting at the magical energies now contained within.",
+                                "name": "Locket of Whispering Light",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            }
+                        },
+                        "itemLocations": {
+                            "Tarnished Brass Key": {
+                                "type": "container",
+                                "containerName": "Partially Open Box"
+                            },
+                            "Partially Open Box": {
+                                "type": "room",
+                                "roomName": "Entrance Hall"
+                            },
+                            "Tarnished Locket": {
+                                "type": "nonexistent"
+                            },
+                            "Stones of the Void": {
+                                "type": "room",
+                                "roomName": "Entrance Hall"
+                            },
+                            "Echo Bloom Sprig": {
+                                "type": "room",
+                                "roomName": "Entrance Hall"
+                            },
+                            "Feather of Lumina": {
+                                "type": "nonexistent"
+                            },
+                            "Box of Stasis": {
+                                "type": "room",
+                                "roomName": "The Dusty Aisle"
+                            },
+                            "Locket of Whispering Light": {
+                                "type": "player"
+                            }
+                        },
+                        "roomConnections": {
+                            "Entrance Hall": [
+                                {
+                                    "here": "Entrance Hall",
+                                    "there": "The Dusty Aisle",
+                                    "description": "A narrow aisle, choked with dust motes dancing in the dim light, leads deeper into the vault."
+                                }
+                            ],
+                            "The Dusty Aisle": [
+                                {
+                                    "here": "The Dusty Aisle",
+                                    "there": "Entrance Hall",
+                                    "description": "Retracing your steps down the dusty aisle brings you back to the entrance."
+                                },
+                                {
+                                    "here": "The Dusty Aisle",
+                                    "there": "The Circular Archive",
+                                    "description": "A narrow gap between two towering shelves, choked with cobwebs, leads into a dimly lit chamber."
+                                },
+                                {
+                                    "here": "The Dusty Aisle",
+                                    "there": "The Whispering Ledge",
+                                    "description": "A precarious stack of boxes near the far end of the aisle seems to offer passage to a precarious-looking ledge."
+                                }
+                            ],
+                            "The Circular Archive": [
+                                {
+                                    "here": "The Circular Archive",
+                                    "there": "The Dusty Aisle",
+                                    "description": "You squeeze back through the narrow gap, the cobwebs clinging to your clothes as you emerge into the dusty aisle."
+                                }
+                            ],
+                            "The Whispering Ledge": [
+                                {
+                                    "here": "The Whispering Ledge",
+                                    "there": "The Dusty Aisle",
+                                    "description": "You carefully descend from the precarious ledge, balancing on the shifting boxes as you return to the relative stability of the aisle."
+                                }
+                            ]
+                        },
+                        "startingRoom": "Entrance Hall",
+                        "visitedRooms": [
+                            "Entrance Hall",
+                            "The Dusty Aisle"
+                        ],
+                        "openedItems": [
+                            "Partially Open Box"
+                        ]
+                    }
+                }
+            },
+            "action": {
+                "prompt": "combine the locket and the feather ",
+                "gameActions": [
+                    {
+                        "item1": "Tarnished Locket",
+                        "item2": "Feather of Lumina",
+                        "type": "PlayerCombinesItems"
+                    }
+                ]
+            },
+            "description": "Kaelen carefully takes out the Tarnished Locket and the Feather of Lumina, their distinct energies almost palpable in the oppressive silence of the Dusty Aisle. With practiced hands, the explorer delicately places the glowing Feather within the locket. A soft hum fills the air as the Feather's vibrant light merges with the locket's cold metal, transforming it into a beacon of faint, ethereal luminescence. The locket, now warm to the touch, pulses with a gentle, rhythmic glow, the scent of lavender now mingling with a faint, ozone-like fragrance, a testament to the potent magic Kaelen has just woven."
         }
     ]
 }

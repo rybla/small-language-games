@@ -24,6 +24,9 @@ export default function Page() {
           <li>
             <Link href="/text-to-ui">text-to-ui</Link>
           </li>
+          <li>
+            <Link href="/generative-filesystem">generative-filesystem</Link>
+          </li>
           <div className={styles.sectionTitle}>Tests</div>
           <li>
             <Link href="/test">test</Link>

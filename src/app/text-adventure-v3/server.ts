@@ -3,6 +3,7 @@
 import { Inst, InstClient, SpecServer } from "@/library/sva/ontology";
 import * as server from "@/library/sva/server";
 import {
+  do_,
   err,
   fromDataUrlToBuffer,
   index_safe,
@@ -15,6 +16,7 @@ import * as fs from "fs/promises";
 import filenamify from "filenamify";
 import {
   GenerateAction,
+  GenerateActions,
   GenerateTurnDescription,
   interpretGameAction,
 } from "./action";
@@ -49,12 +51,25 @@ const spec: SpecServer<N, P, S, V, A> = {
     };
   },
   async generateAction(view, params, state) {
-    const { gameAction } = await GenerateAction({
-      prompt: params.prompt,
-      gameView: view.game,
-      game: state.game,
+    const gameActions = await do_(async () => {
+      const allowMultipleActions: boolean = true;
+      if (allowMultipleActions) {
+        const { gameActions } = await GenerateActions({
+          prompt: params.prompt,
+          gameView: view.game,
+          game: state.game,
+        });
+        return gameActions;
+      } else {
+        const { gameAction } = await GenerateAction({
+          prompt: params.prompt,
+          gameView: view.game,
+          game: state.game,
+        });
+        return [gameAction];
+      }
     });
-    const gameActions = [gameAction];
+
     return ok({
       action: {
         prompt: params.prompt,

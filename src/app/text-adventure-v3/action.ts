@@ -637,6 +637,45 @@ Your task is to interpret their command as a structured game action (which is sp
   },
 );
 
+export const GenerateActions = ai.defineFlow(
+  {
+    name: "GenerateActions",
+    inputSchema: z.object({
+      prompt: z.string(),
+      gameView: GameView,
+      game: Game,
+    }),
+    outputSchema: z.object({
+      gameActions: z.array(GameAction()),
+    }),
+  },
+  async ({ prompt, gameView, game }) => {
+    const { actions } = getValidOutput(
+      await ai.generate({
+        model: model.text_speed,
+        system: trim(`
+${flow.makeSystemPrelude_text()}
+
+The user will provide:
+  - a markdown document describing the current game state
+  - a natural-language command for what they want to do as the player in the game
+
+Your task is to interpret their command as structured game actions (which is specified by the output schema), taking into account the current game state.
+Decide how to break up the command into distinct game actions as sensibly as possible.
+`),
+        prompt: [
+          makeMarkdownFilePart(markdownifyGameView(gameView)),
+          makeTextPart(prompt),
+        ],
+        output: {
+          schema: z.object({ actions: z.array(GameAction(game)) }),
+        },
+      } satisfies GenerateOptions),
+    );
+    return { gameActions: actions };
+  },
+);
+
 export const GenerateTurnDescription = ai.defineFlow(
   {
     name: "GenerateTurnDescription",
