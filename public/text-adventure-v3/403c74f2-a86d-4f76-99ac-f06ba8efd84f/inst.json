@@ -1,0 +1,938 @@
+{
+    "specName": "text-adventure-v3",
+    "metadata": {
+        "id": "403c74f2-a86d-4f76-99ac-f06ba8efd84f",
+        "name": "The Sterling Maze",
+        "creationDate": 1753745753081
+    },
+    "initialState": {
+        "game": {
+            "world": {
+                "description": "The Sterling Tower is a monument to corporate anonymity, a brutalist monolith of concrete and tinted glass that pierces the perpetually overcast Boston sky. Within its labyrinthine depths, however, the facade of order crumbles. Fluorescent lights flicker erratically, casting long, dancing shadows that distort familiar office furniture into monstrous shapes. Cubicle farms stretch into infinity, filled with deserted workstations where half-finished reports and cold coffee cups speak of abrupt departures. The air is thick with the stale scent of recycled air and a subtle, metallic tang that hints at something far more sinister than mere neglect. Each identical floor, each unmarked door, offers no escape, only a deeper descent into a bewildering maze designed to disorient and trap those unfortunate enough to become its permanent residents.",
+                "player": {
+                    "name": "Arthur Finch",
+                    "description": "You are [Player Name], a mid-level analyst at a nondescript corporation, currently lost within the endless, sterile corridors of the Sterling Tower. What began as a late night of crunching numbers has devolved into a disorienting nightmare. Every floor seems eerily identical, the fluorescent lights hum with an unsettling persistence, and the silence between the phantom whirring of ventilation systems is broken only by the echo of your own footsteps, each one a stark reminder that you are utterly, terrifyingly alone.",
+                    "appearanceDescription": "You are a weary office drone, clad in a slightly-too-tight suit that has seen better days. Your tie is loosened, a small stain mars the collar of your crisp white shirt, and a five-o'clock shadow has crept across your jawline. Your eyes, behind smudged spectacles, hold a mixture of exhaustion and a dawning, unwelcome realization of your predicament.",
+                    "room": "The Desolate Cubicle"
+                },
+                "rooms": {
+                    "The Desolate Cubicle": {
+                        "name": "The Desolate Cubicle",
+                        "description": "You find yourself in a desolate office cubicle, a small, grey prison within the vast, uncaring structure of the Sterling Tower. The air is stagnant and carries the faint, metallic odor that permeates the building. This space, like so many others, speaks of abandonment and a disquieting stillness.",
+                        "appearanceDescription": "The starting room is a dimly lit, nondescript office cubicle. The grey partition walls are stained with unknown grime, and a thin layer of dust covers everything. A single, flickering fluorescent tube overhead casts an anemic glow, barely illuminating the spartan furnishings. The silence here is heavy, broken only by the faint, omnipresent hum of the building's ancient machinery. A single, dark stain mars the worn carpet near the desk, its origin a chilling mystery."
+                    },
+                    "The Grey Corridor": {
+                        "name": "The Grey Corridor",
+                        "description": "You stand in a claustrophobic corridor within the Sterling Tower. The oppressive sameness of the office environment extends here, offering no comfort or clarity. The path ahead seems to disappear into a deeper gloom, while the way back leads to the relative familiarity of the cubicle.",
+                        "appearanceDescription": "This corridor is a suffocatingly narrow passage, lined with identical grey, stained partition walls that seem to press in from all sides. The flickering fluorescent lights overhead are spaced irregularly, creating pockets of deep shadow that conceal unseen corners. The air here is colder, and the metallic tang is more pronounced, carrying a faint, unsettling whisper that seems to emanate from the very concrete."
+                    }
+                },
+                "items": {
+                    "Computer Monitor": {
+                        "appearanceDescription": "This is a standard, beige computer monitor, its screen dark and lifeless. A thick layer of dust coats its surface, and a single, frayed power cord dangles limply from its back.",
+                        "container": {
+                            "howToOpen": "There is no visible way to open the monitor.",
+                            "howToStoreItem": "There is no way to store items inside this monitor.",
+                            "isContainer": "true"
+                        },
+                        "description": "A deactivated computer monitor sits on the cluttered desk. Its blank screen offers no solace, only a reflection of the dim office light and your own uncertain presence.",
+                        "name": "Computer Monitor",
+                        "pickupable": {
+                            "isPickup": "false",
+                            "reasonWhyNotPickup": "The monitor is too heavy and bulky to be moved easily."
+                        }
+                    },
+                    "Office Chair": {
+                        "appearanceDescription": "A simple, black office chair with worn fabric and a slightly wobbly base. It looks like it has seen better days, perhaps even lifetimes, of use.",
+                        "container": {
+                            "howToOpen": "The chair is not a container.",
+                            "howToStoreItem": "You cannot store items in the chair.",
+                            "isContainer": "true"
+                        },
+                        "description": "A solitary office chair is positioned behind the desk. It offers a place to sit, but its worn appearance does little to inspire comfort.",
+                        "name": "Office Chair",
+                        "pickupable": {
+                            "isPickup": "false",
+                            "reasonWhyNotPickup": "The chair is too heavy and cumbersome to pick up."
+                        }
+                    },
+                    "Coffee Mug": {
+                        "appearanceDescription": "A chipped ceramic mug, filled with a dark, congealed substance that was once coffee. A faint lipstick stain marks the rim of the mug.",
+                        "container": {
+                            "howToOpen": "The mug is open.",
+                            "howToStoreItem": "You could pour liquid into the mug, but it is not designed for storing solid items.",
+                            "isContainer": "true"
+                        },
+                        "description": "A forgotten coffee mug sits on the desk, a silent testament to a hasty departure. The cold, dark liquid within is unappealing.",
+                        "name": "Coffee Mug",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    },
+                    "Crumpled Paper": {
+                        "appearanceDescription": "A single, white piece of paper lies on the desk, covered in hastily scrawled notes. The handwriting is erratic, and large portions of the text are smeared or illegible.",
+                        "container": {
+                            "howToOpen": "The paper is already open.",
+                            "howToStoreItem": "You can place other items on top of this paper, but it is not a container.",
+                            "isContainer": "true"
+                        },
+                        "description": "A crumpled piece of paper rests on the desk. It appears to be a partial report or a frantic message, its contents hinting at the chaos that has befallen this place.",
+                        "name": "Crumpled Paper",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    }
+                },
+                "itemLocations": {
+                    "Computer Monitor": {
+                        "type": "room",
+                        "roomName": "The Desolate Cubicle"
+                    },
+                    "Office Chair": {
+                        "type": "room",
+                        "roomName": "The Desolate Cubicle"
+                    },
+                    "Coffee Mug": {
+                        "type": "room",
+                        "roomName": "The Desolate Cubicle"
+                    },
+                    "Crumpled Paper": {
+                        "type": "room",
+                        "roomName": "The Desolate Cubicle"
+                    }
+                },
+                "roomConnections": {
+                    "The Desolate Cubicle": [
+                        {
+                            "here": "The Desolate Cubicle",
+                            "there": "The Grey Corridor",
+                            "description": "A narrow, dimly lit corridor stretches out from the opening in the cubicle walls, leading further into the Sterling Tower's oppressive interior."
+                        }
+                    ],
+                    "The Grey Corridor": [
+                        {
+                            "here": "The Grey Corridor",
+                            "there": "The Desolate Cubicle",
+                            "description": "The same narrow, dimly lit corridor leads back to the cubicle."
+                        }
+                    ]
+                },
+                "startingRoom": "The Desolate Cubicle",
+                "visitedRooms": [
+                    "The Desolate Cubicle"
+                ],
+                "openedItems": []
+            }
+        }
+    },
+    "state": {
+        "game": {
+            "world": {
+                "description": "The Sterling Tower is a monument to corporate anonymity, a brutalist monolith of concrete and tinted glass that pierces the perpetually overcast Boston sky. Within its labyrinthine depths, however, the facade of order crumbles. Fluorescent lights flicker erratically, casting long, dancing shadows that distort familiar office furniture into monstrous shapes. Cubicle farms stretch into infinity, filled with deserted workstations where half-finished reports and cold coffee cups speak of abrupt departures. The air is thick with the stale scent of recycled air and a subtle, metallic tang that hints at something far more sinister than mere neglect. Each identical floor, each unmarked door, offers no escape, only a deeper descent into a bewildering maze designed to disorient and trap those unfortunate enough to become its permanent residents.",
+                "player": {
+                    "name": "Arthur Finch",
+                    "description": "You are [Player Name], a mid-level analyst at a nondescript corporation, currently lost within the endless, sterile corridors of the Sterling Tower. What began as a late night of crunching numbers has devolved into a disorienting nightmare. Every floor seems eerily identical, the fluorescent lights hum with an unsettling persistence, and the silence between the phantom whirring of ventilation systems is broken only by the echo of your own footsteps, each one a stark reminder that you are utterly, terrifyingly alone.",
+                    "appearanceDescription": "You are a weary office drone, clad in a slightly-too-tight suit that has seen better days. Your tie is loosened, a small stain mars the collar of your crisp white shirt, and a five-o'clock shadow has crept across your jawline. Your eyes, behind smudged spectacles, hold a mixture of exhaustion and a dawning, unwelcome realization of your predicament.",
+                    "room": "The Grey Corridor"
+                },
+                "rooms": {
+                    "The Desolate Cubicle": {
+                        "name": "The Desolate Cubicle",
+                        "description": "You find yourself in a desolate office cubicle, a small, grey prison within the vast, uncaring structure of the Sterling Tower. The air is stagnant and carries the faint, metallic odor that permeates the building. This space, like so many others, speaks of abandonment and a disquieting stillness.",
+                        "appearanceDescription": "The starting room is a dimly lit, nondescript office cubicle. The grey partition walls are stained with unknown grime, and a thin layer of dust covers everything. A single, flickering fluorescent tube overhead casts an anemic glow, barely illuminating the spartan furnishings. The silence here is heavy, broken only by the faint, omnipresent hum of the building's ancient machinery. A single, dark stain mars the worn carpet near the desk, its origin a chilling mystery."
+                    },
+                    "The Grey Corridor": {
+                        "name": "The Grey Corridor",
+                        "description": "You stand in a claustrophobic corridor within the Sterling Tower. The oppressive sameness of the office environment extends here, offering no comfort or clarity. The path ahead seems to disappear into a deeper gloom, while the way back leads to the relative familiarity of the cubicle.",
+                        "appearanceDescription": "This corridor is a suffocatingly narrow passage, lined with identical grey, stained partition walls that seem to press in from all sides. The flickering fluorescent lights overhead are spaced irregularly, creating pockets of deep shadow that conceal unseen corners. The air here is colder, and the metallic tang is more pronounced, carrying a faint, unsettling whisper that seems to emanate from the very concrete."
+                    },
+                    "The Desolate Breakroom": {
+                        "name": "The Desolate Breakroom",
+                        "description": "This appears to be a breakroom, though its state of disrepair suggests it hasn't been used in a long time. The silence here is profound, broken only by the persistent, almost imperceptible hum of the building's unseen machinery. It feels like a place where despair goes to rest.",
+                        "appearanceDescription": "This small, windowless room is dominated by a single, dented metal table in the center, surrounded by three mismatched chairs. A stained coffee maker sits on a low counter against one wall, next to a forlorn vending machine displaying only a 'Service Unavailable' message. The air is heavy with the smell of old coffee and something vaguely chemical. Shadows cling to the corners, suggesting spaces that the weak light cannot penetrate."
+                    },
+                    "The Chronomancer's Antechamber": {
+                        "name": "The Chronomancer's Antechamber",
+                        "description": "This chamber feels entirely out of place, a pocket of strange opulence and unsettling energy. The ticking of the clock seems to synchronize with the player's heartbeat, creating a disorienting effect. It’s unclear if this is a sanctuary or a trap designed to ensnare the unwary.",
+                        "appearanceDescription": "This room is a bizarre anomaly within the Sterling Tower. Instead of concrete and sterile partitions, the walls are covered in what appears to be thick, dark velvet. In the center of the room, a single, ornate grandfather clock stands ticking loudly, its pendulum swinging with an unnatural, hypnotic rhythm. The air is surprisingly warm and carries the faint scent of ozone. Strange, glyph-like symbols are etched into the velvet, seeming to shift and writhe in the peripheral vision."
+                    }
+                },
+                "items": {
+                    "Computer Monitor": {
+                        "appearanceDescription": "This is a standard, beige computer monitor, its screen dark and lifeless. A thick layer of dust coats its surface, and a single, frayed power cord dangles limply from its back.",
+                        "container": {
+                            "howToOpen": "There is no visible way to open the monitor.",
+                            "howToStoreItem": "There is no way to store items inside this monitor.",
+                            "isContainer": "true"
+                        },
+                        "description": "A deactivated computer monitor sits on the cluttered desk. Its blank screen offers no solace, only a reflection of the dim office light and your own uncertain presence.",
+                        "name": "Computer Monitor",
+                        "pickupable": {
+                            "isPickup": "false",
+                            "reasonWhyNotPickup": "The monitor is too heavy and bulky to be moved easily."
+                        }
+                    },
+                    "Office Chair": {
+                        "appearanceDescription": "A simple, black office chair with worn fabric and a slightly wobbly base. It looks like it has seen better days, perhaps even lifetimes, of use.",
+                        "container": {
+                            "howToOpen": "The chair is not a container.",
+                            "howToStoreItem": "You cannot store items in the chair.",
+                            "isContainer": "true"
+                        },
+                        "description": "A solitary office chair is positioned behind the desk. It offers a place to sit, but its worn appearance does little to inspire comfort.",
+                        "name": "Office Chair",
+                        "pickupable": {
+                            "isPickup": "false",
+                            "reasonWhyNotPickup": "The chair is too heavy and cumbersome to pick up."
+                        }
+                    },
+                    "Coffee Mug": {
+                        "appearanceDescription": "A chipped ceramic mug, filled with a dark, congealed substance that was once coffee. A faint lipstick stain marks the rim of the mug.",
+                        "container": {
+                            "howToOpen": "The mug is open.",
+                            "howToStoreItem": "You could pour liquid into the mug, but it is not designed for storing solid items.",
+                            "isContainer": "true"
+                        },
+                        "description": "A forgotten coffee mug sits on the desk, a silent testament to a hasty departure. The cold, dark liquid within is unappealing.",
+                        "name": "Coffee Mug",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    },
+                    "Crumpled Paper": {
+                        "appearanceDescription": "A single, white piece of paper lies on the desk, covered in hastily scrawled notes. The handwriting is erratic, and large portions of the text are smeared or illegible.",
+                        "container": {
+                            "howToOpen": "The paper is already open.",
+                            "howToStoreItem": "You can place other items on top of this paper, but it is not a container.",
+                            "isContainer": "true"
+                        },
+                        "description": "A crumpled piece of paper rests on the desk. It appears to be a partial report or a frantic message, its contents hinting at the chaos that has befallen this place.",
+                        "name": "Crumpled Paper",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    },
+                    "Tarnished Brass Key": {
+                        "appearanceDescription": "A single, tarnished brass key lies on the floor, half-hidden in a patch of grime. It looks old, with an intricate, almost floral design on its bow.",
+                        "container": {
+                            "isContainer": "false"
+                        },
+                        "description": "This key feels strangely cold to the touch. Its purpose is unknown, but it radiates a faint aura of significance.",
+                        "name": "Tarnished Brass Key",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    },
+                    "Employee ID Badge": {
+                        "appearanceDescription": "A discarded employee ID badge is clipped to a loose wire dangling from the ceiling panel. The photo is blurred, but the name 'Arthur Pendelton' is faintly legible, along with a corporate logo that seems to twist unnervingly.",
+                        "container": {
+                            "isContainer": "false"
+                        },
+                        "description": "This badge serves as a grim reminder of the many who have passed through these halls, their identities perhaps lost to the tower's insidious influence.",
+                        "name": "Employee ID Badge",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    },
+                    "Iron Lockbox": {
+                        "appearanceDescription": "A small, locked metal box rests against the wall. It's old and appears to be made of cast iron, with a complex tumbler lock on the front.",
+                        "container": {
+                            "howToOpen": "The box can be opened by using a key that fits its lock.",
+                            "howToStoreItem": "Items can be placed inside the box by opening it and then placing the item within.",
+                            "isContainer": "true"
+                        },
+                        "description": "This box seems sturdy, designed to protect whatever secrets it holds. The lock is intricate, suggesting it requires a specific key.",
+                        "name": "Iron Lockbox",
+                        "pickupable": {
+                            "isPickup": "true"
+                        }
+                    }
+                },
+                "itemLocations": {
+                    "Computer Monitor": {
+                        "type": "room",
+                        "roomName": "The Desolate Cubicle"
+                    },
+                    "Office Chair": {
+                        "type": "room",
+                        "roomName": "The Desolate Cubicle"
+                    },
+                    "Coffee Mug": {
+                        "type": "player"
+                    },
+                    "Crumpled Paper": {
+                        "type": "player"
+                    },
+                    "Tarnished Brass Key": {
+                        "type": "room",
+                        "roomName": "The Grey Corridor"
+                    },
+                    "Employee ID Badge": {
+                        "type": "room",
+                        "roomName": "The Grey Corridor"
+                    },
+                    "Iron Lockbox": {
+                        "type": "room",
+                        "roomName": "The Grey Corridor"
+                    }
+                },
+                "roomConnections": {
+                    "The Desolate Cubicle": [
+                        {
+                            "here": "The Desolate Cubicle",
+                            "there": "The Grey Corridor",
+                            "description": "A narrow, dimly lit corridor stretches out from the opening in the cubicle walls, leading further into the Sterling Tower's oppressive interior."
+                        }
+                    ],
+                    "The Grey Corridor": [
+                        {
+                            "here": "The Grey Corridor",
+                            "there": "The Desolate Cubicle",
+                            "description": "The same narrow, dimly lit corridor leads back to the cubicle."
+                        },
+                        {
+                            "here": "The Grey Corridor",
+                            "there": "The Desolate Breakroom",
+                            "description": "A narrow opening in the partition wall to the west reveals a dimly lit breakroom."
+                        },
+                        {
+                            "here": "The Grey Corridor",
+                            "there": "The Chronomancer's Antechamber",
+                            "description": "Further down the corridor to the east, a door painted a peculiar shade of crimson offers a stark contrast to the muted surroundings."
+                        }
+                    ],
+                    "The Desolate Breakroom": [
+                        {
+                            "here": "The Desolate Breakroom",
+                            "there": "The Grey Corridor",
+                            "description": "The grey partition wall to the east leads back into the suffocatingly narrow corridor."
+                        }
+                    ],
+                    "The Chronomancer's Antechamber": [
+                        {
+                            "here": "The Chronomancer's Antechamber",
+                            "there": "The Grey Corridor",
+                            "description": "The crimson door to the west opens into the oppressive grey corridor."
+                        }
+                    ]
+                },
+                "startingRoom": "The Desolate Cubicle",
+                "visitedRooms": [
+                    "The Desolate Cubicle",
+                    "The Grey Corridor"
+                ],
+                "openedItems": []
+            }
+        }
+    },
+    "turns": [
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "The Sterling Tower is a monument to corporate anonymity, a brutalist monolith of concrete and tinted glass that pierces the perpetually overcast Boston sky. Within its labyrinthine depths, however, the facade of order crumbles. Fluorescent lights flicker erratically, casting long, dancing shadows that distort familiar office furniture into monstrous shapes. Cubicle farms stretch into infinity, filled with deserted workstations where half-finished reports and cold coffee cups speak of abrupt departures. The air is thick with the stale scent of recycled air and a subtle, metallic tang that hints at something far more sinister than mere neglect. Each identical floor, each unmarked door, offers no escape, only a deeper descent into a bewildering maze designed to disorient and trap those unfortunate enough to become its permanent residents.",
+                        "player": {
+                            "name": "Arthur Finch",
+                            "description": "You are [Player Name], a mid-level analyst at a nondescript corporation, currently lost within the endless, sterile corridors of the Sterling Tower. What began as a late night of crunching numbers has devolved into a disorienting nightmare. Every floor seems eerily identical, the fluorescent lights hum with an unsettling persistence, and the silence between the phantom whirring of ventilation systems is broken only by the echo of your own footsteps, each one a stark reminder that you are utterly, terrifyingly alone.",
+                            "appearanceDescription": "You are a weary office drone, clad in a slightly-too-tight suit that has seen better days. Your tie is loosened, a small stain mars the collar of your crisp white shirt, and a five-o'clock shadow has crept across your jawline. Your eyes, behind smudged spectacles, hold a mixture of exhaustion and a dawning, unwelcome realization of your predicament.",
+                            "room": "The Desolate Cubicle"
+                        },
+                        "rooms": {
+                            "The Desolate Cubicle": {
+                                "name": "The Desolate Cubicle",
+                                "description": "You find yourself in a desolate office cubicle, a small, grey prison within the vast, uncaring structure of the Sterling Tower. The air is stagnant and carries the faint, metallic odor that permeates the building. This space, like so many others, speaks of abandonment and a disquieting stillness.",
+                                "appearanceDescription": "The starting room is a dimly lit, nondescript office cubicle. The grey partition walls are stained with unknown grime, and a thin layer of dust covers everything. A single, flickering fluorescent tube overhead casts an anemic glow, barely illuminating the spartan furnishings. The silence here is heavy, broken only by the faint, omnipresent hum of the building's ancient machinery. A single, dark stain mars the worn carpet near the desk, its origin a chilling mystery."
+                            },
+                            "The Grey Corridor": {
+                                "name": "The Grey Corridor",
+                                "description": "You stand in a claustrophobic corridor within the Sterling Tower. The oppressive sameness of the office environment extends here, offering no comfort or clarity. The path ahead seems to disappear into a deeper gloom, while the way back leads to the relative familiarity of the cubicle.",
+                                "appearanceDescription": "This corridor is a suffocatingly narrow passage, lined with identical grey, stained partition walls that seem to press in from all sides. The flickering fluorescent lights overhead are spaced irregularly, creating pockets of deep shadow that conceal unseen corners. The air here is colder, and the metallic tang is more pronounced, carrying a faint, unsettling whisper that seems to emanate from the very concrete."
+                            }
+                        },
+                        "items": {
+                            "Computer Monitor": {
+                                "appearanceDescription": "This is a standard, beige computer monitor, its screen dark and lifeless. A thick layer of dust coats its surface, and a single, frayed power cord dangles limply from its back.",
+                                "container": {
+                                    "howToOpen": "There is no visible way to open the monitor.",
+                                    "howToStoreItem": "There is no way to store items inside this monitor.",
+                                    "isContainer": "true"
+                                },
+                                "description": "A deactivated computer monitor sits on the cluttered desk. Its blank screen offers no solace, only a reflection of the dim office light and your own uncertain presence.",
+                                "name": "Computer Monitor",
+                                "pickupable": {
+                                    "isPickup": "false",
+                                    "reasonWhyNotPickup": "The monitor is too heavy and bulky to be moved easily."
+                                }
+                            },
+                            "Office Chair": {
+                                "appearanceDescription": "A simple, black office chair with worn fabric and a slightly wobbly base. It looks like it has seen better days, perhaps even lifetimes, of use.",
+                                "container": {
+                                    "howToOpen": "The chair is not a container.",
+                                    "howToStoreItem": "You cannot store items in the chair.",
+                                    "isContainer": "true"
+                                },
+                                "description": "A solitary office chair is positioned behind the desk. It offers a place to sit, but its worn appearance does little to inspire comfort.",
+                                "name": "Office Chair",
+                                "pickupable": {
+                                    "isPickup": "false",
+                                    "reasonWhyNotPickup": "The chair is too heavy and cumbersome to pick up."
+                                }
+                            },
+                            "Coffee Mug": {
+                                "appearanceDescription": "A chipped ceramic mug, filled with a dark, congealed substance that was once coffee. A faint lipstick stain marks the rim of the mug.",
+                                "container": {
+                                    "howToOpen": "The mug is open.",
+                                    "howToStoreItem": "You could pour liquid into the mug, but it is not designed for storing solid items.",
+                                    "isContainer": "true"
+                                },
+                                "description": "A forgotten coffee mug sits on the desk, a silent testament to a hasty departure. The cold, dark liquid within is unappealing.",
+                                "name": "Coffee Mug",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Crumpled Paper": {
+                                "appearanceDescription": "A single, white piece of paper lies on the desk, covered in hastily scrawled notes. The handwriting is erratic, and large portions of the text are smeared or illegible.",
+                                "container": {
+                                    "howToOpen": "The paper is already open.",
+                                    "howToStoreItem": "You can place other items on top of this paper, but it is not a container.",
+                                    "isContainer": "true"
+                                },
+                                "description": "A crumpled piece of paper rests on the desk. It appears to be a partial report or a frantic message, its contents hinting at the chaos that has befallen this place.",
+                                "name": "Crumpled Paper",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            }
+                        },
+                        "itemLocations": {
+                            "Computer Monitor": {
+                                "type": "room",
+                                "roomName": "The Desolate Cubicle"
+                            },
+                            "Office Chair": {
+                                "type": "room",
+                                "roomName": "The Desolate Cubicle"
+                            },
+                            "Coffee Mug": {
+                                "type": "room",
+                                "roomName": "The Desolate Cubicle"
+                            },
+                            "Crumpled Paper": {
+                                "type": "room",
+                                "roomName": "The Desolate Cubicle"
+                            }
+                        },
+                        "roomConnections": {
+                            "The Desolate Cubicle": [
+                                {
+                                    "here": "The Desolate Cubicle",
+                                    "there": "The Grey Corridor",
+                                    "description": "A narrow, dimly lit corridor stretches out from the opening in the cubicle walls, leading further into the Sterling Tower's oppressive interior."
+                                }
+                            ],
+                            "The Grey Corridor": [
+                                {
+                                    "here": "The Grey Corridor",
+                                    "there": "The Desolate Cubicle",
+                                    "description": "The same narrow, dimly lit corridor leads back to the cubicle."
+                                }
+                            ]
+                        },
+                        "startingRoom": "The Desolate Cubicle",
+                        "visitedRooms": [
+                            "The Desolate Cubicle"
+                        ],
+                        "openedItems": []
+                    }
+                }
+            },
+            "action": {
+                "prompt": "look around for items in the room ",
+                "gameActions": [
+                    {
+                        "type": "PlayerInspectsCurrentRoom"
+                    }
+                ]
+            },
+            "description": "Arthur Finch surveys his desolate cubicle, a small, grey cell in the heart of the Sterling Tower. The air hangs heavy and still, thick with the phantom scent of stale coffee and forgotten tasks. Dust motes dance in the anemic glow of a flickering fluorescent tube, illuminating the stained partition walls and the sparse, worn furnishings. On the cluttered desk, a deactivated computer monitor reflects only the oppressive dimness, a forgotten coffee mug with its cold, dark contents sits nearby, and a crumpled piece of paper, perhaps a clue or a desperate plea, lies waiting to be deciphered. The worn carpet near the desk bears a single, dark stain, a silent, unsettling enigma in this abandoned space."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "The Sterling Tower is a monument to corporate anonymity, a brutalist monolith of concrete and tinted glass that pierces the perpetually overcast Boston sky. Within its labyrinthine depths, however, the facade of order crumbles. Fluorescent lights flicker erratically, casting long, dancing shadows that distort familiar office furniture into monstrous shapes. Cubicle farms stretch into infinity, filled with deserted workstations where half-finished reports and cold coffee cups speak of abrupt departures. The air is thick with the stale scent of recycled air and a subtle, metallic tang that hints at something far more sinister than mere neglect. Each identical floor, each unmarked door, offers no escape, only a deeper descent into a bewildering maze designed to disorient and trap those unfortunate enough to become its permanent residents.",
+                        "player": {
+                            "name": "Arthur Finch",
+                            "description": "You are [Player Name], a mid-level analyst at a nondescript corporation, currently lost within the endless, sterile corridors of the Sterling Tower. What began as a late night of crunching numbers has devolved into a disorienting nightmare. Every floor seems eerily identical, the fluorescent lights hum with an unsettling persistence, and the silence between the phantom whirring of ventilation systems is broken only by the echo of your own footsteps, each one a stark reminder that you are utterly, terrifyingly alone.",
+                            "appearanceDescription": "You are a weary office drone, clad in a slightly-too-tight suit that has seen better days. Your tie is loosened, a small stain mars the collar of your crisp white shirt, and a five-o'clock shadow has crept across your jawline. Your eyes, behind smudged spectacles, hold a mixture of exhaustion and a dawning, unwelcome realization of your predicament.",
+                            "room": "The Desolate Cubicle"
+                        },
+                        "rooms": {
+                            "The Desolate Cubicle": {
+                                "name": "The Desolate Cubicle",
+                                "description": "You find yourself in a desolate office cubicle, a small, grey prison within the vast, uncaring structure of the Sterling Tower. The air is stagnant and carries the faint, metallic odor that permeates the building. This space, like so many others, speaks of abandonment and a disquieting stillness.",
+                                "appearanceDescription": "The starting room is a dimly lit, nondescript office cubicle. The grey partition walls are stained with unknown grime, and a thin layer of dust covers everything. A single, flickering fluorescent tube overhead casts an anemic glow, barely illuminating the spartan furnishings. The silence here is heavy, broken only by the faint, omnipresent hum of the building's ancient machinery. A single, dark stain mars the worn carpet near the desk, its origin a chilling mystery."
+                            },
+                            "The Grey Corridor": {
+                                "name": "The Grey Corridor",
+                                "description": "You stand in a claustrophobic corridor within the Sterling Tower. The oppressive sameness of the office environment extends here, offering no comfort or clarity. The path ahead seems to disappear into a deeper gloom, while the way back leads to the relative familiarity of the cubicle.",
+                                "appearanceDescription": "This corridor is a suffocatingly narrow passage, lined with identical grey, stained partition walls that seem to press in from all sides. The flickering fluorescent lights overhead are spaced irregularly, creating pockets of deep shadow that conceal unseen corners. The air here is colder, and the metallic tang is more pronounced, carrying a faint, unsettling whisper that seems to emanate from the very concrete."
+                            }
+                        },
+                        "items": {
+                            "Computer Monitor": {
+                                "appearanceDescription": "This is a standard, beige computer monitor, its screen dark and lifeless. A thick layer of dust coats its surface, and a single, frayed power cord dangles limply from its back.",
+                                "container": {
+                                    "howToOpen": "There is no visible way to open the monitor.",
+                                    "howToStoreItem": "There is no way to store items inside this monitor.",
+                                    "isContainer": "true"
+                                },
+                                "description": "A deactivated computer monitor sits on the cluttered desk. Its blank screen offers no solace, only a reflection of the dim office light and your own uncertain presence.",
+                                "name": "Computer Monitor",
+                                "pickupable": {
+                                    "isPickup": "false",
+                                    "reasonWhyNotPickup": "The monitor is too heavy and bulky to be moved easily."
+                                }
+                            },
+                            "Office Chair": {
+                                "appearanceDescription": "A simple, black office chair with worn fabric and a slightly wobbly base. It looks like it has seen better days, perhaps even lifetimes, of use.",
+                                "container": {
+                                    "howToOpen": "The chair is not a container.",
+                                    "howToStoreItem": "You cannot store items in the chair.",
+                                    "isContainer": "true"
+                                },
+                                "description": "A solitary office chair is positioned behind the desk. It offers a place to sit, but its worn appearance does little to inspire comfort.",
+                                "name": "Office Chair",
+                                "pickupable": {
+                                    "isPickup": "false",
+                                    "reasonWhyNotPickup": "The chair is too heavy and cumbersome to pick up."
+                                }
+                            },
+                            "Coffee Mug": {
+                                "appearanceDescription": "A chipped ceramic mug, filled with a dark, congealed substance that was once coffee. A faint lipstick stain marks the rim of the mug.",
+                                "container": {
+                                    "howToOpen": "The mug is open.",
+                                    "howToStoreItem": "You could pour liquid into the mug, but it is not designed for storing solid items.",
+                                    "isContainer": "true"
+                                },
+                                "description": "A forgotten coffee mug sits on the desk, a silent testament to a hasty departure. The cold, dark liquid within is unappealing.",
+                                "name": "Coffee Mug",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Crumpled Paper": {
+                                "appearanceDescription": "A single, white piece of paper lies on the desk, covered in hastily scrawled notes. The handwriting is erratic, and large portions of the text are smeared or illegible.",
+                                "container": {
+                                    "howToOpen": "The paper is already open.",
+                                    "howToStoreItem": "You can place other items on top of this paper, but it is not a container.",
+                                    "isContainer": "true"
+                                },
+                                "description": "A crumpled piece of paper rests on the desk. It appears to be a partial report or a frantic message, its contents hinting at the chaos that has befallen this place.",
+                                "name": "Crumpled Paper",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            }
+                        },
+                        "itemLocations": {
+                            "Computer Monitor": {
+                                "type": "room",
+                                "roomName": "The Desolate Cubicle"
+                            },
+                            "Office Chair": {
+                                "type": "room",
+                                "roomName": "The Desolate Cubicle"
+                            },
+                            "Coffee Mug": {
+                                "type": "player"
+                            },
+                            "Crumpled Paper": {
+                                "type": "room",
+                                "roomName": "The Desolate Cubicle"
+                            }
+                        },
+                        "roomConnections": {
+                            "The Desolate Cubicle": [
+                                {
+                                    "here": "The Desolate Cubicle",
+                                    "there": "The Grey Corridor",
+                                    "description": "A narrow, dimly lit corridor stretches out from the opening in the cubicle walls, leading further into the Sterling Tower's oppressive interior."
+                                }
+                            ],
+                            "The Grey Corridor": [
+                                {
+                                    "here": "The Grey Corridor",
+                                    "there": "The Desolate Cubicle",
+                                    "description": "The same narrow, dimly lit corridor leads back to the cubicle."
+                                }
+                            ]
+                        },
+                        "startingRoom": "The Desolate Cubicle",
+                        "visitedRooms": [
+                            "The Desolate Cubicle"
+                        ],
+                        "openedItems": []
+                    }
+                }
+            },
+            "action": {
+                "prompt": "take the coffee mug",
+                "gameActions": [
+                    {
+                        "item": "Coffee Mug",
+                        "type": "PlayerTakesItem"
+                    }
+                ]
+            },
+            "description": "Arthur Finch, feeling a pang of something akin to nostalgia for a simpler time, reaches out and grasps the forgotten coffee mug. Its ceramic surface is cool to the touch, a stark contrast to the pervasive, stale warmth of the Sterling Tower. With the mug now in his possession, he holds a small, tangible piece of the building's unsettling mystery."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "The Sterling Tower is a monument to corporate anonymity, a brutalist monolith of concrete and tinted glass that pierces the perpetually overcast Boston sky. Within its labyrinthine depths, however, the facade of order crumbles. Fluorescent lights flicker erratically, casting long, dancing shadows that distort familiar office furniture into monstrous shapes. Cubicle farms stretch into infinity, filled with deserted workstations where half-finished reports and cold coffee cups speak of abrupt departures. The air is thick with the stale scent of recycled air and a subtle, metallic tang that hints at something far more sinister than mere neglect. Each identical floor, each unmarked door, offers no escape, only a deeper descent into a bewildering maze designed to disorient and trap those unfortunate enough to become its permanent residents.",
+                        "player": {
+                            "name": "Arthur Finch",
+                            "description": "You are [Player Name], a mid-level analyst at a nondescript corporation, currently lost within the endless, sterile corridors of the Sterling Tower. What began as a late night of crunching numbers has devolved into a disorienting nightmare. Every floor seems eerily identical, the fluorescent lights hum with an unsettling persistence, and the silence between the phantom whirring of ventilation systems is broken only by the echo of your own footsteps, each one a stark reminder that you are utterly, terrifyingly alone.",
+                            "appearanceDescription": "You are a weary office drone, clad in a slightly-too-tight suit that has seen better days. Your tie is loosened, a small stain mars the collar of your crisp white shirt, and a five-o'clock shadow has crept across your jawline. Your eyes, behind smudged spectacles, hold a mixture of exhaustion and a dawning, unwelcome realization of your predicament.",
+                            "room": "The Desolate Cubicle"
+                        },
+                        "rooms": {
+                            "The Desolate Cubicle": {
+                                "name": "The Desolate Cubicle",
+                                "description": "You find yourself in a desolate office cubicle, a small, grey prison within the vast, uncaring structure of the Sterling Tower. The air is stagnant and carries the faint, metallic odor that permeates the building. This space, like so many others, speaks of abandonment and a disquieting stillness.",
+                                "appearanceDescription": "The starting room is a dimly lit, nondescript office cubicle. The grey partition walls are stained with unknown grime, and a thin layer of dust covers everything. A single, flickering fluorescent tube overhead casts an anemic glow, barely illuminating the spartan furnishings. The silence here is heavy, broken only by the faint, omnipresent hum of the building's ancient machinery. A single, dark stain mars the worn carpet near the desk, its origin a chilling mystery."
+                            },
+                            "The Grey Corridor": {
+                                "name": "The Grey Corridor",
+                                "description": "You stand in a claustrophobic corridor within the Sterling Tower. The oppressive sameness of the office environment extends here, offering no comfort or clarity. The path ahead seems to disappear into a deeper gloom, while the way back leads to the relative familiarity of the cubicle.",
+                                "appearanceDescription": "This corridor is a suffocatingly narrow passage, lined with identical grey, stained partition walls that seem to press in from all sides. The flickering fluorescent lights overhead are spaced irregularly, creating pockets of deep shadow that conceal unseen corners. The air here is colder, and the metallic tang is more pronounced, carrying a faint, unsettling whisper that seems to emanate from the very concrete."
+                            }
+                        },
+                        "items": {
+                            "Computer Monitor": {
+                                "appearanceDescription": "This is a standard, beige computer monitor, its screen dark and lifeless. A thick layer of dust coats its surface, and a single, frayed power cord dangles limply from its back.",
+                                "container": {
+                                    "howToOpen": "There is no visible way to open the monitor.",
+                                    "howToStoreItem": "There is no way to store items inside this monitor.",
+                                    "isContainer": "true"
+                                },
+                                "description": "A deactivated computer monitor sits on the cluttered desk. Its blank screen offers no solace, only a reflection of the dim office light and your own uncertain presence.",
+                                "name": "Computer Monitor",
+                                "pickupable": {
+                                    "isPickup": "false",
+                                    "reasonWhyNotPickup": "The monitor is too heavy and bulky to be moved easily."
+                                }
+                            },
+                            "Office Chair": {
+                                "appearanceDescription": "A simple, black office chair with worn fabric and a slightly wobbly base. It looks like it has seen better days, perhaps even lifetimes, of use.",
+                                "container": {
+                                    "howToOpen": "The chair is not a container.",
+                                    "howToStoreItem": "You cannot store items in the chair.",
+                                    "isContainer": "true"
+                                },
+                                "description": "A solitary office chair is positioned behind the desk. It offers a place to sit, but its worn appearance does little to inspire comfort.",
+                                "name": "Office Chair",
+                                "pickupable": {
+                                    "isPickup": "false",
+                                    "reasonWhyNotPickup": "The chair is too heavy and cumbersome to pick up."
+                                }
+                            },
+                            "Coffee Mug": {
+                                "appearanceDescription": "A chipped ceramic mug, filled with a dark, congealed substance that was once coffee. A faint lipstick stain marks the rim of the mug.",
+                                "container": {
+                                    "howToOpen": "The mug is open.",
+                                    "howToStoreItem": "You could pour liquid into the mug, but it is not designed for storing solid items.",
+                                    "isContainer": "true"
+                                },
+                                "description": "A forgotten coffee mug sits on the desk, a silent testament to a hasty departure. The cold, dark liquid within is unappealing.",
+                                "name": "Coffee Mug",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Crumpled Paper": {
+                                "appearanceDescription": "A single, white piece of paper lies on the desk, covered in hastily scrawled notes. The handwriting is erratic, and large portions of the text are smeared or illegible.",
+                                "container": {
+                                    "howToOpen": "The paper is already open.",
+                                    "howToStoreItem": "You can place other items on top of this paper, but it is not a container.",
+                                    "isContainer": "true"
+                                },
+                                "description": "A crumpled piece of paper rests on the desk. It appears to be a partial report or a frantic message, its contents hinting at the chaos that has befallen this place.",
+                                "name": "Crumpled Paper",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            }
+                        },
+                        "itemLocations": {
+                            "Computer Monitor": {
+                                "type": "room",
+                                "roomName": "The Desolate Cubicle"
+                            },
+                            "Office Chair": {
+                                "type": "room",
+                                "roomName": "The Desolate Cubicle"
+                            },
+                            "Coffee Mug": {
+                                "type": "player"
+                            },
+                            "Crumpled Paper": {
+                                "type": "player"
+                            }
+                        },
+                        "roomConnections": {
+                            "The Desolate Cubicle": [
+                                {
+                                    "here": "The Desolate Cubicle",
+                                    "there": "The Grey Corridor",
+                                    "description": "A narrow, dimly lit corridor stretches out from the opening in the cubicle walls, leading further into the Sterling Tower's oppressive interior."
+                                }
+                            ],
+                            "The Grey Corridor": [
+                                {
+                                    "here": "The Grey Corridor",
+                                    "there": "The Desolate Cubicle",
+                                    "description": "The same narrow, dimly lit corridor leads back to the cubicle."
+                                }
+                            ]
+                        },
+                        "startingRoom": "The Desolate Cubicle",
+                        "visitedRooms": [
+                            "The Desolate Cubicle"
+                        ],
+                        "openedItems": []
+                    }
+                }
+            },
+            "action": {
+                "prompt": "take the crumpled piece of paper",
+                "gameActions": [
+                    {
+                        "item": "Crumpled Paper",
+                        "type": "PlayerTakesItem"
+                    }
+                ]
+            },
+            "description": "Arthur Finch cautiously reaches for the crumpled piece of paper, his fingers brushing against the cool, dusty surface of the desk. The paper crackles slightly as he retrieves it, unfolding a small, hastily scrawled note. The fluorescent light above flickers, casting long, distorted shadows across the cubicle walls as he examines the cryptic message, a new piece of the Sterling Tower's unsettling puzzle now in his possession."
+        },
+        {
+            "state": {
+                "game": {
+                    "world": {
+                        "description": "The Sterling Tower is a monument to corporate anonymity, a brutalist monolith of concrete and tinted glass that pierces the perpetually overcast Boston sky. Within its labyrinthine depths, however, the facade of order crumbles. Fluorescent lights flicker erratically, casting long, dancing shadows that distort familiar office furniture into monstrous shapes. Cubicle farms stretch into infinity, filled with deserted workstations where half-finished reports and cold coffee cups speak of abrupt departures. The air is thick with the stale scent of recycled air and a subtle, metallic tang that hints at something far more sinister than mere neglect. Each identical floor, each unmarked door, offers no escape, only a deeper descent into a bewildering maze designed to disorient and trap those unfortunate enough to become its permanent residents.",
+                        "player": {
+                            "name": "Arthur Finch",
+                            "description": "You are [Player Name], a mid-level analyst at a nondescript corporation, currently lost within the endless, sterile corridors of the Sterling Tower. What began as a late night of crunching numbers has devolved into a disorienting nightmare. Every floor seems eerily identical, the fluorescent lights hum with an unsettling persistence, and the silence between the phantom whirring of ventilation systems is broken only by the echo of your own footsteps, each one a stark reminder that you are utterly, terrifyingly alone.",
+                            "appearanceDescription": "You are a weary office drone, clad in a slightly-too-tight suit that has seen better days. Your tie is loosened, a small stain mars the collar of your crisp white shirt, and a five-o'clock shadow has crept across your jawline. Your eyes, behind smudged spectacles, hold a mixture of exhaustion and a dawning, unwelcome realization of your predicament.",
+                            "room": "The Grey Corridor"
+                        },
+                        "rooms": {
+                            "The Desolate Cubicle": {
+                                "name": "The Desolate Cubicle",
+                                "description": "You find yourself in a desolate office cubicle, a small, grey prison within the vast, uncaring structure of the Sterling Tower. The air is stagnant and carries the faint, metallic odor that permeates the building. This space, like so many others, speaks of abandonment and a disquieting stillness.",
+                                "appearanceDescription": "The starting room is a dimly lit, nondescript office cubicle. The grey partition walls are stained with unknown grime, and a thin layer of dust covers everything. A single, flickering fluorescent tube overhead casts an anemic glow, barely illuminating the spartan furnishings. The silence here is heavy, broken only by the faint, omnipresent hum of the building's ancient machinery. A single, dark stain mars the worn carpet near the desk, its origin a chilling mystery."
+                            },
+                            "The Grey Corridor": {
+                                "name": "The Grey Corridor",
+                                "description": "You stand in a claustrophobic corridor within the Sterling Tower. The oppressive sameness of the office environment extends here, offering no comfort or clarity. The path ahead seems to disappear into a deeper gloom, while the way back leads to the relative familiarity of the cubicle.",
+                                "appearanceDescription": "This corridor is a suffocatingly narrow passage, lined with identical grey, stained partition walls that seem to press in from all sides. The flickering fluorescent lights overhead are spaced irregularly, creating pockets of deep shadow that conceal unseen corners. The air here is colder, and the metallic tang is more pronounced, carrying a faint, unsettling whisper that seems to emanate from the very concrete."
+                            },
+                            "The Desolate Breakroom": {
+                                "name": "The Desolate Breakroom",
+                                "description": "This appears to be a breakroom, though its state of disrepair suggests it hasn't been used in a long time. The silence here is profound, broken only by the persistent, almost imperceptible hum of the building's unseen machinery. It feels like a place where despair goes to rest.",
+                                "appearanceDescription": "This small, windowless room is dominated by a single, dented metal table in the center, surrounded by three mismatched chairs. A stained coffee maker sits on a low counter against one wall, next to a forlorn vending machine displaying only a 'Service Unavailable' message. The air is heavy with the smell of old coffee and something vaguely chemical. Shadows cling to the corners, suggesting spaces that the weak light cannot penetrate."
+                            },
+                            "The Chronomancer's Antechamber": {
+                                "name": "The Chronomancer's Antechamber",
+                                "description": "This chamber feels entirely out of place, a pocket of strange opulence and unsettling energy. The ticking of the clock seems to synchronize with the player's heartbeat, creating a disorienting effect. It’s unclear if this is a sanctuary or a trap designed to ensnare the unwary.",
+                                "appearanceDescription": "This room is a bizarre anomaly within the Sterling Tower. Instead of concrete and sterile partitions, the walls are covered in what appears to be thick, dark velvet. In the center of the room, a single, ornate grandfather clock stands ticking loudly, its pendulum swinging with an unnatural, hypnotic rhythm. The air is surprisingly warm and carries the faint scent of ozone. Strange, glyph-like symbols are etched into the velvet, seeming to shift and writhe in the peripheral vision."
+                            }
+                        },
+                        "items": {
+                            "Computer Monitor": {
+                                "appearanceDescription": "This is a standard, beige computer monitor, its screen dark and lifeless. A thick layer of dust coats its surface, and a single, frayed power cord dangles limply from its back.",
+                                "container": {
+                                    "howToOpen": "There is no visible way to open the monitor.",
+                                    "howToStoreItem": "There is no way to store items inside this monitor.",
+                                    "isContainer": "true"
+                                },
+                                "description": "A deactivated computer monitor sits on the cluttered desk. Its blank screen offers no solace, only a reflection of the dim office light and your own uncertain presence.",
+                                "name": "Computer Monitor",
+                                "pickupable": {
+                                    "isPickup": "false",
+                                    "reasonWhyNotPickup": "The monitor is too heavy and bulky to be moved easily."
+                                }
+                            },
+                            "Office Chair": {
+                                "appearanceDescription": "A simple, black office chair with worn fabric and a slightly wobbly base. It looks like it has seen better days, perhaps even lifetimes, of use.",
+                                "container": {
+                                    "howToOpen": "The chair is not a container.",
+                                    "howToStoreItem": "You cannot store items in the chair.",
+                                    "isContainer": "true"
+                                },
+                                "description": "A solitary office chair is positioned behind the desk. It offers a place to sit, but its worn appearance does little to inspire comfort.",
+                                "name": "Office Chair",
+                                "pickupable": {
+                                    "isPickup": "false",
+                                    "reasonWhyNotPickup": "The chair is too heavy and cumbersome to pick up."
+                                }
+                            },
+                            "Coffee Mug": {
+                                "appearanceDescription": "A chipped ceramic mug, filled with a dark, congealed substance that was once coffee. A faint lipstick stain marks the rim of the mug.",
+                                "container": {
+                                    "howToOpen": "The mug is open.",
+                                    "howToStoreItem": "You could pour liquid into the mug, but it is not designed for storing solid items.",
+                                    "isContainer": "true"
+                                },
+                                "description": "A forgotten coffee mug sits on the desk, a silent testament to a hasty departure. The cold, dark liquid within is unappealing.",
+                                "name": "Coffee Mug",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Crumpled Paper": {
+                                "appearanceDescription": "A single, white piece of paper lies on the desk, covered in hastily scrawled notes. The handwriting is erratic, and large portions of the text are smeared or illegible.",
+                                "container": {
+                                    "howToOpen": "The paper is already open.",
+                                    "howToStoreItem": "You can place other items on top of this paper, but it is not a container.",
+                                    "isContainer": "true"
+                                },
+                                "description": "A crumpled piece of paper rests on the desk. It appears to be a partial report or a frantic message, its contents hinting at the chaos that has befallen this place.",
+                                "name": "Crumpled Paper",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Tarnished Brass Key": {
+                                "appearanceDescription": "A single, tarnished brass key lies on the floor, half-hidden in a patch of grime. It looks old, with an intricate, almost floral design on its bow.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This key feels strangely cold to the touch. Its purpose is unknown, but it radiates a faint aura of significance.",
+                                "name": "Tarnished Brass Key",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Employee ID Badge": {
+                                "appearanceDescription": "A discarded employee ID badge is clipped to a loose wire dangling from the ceiling panel. The photo is blurred, but the name 'Arthur Pendelton' is faintly legible, along with a corporate logo that seems to twist unnervingly.",
+                                "container": {
+                                    "isContainer": "false"
+                                },
+                                "description": "This badge serves as a grim reminder of the many who have passed through these halls, their identities perhaps lost to the tower's insidious influence.",
+                                "name": "Employee ID Badge",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            },
+                            "Iron Lockbox": {
+                                "appearanceDescription": "A small, locked metal box rests against the wall. It's old and appears to be made of cast iron, with a complex tumbler lock on the front.",
+                                "container": {
+                                    "howToOpen": "The box can be opened by using a key that fits its lock.",
+                                    "howToStoreItem": "Items can be placed inside the box by opening it and then placing the item within.",
+                                    "isContainer": "true"
+                                },
+                                "description": "This box seems sturdy, designed to protect whatever secrets it holds. The lock is intricate, suggesting it requires a specific key.",
+                                "name": "Iron Lockbox",
+                                "pickupable": {
+                                    "isPickup": "true"
+                                }
+                            }
+                        },
+                        "itemLocations": {
+                            "Computer Monitor": {
+                                "type": "room",
+                                "roomName": "The Desolate Cubicle"
+                            },
+                            "Office Chair": {
+                                "type": "room",
+                                "roomName": "The Desolate Cubicle"
+                            },
+                            "Coffee Mug": {
+                                "type": "player"
+                            },
+                            "Crumpled Paper": {
+                                "type": "player"
+                            },
+                            "Tarnished Brass Key": {
+                                "type": "room",
+                                "roomName": "The Grey Corridor"
+                            },
+                            "Employee ID Badge": {
+                                "type": "room",
+                                "roomName": "The Grey Corridor"
+                            },
+                            "Iron Lockbox": {
+                                "type": "room",
+                                "roomName": "The Grey Corridor"
+                            }
+                        },
+                        "roomConnections": {
+                            "The Desolate Cubicle": [
+                                {
+                                    "here": "The Desolate Cubicle",
+                                    "there": "The Grey Corridor",
+                                    "description": "A narrow, dimly lit corridor stretches out from the opening in the cubicle walls, leading further into the Sterling Tower's oppressive interior."
+                                }
+                            ],
+                            "The Grey Corridor": [
+                                {
+                                    "here": "The Grey Corridor",
+                                    "there": "The Desolate Cubicle",
+                                    "description": "The same narrow, dimly lit corridor leads back to the cubicle."
+                                },
+                                {
+                                    "here": "The Grey Corridor",
+                                    "there": "The Desolate Breakroom",
+                                    "description": "A narrow opening in the partition wall to the west reveals a dimly lit breakroom."
+                                },
+                                {
+                                    "here": "The Grey Corridor",
+                                    "there": "The Chronomancer's Antechamber",
+                                    "description": "Further down the corridor to the east, a door painted a peculiar shade of crimson offers a stark contrast to the muted surroundings."
+                                }
+                            ],
+                            "The Desolate Breakroom": [
+                                {
+                                    "here": "The Desolate Breakroom",
+                                    "there": "The Grey Corridor",
+                                    "description": "The grey partition wall to the east leads back into the suffocatingly narrow corridor."
+                                }
+                            ],
+                            "The Chronomancer's Antechamber": [
+                                {
+                                    "here": "The Chronomancer's Antechamber",
+                                    "there": "The Grey Corridor",
+                                    "description": "The crimson door to the west opens into the oppressive grey corridor."
+                                }
+                            ]
+                        },
+                        "startingRoom": "The Desolate Cubicle",
+                        "visitedRooms": [
+                            "The Desolate Cubicle",
+                            "The Grey Corridor"
+                        ],
+                        "openedItems": []
+                    }
+                }
+            },
+            "action": {
+                "prompt": "take the computer",
+                "gameActions": [
+                    {
+                        "room": "The Grey Corridor",
+                        "type": "PlayerGoesToRoom"
+                    },
+                    {
+                        "item": "Computer Monitor",
+                        "type": "PlayerTakesItem"
+                    }
+                ]
+            },
+            "description": "Arthur Finch, driven by a desperate hope for escape, pushes himself away from the desolate cubicle's embrace. He strides into the grey corridor, the stale air clinging to him like a shroud. The corridor stretches before him, a mirror of the oppressive emptiness he has already traversed, its dim lighting offering no comfort. He briefly considers the computer monitor, its silent screen a taunting void, but its sheer bulk and weight anchor it firmly to the desk, a futile aspiration to carry a piece of this sterile labyrinth with him."
+        }
+    ]
+}

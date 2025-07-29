@@ -573,24 +573,24 @@
 /*------------------------------------*
  * SCROLLBARS
  *------------------------------------*/
-::-webkit-scrollbar {
+.page *::-webkit-scrollbar {
     width: var(--spacing-unit);
     height: var(--spacing-unit);
 }
 
-::-webkit-scrollbar-track {
+.page *::-webkit-scrollbar-track {
     background: var(--color-panel-bg);
 }
 
-::-webkit-scrollbar-thumb {
+.page *::-webkit-scrollbar-thumb {
     background: var(--color-border-focus);
     border: var(--border-width) solid var(--color-panel-bg);
 }
 
-::-webkit-scrollbar-thumb:hover {
+.page *::-webkit-scrollbar-thumb:hover {
     background: var(--color-accent);
 }
 
-::-webkit-scrollbar-corner {
+.page *::-webkit-scrollbar-corner {
     background: transparent;
 }
