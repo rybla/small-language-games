@@ -1,0 +1,22 @@
+:root {
+    --font-mono: "Fira Code", "Source Code Pro", monospace;
+
+    --color-bg: #05080a;
+    --color-panel-bg: #0a0f14;
+    --color-text: #00ff6a;
+    --color-text-dim: #00a846;
+    --color-accent: #00ccff;
+    --color-error: #ff3333;
+    --color-border: #00ff6a44;
+    --color-border-focus: #00ff6a;
+    --color-shadow: #00ff6a;
+
+    --glow-intensity:
+        0 0 5px var(--color-shadow), 0 0 10px var(--color-shadow),
+        0 0 15px var(--color-shadow);
+    --text-glow: 0 0 3px var(--color-text);
+
+    --spacing-unit: 8px;
+    --border-width: 1px;
+    --transition-speed: 0.3s;
+}

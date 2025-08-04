@@ -1,11 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import type { InstClient, InstMetadata } from "@/library/sva/ontology";
+import type { InstClient, InstMetadata } from "@/library/sva-v1/ontology";
 import { do_, formatDate, fromNever, stringify } from "@/utility";
 import { useEffect, useRef, useState } from "react";
 import { A, P, spec, V } from "./constant";
-import styles from "./page.module.css";
 import * as server from "./server";
 import { markdownifyGameView } from "./semantics";
 import Markdown from "react-markdown";
@@ -13,6 +12,8 @@ import { ChevronRight, MoveHorizontal, MoveRight, Quote } from "lucide-react";
 import { ItemName, RoomName } from "./ontology";
 import path from "path";
 import { paths } from "./common_client";
+import styles from "./page.module.css";
+import "./globals.css";
 
 // -----------------------------------------------------------------------------
 // Page

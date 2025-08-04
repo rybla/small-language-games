@@ -1,4 +1,4 @@
-import { SpecCommon } from "@/library/sva/ontology";
+import { SpecCommon } from "@/library/sva-v1/ontology";
 
 export const rootName = "test-sva-v1";
 

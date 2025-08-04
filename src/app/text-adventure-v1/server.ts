@@ -1,7 +1,7 @@
 "use server";
 
 import { stringify } from "@/utility";
-import filenamify from "filenamify";
+import filenamify from "@/filenamify";
 import * as fs from "fs/promises";
 import path from "path";
 import {

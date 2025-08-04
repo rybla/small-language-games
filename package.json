@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "dev.genkit": "genkit start -- next dev --turbopack",
+    "dev": "next dev",
+    "dev.genkit": "genkit start -- next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@genkit-ai/googleai": "^1.14.0",
-    "filenamify": "^6.0.0",
+    "@genkit-ai/next": "^1.15.5",
     "firebase": "^11.10.0",
     "genkit": "^1.14.0",
     "lucide-react": "^0.525.0",

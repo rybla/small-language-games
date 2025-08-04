@@ -4,7 +4,7 @@ import { useState } from "react";
 import styles from "./page.module.css";
 import * as server from "./server";
 import { stringify } from "@/utility";
-import { consumeStreamingResponse } from "../library/streaming/client";
+import { consumeStreamingResponse } from "@/library/streaming/client";
 
 export default function Page() {
   const [isStreaming, set_isStreaming] = useState(false);

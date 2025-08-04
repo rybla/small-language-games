@@ -41,7 +41,7 @@
 /*
 :root -> Defines global CSS variables for easy theme management.
 */
-:root {
+.page:root {
     --primary-color: #000000;
     --secondary-color: #ffffff;
     --font-family: "Roboto Mono", monospace;

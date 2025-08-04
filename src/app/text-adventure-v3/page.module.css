@@ -53,32 +53,6 @@
  * ===================================================================
  */
 
-/* --- Variables --- */
-:root {
-    --font-family-mono: "Fira Code", "Source Code Pro", monospace;
-
-    --color-background-start: #0d0221;
-    --color-background-mid: #0c164f;
-    --color-background-end: #202040;
-
-    --color-foreground: #1a1a1aff;
-    --color-foreground-transparent: #1a1a1ae6;
-
-    --color-border: #00ff7f;
-    --color-border-dim: #00ff7f44;
-    --color-text: #e0e0e0;
-    --color-text-dim: #a0a0a0;
-    --color-accent: #00ff7f;
-    --color-accent-dark: #00aa55;
-    --color-glow: #00ff7f66;
-    --color-shadow: #00000088;
-
-    --spacing-unit: 8px;
-    --border-radius: 4px;
-    --transition-speed: 0.3s;
-    --transition-speed-fast: 0.2s;
-}
-
 @keyframes fluid-gradient {
     0% {
         background-position: 0% 50%;
@@ -124,21 +98,21 @@
 }
 
 /* --- Scrollbar --- */
-::-webkit-scrollbar {
+.page *::-webkit-scrollbar {
     width: 3px;
     height: 3px;
 }
 
-::-webkit-scrollbar-track {
+.page *::-webkit-scrollbar-track {
     background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
+.page *::-webkit-scrollbar-thumb {
     background: var(--color-accent);
     border-radius: 0;
 }
 
-::-webkit-scrollbar-thumb:hover {
+.page *::-webkit-scrollbar-thumb:hover {
     background: var(--color-accent-dark);
 }
 

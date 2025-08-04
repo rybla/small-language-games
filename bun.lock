@@ -5,7 +5,7 @@
       "name": "small-language-games",
       "dependencies": {
         "@genkit-ai/googleai": "^1.14.0",
-        "filenamify": "^6.0.0",
+        "@genkit-ai/next": "^1.15.5",
         "firebase": "^11.10.0",
         "genkit": "^1.14.0",
         "lucide-react": "^0.525.0",
@@ -202,6 +202,8 @@
     "@genkit-ai/core": ["@genkit-ai/core@1.14.0", "", { "dependencies": { "@opentelemetry/api": "^1.9.0", "@opentelemetry/context-async-hooks": "~1.25.0", "@opentelemetry/core": "~1.25.0", "@opentelemetry/sdk-metrics": "~1.25.0", "@opentelemetry/sdk-node": "^0.52.0", "@opentelemetry/sdk-trace-base": "~1.25.0", "@types/json-schema": "^7.0.15", "ajv": "^8.12.0", "ajv-formats": "^3.0.1", "async-mutex": "^0.5.0", "body-parser": "^1.20.3", "cors": "^2.8.5", "dotprompt": "^1.1.1", "express": "^4.21.0", "get-port": "^5.1.0", "json-schema": "^0.4.0", "zod": "^3.23.8", "zod-to-json-schema": "^3.22.4" } }, "sha512-UYqvqXxEYmQp6kt5f5kUh+46UpfhuLwzd1TAsYQMhwA0qeqwgkSOxmYKzuYRoeramY6Dcg02LOIoKKhoNS7Hgg=="],
 
     "@genkit-ai/googleai": ["@genkit-ai/googleai@1.14.0", "", { "dependencies": { "@google/generative-ai": "^0.24.0", "google-auth-library": "^9.6.3", "node-fetch": "^3.3.2" }, "peerDependencies": { "genkit": "^1.14.0" } }, "sha512-0168zrSyCv5zZwNddeyIYjS2e4Ka42MnVUmUiyEusand/xunSzS2+tsuMdPW34/FzXptIS95UcaQDgpF/qcQrA=="],
+
+    "@genkit-ai/next": ["@genkit-ai/next@1.15.5", "", { "peerDependencies": { "genkit": "1.15.5", "next": "^15.0.0", "zod": "^3.24.1" } }, "sha512-fTqtm3T508MlH8lqVwuCZOutlkgZn4MGlTgNT1iSpXRY2ghDttF6vL9Q07ZTLhc3syHCyEH1L1QiwZjrV5m70g=="],
 
     "@genkit-ai/telemetry-server": ["@genkit-ai/telemetry-server@1.14.0", "", { "dependencies": { "@asteasolutions/zod-to-openapi": "^7.0.0", "@genkit-ai/tools-common": "1.14.0", "@google-cloud/firestore": "^7.6.0", "@opentelemetry/api": "~1.9.0", "@opentelemetry/context-async-hooks": "~1.25.0", "@opentelemetry/core": "~1.25.0", "@opentelemetry/sdk-metrics": "~1.25.0", "@opentelemetry/sdk-node": "^0.52.0", "@opentelemetry/sdk-trace-base": "~1.25.0", "async-mutex": "^0.5.0", "express": "^4.21.0", "lockfile": "^1.0.4", "zod": "^3.22.4" } }, "sha512-rBSjgkvkgX9GLe/99Mk9spc+XSYX1tttqwqbkkVehZ1iOytaEfsxtrYzAIv8GSbFcoCCCLX9mdfVFjnrcWsyDQ=="],
 
@@ -818,10 +820,6 @@
     "figures": ["figures@3.2.0", "", { "dependencies": { "escape-string-regexp": "^1.0.5" } }, "sha512-yaduQFRKLXYOGgEn6AZau90j3ggSOyiqXU0F9JZfeXYhNa+Jk4X+s45A2zg5jns87GAFa34BBm2kXw4XpNcbdg=="],
 
     "file-entry-cache": ["file-entry-cache@8.0.0", "", { "dependencies": { "flat-cache": "^4.0.0" } }, "sha512-XXTUwCvisa5oacNGRP9SfNtYBNAMi+RPwBFmblZEF7N7swHYQS6/Zfk7SRwx4D5j3CH211YNRco1DEMNVfZCnQ=="],
-
-    "filename-reserved-regex": ["filename-reserved-regex@3.0.0", "", {}, "sha512-hn4cQfU6GOT/7cFHXBqeBg2TbrMBgdD0kcjLhvSQYYwm3s4B6cjvBfb7nBALJLAXqmU5xajSa7X2NnUud/VCdw=="],
-
-    "filenamify": ["filenamify@6.0.0", "", { "dependencies": { "filename-reserved-regex": "^3.0.0" } }, "sha512-vqIlNogKeyD3yzrm0yhRMQg8hOVwYcYRfjEoODd49iCprMn4HL85gK3HcykQE53EPIpX3HcAbGA5ELQv216dAQ=="],
 
     "fill-range": ["fill-range@7.1.1", "", { "dependencies": { "to-regex-range": "^5.0.1" } }, "sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg=="],
 

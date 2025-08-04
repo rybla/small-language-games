@@ -1,4 +1,4 @@
-import type { SpecCommon, SpecParams } from "@/library/sva/ontology";
+import type { SpecCommon, SpecParams } from "@/library/sva-v1/ontology";
 import type { Subtype } from "@/utility";
 import type { Game, GameView } from "./ontology";
 import type { GameAction } from "./action";

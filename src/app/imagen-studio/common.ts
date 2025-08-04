@@ -1,5 +1,5 @@
-import { SpecCommon, SpecParams } from "@/library/sva/ontology";
-import Paths from "@/library/sva/paths";
+import { SpecCommon, SpecParams } from "@/library/sva-v1/ontology";
+import Paths from "@/library/sva-v1/paths";
 import { Supertype } from "@/utility";
 
 export const rootName = "imagen-studio" as const;

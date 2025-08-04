@@ -9,7 +9,7 @@ import * as server from "../server";
 import { paths } from "../common_client";
 import { A, spec, V } from "../constant";
 import path from "path";
-import { InstClient } from "@/library/sva/ontology";
+import { InstClient } from "@/library/sva-v1/ontology";
 
 type Format = "icon" | "large";
 

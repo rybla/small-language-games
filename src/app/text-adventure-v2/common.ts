@@ -1,4 +1,4 @@
-import filenamify from "filenamify";
+import filenamify from "@/filenamify";
 import path from "path";
 import type { GameId, ItemName, RoomName } from "./ontology";
 

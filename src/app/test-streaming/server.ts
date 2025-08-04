@@ -1,7 +1,7 @@
 "use server";
 
 import { do_, sleep } from "@/utility";
-import { createStreamingResult } from "../library/streaming/server";
+import { createStreamingResult } from "@/library/streaming/server";
 
 export type Message = { type: string; content: string };
 

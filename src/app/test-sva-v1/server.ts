@@ -1,8 +1,8 @@
 "use server";
 
 import { err, fromNever, Result, stringify } from "@/utility";
-import { Inst, InstClient, SpecServer } from "../../library/sva/ontology";
-import * as server from "../../library/sva/server";
+import { Inst, InstClient, SpecServer } from "../../library/sva-v1/ontology";
+import * as server from "../../library/sva-v1/server";
 import * as common from "./common";
 import { A, N, name, P, S, V } from "./common";
 

@@ -29,9 +29,6 @@ export default function Page() {
           </li>
           <div className={styles.sectionTitle}>Tests</div>
           <li>
-            <Link href="/test">test</Link>
-          </li>
-          <li>
             <Link href="/test-streaming">test-streaming</Link>
           </li>
           <li>

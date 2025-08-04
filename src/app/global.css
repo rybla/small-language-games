@@ -1,4 +1,27 @@
 :root {
+    /* Fonts */
+    --font-mono:
+        "IBM Plex Mono", "Fira Code", "Menlo", "Monaco", "Consolas", "monospace";
+    --font-sans:
+        "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+
+    /* Light Mode Colors */
+    --bg-color-1: #e0c3fc;
+    --bg-color-2: #8ec5fc;
+    --bg-color-3: #f0d9a5;
+    --card-bg-color: rgba(255, 255, 255, 0.6);
+    --card-border-color: rgba(255, 255, 255, 0.8);
+    --text-color: #1a237e; /* Deep Navy */
+    --title-color: #0d1137;
+    --link-color: #1a237e;
+    --link-hover-accent: #0077ff; /* Electric Blue */
+
+    /* Spacing & Sizing */
+    --spacing-unit: 8px;
+    --card-padding: calc(var(--spacing-unit) * 6);
+    --border-radius: 12px;
 }
 
 * {

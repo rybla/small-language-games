@@ -28,7 +28,7 @@ Structure & Layout:
 
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap");
 
-:root {
+.page:root {
     --background-color: #0d0221;
     --primary-glow-color: #00f6ff;
     --secondary-glow-color: #ff00c1;

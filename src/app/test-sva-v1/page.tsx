@@ -1,10 +1,8 @@
 "use client";
 
 import { do_, isErr, stringify } from "@/utility";
-// import SimpleClient from "../library/sva/library/simple/SimpleClient";
-// import { SpecClient } from "../library/sva/ontology";
-import SimpleClient from "@/library/sva/library/simple/SimpleClient";
-import { SpecClient } from "@/library/sva/ontology";
+import SimpleClient from "@/library/sva-v1/library/simple/SimpleClient";
+import { SpecClient } from "@/library/sva-v1/ontology";
 import * as common from "./common";
 import { A, N, P, S, V } from "./common";
 import styles from "./page.module.css";

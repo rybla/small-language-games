@@ -23,7 +23,7 @@
       terminal-like feel with animated backgrounds and messages.
 */
 
-:root {
+.applet:root {
     --background-color: #f4f4f9;
     --primary-text-color: #1a1a1a;
     --secondary-text-color: #f4f4f9;

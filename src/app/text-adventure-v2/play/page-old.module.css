@@ -1,6 +1,6 @@
 @import "../common.css";
 
-:root {
+.page:root {
     /* --content--width: 1000px; */
     --content--width: 100%;
 }

@@ -1,7 +1,11 @@
 "use client";
 
-import { InstClient, InstMetadata, TurnClient } from "@/library/sva/ontology";
-import Paths from "@/library/sva/paths";
+import {
+  InstClient,
+  InstMetadata,
+  TurnClient,
+} from "@/library/sva-v1/ontology";
+import Paths from "@/library/sva-v1/paths";
 import { do_, formatDate, fromNever } from "@/utility";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";

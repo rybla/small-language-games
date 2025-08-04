@@ -19,6 +19,7 @@ import {
   getKidIds,
   getXFile,
 } from "./semantics";
+import "./globals.css";
 import * as server from "./server";
 import * as icon from "lucide-react";
 

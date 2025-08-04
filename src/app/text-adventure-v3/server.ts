@@ -1,7 +1,7 @@
 "use server";
 
-import { Inst, InstClient, SpecServer } from "@/library/sva/ontology";
-import * as server from "@/library/sva/server";
+import { Inst, InstClient, SpecServer } from "@/library/sva-v1/ontology";
+import * as server from "@/library/sva-v1/server";
 import {
   do_,
   err,
@@ -13,7 +13,7 @@ import {
   TODO,
 } from "@/utility";
 import * as fs from "fs/promises";
-import filenamify from "filenamify";
+import filenamify from "@/filenamify";
 import {
   GenerateAction,
   GenerateActions,
@@ -35,7 +35,7 @@ import {
   visitRoom,
 } from "./semantics";
 import { exists } from "@/utility_fs";
-import Paths from "@/library/sva/paths";
+import Paths from "@/library/sva-v1/paths";
 
 const paths = new Paths("public");
 

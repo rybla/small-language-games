@@ -1,13 +1,13 @@
 "use server";
 
 import { err, fromDataUrlToBuffer, ok, Result } from "@/utility";
-import { Inst, InstClient, SpecServer } from "../../library/sva/ontology";
-import * as server from "../../library/sva/server";
+import { Inst, InstClient, SpecServer } from "../../library/sva-v1/ontology";
+import * as server from "../../library/sva-v1/server";
 import * as common from "./common";
 import { A, N, name, P, S, V } from "./common";
 import * as flow from "./flow";
 import { randomUUID } from "crypto";
-import Paths from "@/library/sva/paths";
+import Paths from "@/library/sva-v1/paths";
 import { model } from "@/backend/ai";
 
 const paths = new Paths("public");

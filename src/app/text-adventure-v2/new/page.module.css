@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@700&display=swap");
 
-:root {
+.page:root {
     --font-main: "Cinzel", serif;
     --font-decorative: "Cinzel Decorative", cursive;
     --color-bg-dark: #0a0814;

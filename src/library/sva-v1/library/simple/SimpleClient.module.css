@@ -29,7 +29,7 @@
   - Hierarchy: `sectionTitle` will be larger and bolder. `title` within popups will be prominent. Dates and metadata will have a smaller, lighter font weight.
 */
 
-:root {
+.SimpleClient:root {
     /* Colors */
     --bg-primary: #1a1a1d;
     --bg-secondary: #25252a;

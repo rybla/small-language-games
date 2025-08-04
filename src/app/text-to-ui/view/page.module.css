@@ -20,7 +20,7 @@ animations, and interactive hover effects.
   and the fade-in effects.
 */
 
-:root {
+.page:root {
     --background-start: #f0f2f5;
     --background-end: #e6e9ed;
     --primary-accent: #ff6b6b;

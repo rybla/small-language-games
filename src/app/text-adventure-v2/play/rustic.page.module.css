@@ -50,7 +50,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Special+Elite&display=swap");
 
-:root {
+.page:root {
     /* Colors */
     --color-parchment: #f5eeda;
     --color-parchment-darker: #e0d8c3;

@@ -22,7 +22,7 @@ It's designed with a minimalist, geometric, and animated aesthetic.
     * `slideUp`: Makes the applet list items enter with a smooth upward motion.
 */
 
-:root {
+.page:root {
     --background-start: #1a1a2e;
     --background-mid: #16213e;
     --background-end: #0f3460;
